@@ -6,7 +6,7 @@
             <?php echo CHtml::link('登录', array('site/login','referer'=>$referer)); ?>
             <?php echo CHtml::link('注册', array('site/reg','referer'=>$referer)); ?>
         <?php } else { ?>
-            <?php echo CHtml::link($this->userInfo['truename'], array('user/index', 'id' => $this->uid));
+            <?php echo CHtml::link('呵呵呵', array('user/index', 'id' => 2));
             echo CHtml::link('设置',array('user/config')); 
             echo CHtml::link('退出', array('site/logout','referer'=>$referer)); ?>
         <?php } ?>                        

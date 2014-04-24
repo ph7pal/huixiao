@@ -1,4 +1,4 @@
-<?php $this->renderPartial('/common/topdesc');?>
+<?php //$this->renderPartial('/common/topdesc');?>
 <div class="wrap clear">
 	<?php $this->renderPartial('aside',array('colid'=>$info['id']));?>
 	<div class="mainBox">
@@ -54,7 +54,7 @@
                             </div>
                             <?php }?>
                             <div class="postTags clear">
-                              <?php $tags=Tags::getPostTags($page['id'],true);
+                              <?php //$tags=Tags::getPostTags($page['id'],true);
                                 if(!empty($tags)){?>  
                                 <p class="tagsTitle floatL">标签：</p>
                                 <ul class="tagsList clear">

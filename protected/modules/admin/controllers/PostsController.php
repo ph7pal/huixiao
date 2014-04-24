@@ -67,7 +67,7 @@ class PostsController extends H {
                 if ($model->updateByPk($intoKeyid, $intoData)) {
                     UserAction::record('editposts', $intoKeyid);
                     zmf::delFCache("notSavePosts{$uid}");
-                    $this->redirect(array('posts/index', 'id' => $intoKeyid));
+                    $this->redirect(array('all/list','table'=>'posts', 'id' => $intoKeyid));
                 }
             }
         }
