@@ -18,7 +18,7 @@ return array(
 'imgMaxSize'=> '1024000',
 'imgQuality'=> '80',
 'closeSite'=> '1',
-'mobile'=> '1',
+'mobile'=> '0',
 'userDefaultGroup'=> '5',
 'attachDir'=> 'http://localhost/acopy/attachments/',
 'service_aim_cn'=> '致力于提升客户品牌形象、实现客户商业目标!',
@@ -33,5 +33,6 @@ return array(
 'forbidnotshop'=> '1',
 'validateEmail'=> '0',
 'adminGroupIds'=> 'Array',
+'indexpage'=> '12@ads#6@29#6@31#12@30#12@30',
 );
 ?>

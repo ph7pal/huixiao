@@ -557,6 +557,7 @@ class zmf {
             }
         } elseif ($c == 'config') {
             $arr = array(
+                'indexpage'=>'首页定制',
                 'baseinfo' => '基本设置',
                 'siteinfo' => '站点信息',
                 'upload' => '上传设置',
@@ -664,7 +665,7 @@ class zmf {
         );
         $longstr = '';
         foreach ($arr as $k => $v) {
-            $longstr.=$v['url'];
+            $longstr.='<div class="col-xs-12 col-md-8">'.$v['url'].'</div>';
         }
         echo $longstr;
     }
@@ -797,6 +798,34 @@ class zmf {
             $skin='default';
         }
         return Yii::app()->baseUrl.'/skins/'.$skin.'/'.$skin.'.css';
+    }
+    public static function indexPage($colStr='',$idsOnly=false){
+        if($colStr==''){
+            $colStr=self::config('indexpage');
+        }
+        if(!$colStr){
+            return false;
+        }
+        $arr1=  explode('#', $colStr);
+        $total=array();
+        if(!empty($arr1)){
+            foreach($arr1 as $v1){
+                $_tmparr=  explode('@', $v1);
+                if($idsOnly){
+                    $total[]=$_tmparr;
+                }else{
+                    $data=array();
+                    $data['colnum']=$_tmparr[0];    
+                    if(is_numeric($_tmparr[1])){
+                        $data['colinfo']=  Columns::getOne($_tmparr[1]);
+                    }else{
+                        $data['colinfo']['id']=$_tmparr[1];
+                    }
+                    $total[]=$data;
+                }                
+            }
+        }
+        return $total;
     }
 
 }

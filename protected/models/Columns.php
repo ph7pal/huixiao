@@ -212,6 +212,9 @@ class Columns extends CActiveRecord {
     }
 
     public function getOne($keyid, $return = '') {
+        if(!$keyid){
+            return false;
+        }
         $item = Columns::model()->findByPk($keyid);
         if ($return != '') {
             return $item[$return];
@@ -257,6 +260,12 @@ class Columns extends CActiveRecord {
                 T::message(0, '【' . $info['title'] . '】' . $_d . '，您可以去操作或修改');
             }
         }
+    }
+    
+    public function indexPageCols(){
+        $cols=Columns::allCols();
+        $cols['ads']='广告展示';
+        return $cols;
     }
 
 }

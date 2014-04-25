@@ -227,5 +227,22 @@ class tools {
         }
         return CHtml::link($title,$_data);
     }
+    public static function pageColumns($return=''){
+        $arr = array(
+            '12' => '通栏',
+            '6-6' => '两列',
+            '4-4-4'=>'三列',
+            '3-3-3-3'=>'四列',
+            '8-4'=>'2:1',
+            '4-8'=>'1:2',
+            '3-9'=>'1:3',
+            '9-3'=>'3:1',
+        );
+        if ($return != '') {
+            return $arr[$return];
+        } else {
+            return $arr;
+        }
+    }
 
 }

@@ -46,7 +46,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/m
                   <img src="<?php echo zmf::config('baseurl').zmf::config('logo');?>" alt="<?php echo zmf::config('sitename');?>"/>
                   </a>
               </div>
-               <?php echo zmf::adminBar();?>
+              <div style="margin:0 auto;width:195px;">
+              	<?php echo zmf::adminBar();?>
+              </div>
           </div>
         </div>
   </div>
