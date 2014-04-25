@@ -8,7 +8,7 @@ return array(
 'email'=> 'admin@admin.com',
 'beian'=> '渝备12345678',
 'copyright'=> '2012-2013',
-'baseurl'=> 'http://localhost/wifi/',
+'baseurl'=> 'http://localhost/huixiao/',
 'version'=> 'Alpha 1.0',
 'imgUploadNum'=> '1',
 'imgMinWidth'=> '300',
@@ -18,7 +18,7 @@ return array(
 'imgMaxSize'=> '1024000',
 'imgQuality'=> '80',
 'closeSite'=> '1',
-'mobile'=> '0',
+'mobile'=> '1',
 'userDefaultGroup'=> '5',
 'attachDir'=> 'http://localhost/acopy/attachments/',
 'service_aim_cn'=> '致力于提升客户品牌形象、实现客户商业目标!',
@@ -33,6 +33,6 @@ return array(
 'forbidnotshop'=> '1',
 'validateEmail'=> '0',
 'adminGroupIds'=> 'Array',
-'indexpage'=> '12@ads#6@29#6@31#12@30#12@30',
+'indexpage'=> '12@ads#12@ads#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#12@ads#4@45#4@41#4@42#12@44#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#3@ads#12@ads#12@46#12@49#12@35#12@49#12@51#12@52#12@53#9@ads#3@ads#4@54#4@54#4@54#9@ads#3@ads#4@55#4@55#4@55#9@ads#3@ads',
 );
 ?>

@@ -30,6 +30,7 @@ a:hover.move { background-position: 100% -44px; }
 #header {
     margin: 0;
     padding: 0;
+    margin-bottom: 10px;
 }
 #content {
     min-height: 500px;
@@ -67,8 +68,8 @@ a:hover.move { background-position: 100% -44px; }
     color: #072;
 }
 .sp-nav {
-    padding: 22px 20px 0;
-    background: #beb1cc;
+    /*padding: 22px 20px 0;*/
+    /*background: #beb1cc;*/
     -moz-border-radius-topleft: 6px;
     -moz-border-radius-topright: 6px;
     -webkit-border-top-left-radius: 6px;
@@ -77,10 +78,10 @@ a:hover.move { background-position: 100% -44px; }
     border-top-right-radius: 6px;
 }
 .sp-nav {
-    background-color: #5a9475;
+    /*background-color: #5a9475;*/
 }
 .sp-logo {
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 .sp-logo .logo {
     float: left;
