@@ -12,7 +12,7 @@ return array(
 'version'=> 'Alpha 1.0',
 'imgUploadNum'=> '1',
 'imgMinWidth'=> '300',
-'imgMinHeight'=> '300',
+'imgMinHeight'=> '80',
 'imgAllowTypes'=> '*.jpg;*.png;*.jpeg',
 'imgThumbSize'=> '124,200,300,600,origin',
 'imgMaxSize'=> '1024000',

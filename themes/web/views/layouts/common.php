@@ -5,7 +5,11 @@
         <meta name="robots" content="all" />
         <meta name="description" content="<?php if (!empty($this->pageDescription)){echo $this->pageDescription;}else{ echo zmf::config('siteDesc');}?>" />
         <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/common/css/bootstrap.css">
+        <?php if(Yii::app()->getController()->id=='user'){?>
+        <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl ?>/common/css/newsoul.css">
+        <?php }else{?>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/newsoul.css">
+        <?php }?>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/style.css">
         <link href="<?php echo Yii::app()->baseUrl; ?>/common/uploadify/uploadify.css" rel="stylesheet">
         <link rel="shortcut icon" href="<?php echo Yii::app()->baseUrl; ?>/favicon.ico" type="image/x-icon" />

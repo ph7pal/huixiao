@@ -14,19 +14,30 @@
         height:50px;
     }
 </style>
-<div id="indexpage-holder" class="clearfix">
-  <?php $indexCols=zmf::indexPage($indexCols);if(!empty($indexCols)){?>
-    <?php foreach($indexCols as $ic){?>
+
+  <?php $colsNum=0;$echoDiv=false;$indexCols=zmf::indexPage($indexCols);if(!empty($indexCols)){?>    
+    <?php foreach($indexCols as $ic){?>    
+    <?php if($colsNum!=12 && !$echoDiv){$echoDiv=true;?>
+    <?php $holderId=uniqid();?>
+    <div id="indexpage-holder-<?php echo $holderId;?>" class="clearfix">
+    <?php }?>
+    <?php $colsNum+=$ic['colnum'];?>
     <?php $randId=  uniqid();?>
     <div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> indexpage" id="colHolder<?php echo $randId;?>">
         <input type="hidden" name="indexCols[]" value="<?php echo $ic['colnum'];?>"/>
         <span type="button" class="btn btn-success btn-xs">对应栏目：</span>
-        <?php echo CHtml::dropDownList('colIds[]',$ic['colinfo']['id'],Columns::indexPageCols(),array('value' => $ic['colinfo']['id'])); ?>
-        <button type="button" class="btn btn-danger btn-xs" style="float:right" onclick="removeThis('<?php echo $randId;?>');">删除本栏</button>
+        <?php echo CHtml::dropDownList('colIds[]',$ic['colinfo']['id'],Columns::indexPageCols(),array('value' => $ic['colinfo']['id'])); ?>        
     </div>
+    <?php if($colsNum==12){$colsNum=0;$echoDiv=false;?>
+        <div class="clearfix" id="append<?php echo $holderId;?>"></div>
+        <button type="button" class="btn btn-info btn-xs" style="" onclick="appendThis('<?php echo $holderId;?>');">本栏下新增</button>
+        <?php echo CHtml::dropDownList('coltype','',tools::pageColumns(),array('class'=>'')); ?>
+        <button type="button" class="btn btn-danger btn-xs" style="float:right" onclick="removeThis('<?php echo $holderId;?>');">删除本栏</button>
+    </div>
+    <?php }?>    
     <?php }?>
+    
   <?php }?>
-</div>
 <hr/>
 <script>
 //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
