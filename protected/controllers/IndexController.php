@@ -38,14 +38,14 @@ class IndexController extends T {
 //        }
 //        Posts::getAll(array('sql' => $sql, 'pageSize' => $pageSize), $pages, $mainCols);  
         
-        $indexCols=zmf::indexPage();
-        $mainCols=Columns::getColsByPosition('main',true);        
+        $indexCols=zmf::indexPage();        
+        //$mainCols=Columns::getColsByPosition('main',true);        
         $this->pageTitle = zmf::config('sitename') . ' - ' . zmf::config('shortTitle');        
         $data = array(
-            'mainCols' => $mainCols,
+            //'mainCols' => $mainCols,
             'indexCols'=>$indexCols,
-            'pages' => $pages,
-            'seconds' => $seconds
+            //'pages' => $pages,
+            //'seconds' => $seconds
         );
         $this->render('index', $data);
     }  

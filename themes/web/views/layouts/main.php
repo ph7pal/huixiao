@@ -4,7 +4,7 @@
     <div class="sp-nav">
         <div class="sp-logo">
             <a href="<?php echo Yii::app()->baseUrl;?>" class="logo">                
-                <img src="<?php echo zmf::config('baseurl').zmf::config('logo');?>" height="48" alt="">
+                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" alt="">
                 <?php echo '新灵中国';?>
             </a>
             <div class="sp-search">

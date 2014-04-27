@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-default" onclick="addIndexCols();">添加</button>
 </div>
 <style>
-    #indexpage-holder{
+    #indexPage-container{
         clear:both;
     }
     .indexpage{
@@ -14,7 +14,7 @@
         height:50px;
     }
 </style>
-
+<div id="indexPage-container">
   <?php $colsNum=0;$echoDiv=false;$indexCols=zmf::indexPage($indexCols);if(!empty($indexCols)){?>    
     <?php foreach($indexCols as $ic){?>    
     <?php if($colsNum!=12 && !$echoDiv){$echoDiv=true;?>
@@ -30,23 +30,26 @@
     </div>
     <?php if($colsNum==12){$colsNum=0;$echoDiv=false;?>
         <div class="clearfix" id="append<?php echo $holderId;?>"></div>
-        <button type="button" class="btn btn-info btn-xs" style="" onclick="appendThis('<?php echo $holderId;?>');">本栏下新增</button>
-        <?php echo CHtml::dropDownList('coltype','',tools::pageColumns(),array('class'=>'')); ?>
+        <button type="button" class="btn btn-default btn-xs" style="" onclick="appendThis('<?php echo $holderId;?>');">本栏下新增</button>
+        <?php echo CHtml::dropDownList('coltype'.$holderId,'',tools::pageColumns(),array('class'=>'')); ?>
         <button type="button" class="btn btn-danger btn-xs" style="float:right" onclick="removeThis('<?php echo $holderId;?>');">删除本栏</button>
     </div>
     <?php }?>    
     <?php }?>
     
   <?php }?>
+</div>    
 <hr/>
 <script>
 //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
 
-function addIndexCols(){
-    var str=$('#coltype').val();
+function addIndexCols(str,divid){
+    if(typeof str=='undefined'){
+       var str=$('#coltype').val();   
+    }        
     var arr=str.split('-');
     var divRandId=Math.floor(Math.random()*10000000000000);
-    var longstr='<div id="colHolder'+divRandId+'" class="clearfix">';
+    var longstr='<div id="indexpage-holder-'+divRandId+'" class="clearfix">';
     for(var k in arr){
         var randId=Math.floor(Math.random()*10000000000000);
         var selectStr='<select name="colIds[]" id="colIds'+randId+'" onchange="selected(\''+randId+'\');">';
@@ -57,7 +60,12 @@ function addIndexCols(){
         longstr+='<div class="col-xs-'+arr[k]+' col-md-'+arr[k]+' indexpage"><input type="hidden" name="indexCols[]" value="'+arr[k]+'"/><label>对应栏目：'+selectStr+'</label></div>';
     }
     longstr+='<button type="button" class="btn btn-danger btn-xs" style="float:right" onclick="removeThis(\''+divRandId+'\');">删除本栏</button></div>';
-    $('#indexpage-holder').append(longstr);
+    if(typeof divid=='undefined'){
+       $('#indexPage-container').append(longstr);
+    }else{
+        $('#'+divid).append(longstr);
+    } 
+    
 }
 function selected(divid){
     var title=$("#colIds"+divid+" option[value="+$("#colIds"+divid).val()+"]").text();
@@ -68,6 +76,10 @@ function selected(divid){
     }
 }
 function removeThis(divid){
-    $("#colHolder"+divid).remove();
+    $("#indexpage-holder-"+divid).remove();
+}
+function appendThis(divid){
+    var str=$('#coltype'+divid).val();
+    addIndexCols(str,'append'+divid);
 }
 </script>

@@ -212,7 +212,7 @@ class Columns extends CActiveRecord {
     }
 
     public function getOne($keyid, $return = '') {
-        if(!$keyid){
+        if (!$keyid) {
             return false;
         }
         $item = Columns::model()->findByPk($keyid);
@@ -242,7 +242,7 @@ class Columns extends CActiveRecord {
         return $items;
     }
 
-    public function checkWritable($colid, $uid) {
+    public function checkWritable($colid, $uid, $return = false) {
         if (!$colid) {
             T::message(0, '请选择栏目');
         }
@@ -256,15 +256,21 @@ class Columns extends CActiveRecord {
         $_d = tools::columnDesc($info['classify']);
         if ($info['classify'] == 'page') {
             $count = Posts::model()->count("colid={$colid} AND uid={$uid}");
-            if ($count > 1) {
-                T::message(0, '【' . $info['title'] . '】' . $_d . '，您可以去操作或修改');
+            if ($count > 0) {
+                if ($return) {
+                    return false;
+                } else {
+                    T::message(0, '【' . $info['title'] . '】' . $_d . '，您可以去操作或修改');
+                    return false;
+                }
             }
         }
+        return true;
     }
-    
-    public function indexPageCols(){
-        $cols=Columns::allCols();
-        $cols['ads']='广告展示';
+
+    public function indexPageCols() {
+        $cols = Columns::allCols();
+        $cols['ads'] = '广告展示';
         return $cols;
     }
 
