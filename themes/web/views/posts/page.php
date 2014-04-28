@@ -66,24 +66,28 @@
                                 </ul>
                             <?php }?>
                             </div>
-			</div>                        
-                        <div class="preNext clear">
-                            <em class="floatL">上一篇：
-                                <?php if(!empty($preInfo)){?>
-                                <?php echo CHtml::link($preInfo['title'],array('posts/show','id'=>$preInfo['id']));?>
-                                <?php }else{?>
-                                没有了
-                                <?php }?>                            
-                            </em>
-                            <em class="floatR">下一篇：
-                                <?php if(!empty($nextInfo)){?>
-                                <?php echo CHtml::link($nextInfo['title'],array('posts/show','id'=>$nextInfo['id']));?>
-                                <?php }else{?>
-                                没有了
-                                <?php }?> 
-                            </em>
-                        </div>
-                    
+			</div>
+                    <div class="clearfix"></div>                    
+                    <div class="col-md-6 col-xs-6">
+                        <p>
+                            上一篇：
+                            <?php if(!empty($preInfo)){?>
+                            <?php echo CHtml::link($preInfo['title'],array('posts/show','id'=>$preInfo['id']));?>
+                            <?php }else{?>
+                            没有了
+                            <?php }?>           
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <p>
+                            下一篇：
+                            <?php if(!empty($nextInfo)){?>
+                            <?php echo CHtml::link($nextInfo['title'],array('posts/show','id'=>$nextInfo['id']));?>
+                            <?php }else{?>
+                            没有了
+                            <?php }?> 
+                        </p>
+                    </div>                    
 		</div>
             <?php if($page['reply_allow']){?>
             <?php $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));?>            

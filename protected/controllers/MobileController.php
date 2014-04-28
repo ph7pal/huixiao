@@ -2,7 +2,7 @@
 
 class MobileController extends T {
 
-    public $layout = 'main';
+    public $layout = 'mobile';
     public $uid;
     public $userInfo;
     public $userCols = array();
@@ -25,11 +25,11 @@ class MobileController extends T {
             $this->renderPartial('/error/close', array('message' => '您访问的用户暂不能访问，如有疑问请咨询' . zmf::config('phone') . '或者' . zmf::config('email')));
             Yii::app()->end();
         }
-        Yii::app()->theme = 'mobile';
         
-//        if (zmf::checkmobile()) {
-//            Yii::app()->theme = 'mobile';
-//        } else {
+        if (zmf::checkmobile()) {
+            Yii::app()->theme = 'mobile';
+        } 
+//        else {
 //            Yii::app()->theme = 'mobile';
 //            $_hash=tools::jiaMi($this->uid.$this->userInfo['truename']);
 //            if($_GET['hash']!=$_hash && Yii::app()->session['forceMobile']!='yes'){

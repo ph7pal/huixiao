@@ -22,10 +22,7 @@
             body{
                 font: 12px/1.6 arial,helvetica,sans-serif;
             }
-            #zmf{
-                width:960px;
-                margin:0 auto;
-            }
+            
             .floatR{float:right;}
         </style>
         <div class="navbar navbar-default" role="navigation">
@@ -73,33 +70,7 @@
           </div>        
         <div id="zmf">
         
-            <div class="visible-xs visible-sm visible-md visible-lg">
-<?php 
-$topads=Ads::getAllByPo('topbar','flash',$this->uid);
-if(!empty($topads)){?>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">        
-    <div class="carousel-inner">
-<?php foreach($topads as $key=>$_topad){
-$_topad_img=Attachments::getFaceImg($_topad['id'],'ads');        
-?>    
-    <div class="item <?php if($key==0){ echo 'active';}?>">
-      <img alt="First slide" src="<?php echo zmf::uploadDirs($_topad_img['logid'], 'site', $_topad_img['classify'], 'origin').'/'.$_topad_img['filePath'];?>">
-    </div>
-<?php }?>
-    </div>
-    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-      
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-      
-    </a>
-</div>
-<?php }?>
-<div class="jumbotron">
-  <h1>Hello, world!</h1>
-  <p><?php echo zmf::userConfig($this->uid,'service_aim_cn');?></p>
-  <p><?php echo zmf::userConfig($this->uid,'service_aim_en');?></p>
-</div>         
+            <div class="visible-xs visible-sm visible-md visible-lg">       
                 <?php echo $content; ?>
             </div>
             <hr>
