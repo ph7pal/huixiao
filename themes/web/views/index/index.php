@@ -1,5 +1,6 @@
 <?php if(!empty($indexCols)){?>
 <?php $colsNum=0;$echoDiv=false;foreach($indexCols as $key=>$ic){?>
+<?php if(!empty($ic['colinfo'])){?>
 <?php if($ic['coltype']!='ads'){?>
 <?php if($colsNum!=12 && !$echoDiv){$echoDiv=true;?>
 <div class="row">
@@ -15,15 +16,15 @@
                 <?php if($ic['colinfo']['classify']!='thumb'){?>
                 <?php 
                     if($ic['colinfo']['classify']=='page'){
-                        $this->renderPartial('/posts/miniPage',array('colid'=>$ic['colinfo']['id']));
+                        $this->renderPartial('/posts/miniPage',array('colinfo'=>$ic['colinfo']));
                     }elseif($ic['colinfo']['classify']=='logo'){
-                        $this->renderPartial('/posts/logo',array('colid'=>$ic['colinfo']['id'],'colnum'=>$ic['colnum']));
+                        $this->renderPartial('/posts/logo',array('colinfo'=>$ic['colinfo'],'colnum'=>$ic['colnum']));
                     }else{
-                        $this->renderPartial('/posts/miniLists',array('colid'=>$ic['colinfo']['id']));            
+                        $this->renderPartial('/posts/miniLists',array('colinfo'=>$ic['colinfo']));            
                     }
                 ?>
                 <?php }else{?>
-                    <?php $this->renderPartial('/posts/flash',array('info'=>$ic)); ?>
+                    <?php $this->renderPartial('/posts/flash',array('colinfo'=>$ic['colinfo'])); ?>
                 <?php }?>
            </div>
         </div>
@@ -36,6 +37,7 @@
 <div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">
 <?php $this->renderPartial('/posts/ads',array('data'=>$ic['colinfo']));?>
 </div>
+<?php }?>
 <?php }?>
 <?php }?>
 <?php }?>

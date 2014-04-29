@@ -43,7 +43,7 @@ if(!empty($topads)){?>
        </div>
         <div class="col-lg-4">
           <h2>评价</h2>          
-          <?php $scores=zmf::userInfoDisplay($this->uid,'score');if(!empty($scores)){foreach($scores as $score){?>
+          <?php $scores=zmf::userInfoDisplay($this->uid,'score');$this->widget('CStarRating',array('name'=>'rating'));if(!empty($scores)){foreach($scores as $score){?>
           <p><?php echo $score['title'];?>：
           <div class="progress">
                 <div class="progress-bar progress-bar-<?php echo $score['css'];?>" role="progressbar" aria-valuenow="<?php echo $score['width'];?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $score['width'];?>%">

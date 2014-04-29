@@ -125,7 +125,9 @@ class Posts extends CActiveRecord {
     }
 
     public function listPosts($colid, $field = 'id,title,cTime,attachid', $limit = 10,$notId='') {
-        if ($limit == 0) {
+        if($limit==''){
+            $limit = 10;
+        }elseif ($limit === 0) {
             $_limit = '';
         } else {
             $_limit = "LIMIT {$limit}";
@@ -134,6 +136,9 @@ class Posts extends CActiveRecord {
             $and=' AND id!='.$notId;
         }else{
             $and='';
+        }
+        if(!$field || $field==''){
+            $field = 'id,title,cTime,attachid';
         }
         $sql = "SELECT {$field} FROM {{posts}} WHERE colid={$colid}{$and} AND status=1 ORDER BY cTime DESC {$_limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();

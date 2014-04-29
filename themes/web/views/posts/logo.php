@@ -1,4 +1,6 @@
-<?php $colitems = Posts::allPosts($colid); ?>
+<?php 
+$colid=$colinfo['id'];
+$colitems = Posts::allPosts($colid); ?>
     <?php if (!empty($colitems)) {
         if($colnum==12){
             $colrows=2;

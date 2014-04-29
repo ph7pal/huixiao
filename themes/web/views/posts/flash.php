@@ -1,6 +1,7 @@
 <div class="row">
 <?php 
-$listposts=Posts::listPosts($info['colinfo']['id']);
+$colid=$colinfo['id'];
+$listposts=Posts::listPosts($colid);
 if(!empty($listposts)){
 foreach($listposts as $ci){?>
         <div class="col-md-2 col-xs-2">

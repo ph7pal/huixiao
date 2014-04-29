@@ -1,4 +1,6 @@
-<?php $colitems = Posts::allPosts($colid); ?>
+<?php 
+$colid=$colinfo['id'];
+$colitems = Posts::allPosts($colid); ?>
 <ul>
     <?php if (!empty($colitems)) {
         foreach ($colitems as $ci) { ?>  
