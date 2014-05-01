@@ -154,8 +154,9 @@ class Users extends CActiveRecord {
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
         } elseif ($c == 'users') {
             
-        }elseif($a=='index'){
+        }elseif($a=='index' || $a=='update' || $a=='credit'){
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/update') . '">修改资料</a></li>';
+            $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/credit') . '">认证信息</a></li>';
         }elseif ($a == 'addads') {
             $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/list', array('table' => 'ads')) . '">列表</a></li>';
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/addads') . '">新增</a></li>';

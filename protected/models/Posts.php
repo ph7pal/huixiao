@@ -31,7 +31,7 @@ class Posts extends CActiveRecord {
             array('name', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid', 'safe', 'on' => 'search'),
+            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo', 'safe', 'on' => 'search'),
         );
     }
 
@@ -65,7 +65,7 @@ class Posts extends CActiveRecord {
             'seo_keywords' => 'SEO关键词',
             'intro' => '摘要',
             'content' => '正文',
-            'copy_from' => '来源',
+            'copy_from' => '来源标题',
             'copy_url' => '来源地址',
             'redirect_url' => '跳转地址',
             'hits' => 'Hits',
@@ -75,6 +75,7 @@ class Posts extends CActiveRecord {
             'last_update_time' => '最近更新',
             'cTime' => '创建时间',
             'attachid' => '封面图片',
+            'secretinfo'=>'敏感信息',
         );
     }
 
@@ -108,7 +109,8 @@ class Posts extends CActiveRecord {
         $criteria->compare('last_update_time', $this->last_update_time, true);
         $criteria->compare('cTime', $this->cTime, true);
         $criteria->compare('attachid', $this->attachid, true);
-
+        $criteria->compare('secretinfo', $this->secretinfo, true);
+        
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));

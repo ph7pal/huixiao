@@ -11,6 +11,7 @@
             </div>
             <div class="site-info">
             </div>
+            <?php if($this->showNavs){?>
             <div class="site_action config">
                 <?php echo CHtml::link('设置', array('user/config'), array('class' => 'list_btn '.(Yii::app()->getController()->getAction()->id=='config'?'current':''))); ?>
                 <?php echo CHtml::link('轮播', array('user/list','table'=>'ads'), array('class' => 'list_btn '.($_GET['table']=='ads'?'current':''))); ?>
@@ -22,6 +23,7 @@
                 <?php echo CHtml::link('表盘', array('user/stat'), array('class' => 'list_btn '.(Yii::app()->getController()->getAction()->id=='stat'?'current':''))); ?>
                 <?php echo CHtml::link('查看', array('mobile/index','uid'=>$this->uid), array('class' => 'list_btn ','target'=>'_blank')); ?>
             </div>
+            <?php }?>
         </div>
     </div>        
 </div>

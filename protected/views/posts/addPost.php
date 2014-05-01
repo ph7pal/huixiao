@@ -65,6 +65,11 @@
      <p class="help-block"><?php echo $form->error($model,'intro'); ?></p>
     </div>
     <div class="form-group">
+    <?php echo $form->labelEx($model,'secretinfo'); ?>
+    <?php echo $form->textArea($model,'secretinfo',array('class'=>'form-control','value'=>$info['secretinfo'])); ?>
+     <p class="help-block">(本项仅有相关权限的用户可见)<?php echo $form->error($model,'secretinfo'); ?></p>
+    </div>
+    <div class="form-group">
     <?php echo $form->labelEx($model,'content'); ?>
     <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'posts'));?> 
      <p class="help-block"><?php echo $form->error($model,'content'); ?></p>
