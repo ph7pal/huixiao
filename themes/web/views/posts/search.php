@@ -1,7 +1,8 @@
 <div class="wrap clear">
-    <?php $this->renderPartial('aside',array('colid'=>$info['id']));?>
-    <div class="mainBox">	
-        <?php $this->renderPartial('bread',array('info'=>$info));?>
+    <?php $this->renderPartial('aside',array('from'=>'search','keyword'=>$keyword));?>
+    <div class="mainBox">
+        <?php if(!$info){?>
+        <?php $this->renderPartial('bread',array('from'=>'search','keyword'=>$keyword));?>
             <table class="table table-hover">
                 <?php foreach($posts as $row):?> 
                     <tr>                        
@@ -17,6 +18,19 @@
                 <?php endforeach;?>
 
             </table>
-        <div class="pagebar clear"><?php  $this->renderPartial('/common/pager',array('pages'=>$pages)); ?></div>
+        
+        
+            <ul class="pager">
+                <?php if($pre){?>
+                <li class="previous"><?php echo $pre;?></li>
+                <?php }if($next){?>
+                <li class="next"><?php echo $next;?></li>
+                <?php }?>
+            </ul>
+        <?php }else{?>
+        <div class="alert alert-danger">
+            <?php echo $info;?>
+        </div>
+        <?php }?>
     </div>	
 </div>

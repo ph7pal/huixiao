@@ -17,15 +17,15 @@ class Columns extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('title, position', 'required'),
-            array('status , system,listnum', 'numerical', 'integerOnly' => true),
-            array('belongid, attachid, order, hits, cTime', 'length', 'max' => 10),
+            array('status , system,listnum,groupid', 'numerical', 'integerOnly' => true),
+            array('belongid, attachid, order, hits, cTime,groupid', 'length', 'max' => 10),
             array('name, title, second_title', 'length', 'max' => 100),
             array('classify, position', 'length', 'max' => 32),
             array('url,listcondition', 'length', 'max' => 255),
             array('url,listnum', 'length', 'max' => 3),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition', 'safe', 'on' => 'search'),
+            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition,groupid', 'safe', 'on' => 'search'),
         );
     }
 
@@ -58,8 +58,9 @@ class Columns extends CActiveRecord {
             'status' => '状态',
             'cTime' => '创建时间',
             'system' => '是否系统默认',
-            'listnum'=>'显示条数',
-            'listcondition'=>'显示条件',
+            'listnum' => '显示条数',
+            'listcondition' => '显示条件',
+            'groupid' => '对应用户组',
         );
     }
 
@@ -84,6 +85,7 @@ class Columns extends CActiveRecord {
         $criteria->compare('system', $this->system, true);
         $criteria->compare('listnum', $this->listnum, true);
         $criteria->compare('listcondition', $this->listcondition, true);
+        $criteria->compare('groupid', $this->groupid, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -227,6 +229,34 @@ class Columns extends CActiveRecord {
         }
         return $item;
     }
+    
+    /**
+     * 根据指定栏目取出它可能的下级栏目
+     * @param type $keyid
+     */
+    public function getColIds($keyid,$idstr=true){
+        if(!$keyid){
+            return false;
+        }
+        $info=  Columns::getOne($keyid);
+        if(!$info){
+            return false;
+        }
+        $arr=array();
+        $cols=  Columns::allCols(2,$info['id'],0,0);
+        if(!empty($cols)){
+            $arr=CHtml::listData($cols,'id','');
+            $arr=array_keys($arr);
+            $arr= array_unique(array_filter($arr));
+        }
+        $arr[]=$keyid;
+        $arr= array_unique($arr);
+        if($idstr){
+            $str=  join(',', $arr);
+            return $str;
+        }
+        return $arr;
+    }
 
     public function userColumns($uid = '') {
         if (Yii::app()->user->isGuest && !$uid) {
@@ -234,13 +264,19 @@ class Columns extends CActiveRecord {
         } elseif ($uid == '') {
             $uid = Yii::app()->user->id;
         }
+        $uinfo = Users::getUserInfo($uid);
+        if (!$uinfo) {
+            return false;
+        } elseif ($uinfo['status'] != Posts::STATUS_PASSED) {
+            return false;
+        }
         $items = zmf::getFCache("userColumns-{$uid}");
         if (!$items) {
             $str = zmf::userConfig($uid, 'column');
             if (!$str) {
                 return false;
             }
-            $sql = "SELECT id,title FROM {{columns}} WHERE id IN($str) ORDER BY FIELD(id,$str)";
+            $sql = "SELECT id,title FROM {{columns}} WHERE id IN($str) AND groupid='{$uinfo['groupid']}' ORDER BY FIELD(id,$str)";
             $items = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache("userColumns-{$uid}", $items, 86400 * 30);
         }
@@ -249,19 +285,28 @@ class Columns extends CActiveRecord {
 
     public function checkWritable($colid, $uid, $return = false) {
         if (!$colid) {
+            if ($return) {
+                return false;
+            }
             T::message(0, '请选择栏目');
         }
         if (!$uid) {
+            if ($return) {
+                return false;
+            }
             T::message(0, '请设置用户ID');
         }
         $info = Columns::getOne($colid);
         if (!$info) {
+            if ($return) {
+                return false;
+            }
             T::message(0, '该栏目不存在');
         }
         $_d = tools::columnDesc($info['classify']);
         if ($info['classify'] == 'page') {
-            $count = Posts::model()->count("colid={$colid} AND uid={$uid}");
-            if ($count > 0) {
+            $count = Posts::model()->count("colid={$colid} AND uid={$uid} AND status=".Posts::STATUS_PASSED);
+            if ($count > 0 && $count!='') {
                 if ($return) {
                     return false;
                 } else {
@@ -269,7 +314,7 @@ class Columns extends CActiveRecord {
                     return false;
                 }
             }
-        }
+        }        
         return true;
     }
 

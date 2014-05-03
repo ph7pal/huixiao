@@ -75,7 +75,7 @@ class Posts extends CActiveRecord {
             'last_update_time' => '最近更新',
             'cTime' => '创建时间',
             'attachid' => '封面图片',
-            'secretinfo'=>'敏感信息',
+            'secretinfo' => '敏感信息',
         );
     }
 
@@ -110,7 +110,7 @@ class Posts extends CActiveRecord {
         $criteria->compare('cTime', $this->cTime, true);
         $criteria->compare('attachid', $this->attachid, true);
         $criteria->compare('secretinfo', $this->secretinfo, true);
-        
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
@@ -120,26 +120,39 @@ class Posts extends CActiveRecord {
         return parent::model($className);
     }
 
-    public function allPosts($colid, $limit = 10) {
-        $sql = "SELECT * FROM {{posts}} WHERE colid={$colid} AND status=1 LIMIT {$limit}";
+    public function allPosts($colid, $limit = 10, $uid = '') {
+        $limit = isset($limit) ? $limit : 10;
+        $uid = isset($uid) ? $uid : 0;
+        if (!$colid) {
+            return false;
+        }
+        $colstr = Columns::getColIds($colid);
+        if (!$colstr) {
+            return false;
+        }
+        $where = "WHERE colid IN($colstr)";
+        if ($uid) {
+            $where.=' AND uid=' . $uid;
+        }
+        $sql = "SELECT * FROM {{posts}} {$where} AND status=1 LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
 
-    public function listPosts($colid, $field = 'id,title,cTime,attachid', $limit = 10,$notId='') {
-        if($limit==''){
+    public function listPosts($colid, $field = 'id,title,cTime,attachid', $limit = 10, $notId = '') {
+        if ($limit == '') {
             $limit = 10;
-        }elseif ($limit === 0) {
+        } elseif ($limit === 0) {
             $_limit = '';
         } else {
             $_limit = "LIMIT {$limit}";
         }
-        if($notId!=''){
-            $and=' AND id!='.$notId;
-        }else{
-            $and='';
+        if ($notId != '') {
+            $and = ' AND id!=' . $notId;
+        } else {
+            $and = '';
         }
-        if(!$field || $field==''){
+        if (!$field || $field == '') {
             $field = 'id,title,cTime,attachid';
         }
         $sql = "SELECT {$field} FROM {{posts}} WHERE colid={$colid}{$and} AND status=1 ORDER BY cTime DESC {$_limit}";
@@ -147,11 +160,18 @@ class Posts extends CActiveRecord {
         return $items;
     }
 
-    public function getPage($colid, $return = '') {
+    public function getPage($colid, $uid = '', $return = '') {
         //$sql="SELECT * FROM {{posts}} WHERE colid={$colid} AND status=1 LIMIT 1";
         //$item=Yii::app()->db->createCommand($sql)->query();
         //$item=$item[0];
-        $item = Posts::model()->find('colid=:colid AND status=1', array(':colid' => $colid));
+        if (!$colid) {
+            return false;
+        }
+        if ($uid) {
+            $item = Posts::model()->find('colid=:colid AND uid=:uid AND status=1', array(':colid' => $colid, ':uid' => $uid));
+        } else {
+            $item = Posts::model()->find('colid=:colid AND status=1', array(':colid' => $colid));
+        }
         if ($return != '') {
             return $item[$return];
             exit();
@@ -174,8 +194,8 @@ class Posts extends CActiveRecord {
             return false;
         }
         $com = Yii::app()->db->createCommand($sql)->queryAll();
-        $pageSize=$params['pageSize'];
-        if($pageSize===0){
+        $pageSize = $params['pageSize'];
+        if ($pageSize === 0) {
             return $com;
         }
         $criteria = new CDbCriteria();
@@ -186,6 +206,33 @@ class Posts extends CActiveRecord {
         $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
         $com->bindValue(':limit', $pages->pageSize);
         $comLists = $com->queryAll();
+    }
+
+    public static function suggestSearch($keyword, $limit = 20) {
+        if(!$keyword){            
+            return false;
+        }
+        $con = array();
+        if ($limit == 0) {
+            $con = array(
+                'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
+                'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
+            );
+        }else{
+            $con = array(
+                'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
+                'limit'=>$limit,                
+                'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
+            );
+        }
+        $cachekey = 'suggest-' . md5($keyword);
+        $_names = zmf::getFCache($cachekey);
+        if (!$_names) {
+            $_names = Posts::model()->findAll($con);
+            SearchRecords::checkAndUpdate($keyword);
+            zmf::setFCache($cachekey, $_names, 360);
+        }
+        return $_names;
     }
 
 }

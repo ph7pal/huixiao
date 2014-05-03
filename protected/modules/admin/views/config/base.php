@@ -45,3 +45,4 @@
         <option value="1" <?php if($c['validateEmail']=='1'){?>selected="selected"<?php }?>>是</option>
     </select>
 </p>
+<p><label>搜索关键词("#"隔开)：</label><textarea class="form-control" name="hotsearchs"><?php echo $c['hotsearchs'];?></textarea></p>

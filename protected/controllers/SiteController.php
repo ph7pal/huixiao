@@ -43,7 +43,7 @@ class SiteController extends T {
             }
         }
         $this->_noColButOther = 'login';
-        $this->renderPartial('login', array('model' => $model));
+        $this->render('login', array('model' => $model));
     }
 
     public function actionLogout() {

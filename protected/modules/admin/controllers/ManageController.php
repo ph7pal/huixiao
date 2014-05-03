@@ -41,6 +41,7 @@ class ManageController extends H {
         $usergroup = new UserGroup();
         $comments = new Comments;
         $attachments = new Attachments;
+        $questions=new Questions;
         $sinfo = $$table->findByPk($keyidid);
         if (empty($sinfo)) {
             $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));

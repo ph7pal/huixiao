@@ -95,7 +95,7 @@ class ColumnsController extends H {
                 'url' => zmf::filterInput($_POST['Columns']['url'], 't', 1),
                 'status' => 1,
                 'system'=>zmf::filterInput($_POST['Columns']['system']),
-//            ''=>zmf::filterInput($_POST['']['']),
+                'groupid'=>zmf::filterInput($_POST['Columns']['groupid']),
 //            ''=>zmf::filterInput($_POST['']['']),
             );
             $model->attributes = $intoData;

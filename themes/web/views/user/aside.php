@@ -1,15 +1,12 @@
 <div class="aside">
     <div class="mod" id="aside_face">
         <div class="bd">
-            <div class="site_pic">
-                <?php if($this->logoImg!=''){?>
-                <img src="<?php echo $this->logoImg;?>" alt="<?php echo $this->userInfo['truename'];?>">
-                <?php }?>
+            <div class="site_pic">                
+                <img src="<?php echo zmf::avatar($this->uid,'big',true);?>" alt="<?php echo $this->userInfo['truename'];?>">
             </div>
             <div class="desc">
-                
             </div>
-            <div class="site-info">
+            <div class="site-info">                
             </div>
             <?php if($this->showNavs){?>
             <div class="site_action config">

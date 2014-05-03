@@ -51,6 +51,11 @@
     <?php echo $form->textField($model,'listcondition',array('class'=>'form-control','value'=>$info['listcondition'])); ?>
      <p class="help-block"><?php echo $form->error($model,'listcondition'); ?></p>
     </div>
+    <div class="form-group">
+    <?php echo $form->labelEx($model,'groupid'); ?>
+    <?php echo $form->dropDownList($model,'groupid',UserGroup::getGroups(true),array('class'=>'form-control','options' => array($info['groupid']=>array('selected'=>true)))); ?>
+     <p class="help-block"><?php echo $form->error($model,'groupid'); ?></p>
+    </div>
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default')); ?>
 <?php $this->endWidget(); ?>
 
