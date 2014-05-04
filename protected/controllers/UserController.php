@@ -529,14 +529,14 @@ class UserController extends T {
                 }
             }
             UserInfo::addAttr($this->uid, 'addCredit', 'lock', 'yes');
-            UserInfo::addAttr($this->uid, 'addCredit', 'status',  Posts::STATUS_STAYCHECK);
+            UserInfo::addAttr($this->uid, 'addCredit', 'creditstatus',  Posts::STATUS_STAYCHECK);
             $redirect=Yii::app()->createUrl('user/credit');
             $this->message(1, '您的资料已提交。', $redirect);
         }
-        if($blocked){
-            $_addedType=UserCredit::model()->find('uid='.$this->uid);
-            $type=$_addedType['classify'];
-        }
+        $_addedType=UserCredit::findOne($this->uid);
+        $type=$_addedType['classify']; 
+        $reason=zmf::userConfig($this->uid,'creditreason');
+        $status = zmf::userConfig($this->uid, 'creditstatus');
         if($type){
             $configs = UserCredit::model()->findAllByAttributes(array('classify' => $type,'uid'=>$this->uid));
             $_c = CHtml::listData($configs, 'name', 'value');
@@ -545,6 +545,8 @@ class UserController extends T {
             'type' => $type,
             'blocked' => $blocked,
             'info'=>$_c,
+            'status' => $status,
+            'reason'=>$reason,
         );
         $this->render('credit', $data);
     }

@@ -38,6 +38,10 @@ class zmf {
             return $settings;
         }
     }
+    
+    public static function delUserConfig($uid){
+        self::delFCache("userSettings{$uid}");
+    }
 
     public static function subStr($string, $sublen = 20, $start = 0, $separater = '...') {
         $code = 'UTF-8';

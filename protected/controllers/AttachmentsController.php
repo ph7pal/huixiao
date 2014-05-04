@@ -116,11 +116,11 @@ class AttachmentsController extends T {
             $attachid = zmf::filterInput($_POST['attachid'],'t',1);
         }
         //$attachid=tools::jieMi($attachid);
-        if(H::checkPower('delattachments')){
-            $admin=true;
-        }else{
-            $admin=false;
-        }
+//        if(H::checkPower('delattachments')){
+//            $admin=true;
+//        }else{
+//            $admin=false;
+//        }
         if (!Yii::app()->request->isAjaxRequest) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
         }
