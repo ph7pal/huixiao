@@ -50,7 +50,7 @@ class UserController extends T {
                             $this->message(0, Yii::t('default', 'loginfirst'), Yii::app()->createUrl('site/login'));
                         } else {
                             if ($arr[0] != Yii::app()->user->id) {
-                                H::checkPower('visitSthone');
+                                $this->checkPower('visitSthone');
                                 $this->uid = $arr[0];
                                 Yii::app()->session[$this->seekey] = $code;
                             } else {
@@ -534,7 +534,7 @@ class UserController extends T {
             $this->message(1, '您的资料已提交。', $redirect);
         }
         $_addedType=UserCredit::findOne($this->uid);
-        $type=$_addedType['classify']; 
+        if($_addedType['classify'])$type=$_addedType['classify']; 
         $reason=zmf::userConfig($this->uid,'creditreason');
         $status = zmf::userConfig($this->uid, 'creditstatus');
         if($type){

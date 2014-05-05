@@ -19,6 +19,7 @@ class Users extends CActiveRecord {
             array('username, password, truename, groupid, status', 'required'),
             array('groupid, last_login_time, status, cTime ,emailstatus,system', 'numerical', 'integerOnly' => true),
             array('username', 'length', 'max' => 50),
+            array('truename,username', 'unique'),
             array('password', 'length', 'max' => 32),
             array('truename, email', 'length', 'max' => 100),
             array('qq', 'length', 'max' => 15),

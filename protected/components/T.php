@@ -11,23 +11,23 @@ class T extends CController {
     protected $_noColButOther;
     protected $currentColId;
     protected $platform;
-    protected $zmf=false;
+    protected $zmf = false;
     public $pageDescription;
     public $keywords;
     public $uid;
     public $userInfo;
-    public $currentCol=array();
+    public $currentCol = array();
 
     public function init() {
         if (!zmf::config('closeSite')) {
             self::_closed();
-        }         
+        }
         $this->_theme = Yii::app()->theme;
         $this->_themePath = str_replace(array('\\', '\\\\'), '/', Yii::app()->theme->basePath);
         $this->_gets = Yii::app()->request;
-        $this->_baseUrl = Yii::app()->baseUrl;           
+        $this->_baseUrl = Yii::app()->baseUrl;
         $this->checkApp();
-        if(!Yii::app()->user->isGuest){
+        if (!Yii::app()->user->isGuest) {
             $this->userInfo = Users::getUserInfo(Yii::app()->user->id);
         }
     }
@@ -77,7 +77,7 @@ class T extends CController {
                 }
                 break;
         }
-        if (Yii::app()->request->isAjaxRequest){
+        if (Yii::app()->request->isAjaxRequest) {
             self::jsonOutPut($action, $content);
         }
         // 信息头部
@@ -137,8 +137,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
 
         exit($header . $body . $footer);
     }
-    
-    
+
     public function _closed($reason = '') {
         if ($reason == '') {
             $reason = zmf::config('closeSiteReason');
@@ -146,16 +145,103 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         $this->renderPartial('/error/close', array('message' => $reason));
         Yii::app()->end();
     }
-    
-    private function checkApp(){
-        if(empty(Yii::app()->params['author']) || empty(Yii::app()->params['copyrightInfo'])){
-            self::_closed(Yii::t('default','notServiced'));
-        }else{
-            if(md5(Yii::app()->params['author'])!='067e73ad3739f7e6a1fc68eb391fc5ba' || md5(Yii::app()->params['copyrightInfo'])!='acc869dee704131e9024decebb3ef0c3'){
-                self::_closed(Yii::t('default','notServiced'));
+
+    private function checkApp() {
+        if (empty(Yii::app()->params['author']) || empty(Yii::app()->params['copyrightInfo'])) {
+            self::_closed(Yii::t('default', 'notServiced'));
+        } else {
+            if (md5(Yii::app()->params['author']) != '067e73ad3739f7e6a1fc68eb391fc5ba' || md5(Yii::app()->params['copyrightInfo']) != 'acc869dee704131e9024decebb3ef0c3') {
+                self::_closed(Yii::t('default', 'notServiced'));
             }
-            $this->zmf=true;
+            $this->zmf = true;
         }
+    }
+
+    public function checkPower($type, $json = false, $return = false, $isAdmin = true) {
+        if (Yii::app()->user->isGuest) {
+            $info = Yii::t('default', 'loginfirst');
+            if ($return) {
+                return $info;
+            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('admin/site/login'));
+            } else {
+                $this->jsonOutPut(0, $info);
+            }
+        } else {
+            $uid = Yii::app()->user->id;
+        }
+        $userinfo = Users::getUserInfo($uid);
+        if (!$userinfo) {
+            $info = '不存在的用户，请核实';
+            if ($return) {
+                return $info;
+            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('admin/site/logout'));
+            } else {
+                $this->jsonOutPut(0, $info);
+            }
+        }
+        $gid = $userinfo['groupid'];
+        if (!$gid) {
+            $info = '您在组织之外，请设置用户组！';
+            if ($return) {
+                return $info;
+            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->baseUrl);
+            } else {
+                $this->jsonOutPut(0, $info);
+            }
+        }
+        $groupinfo = UserGroup::getInfo($gid);
+        if (!$groupinfo) {
+            $info = '您所在用户组不存在，请核实';
+            if ($return) {
+                return $info;
+            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('admin/site/logout'));
+            } else {
+                $this->jsonOutPut(0, $info);
+            }
+        }
+        if ($isAdmin) {
+            $gids = zmf::config('adminGroupIds');
+            $arr = explode(',', $gids);
+            if (!in_array($gid, $arr)) {
+                $info = '您好像发现了新大陆，但该地区为禁区！';
+                if ($return) {
+                    return $info;
+                } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                    $this->message(0, $info, Yii::app()->baseUrl);
+                } else {
+                    $this->jsonOutPut(0, $info);
+                }
+            }
+        }
+        if ($type == 'login') {
+            return true;
+        }
+        $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));
+        if (!$power) {
+            $info = '您所在用户组【'.$groupinfo['title'].'】无权该操作';
+            if ($return) {
+                return $info;
+            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info);
+            } else {
+                $this->jsonOutPut(0, $info);
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * 检查用户的权限，只返回true or false
+     */
+    public function checkYesOrNo($type){
+        if(!$type){
+            return false;
+        }
+        $this->checkPower($type,false,true,false);
     }
 
 }

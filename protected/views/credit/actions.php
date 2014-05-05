@@ -12,6 +12,10 @@
 </select>
 </p>
 <p>
+<label>对应用户组：</label>
+<?php echo CHtml::dropDownList('groupid',$groupid,UserGroup::getGroups(true),array('options' => array($groupid=>array('selected'=>true)))); ?>
+</p>
+<p>
     <?php echo CHtml::ajaxSubmitButton('提交', $this->createUrl('users/docredit', array('uid' => $uid,'type'=>$type)), array(
             'success' => "function(data){
                 data = eval('('+data+')');

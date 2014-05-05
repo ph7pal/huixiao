@@ -254,6 +254,7 @@ class UsersController extends H {
         $_c = CHtml::listData($configs, 'name', 'value');
         $reason = zmf::userConfig($uid, 'creditreason');
         $status = zmf::userConfig($uid, 'creditstatus');
+        $uinfo=Users::getUserInfo($uid);
         $data = array(
             'type' => $type,
             'blocked' => TRUE,
@@ -263,6 +264,7 @@ class UsersController extends H {
             'fromAdmin' => 'yes',
             'status' => $status,
             'reason' => $reason,
+            'groupid'=>$uinfo['groupid'],            
         );
         $this->render('//credit/' . $type, $data);
     }
@@ -277,6 +279,7 @@ class UsersController extends H {
         $reason = zmf::filterInput($_POST['reason'], 't', 1);
         $atype = zmf::filterInput($_POST['yesorno']);
         $type = zmf::filterInput($_GET['type'],'t',1);
+        $groupid=zmf::filterInput($_POST['groupid']);
         if (!$atype) {
             $this->jsonOutPut(0, '请选择');
         }
@@ -292,6 +295,7 @@ class UsersController extends H {
         if ($atype == 1) {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
+            Users::model()->updadeByPk($touid,array('groupid'=>$groupid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
         }

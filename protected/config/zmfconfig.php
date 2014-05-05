@@ -30,10 +30,6 @@ return array(
 'baseurl'=> 'http://localhost/huixiao/',
 'indexpage'=> '12@ads|13#12@ads|13#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#12@ads|0#4@45#4@41#4@42#12@44#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#3@ads|0#12@ads|0#12@46#12@49#12@35#12@49#12@51#12@52#12@53#9@ads|0#3@ads|0#4@54#4@54#4@54#9@ads|0#3@ads|0#4@55#4@55#4@55#9@ads|0#3@ads|0',
 'noticeall'=> '近期收到举报，有部分网站有不良信息，望各位店家及时处理！',
-<<<<<<< HEAD
-'indexpage'=> '12@ads|9#6@31#6@30#12@ads|11#12@30#12@ads|12',
-=======
 'hotsearchs'=> '动物世界#五一节日',
->>>>>>> f73cb4044e1d62961fd8dfbfbccbb5cd1bf2aac2
 );
 ?>
