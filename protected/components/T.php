@@ -158,25 +158,34 @@ html,body,div,p,a,h3{margin:0;padding:0;}
     }
 
     public function checkPower($type, $json = false, $return = false, $isAdmin = true) {
+        if (is_array($type)) {
+            $uid = $type['uid'];
+            $type = $type['type'];
+        }
+//        $cacheKey="checkPower-{$type}-{$uid}";
+//        $ckinfo=zmf::getFCache($cacheKey);
+//        if($ckinfo){
+//            return $ckinfo;
+//        }
         if (Yii::app()->user->isGuest) {
             $info = Yii::t('default', 'loginfirst');
             if ($return) {
-                return $info;
-            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
-                $this->message(0, $info, Yii::app()->createUrl('admin/site/login'));
+                return false;
+            } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('site/login'));
             } else {
                 $this->jsonOutPut(0, $info);
             }
-        } else {
+        } elseif (!$uid) {
             $uid = Yii::app()->user->id;
         }
         $userinfo = Users::getUserInfo($uid);
         if (!$userinfo) {
             $info = '不存在的用户，请核实';
             if ($return) {
-                return $info;
-            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
-                $this->message(0, $info, Yii::app()->createUrl('admin/site/logout'));
+                return false;
+            } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
                 $this->jsonOutPut(0, $info);
             }
@@ -185,8 +194,8 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$gid) {
             $info = '您在组织之外，请设置用户组！';
             if ($return) {
-                return $info;
-            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                return false;
+            } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->baseUrl);
             } else {
                 $this->jsonOutPut(0, $info);
@@ -196,9 +205,9 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$groupinfo) {
             $info = '您所在用户组不存在，请核实';
             if ($return) {
-                return $info;
-            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
-                $this->message(0, $info, Yii::app()->createUrl('admin/site/logout'));
+                return false;
+            } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
+                $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
                 $this->jsonOutPut(0, $info);
             }
@@ -209,8 +218,8 @@ html,body,div,p,a,h3{margin:0;padding:0;}
             if (!in_array($gid, $arr)) {
                 $info = '您好像发现了新大陆，但该地区为禁区！';
                 if ($return) {
-                    return $info;
-                } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                    return false;
+                } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                     $this->message(0, $info, Yii::app()->baseUrl);
                 } else {
                     $this->jsonOutPut(0, $info);
@@ -222,10 +231,10 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
         $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));
         if (!$power) {
-            $info = '您所在用户组【'.$groupinfo['title'].'】无权该操作';
+            $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作';
             if ($return) {
-                return $info;
-            } elseif (!$json AND !Yii::app()->request->isAjaxRequest) {
+                return false;
+            } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info);
             } else {
                 $this->jsonOutPut(0, $info);
@@ -233,15 +242,15 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
         return true;
     }
-    
+
     /**
      * 检查用户的权限，只返回true or false
      */
-    public function checkYesOrNo($type){
-        if(!$type){
+    public function checkYesOrNo($type) {
+        if (!$type) {
             return false;
         }
-        $this->checkPower($type,false,true,false);
+        T::checkPower($type, false, true, false);
     }
 
 }

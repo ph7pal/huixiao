@@ -58,11 +58,12 @@
     <td>座机：<?php echo $info['telephone'];?></td>    
 </tr>
 </table>
-<h4>快捷功能</h4>
-<p>
-  <a href="<?php echo Yii::app()->createUrl('mobile/index',array('uid'=>$this->uid));?>"><button type="button" class="btn btn-danger btn-xs">查看主页效果</button></a>
-  <a href="<?php echo Yii::app()->createUrl('user/stat');?>"><button type="button" class="btn btn-info btn-xs">查看统计</button></a>
-  <a href="<?php echo Yii::app()->createUrl('user/config');?>"><button type="button" class="btn btn-primary btn-xs">系统设置</button></a>
-  <a href="<?php echo Yii::app()->createUrl('user/list',array('table'=>'questions'));?>"><button type="button" class="btn btn-warning btn-xs">意见反馈或咨询</button></a>
-</p>
+  <?php $userAside=Users::userAside($this->uid,array('user_homepage','user_stat','user_addquestion','user_setting'));if(!empty($userAside)){?>
+    <h4>快捷功能</h4>
+    <p>
+    <?php foreach($userAside as $ua){?>
+    <?php echo preg_replace("/class=\".*?\"/", "class=\"btn btn-info btn-xs\"", $ua['url']);?>
+    <?php }?>
+    </p>
+  <?php }?>
 </div>

@@ -1,5 +1,7 @@
 <div class="form">
 <?php 
+$status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addcomments'));
+if($status){
 $model=new Comments();
 $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'comments-addcomment-form',
@@ -49,5 +51,9 @@ $form=$this->beginWidget('CActiveForm', array(
         ),array('class'=>'btn btn-primary')); ?>
     </p>
 </div> 
-<?php $this->endWidget(); ?>
+<?php $this->endWidget(); }else{?>
+    <div class="alert alert-danger">
+        非常抱歉，您暂不能参与评论。
+    </div>
+<?php }?>
 </div>

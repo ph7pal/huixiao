@@ -46,7 +46,8 @@
 </div>
 <?php }?>
 <div class="clearfix"></div>
-<?php if($page['secretinfo']!=''){?>
+<?php
+if($page['secretinfo']!=''){?>
 <div class="well well-sm">
     <?php echo $page['secretinfo'];?>
 </div>

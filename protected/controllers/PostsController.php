@@ -76,8 +76,11 @@ class PostsController extends T {
         $this->uid = $info['uid'];
         $_sql = 'SELECT id,title FROM {{posts}} WHERE colid=' . $colinfo['id'] . ' AND  id!=' . $keyid . ' AND status=' . Posts::STATUS_PASSED;
         Posts::getAll(array('sql' => $_sql), $_page, $likes);
-        if ($info['secretinfo'] != '') {
+        $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seesecretinfo'));
+        if ($info['secretinfo'] != '' && $status) {
             $info['secretinfo'] = tools::jieMi($info['secretinfo']);
+        }else{
+            $info['secretinfo']='';
         }
         $data = array(
             'preInfo' => $preInfo,

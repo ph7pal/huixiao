@@ -62,8 +62,8 @@ class Users extends CActiveRecord {
             'login_count' => '登录次数',
             'status' => '用户状态',
             'cTime' => '创建时间',
-            'emailstatus'=>'邮箱状态',
-            'system'=>'是否系统'
+            'emailstatus' => '邮箱状态',
+            'system' => '是否系统'
         );
     }
 
@@ -115,17 +115,18 @@ class Users extends CActiveRecord {
             return $info;
         }
     }
+
     public static function miniTopBar() {
         $c = Yii::app()->getController()->id;
-        $a = Yii::app()->getController()->getAction()->id;        
+        $a = Yii::app()->getController()->getAction()->id;
         $type = $_GET['type'];
         $table = $_GET['table'];
         $longstr = '';
         if ($a == 'config') {
             $arr = array(
                 'base' => '基本',
-                'siteinfo'=>'站点',
-                'template'=>'模板',
+                'siteinfo' => '站点',
+                'template' => '模板',
                 'column' => '板块',
             );
             foreach ($arr as $k => $v) {
@@ -139,30 +140,108 @@ class Users extends CActiveRecord {
                 $longstr.='<li><a class="' . $css . '" href="' . Yii::app()->createUrl('user/config', $arr) . '">' . $v . '</a></li>';
             }
         } elseif ($a == 'list') {
-            $colid = $_GET['colid'];            
-            if($table=='ads'){
+            $colid = $_GET['colid'];
+            if ($table == 'ads') {
                 $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'ads')) . '">列表</a></li>';
                 $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/addads') . '">新增</a></li>';
-            }elseif($table=='comments'){                
-            }else{
+            } elseif ($table == 'comments') {
+                
+            } else {
                 $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('colid' => $colid)) . '">列表</a></li>';
                 $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
             }
-            
         } elseif ($a == 'add') {
             $colid = $_GET['colid'];
             $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/list', array('colid' => $colid)) . '">列表</a></li>';
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
         } elseif ($c == 'users') {
             
-        }elseif($a=='index' || $a=='update' || $a=='credit'){
+        } elseif ($a == 'index' || $a == 'update' || $a == 'credit') {
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/update') . '">修改资料</a></li>';
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/credit') . '">认证信息</a></li>';
-        }elseif ($a == 'addads') {
+        } elseif ($a == 'addads') {
             $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/list', array('table' => 'ads')) . '">列表</a></li>';
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/addads') . '">新增</a></li>';
         }
         echo $longstr;
+    }
+
+    public static function userAside($uid,$return=array()) {
+        if (!$uid) {
+            return false;
+        }
+        if(!empty($return)){
+            $_str=  join('-', $return);
+        }else{
+            $_str='';
+        }
+        $cacheKey="userAside{$uid}{$_str}";        
+        $bar=zmf::getFCache($cacheKey);
+        if($bar){
+            return $bar;
+        }
+        $bar = array();        
+        $bar['user_setting'] = array(
+            'url' => CHtml::link('设置', array('user/config'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'config' ? 'current' : ''))),
+            'power' => 'user_setting'
+        );
+        $bar['user_ads'] = array(
+            'url' => CHtml::link('轮播', array('user/list', 'table' => 'ads'), array('class' => 'list_btn ' . ($_GET['table'] == 'ads' ? 'current' : ''))),
+            'power' => 'user_ads'
+        );
+        $columns = Columns::userColumns($uid);
+        if (!empty($columns)) {
+            foreach ($columns as $val) {
+                $bar[$val['title']] = array(
+                    'url' => CHtml::link($val['title'], array('user/list', 'colid' => $val['id']), array('class' => 'list_btn ' . ($_GET['colid'] == $val['id'] ? 'current' : ''))),
+                    'power' => 'user_addposts'
+                );
+            }
+        }
+        $bar['user_checkcomments'] = array(
+            'url' => CHtml::link('评论', array('user/list', 'table' => 'comments'), array('class' => 'list_btn ' . ($_GET['table'] == 'comments' ? 'current' : ''))),
+            'power' => 'user_checkcomments'
+        );
+        $bar['user_addquestion'] = array(
+            'url' => CHtml::link('客服', array('user/list', 'table' => 'questions'), array('class' => 'list_btn ' . ($_GET['table'] == 'questions' ? 'current' : ''))),
+            'power' => 'user_addquestion'
+        );
+        $bar['user_stat'] = array(
+            'url' => CHtml::link('表盘', array('user/stat'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'stat' ? 'current' : ''))),
+            'power' => 'user_stat'
+        );
+        $bar['user_homepage'] = array(
+            'url' => CHtml::link('主页', array('mobile/index', 'uid' => $uid), array('class' => 'list_btn ', 'target' => '_blank')),
+            'power' => 'user_homepage'
+        );          
+        foreach($bar as $key=>$val){
+            if(!empty($return)){
+                if(!in_array($key,$return)){
+                    unset($bar[$key]);
+                    continue;
+                }
+            }            
+            $_info=T::checkYesOrNo(array('uid'=>$uid,'type'=>$val['power']));
+            if(!$_info){
+                unset($bar[$key]);
+            }
+        }
+        zmf::setFCache($cacheKey, $bar,3600);
+        return $bar;
+        
+        
+//        $bar[] = array(
+//            'url' => '',
+//            'power' => ''
+//        );
+//        $bar[]=array(
+//            'url'=>'',
+//            'power'=>''
+//        );
+//        $bar[]=array(
+//            'url'=>'',
+//            'power'=>''
+//        );
     }
 
 }

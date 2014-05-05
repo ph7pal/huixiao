@@ -10,18 +10,18 @@ class AttachmentsController extends T {
 
     public function actionUpload() {
         $uptype = zmf::filterInput($_GET['type'], 't', 1);
-        $classify=zmf::filterInput($_GET['classify'], 't', 1);
-        if (!isset($uptype) OR !in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts','logo','credit'))) {
+        $classify = zmf::filterInput($_GET['classify'], 't', 1);
+        if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit'))) {
             $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
         }
         $logid = zmf::filterInput($_GET['id']);
         if (!isset($logid) OR empty($logid)) {
-        	if($uptype!='logo'){
-        		$this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
-        		}
+            if ($uptype != 'logo') {
+                $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+            }
         }
-        if($uptype=='credit'){
-            if(!$classify){
+        if ($uptype == 'credit') {
+            if (!$classify) {
                 $this->jsonOutPut(0, '不允许的分类');
             }
         }
@@ -33,12 +33,16 @@ class AttachmentsController extends T {
         if (Yii::app()->user->isGuest) {
             $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
         }
+        $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addupload'));
+        if(!$status){
+            $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。');
+        }
         if (!isset($_FILES["filedata"]) || !is_uploaded_file($_FILES["filedata"]["tmp_name"]) || $_FILES["filedata"]["error"] != 0) {
             $this->jsonOutPut(0, '无效上传，请重试');
         }
         $model = new Attachments();
         $img = CUploadedFile::getInstanceByName('filedata');
-        $ext = $img->getExtensionName(); 
+        $ext = $img->getExtensionName();
         $size = $img->getSize();
         if ($size > zmf::config('imgMaxSize')) {
             $this->jsonOutPut(0, '上传文件最大尺寸为：' . tools::formatBytes(zmf::config('imgMaxSize')));
@@ -50,7 +54,7 @@ class AttachmentsController extends T {
         $sizeinfo = getimagesize($_FILES["filedata"]["tmp_name"]);
         if ($sizeinfo['0'] < zmf::config('imgMinWidth') OR $sizeinfo[1] < zmf::config('imgMinHeight')) {
             $this->jsonOutPut(0, "要求上传的图片尺寸，宽不能不小于" . zmf::config('imgMinWidth') . "px，高不能小于" . zmf::config('imgMinHeight') . "px.");
-        }        
+        }
         $dirs = zmf::uploadDirs($logid, 'app', $uptype);
         foreach ($dirs as $dir) {
             zmf::createUploadDir($dir . '/');
@@ -60,15 +64,15 @@ class AttachmentsController extends T {
         unset($dirs['origin']);
         if (move_uploaded_file($_FILES["filedata"]["tmp_name"], $origin . $fileName)) {
             $data = array();
-            if($uptype=='posts'){
-                $status=Posts::STATUS_DELED;
-            }else{
-                $status=Posts::STATUS_PASSED;
+            if ($uptype == 'posts') {
+                $status = Posts::STATUS_DELED;
+            } else {
+                $status = Posts::STATUS_PASSED;
             }
-            if($uptype=='credit'){
-                $fileDesc=$classify;
-            }else{
-                $fileDesc=$fileName;
+            if ($uptype == 'credit') {
+                $fileDesc = $classify;
+            } else {
+                $fileDesc = $fileName;
             }
             $data['uid'] = Yii::app()->user->id;
             $data['logid'] = $logid;
@@ -82,17 +86,17 @@ class AttachmentsController extends T {
             if ($model->validate()) {
                 if ($model->save()) {
                     $image = Yii::app()->image->load($origin . $fileName);
-                    $_quality=zmf::config('imgQuality');
-                    $quality=isset($quality) ? $quality:100;
+                    $_quality = zmf::config('imgQuality');
+                    $quality = isset($quality) ? $quality : 100;
                     foreach ($dirs as $dk => $_dir) {
                         $image->resize($dk, $dk)->quality($quality);
-                        $image->save($_dir . '/' . $fileName,false);
+                        $image->save($_dir . '/' . $fileName, false);
                     }
-                    if($uptype=='posts'){
-                        $imgsize=600;
-                    }else{
-                        $imgsize=124;
-                    }                    
+                    if ($uptype == 'posts') {
+                        $imgsize = 600;
+                    } else {
+                        $imgsize = 124;
+                    }
                     $returnimg = zmf::uploadDirs($logid, 'site', $uptype, $imgsize) . '/' . $fileName;
                     //zmf::delCache("attachTotal{$logid}");
                     //UserController::recordAction($model->id,'uploadimg','client');                                         
@@ -111,27 +115,31 @@ class AttachmentsController extends T {
 
     public function actionDelUploadImg($_attachid = '') {
         if (!empty($_attachid)) {
-            $attachid = $_attachid;            
+            $attachid = $_attachid;
         } else {
-            $attachid = zmf::filterInput($_POST['attachid'],'t',1);
+            $attachid = zmf::filterInput($_POST['attachid'], 't', 1);
         }
         //$attachid=tools::jieMi($attachid);
-//        if(H::checkPower('delattachments')){
-//            $admin=true;
-//        }else{
-//            $admin=false;
-//        }
         if (!Yii::app()->request->isAjaxRequest) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
         }
         if (Yii::app()->user->isGuest) {
             $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
         }
+        if(T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'delattachments'))){
+            $admin=true;
+        }else{
+            $admin=false;
+        }
+        $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_delupload'));
+        if(!$status AND !$admin){
+            $this->jsonOutPut(0, '非常抱歉，您暂不能删除图片。');
+        }
         $info = Attachments::model()->findByPk($attachid);
         if (!$info) {
             $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
         }
-        if ($info['uid'] != Yii::app()->user->id AND !$admin) {
+        if ($info['uid'] != Yii::app()->user->id AND ! $admin) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
         }
         if ($info['classify'] == 'coverimg') {

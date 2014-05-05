@@ -28,9 +28,9 @@
           <span><?php echo $score['num'];?></span>
         </div>
       </div>
-
+  <?php }?>
   <?php $this->renderPartial('//common/dialog');?>
-  <?php }}?>       
+  <?php }?>       
 </div>
 </div>
 
