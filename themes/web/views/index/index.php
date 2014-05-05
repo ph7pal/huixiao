@@ -9,7 +9,11 @@
 <div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">    
     <div class="panel panel-default">
         <div class="panel-heading">            
-            <h3 class="panel-title"><?php echo $ic['colinfo']['title'];?><small><?php echo strtoupper($ic['colinfo']['name']);?></small></h3>
+            <h3 class="panel-title">
+                <?php echo $ic['colinfo']['title'];?>
+                <small><?php echo strtoupper($ic['colinfo']['name']);?></small>
+                <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$ic['colinfo']['id']));?></span>
+            </h3>
         </div>
         <div class="panel-body">
           <div class="con">

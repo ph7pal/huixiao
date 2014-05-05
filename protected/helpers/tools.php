@@ -294,5 +294,70 @@ class tools {
             return 'success';
         }
     }
+    
+    public static function userCredits($return=''){
+        $arr = array();
+        $arr[] = array(
+            'title' => '生产厂家',
+            'css' => 'info',
+            'type' => 'producer',            
+        );
+        $arr[] = array(
+            'title' => '厂家客服',
+            'css' => 'info',
+            'type' => 'pro_service',            
+        );
+        $arr[] = array(
+            'title' => '经销商',
+            'css' => 'info',
+            'type' => 'dealer',            
+        );
+        $arr[] = array(
+            'title' => '代理商',
+            'css' => 'info',
+            'type' => 'agent',            
+        );
+        $arr[] = array(
+            'title' => '讲师',
+            'css' => 'info',
+            'type' => 'lecturer',            
+        );
+        $arr[] = array(
+            'title' => '营销团队',
+            'css' => 'info',
+            'type' => 'marketing_team',            
+        );    
+        $arr[] = array(
+            'title' => '行业杂志',
+            'css' => 'info',
+            'type' => 'trade_magazine',            
+        );    
+        $arr[] = array(
+            'title' => '行业网站',
+            'css' => 'info',
+            'type' => 'trade_website',            
+        );    
+        $arr[] = array(
+            'title' => '行业会展',
+            'css' => 'info',
+            'type' => 'exhibition',            
+        );   
+        $arr[] = array(
+            'title' => '个人',
+            'css' => 'info',
+            'type' => 'personal',            
+        ); 
+        if ($return != '') {
+            //return $arr[$return];
+            foreach($arr as $list){
+                if($list['type']==$return){
+                    return $list;
+                    break;
+                }
+            }
+        } else {
+            return $arr;
+        }
+    }
 
 }

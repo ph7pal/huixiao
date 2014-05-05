@@ -38,6 +38,10 @@ class zmf {
             return $settings;
         }
     }
+    
+    public static function delUserConfig($uid){
+        self::delFCache("userSettings{$uid}");
+    }
 
     public static function subStr($string, $sublen = 20, $start = 0, $separater = '...') {
         $code = 'UTF-8';
@@ -464,7 +468,9 @@ class zmf {
         $positions = array(
             'topbar' => '导航条',
             'main' => '主页面',
-            'footer' => '页脚'
+            'footer' => '页脚',
+            'regpage'=>'注册页面',
+            'logpage'=>'登录页面',
         );
         if ($return != '') {
             return $positions[$return];
@@ -900,19 +906,12 @@ class zmf {
             $arr[]=array('title'=>$ginfo,'css'=>  tools::exStatusToClass(1, true));
             $arr[]=array('title'=>'邮箱验证','css'=>  tools::exStatusToClass($uinfo['emailstatus'], true));
         }elseif($type=='score'){
-            $total=134;
+            $data=Favor::getScore($uid);            
             $arr[]=array(
-                'title'=>'经销商评价',
-                'css'=>  tools::calScoreCss(42),
-                'num'=>'42',
-                'width'=> 42 ,
-                'url'=>''
-                );
-            $arr[]=array(
-                'title'=>'用户评价',
-                'css'=>  tools::calScoreCss(92),
-                'num'=>'92',
-                'width'=>92,
+                'title'=>'评价('.$data['scorer'].')',
+                'css'=>  tools::calScoreCss($data['score']),
+                'num'=>$data['score'],
+                'width'=>$data['score'],
                 'url'=>''
                 );
         }

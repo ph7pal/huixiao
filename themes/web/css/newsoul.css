@@ -33,9 +33,8 @@ a:hover.move { background-position: 100% -44px; }
     margin-bottom: 10px;
 }
 #content {
-    min-height: 500px;
-    _height: 500px;
-    padding-bottom: 50px;
+    min-height: 400px;
+    _height: 400px;    
     background: #fff;
     margin-bottom: .8em;
 }
@@ -137,14 +136,6 @@ a:hover.move { background-position: 100% -44px; }
 .nav-items li.on a, .nav-items li.on a:link, .nav-items li.on a:visited {
     color: #4e4e4e;
     padding: 1px 14px 0;
-}
-
-/*content*/
-#content {
-    min-height: 500px;
-    _height: 500px;
-    padding-bottom: 50px;
-    background: #fff;
 }
 .main {
     float: left;
@@ -659,4 +650,29 @@ display: inline-block;
     margin-right: 0;
     font-size: 12px;
     
+}
+.errorSummary
+{
+    border:2px solid #C00;
+    background:#FEE;
+    font-size:.9em;
+    margin:0 0 20px;
+    padding:7px 7px 12px;
+}
+
+.errorSummary p
+{
+    margin:0;
+    padding:5px;
+}
+
+.errorSummary ul
+{
+    color:red;
+    margin:0;
+    padding:0 0 0 20px;
+}
+span.required,.errorMessage
+{
+    color:red;
 }

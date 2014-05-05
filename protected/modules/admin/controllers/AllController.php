@@ -14,34 +14,39 @@ class AllController extends H {
         $colid = zmf::filterInput($_GET['colid']);
         $uid = zmf::filterInput($_GET['uid']);
         $groupid = zmf::filterInput($_GET['groupid']);
-        $where = array();
-        if ($type != '') {
-            $where['status'] = "status=" . tools::exStatus($type);
+        if ($table != 'credit') {
+            $where = array();
+            if ($type != '') {
+                $where['status'] = "status=" . tools::exStatus($type);
+            }
+            if ($colid) {
+                $where['colid'] = 'colid=' . $colid;
+            }
+            if ($uid) {
+                $where['uid'] = 'uid=' . $uid;
+            }
+            if ($groupid) {
+                $where['groupid'] = 'groupid=' . $groupid;
+            }
+            $_where = '';
+            if ($table == 'user_action') {
+                unset($where['colid']);
+                unset($where['status']);
+                unset($where['groupid']);
+            } elseif ($table == 'columns') {
+                unset($where['colid']);
+                unset($where['status']);
+                unset($where['uid']);
+                unset($where['groupid']);
+            }
+            if (!empty($where)) {
+                $_where = ' WHERE ' . join(' AND ', $where);
+            }
+
+            $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY id DESC";
+        }else{
+            $sql = "SELECT DISTINCT(uid) FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=".tools::exStatus($type)." ORDER BY id DESC";
         }
-        if ($colid) {
-            $where['colid'] = 'colid=' . $colid;
-        }
-        if ($uid) {
-            $where['uid'] = 'uid=' . $uid;
-        }
-        if ($groupid) {
-            $where['groupid'] = 'groupid=' . $groupid;
-        }
-        $_where = '';
-        if ($table == 'user_action') {
-            unset($where['colid']);
-            unset($where['status']);
-            unset($where['groupid']);
-        }elseif($table=='columns'){
-            unset($where['colid']);
-            unset($where['status']);
-            unset($where['uid']);
-            unset($where['groupid']);
-        }
-        if (!empty($where)) {
-            $_where = ' WHERE ' . join(' AND ', $where);
-        }
-        $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY id DESC";
         Posts::getAll(array('sql' => $sql), $pages, $items);
         $data = array(
             'table' => $table,
@@ -53,6 +58,8 @@ class AllController extends H {
             $this->render("/users/group", $data);
         } elseif ($table == 'user_action') {
             $this->render("/users/records", $data);
+        }elseif($table=='credit'){
+            $this->render("/users/credit", $data);
         } else {
             $this->render("/$table/index", $data);
         }
@@ -89,6 +96,9 @@ class AllController extends H {
                 break;
             case 'user_action':
                 $title = '操作记录';
+                break;
+            case 'credit':
+                $title = '用户认证';
                 break;
         }
         $this->listTableTitle = $title;

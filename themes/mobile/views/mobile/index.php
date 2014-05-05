@@ -85,7 +85,7 @@ if(!empty($topads)){?>
     <h3 class="panel-title"><?php echo $colinfo['title'];?></h3>
   </div>
   <div class="panel-body">    
-    <?php $this->renderPartial('/mobile/miniPage',array('colid'=>$colinfo['id']));?>
+    <?php $this->renderPartial('//common/miniPage',array('colid'=>$colinfo['id']));?>
   </div>
 </div>
 <?php }?>    

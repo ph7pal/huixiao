@@ -5,14 +5,14 @@
     <?php echo $notice;?>
 </div>
 <?php }?>
-<?php if($this->noticeInfo!=''){?>
-<div class="alert alert-danger">
-    <?php echo $this->noticeInfo;?>
-</div>
-<?php }?>
 <?php if($this->validateEmail!=''){?>
 <div class="alert alert-danger">
     <?php echo $this->validateEmail;?>
+</div>
+<?php }?>
+<?php if($this->noticeInfo!=''){?>
+<div class="alert alert-danger">
+    <?php echo $this->noticeInfo;?>
 </div>
 <?php }?>
 <table class="table table-hover">

@@ -10,7 +10,8 @@ class AttachmentsController extends T {
 
     public function actionUpload() {
         $uptype = zmf::filterInput($_GET['type'], 't', 1);
-        if (!isset($uptype) OR !in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts','logo'))) {
+        $classify=zmf::filterInput($_GET['classify'], 't', 1);
+        if (!isset($uptype) OR !in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts','logo','credit'))) {
             $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
         }
         $logid = zmf::filterInput($_GET['id']);
@@ -18,6 +19,11 @@ class AttachmentsController extends T {
         	if($uptype!='logo'){
         		$this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
         		}
+        }
+        if($uptype=='credit'){
+            if(!$classify){
+                $this->jsonOutPut(0, '不允许的分类');
+            }
         }
         if (Yii::app()->request->getParam('PHPSESSID')) {
             Yii::app()->session->close();
@@ -59,10 +65,15 @@ class AttachmentsController extends T {
             }else{
                 $status=Posts::STATUS_PASSED;
             }
+            if($uptype=='credit'){
+                $fileDesc=$classify;
+            }else{
+                $fileDesc=$fileName;
+            }
             $data['uid'] = Yii::app()->user->id;
             $data['logid'] = $logid;
             $data['filePath'] = $fileName;
-            $data['fileDesc'] = $fileName;
+            $data['fileDesc'] = $fileDesc;
             $data['classify'] = $uptype;
             $data['covered'] = '0';
             $data['cTime'] = time();
@@ -105,11 +116,11 @@ class AttachmentsController extends T {
             $attachid = zmf::filterInput($_POST['attachid'],'t',1);
         }
         //$attachid=tools::jieMi($attachid);
-        if(H::checkPower('delattachments')){
-            $admin=true;
-        }else{
-            $admin=false;
-        }
+//        if(H::checkPower('delattachments')){
+//            $admin=true;
+//        }else{
+//            $admin=false;
+//        }
         if (!Yii::app()->request->isAjaxRequest) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
         }

@@ -32,7 +32,7 @@ $form=$this->beginWidget('CActiveForm', array(
 <div class="buttons">
     <p>
     <span id="loader"></span>
-    <?php echo CHtml::ajaxSubmitButton('提交',$this->createUrl('mobile/comment',array('id'=>$keyid,'type'=>$type,'uid'=>$this->uid)),
+    <?php echo CHtml::ajaxSubmitButton('提交',$this->createUrl('mobile/comment',array('id'=>$keyid,'type'=>$type,'uid'=>Yii::app()->user->id)),
         array(
             'beforeSend'=>'function(){
             //loading("loader",0);
