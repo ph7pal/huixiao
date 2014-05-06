@@ -359,5 +359,23 @@ class tools {
             return $arr;
         }
     }
+    
+    /**
+     * 栏目的滚动显示方式 
+     * @param type $return
+     * @return string
+     */
+    public static function rollstyle($return = '') {
+        $arr = array(
+            0 => '无',
+            'updown' => '上下',
+            'left' => '左右',            
+        );
+        if ($return != '') {
+            return $arr[$return];
+        } else {
+            return $arr;
+        }
+    }
 
 }

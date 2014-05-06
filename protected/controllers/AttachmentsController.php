@@ -35,7 +35,10 @@ class AttachmentsController extends T {
         }
         $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addupload'));
         if(!$status){
-            $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。');
+            $_status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'upload'),true,true,true);
+            if(!$_status){
+                $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。--'.Yii::app()->user->id);
+            }
         }
         if (!isset($_FILES["filedata"]) || !is_uploaded_file($_FILES["filedata"]["tmp_name"]) || $_FILES["filedata"]["error"] != 0) {
             $this->jsonOutPut(0, '无效上传，请重试');

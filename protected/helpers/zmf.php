@@ -144,8 +144,16 @@ class zmf {
         return self::config('baseurl') . 'attachments/' . $type . '/' . $imgtype . '/' . $logid . '/' . $filepath;
     }
 
-    public static function noImg($type = '') {
-        return CHtml::image(self::config('baseurl') . 'common/images/noimg.png', '暂无图片');
+    public static function noImg($type = '', $altTitle = '暂无图片', $size = 124) {
+        if (!isset($size)) {
+            $size = 124;
+        }
+        $url = self::config('baseurl') . 'common/images/nopic_' . $size . '.gif';
+        if ($type == 'url') {
+            return $url;
+            exit();
+        }
+        return CHtml::image($url, $altTitle);
     }
 
     public static function avatar($uid, $type = 'small', $urlonly = false) {

@@ -167,6 +167,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
 //        if($ckinfo){
 //            return $ckinfo;
 //        }
+
         if (Yii::app()->user->isGuest) {
             $info = Yii::t('default', 'loginfirst');
             if ($return) {
@@ -229,8 +230,9 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if ($type == 'login') {
             return true;
         }
-        $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));
+        $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));        
         if (!$power) {
+            zmf::test($power);
             $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作';
             if ($return) {
                 return false;
@@ -240,17 +242,18 @@ html,body,div,p,a,h3{margin:0;padding:0;}
                 $this->jsonOutPut(0, $info);
             }
         }
-        return true;
+        return TRUE;
     }
 
     /**
      * 检查用户的权限，只返回true or false
      */
-    public function checkYesOrNo($type) {
+    public function checkYesOrNo($type,$json = false, $return = false, $isAdmin = true) {
         if (!$type) {
             return false;
-        }
-        T::checkPower($type, false, true, false);
+        }        
+        $re=T::checkPower($type, $json, $return, $isAdmin);
+        return $re;
     }
 
 }

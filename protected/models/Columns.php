@@ -18,14 +18,14 @@ class Columns extends CActiveRecord {
         return array(
             array('title, position', 'required'),
             array('status , system,listnum,groupid', 'numerical', 'integerOnly' => true),
-            array('belongid, attachid, order, hits, cTime,groupid', 'length', 'max' => 10),
+            array('belongid, attachid, order, hits, cTime,groupid,rollstyle', 'length', 'max' => 10),
             array('name, title, second_title', 'length', 'max' => 100),
             array('classify, position', 'length', 'max' => 32),
             array('url,listcondition', 'length', 'max' => 255),
             array('url,listnum', 'length', 'max' => 3),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition,groupid', 'safe', 'on' => 'search'),
+            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition,groupid,rollstyle', 'safe', 'on' => 'search'),
         );
     }
 
@@ -61,6 +61,7 @@ class Columns extends CActiveRecord {
             'listnum' => '显示条数',
             'listcondition' => '显示条件',
             'groupid' => '对应用户组',
+            'rollstyle'=>'滚动方式',
         );
     }
 
@@ -86,6 +87,7 @@ class Columns extends CActiveRecord {
         $criteria->compare('listnum', $this->listnum, true);
         $criteria->compare('listcondition', $this->listcondition, true);
         $criteria->compare('groupid', $this->groupid, true);
+        $criteria->compare('rollstyle', $this->rollstyle, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
