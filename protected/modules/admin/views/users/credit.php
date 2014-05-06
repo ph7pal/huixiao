@@ -4,7 +4,7 @@
     <td>操作</td>
 </tr>
 <?php foreach ($posts as $row): ?> 
-    <tr>
+    <tr <?php tools::exStatusToClass($row['value']);?>>
         <td><?php echo tools::url(Users::getUserInfo($row['uid'], 'truename'),'all/list',array('table'=>$table,'uid'=>$row['uid'])); ?></td>
         <td>
             <?php 

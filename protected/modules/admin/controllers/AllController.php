@@ -45,7 +45,7 @@ class AllController extends H {
 
             $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY id DESC";
         }else{
-            $sql = "SELECT DISTINCT(uid) FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=".tools::exStatus($type)." ORDER BY id DESC";
+            $sql = "SELECT DISTINCT(uid),`value` FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=".tools::exStatus($type)." ORDER BY id DESC";
         }
         Posts::getAll(array('sql' => $sql), $pages, $items);
         $data = array(

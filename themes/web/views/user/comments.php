@@ -16,7 +16,12 @@
            ?>
            <?php echo $row['content']; ?>
            <?php echo date('Y-m-d H:i', $row['cTime']); ?>            
-           <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>
+           <?php 
+           $status = T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_delcomments'));
+           if($status){
+               echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); 
+           }           
+           ?>
         </td>
     </tr>
 <?php endforeach; ?>
