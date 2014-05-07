@@ -876,6 +876,8 @@ class zmf {
                     if (!empty($_tmptmp) && count($_tmptmp) == 2) {
                         unset($_tmparr[1]);
                     }
+                }elseif(stripos($_tmparr[1], 'newcredit') !== false){
+                    
                 }
                 $_tmparr = array_merge($_tmparr, $_tmptmp);
                 if ($idsOnly) {
@@ -883,21 +885,25 @@ class zmf {
                 } else {
                     $data = array();
                     $data['colnum'] = $_tmparr[0];
-                    if ($_tmparr[1] != 'ads') {
-                        $data['colinfo'] = Columns::getOne($_tmparr[1]);
-                        $data['coltype'] = 'column';
-                    } else {
+                    if ($_tmparr[1] == 'ads') {                        
                         $data['coltype'] = 'ads';
                         if (is_numeric($_tmparr[2])) {
                             $data['colinfo'] = Ads::getOne($_tmparr[2]);
                         } else {
                             $data['colinfo'] = '';
                         }
+                    }elseif ($_tmparr[1] == 'newcredit') { 
+                        $data['colinfo'] = '';
+                        $data['coltype'] = 'newcredit';                        
+                    } else {                        
+                        $data['colinfo'] = Columns::getOne($_tmparr[1]);
+                        $data['coltype'] = 'column';
                     }
                     $total[] = $data;
                 }
             }
         }
+        //zmf::test($total);
         return $total;
     }
 

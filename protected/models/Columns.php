@@ -323,6 +323,7 @@ class Columns extends CActiveRecord {
     public function indexPageCols() {
         $cols = Columns::allCols();
         $cols['ads'] = '广告展示';
+        $cols['newcredit'] = '最新认证';
         return $cols;
     }
 

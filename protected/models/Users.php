@@ -176,7 +176,7 @@ class Users extends CActiveRecord {
             $_str='';
         }
         $cacheKey="userAside{$uid}{$_str}";        
-        $bar=zmf::getFCache($cacheKey);
+        //$bar=zmf::getFCache($cacheKey);
         if($bar){
             return $bar;
         }
@@ -221,7 +221,7 @@ class Users extends CActiveRecord {
                     continue;
                 }
             }            
-            $_info=T::checkYesOrNo(array('uid'=>$uid,'type'=>$val['power']));
+            $_info=T::checkYesOrNo(array('uid'=>$uid,'type'=>$val['power']));            
             if(!$_info){
                 unset($bar[$key]);
             }

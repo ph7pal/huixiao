@@ -50,7 +50,7 @@ class T extends CController {
         }
     }
 
-    static public function message($action = 1, $content = '', $redirect = 'javascript:history.back(-1);', $timeout = 3) {
+    static public function message($action = 1, $content = '', $redirect = 'javascript:history.back(0);', $timeout = 3) {
 
         switch ($action) {
             case 1:
@@ -73,7 +73,7 @@ class T extends CController {
                 break;
             case 'script':
                 if (empty($redirect)) {
-                    exit('<script language="javascript">alert("' . $content . '");window.history.back(-1)</script>');
+                    exit('<script language="javascript">alert("' . $content . '");window.history.back(0)</script>');
                 } else {
                     exit('<script language="javascript">alert("' . $content . '");window.location=" ' . $redirect . '   "</script>');
                 }
@@ -173,7 +173,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (Yii::app()->user->isGuest) {
             $info = Yii::t('default', 'loginfirst');
             if ($return) {
-                return -1;
+                return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/login'));
             } else {
@@ -186,7 +186,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$userinfo) {
             $info = '不存在的用户，请核实';
             if ($return) {
-                return -1;
+                return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
@@ -197,7 +197,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$gid) {
             $info = '您在组织之外，请设置用户组！';
             if ($return) {
-                return -1;
+                return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->baseUrl);
             } else {
@@ -208,7 +208,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$groupinfo) {
             $info = '您所在用户组不存在，请核实';
             if ($return) {
-                return -1;
+                return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
@@ -221,7 +221,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
             if (!in_array($gid, $arr)) {
                 $info = '您好像发现了新大陆，但该地区为禁区！'.$type;
                 if ($return) {
-                    return -1;
+                    return 0;
                 } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                     $this->message(0, $info, Yii::app()->baseUrl);
                 } else {
@@ -234,9 +234,9 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
         $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));        
         if (!$power) {
-            $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作';
+            $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作'.$type;
             if ($return) {
-                return -1;
+                return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info);
             } else {

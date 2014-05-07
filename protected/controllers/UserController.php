@@ -146,7 +146,7 @@ class UserController extends T {
         if ($type == 'column') {
 //            $configs = Columns::model()->findAll();
             $configs = Columns::model()->findAll(array(
-                'condition' => 'system=0 AND groupid=' . $this->userInfo['groupid'],
+                'condition' => 'groupid=' . $this->userInfo['groupid'],
             ));
             $items = CHtml::listData($configs, 'id', 'title');
         }
@@ -214,9 +214,9 @@ class UserController extends T {
             $table = 'posts';
         }
         if ($table == 'comments') {
-            $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
-        } else {
             $this->checkPower(array('uid' => $this->uid, 'type' => 'user_checkcomments', 'url' => $this->homeUrl));
+        } else {
+            $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
         }
         $where = 'WHERE uid=' . $this->uid . ' AND status=' . Posts::STATUS_PASSED;
         if ($colid) {

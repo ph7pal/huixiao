@@ -1,10 +1,19 @@
 <?php if(!empty($indexCols)){?>
 <?php $colsNum=0;$echoDiv=false;foreach($indexCols as $key=>$ic){?>
-<?php if(!empty($ic['colinfo'])){?>
-<?php if($ic['coltype']!='ads'){?>
 <?php if($colsNum!=12 && !$echoDiv){$echoDiv=true;?>
 <div class="row">
 <?php }?>
+<?php if($ic['coltype']=='ads'){?>
+<?php if(!empty($ic['colinfo'])){?>
+<div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">
+<?php $this->renderPartial('/posts/ads',array('data'=>$ic['colinfo']));?>
+</div>
+<?php }?>
+<?php }elseif($ic['coltype']=='newcredit'){?>
+<?php $this->renderPartial('//module/newcredit',array('colnum'=>$ic['colnum']));?>
+
+<?php }else{?>
+<?php if(!empty($ic['colinfo'])){?>
 <?php $colsNum+=$ic['colnum'];?>
 <div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">    
     <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
@@ -34,14 +43,10 @@
         </div>
     </div>    
 </div>
+<?php }?>
+<?php }?>
 <?php if($colsNum==12){$colsNum=0;$echoDiv=false;?>
 </div>
-<?php }?>
-<?php }else{?>
-<div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">
-<?php $this->renderPartial('/posts/ads',array('data'=>$ic['colinfo']));?>
-</div>
-<?php }?>
 <?php }?>
 <?php }?>
 <?php }?>

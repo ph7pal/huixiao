@@ -41,6 +41,8 @@ class ConfigController extends H {
                     if($colIds[$ke]=='ads'){
                         $total[] = $ic . '@' . $colIds[$ke].'|'.$adsIds[$y];
                         $y++;
+                    }elseif($colIds[$ke]=='newcredit') {
+                        $total[] = $ic . '@' . $colIds[$ke];
                     }else{
                         $total[] = $ic . '@' . $colIds[$ke];
                     }

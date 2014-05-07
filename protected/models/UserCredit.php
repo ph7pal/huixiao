@@ -104,5 +104,12 @@ class UserCredit extends CActiveRecord {
         $info=UserCredit::model()->find('uid='.$uid);
         return $info;
     }
+    
+    public static function getNews(){
+        $sql = "SELECT DISTINCT(uid) FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=1 ORDER BY id DESC";
+        Posts::getAll(array('sql' => $sql), $pages, $items);
+        $items=  array_merge($items,$items);
+        return $items;
+    }
 
 }
