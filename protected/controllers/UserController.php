@@ -38,7 +38,7 @@ class UserController extends T {
         parent::init();
         $code = zmf::filterInput($_GET['code'], 't', 1);
         $this->seekey = zmf::config('authorPre');
-        if ($code != '' || isset(Yii::app()->session[$this->seekey])) {
+        if ($code != '' && isset(Yii::app()->session[$this->seekey])) {            
             if ($code == '') {
                 $code = Yii::app()->session[$this->seekey];
             }
@@ -75,7 +75,7 @@ class UserController extends T {
                 Yii::app()->end();
             }
             $this->checkUser(true);
-        }
+        }        
         $this->homeUrl = Yii::app()->createUrl('user/index');
     }
 
@@ -83,7 +83,7 @@ class UserController extends T {
         $redirect = false;
         $nolimit = 0;
         $a = Yii::app()->getController()->getAction()->id;
-        if (!T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_manage'))) {
+        if (!T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_manage'))) {            
             if (isset(Yii::app()->session[$this->seekey])) {
                 $this->noticeInfo = '您正在以管理员身份查看该用户';
                 return true;
@@ -128,7 +128,7 @@ class UserController extends T {
     public function actionIndex() {
         $data = array(
             'info' => $this->userInfo,
-        );
+        );        
         $this->render('index', $data);
     }
 

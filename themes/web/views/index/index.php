@@ -7,7 +7,7 @@
 <?php }?>
 <?php $colsNum+=$ic['colnum'];?>
 <div class="col-xs-<?php echo $ic['colnum'];?> col-md-<?php echo $ic['colnum'];?> moduleBox">    
-    <div class="panel panel-default">
+    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
         <div class="panel-heading">            
             <h3 class="panel-title">
                 <?php echo $ic['colinfo']['title'];?>

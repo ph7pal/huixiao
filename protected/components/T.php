@@ -17,6 +17,8 @@ class T extends CController {
     public $uid;
     public $userInfo;
     public $currentCol = array();
+    //模板有关，均已theme开头
+    public $theme_panelStyle='default';
 
     public function init() {
         if (!zmf::config('closeSite')) {
@@ -157,7 +159,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
     }
 
-    public function checkPower($type, $json = false, $return = false, $isAdmin = true) {
+    public function checkPower($type, $json = false, $return = false, $isAdmin = false) {
         if (is_array($type)) {
             $uid = $type['uid'];
             $type = $type['type'];
@@ -171,7 +173,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (Yii::app()->user->isGuest) {
             $info = Yii::t('default', 'loginfirst');
             if ($return) {
-                return false;
+                return -1;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/login'));
             } else {
@@ -184,7 +186,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$userinfo) {
             $info = '不存在的用户，请核实';
             if ($return) {
-                return false;
+                return -1;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
@@ -195,7 +197,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$gid) {
             $info = '您在组织之外，请设置用户组！';
             if ($return) {
-                return false;
+                return -1;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->baseUrl);
             } else {
@@ -206,7 +208,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         if (!$groupinfo) {
             $info = '您所在用户组不存在，请核实';
             if ($return) {
-                return false;
+                return -1;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info, Yii::app()->createUrl('site/logout'));
             } else {
@@ -217,9 +219,9 @@ html,body,div,p,a,h3{margin:0;padding:0;}
             $gids = zmf::config('adminGroupIds');
             $arr = explode(',', $gids);
             if (!in_array($gid, $arr)) {
-                $info = '您好像发现了新大陆，但该地区为禁区！';
+                $info = '您好像发现了新大陆，但该地区为禁区！'.$type;
                 if ($return) {
-                    return false;
+                    return -1;
                 } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                     $this->message(0, $info, Yii::app()->baseUrl);
                 } else {
@@ -232,23 +234,22 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
         $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));        
         if (!$power) {
-            zmf::test($power);
             $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作';
             if ($return) {
-                return false;
+                return -1;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
                 $this->message(0, $info);
             } else {
                 $this->jsonOutPut(0, $info);
             }
         }
-        return TRUE;
+        return 1;
     }
 
     /**
      * 检查用户的权限，只返回true or false
      */
-    public function checkYesOrNo($type,$json = false, $return = false, $isAdmin = true) {
+    public function checkYesOrNo($type,$json = true, $return = true, $isAdmin = false) {
         if (!$type) {
             return false;
         }        
