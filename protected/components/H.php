@@ -7,6 +7,7 @@ class H extends CController {
     public $listTableTitle; //当前查看列表的名称
 
     public function init() {
+        Yii::app()->setTimeZone('Asia/Chongqing');
         zmf::checkApp();
         $this->checkPower('login');
     }

@@ -24,6 +24,7 @@ class T extends CController {
         if (!zmf::config('closeSite')) {
             self::_closed();
         }
+        Yii::app()->setTimeZone('Asia/Chongqing');
         $this->_theme = Yii::app()->theme;
         $this->_themePath = str_replace(array('\\', '\\\\'), '/', Yii::app()->theme->basePath);
         $this->_gets = Yii::app()->request;

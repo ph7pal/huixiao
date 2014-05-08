@@ -295,7 +295,7 @@ class UsersController extends H {
         if ($atype == 1) {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
-            Users::model()->updadeByPk($touid,array('groupid'=>$groupid));
+            Users::model()->updateByPk($touid,array('groupid'=>$groupid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
         }

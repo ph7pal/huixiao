@@ -120,22 +120,40 @@ class Posts extends CActiveRecord {
         return parent::model($className);
     }
 
-    public function allPosts($colid, $limit = 10, $uid = '') {
-        $limit = isset($limit) ? $limit : 10;
+    public function allPosts($params, $limit = 10, $uid = '') {
+        $limit = ($limit>0 && $limit!='') ? $limit : 10;
         $uid = isset($uid) ? $uid : 0;
-        if (!$colid) {
+        if (!$params) {
             return false;
+        }        
+        if (is_array($params)) {
+            $colid = $params['colid'];
+            $condition=$params['condition'];
+            $_pre=join('-',$params);
+        } else {
+            $colid = $params;
+            $_pre=$colid;
+        }
+        $cachekey="allPosts-".$_pre.'-'.$limit.'-'.$uid;
+        $items=zmf::getFCache($cachekey);
+        if($items){
+            return $items;
         }
         $colstr = Columns::getColIds($colid);
         if (!$colstr) {
             return false;
-        }
+        }        
         $where = "WHERE colid IN($colstr)";
         if ($uid) {
             $where.=' AND uid=' . $uid;
         }
+        if($condition){
+            $condition=preg_replace("/where/i", "", $condition);
+            $where.=' AND ' . $condition;
+        }
         $sql = "SELECT * FROM {{posts}} {$where} AND status=1 LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
+        zmf::setFCache($cachekey, $items,60);
         return $items;
     }
 
@@ -209,7 +227,7 @@ class Posts extends CActiveRecord {
     }
 
     public static function suggestSearch($keyword, $limit = 20) {
-        if(!$keyword){            
+        if (!$keyword) {
             return false;
         }
         $con = array();
@@ -218,10 +236,10 @@ class Posts extends CActiveRecord {
                 'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
                 'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
-        }else{
+        } else {
             $con = array(
                 'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
-                'limit'=>$limit,                
+                'limit' => $limit,
                 'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
         }

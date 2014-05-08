@@ -1,6 +1,5 @@
 <?php 
-$colid=$colinfo['id'];
-$colitems = Posts::allPosts($colid); ?>
+$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition']),$colinfo['listnum']); ?>
 <ul>
     <?php if (!empty($colitems)) {
         foreach ($colitems as $ci) { ?>  
