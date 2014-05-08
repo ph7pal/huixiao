@@ -405,6 +405,7 @@ class zmf {
             $_width = $logid['imgwidth'];
             $tipid = $logid['tipid'];
             $altTitle = $logid['altTitle'];
+            $uid = $logid['uid'];
             $logid = $logid['keyid'];
         }
         if ($tipid) {
@@ -417,7 +418,6 @@ class zmf {
             $_detail = self::getFCache($cacheKey);
             if ($_detail) {
                 return $_detail;
-                exit();
             }
         }
         //$content = tools::addcontentlink($content);
@@ -434,35 +434,42 @@ class zmf {
         if (empty($match[1])) {
             return $content;
         }
+        $_status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seeattachments'));
         foreach ($match[1] as $key => $val) {
             //$thekey = tools::jieMi($match[1][$key]);
             $thekey = $match[1][$key];
-            $src = Attachments::model()->findByPk($thekey);
-            if ($src) {
-                if ($src['status'] != Posts::STATUS_PASSED) {
-                    continue;
-                }
-                $url = $src['filePath'];
-                $imgurl = self::imgurl($logid, $url, $size, $src['classify']);
-                $_imgurl = self::imgurl($logid, $url, $size, $src['classify'], 'upload');
-                $imginfo = self::myGetImageSize($_imgurl);
-                if ($_width != '' AND $_width > 0 AND $_width < $size) {
-                    $rate = $_width / $size;
-                    $width = floor($imginfo['width'] * $rate) . 'px';
-                    $height = floor($imginfo['height'] * $rate) . 'px';
+            if ($_status || $uid == Yii::app()->user->id) {
+                $src = Attachments::model()->findByPk($thekey);
+                if ($src) {
+                    if ($src['status'] != Posts::STATUS_PASSED) {
+                        continue;
+                    }
+                    $url = $src['filePath'];
+                    $imgurl = self::imgurl($logid, $url, $size, $src['classify']);
+                    $_imgurl = self::imgurl($logid, $url, $size, $src['classify'], 'upload');
+                    $imginfo = self::myGetImageSize($_imgurl);
+                    if ($_width != '' AND $_width > 0 AND $_width < $size) {
+                        $rate = $_width / $size;
+                        $width = floor($imginfo['width'] * $rate) . 'px';
+                        $height = floor($imginfo['height'] * $rate) . 'px';
+                    } else {
+                        $width = $imginfo['width'] . 'px';
+                        $height = $imginfo['height'] . 'px';
+                    }
+                    if ($lazyload) {
+                        //$imginfo = getimagesize($_imgurl);                    
+                        $imgurl = "<img src='" . self::config('baseurl') . "common/images/grey.gif' class='lazy thumbnail img-responsive' data-original='{$imgurl}' width='" . $width . "' alt='" . $altTitle . "' data='" . $match[1][$key] . "'/>";
+                    } else {
+                        //$imgurl = "<a href='" . self::imgurl($logid, $url, 'origin', $src['classify']) . "' target='_blank'><img src='{$imgurl}' width='" . $width . "' alt='" . $altTitle . "' data='" . $match[1][$key] . "' class='thumbnail img-responsive'/></a>";
+                        $imgurl = "<img src='{$imgurl}' width='" . $width . "' alt='" . $altTitle . "' data='" . $match[1][$key] . "' class='thumbnail img-responsive'/>";
+                    }
+                    $content = str_ireplace("{$match[0][$key]}", $imgurl, $content);
                 } else {
-                    $width = $imginfo['width'] . 'px';
-                    $height = $imginfo['height'] . 'px';
+                    $content = str_ireplace("{$match[0][$key]}", '', $content);
                 }
-                if ($lazyload) {
-                    //$imginfo = getimagesize($_imgurl);                    
-                    $imgurl = "<a href='" . self::imgurl($logid, $url, 'origin', $src['classify']) . "' target='_blank'><img src='" . self::config('baseurl') . "common/images/grey.gif' class='lazy thumbnail img-responsive' data-original='{$imgurl}' width='" . $width . "' alt='" . $altTitle . "' data='" . $match[1][$key] . "'/></a>";
-                } else {
-                    $imgurl = "<a href='" . self::imgurl($logid, $url, 'origin', $src['classify']) . "' target='_blank'><img src='{$imgurl}' width='" . $width . "' alt='" . $altTitle . "' data='" . $match[1][$key] . "' class='thumbnail img-responsive'/></a>";
-                }
-                $content = str_ireplace("{$match[0][$key]}", $imgurl, $content);
             } else {
-                $content = str_ireplace("{$match[0][$key]}", '', $content);
+                $_info = '<p class="alert alert-danger">您暂不能查看图片。</p>';
+                $content = str_ireplace("{$match[0][$key]}", $_info, $content);
             }
         }
         $_c = stripslashes($content);
@@ -876,7 +883,7 @@ class zmf {
                     if (!empty($_tmptmp) && count($_tmptmp) == 2) {
                         unset($_tmparr[1]);
                     }
-                }elseif(stripos($_tmparr[1], 'newcredit') !== false){
+                } elseif (stripos($_tmparr[1], 'newcredit') !== false) {
                     
                 }
                 $_tmparr = array_merge($_tmparr, $_tmptmp);
@@ -885,17 +892,17 @@ class zmf {
                 } else {
                     $data = array();
                     $data['colnum'] = $_tmparr[0];
-                    if ($_tmparr[1] == 'ads') {                        
+                    if ($_tmparr[1] == 'ads') {
                         $data['coltype'] = 'ads';
                         if (is_numeric($_tmparr[2])) {
                             $data['colinfo'] = Ads::getOne($_tmparr[2]);
                         } else {
                             $data['colinfo'] = '';
                         }
-                    }elseif ($_tmparr[1] == 'newcredit') { 
+                    } elseif ($_tmparr[1] == 'newcredit') {
                         $data['colinfo'] = '';
-                        $data['coltype'] = 'newcredit';                        
-                    } else {                        
+                        $data['coltype'] = 'newcredit';
+                    } else {
                         $data['colinfo'] = Columns::getOne($_tmparr[1]);
                         $data['coltype'] = 'column';
                     }
@@ -922,8 +929,8 @@ class zmf {
             $uinfo = Users::getUserInfo($uid);
             $ginfo = UserGroup::getInfo($uinfo['groupid'], 'title');
             $_addedType = UserCredit::findOne($uid);
-            if ($_addedType['classify']){
-                $typeinfo=tools::userCredits($_addedType['classify']);
+            if ($_addedType['classify']) {
+                $typeinfo = tools::userCredits($_addedType['classify']);
                 $status = zmf::userConfig($uid, 'creditstatus');
                 $arr[] = array('title' => $typeinfo['title'], 'css' => tools::exStatusToClass($status, true));
             }

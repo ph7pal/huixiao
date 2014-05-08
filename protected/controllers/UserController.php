@@ -256,6 +256,16 @@ class UserController extends T {
         if (!$colid) {
             $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
         }
+        $colinfo = Columns::getOne($colid);
+        if(!$colinfo){
+            T::message(0, '该版块不存在，请核实');
+                exit();
+        }else{
+            if($colinfo['groupid']!=$this->userInfo['groupid']){
+                T::message(0, '您无权在该版块写文章，请核实');
+                exit();
+            }
+        }        
         $forupdate = zmf::filterInput($_GET['edit'], 't', 1);
         if ($forupdate != 'yes') {
             if (!Columns::checkWritable($colid, $uid)) {
@@ -263,9 +273,9 @@ class UserController extends T {
                 exit();
             }
         }
+        
         $model = new Posts();
-        $_info = $model->findByAttributes(array('uid' => $uid, 'colid' => $colid), 'status=0');
-        $keyid = zmf::getFCache("notSavePosts{$uid}");
+        $keyid = zmf::getFCache("notSavePosts-{$uid}-{$colid}");
         $_keyid = zmf::filterInput($_GET['id']);
         if (!$keyid AND ! $_keyid) {
             $_info = $model->findByAttributes(array('uid' => $uid, 'colid' => $colid), 'status=:status', array(':status' => '0'));
@@ -282,11 +292,11 @@ class UserController extends T {
             } else {
                 $keyid = $_info['id'];
             }
-            zmf::setFCache("notSavePosts{$uid}", $keyid, 3600);
+            zmf::setFCache("notSavePosts-{$uid}-{$colid}", $keyid, 3600);
             $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
         } elseif ($keyid != $_keyid AND $forupdate != 'yes') {
             if (!$keyid) {
-                zmf::delFCache("notSavePosts{$uid}");
+                zmf::delFCache("notSavePosts-{$uid}-{$colid}");
                 $this->message(0, '操作有误，正在为您重新跳转至发布页', Yii::app()->createUrl('user/add', array('colid' => $colid)));
             } else {
                 $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
@@ -312,9 +322,8 @@ class UserController extends T {
 //            if ($info['attachid']) {
 //                $info['attachid'] = tools::jiaMi($info['attachid']);
 //            }
-            $info['content'] = zmf::text(array('keyid' => $keyid, 'imgwidth' => '530'), $info['content'], false, 600);
-        }
-        $colinfo = Columns::getOne($colid);
+            $info['content'] = zmf::text(array('keyid' => $keyid, 'imgwidth' => '530','uid'=>$this->uid), $info['content'], false, 600);
+        }        
         $this->listTableTitle = '新增【' . $colinfo['title'] . '】';
         $data = array(
             'keyid' => $keyid,

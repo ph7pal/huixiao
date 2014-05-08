@@ -11,7 +11,7 @@
             <div class="panel-body">
         <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
         'enableClientValidation'=>true
 )); ?>
         <p>

@@ -220,7 +220,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
             $gids = zmf::config('adminGroupIds');
             $arr = explode(',', $gids);
             if (!in_array($gid, $arr)) {
-                $info = '您好像发现了新大陆，但该地区为禁区！'.$type;
+                $info = '您好像发现了新大陆，但该地区为禁区！';
                 if ($return) {
                     return 0;
                 } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {
@@ -235,7 +235,7 @@ html,body,div,p,a,h3{margin:0;padding:0;}
         }
         $power = GroupPowers::model()->findByAttributes(array('powers' => $type), 'gid=:gid', array(':gid' => $gid));        
         if (!$power) {
-            $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作'.$type;
+            $info = '您所在用户组【' . $groupinfo['title'] . '】无权该操作';
             if ($return) {
                 return 0;
             } elseif (!$json AND ! Yii::app()->request->isAjaxRequest) {

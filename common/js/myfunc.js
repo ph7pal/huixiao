@@ -157,3 +157,24 @@ function clearDiv(divid) {
 function openDiv(divid) {
     $("#" + divid).toggle();
 }
+function setStatus(a,b,c){
+    $.ajax({
+        type: "POST",
+        url: setStatusUrl,
+        data: "a="+a+"&b="+b+"&c="+c+"&YII_CSRF_TOKEN=" + csrfToken,
+        beforeSend: function() {
+            //loading("favorite"+logid,2,'');
+        },
+        success: function(result) {
+            result = eval('(' + result + ')');
+            if (result['status'] == 1) {
+                alert(result['msg']);                
+            } else if (result['status'] == 2) {
+                window.location.href = userLoginUrl + "&redirect=" + window.location.href;
+            } else {
+                //$("#favorite" + logid).html(tmp);
+                alert(result['msg']);
+            }
+        }
+    });
+}

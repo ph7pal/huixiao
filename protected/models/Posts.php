@@ -23,7 +23,7 @@ class Posts extends CActiveRecord {
         return array(
             array('title,colid', 'required'),
             //array('copy_url', 'url'),
-            array('colid, albumid, reply_allow, status', 'numerical', 'integerOnly' => true),
+            array('colid, albumid, reply_allow, status,top', 'numerical', 'integerOnly' => true),
             array('uid, hits, order, last_update_time, cTime', 'length', 'max' => 10),
             array('nickname', 'length', 'max' => 30),
             array('author, copy_from ,attachid', 'length', 'max' => 100),
@@ -31,7 +31,7 @@ class Posts extends CActiveRecord {
             array('name', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo', 'safe', 'on' => 'search'),
+            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,6 +76,7 @@ class Posts extends CActiveRecord {
             'cTime' => '创建时间',
             'attachid' => '封面图片',
             'secretinfo' => '敏感信息',
+            'top'=>'置顶'
         );
     }
 
@@ -110,6 +111,7 @@ class Posts extends CActiveRecord {
         $criteria->compare('cTime', $this->cTime, true);
         $criteria->compare('attachid', $this->attachid, true);
         $criteria->compare('secretinfo', $this->secretinfo, true);
+        $criteria->compare('top', $this->top, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -129,6 +131,7 @@ class Posts extends CActiveRecord {
         if (is_array($params)) {
             $colid = $params['colid'];
             $condition=$params['condition'];
+            $top=$params['top'];
             $_pre=join('-',$params);
         } else {
             $colid = $params;
@@ -151,7 +154,10 @@ class Posts extends CActiveRecord {
             $condition=preg_replace("/where/i", "", $condition);
             $where.=' AND ' . $condition;
         }
-        $sql = "SELECT * FROM {{posts}} {$where} AND status=1 LIMIT {$limit}";
+        if(!$top){
+            $where.=' AND top=1';
+        }
+        $sql = "SELECT * FROM {{posts}} {$where} AND status=1 ORDER BY cTime LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         zmf::setFCache($cachekey, $items,60);
         return $items;

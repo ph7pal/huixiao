@@ -57,7 +57,6 @@ class UsersController extends H {
         if (!$info) {
             $this->message(0, '非常抱歉，您查看的页面不存在');
         }
-
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'users-addUser-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
@@ -71,13 +70,10 @@ class UsersController extends H {
             } else {
                 $intoData['password'] = $info['password'];
             }
-            $model->attributes = $intoData;
-            if ($model->validate()) {
-                if ($model->updateByPk($thekeyid, $intoData)) {
-                    UserAction::record('editusers', $thekeyid);
-                    zmf::delFCache("notSaveUsers{$uid}");
-                    $this->redirect(array('all/list', 'table' => 'users'));
-                }
+            if ($model->updateByPk($thekeyid, $intoData)) {
+                UserAction::record('editusers', $thekeyid);
+                zmf::delFCache("notSaveUsers{$uid}");
+                $this->redirect(array('all/list', 'table' => 'users'));
             }
         }
         $groups = UserGroup::getGroups(true);
@@ -231,6 +227,7 @@ class UsersController extends H {
                 $this->message(0, '新密码过短，请重新输入');
             }
             $intoData['password'] = md5($_POST['Users']['password']);
+            $model->setScenario('update');
             if ($model->updateByPk($id, $intoData)) {
                 $this->message(1, '新密码设置成功', Yii::app()->createUrl('admin/index/index'));
             }
@@ -254,7 +251,7 @@ class UsersController extends H {
         $_c = CHtml::listData($configs, 'name', 'value');
         $reason = zmf::userConfig($uid, 'creditreason');
         $status = zmf::userConfig($uid, 'creditstatus');
-        $uinfo=Users::getUserInfo($uid);
+        $uinfo = Users::getUserInfo($uid);
         $data = array(
             'type' => $type,
             'blocked' => TRUE,
@@ -264,7 +261,7 @@ class UsersController extends H {
             'fromAdmin' => 'yes',
             'status' => $status,
             'reason' => $reason,
-            'groupid'=>$uinfo['groupid'],            
+            'groupid' => $uinfo['groupid'],
         );
         $this->render('//credit/' . $type, $data);
     }
@@ -278,8 +275,8 @@ class UsersController extends H {
         }
         $reason = zmf::filterInput($_POST['reason'], 't', 1);
         $atype = zmf::filterInput($_POST['yesorno']);
-        $type = zmf::filterInput($_GET['type'],'t',1);
-        $groupid=zmf::filterInput($_POST['groupid']);
+        $type = zmf::filterInput($_GET['type'], 't', 1);
+        $groupid = zmf::filterInput($_POST['groupid']);
         if (!$atype) {
             $this->jsonOutPut(0, '请选择');
         }
@@ -295,7 +292,7 @@ class UsersController extends H {
         if ($atype == 1) {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
-            Users::model()->updateByPk($touid,array('groupid'=>$groupid));
+            Users::model()->updateByPk($touid, array('groupid' => $groupid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
         }

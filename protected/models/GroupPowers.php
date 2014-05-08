@@ -67,7 +67,7 @@ class GroupPowers extends CActiveRecord {
         $lang['config']['desc'] = '设置相关';
         $lang['config']['detail'] = array(
             'checksetting' => '查看设置',
-            'setting' => '更新设置',
+            'setting' => '更新设置',            
         );
         $lang['columns']['desc'] = '栏目相关';
         $lang['columns']['detail'] = array(
@@ -80,6 +80,7 @@ class GroupPowers extends CActiveRecord {
             'addposts' => '新增文章',
             'editposts' => '编辑文章',
             'delposts' => '删除文章',
+            'setstatus'=>'更改文章状态',
         );
         $lang['usergroup']['desc'] = '用户组相关';
         $lang['usergroup']['detail'] = array(
@@ -155,9 +156,11 @@ class GroupPowers extends CActiveRecord {
             'user_delupload' => '用户删除已上传',
             'user_homepage' => '用户个人主页',
             'user_addcomments' => '用户评论',
+            'user_seepostauthor'=>'查看文章作者',
             'user_seesecretinfo' => '用户查看隐藏信息',            
             'user_seeinfo' => '查看其他用户信息',
             'user_addrate' => '用户评价',
+            'user_seeattachments'=>'用户查看图片'
         );
         
 //        

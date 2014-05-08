@@ -16,7 +16,7 @@ class Users extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, truename, groupid, status', 'required'),
+            array('username, password, truename, groupid, status', 'required','on'=>array('insert')),
             array('groupid, last_login_time, status, cTime ,emailstatus,system', 'numerical', 'integerOnly' => true),
             array('username', 'length', 'max' => 50),
             array('truename,username', 'unique'),

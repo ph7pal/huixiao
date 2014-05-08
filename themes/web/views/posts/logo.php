@@ -1,5 +1,5 @@
 <?php 
-$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition']),$colinfo['listnum']); ?>
+$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$colinfo['listnum']); ?>
 <?php if (!empty($colitems)) {
     if($colnum==12){
         $colrows_min=2;
