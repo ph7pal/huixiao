@@ -28,7 +28,33 @@ function ajaxAddColumn(table) {
     });
 
 }
+function ajaxCity(divid) {
+    var c = $("#columnid").val();
+    //var k=$("#"+atype).val();
+    if (table == '' || typeof table == 'undefined') {
+        alert('出现错误');
+        return false;
+    }
+    if (c == '0' || typeof c == 'undefined') {
+        alert('请选择主栏目');
+        return false;
+    }
+    $.ajax({
+        type: "POST",
+        url: addColumnUrl,
+        data: "c=" + c + "&t=" + table + "&YII_CSRF_TOKEN=" + csrfToken,
+        success: function(result) {
+            result = eval('(' + result + ')');
+            if (result['status'] == 1) {
+                $("#addPostsCol").html(result['msg']);
+            } else {
+                //dialog(result['msg']);
+                alert(result['msg']);
+            }
+        }
+    });
 
+}
 function delUploadImg(attachid, clearid) {
     if (attachid == '') {
         dialog('请选择删除对象');

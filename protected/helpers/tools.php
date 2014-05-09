@@ -202,7 +202,7 @@ class tools {
         }
     }
 
-    public static function exStatusToClass($status,$return=false) {
+    public static function exStatusToClass($status, $return = false) {
         switch ($status) {
             case 0:
                 $css = 'warning';
@@ -217,11 +217,11 @@ class tools {
                 $css = 'warning';
                 break;
         }
-        if($return){
+        if ($return) {
             return $css;
-        }else{
+        } else {
             echo 'class="' . $css . '"';
-        }        
+        }
     }
 
     public static function url($title, $url, $data = array()) {
@@ -279,69 +279,69 @@ class tools {
         }
         return $key;
     }
-    
-    public static function calScoreCss($score){
-        $score=(int)$score;
-        if($score<60){
+
+    public static function calScoreCss($score) {
+        $score = (int) $score;
+        if ($score < 60) {
             return 'danger';
-        }elseif($score<70){
+        } elseif ($score < 70) {
             return 'warning';
-        }elseif($score<80){
+        } elseif ($score < 80) {
             return 'info';
-        }elseif($score<90){
+        } elseif ($score < 90) {
             return 'primary';
-        }else{
+        } else {
             return 'success';
         }
     }
-    
-    public static function userCredits($return=''){
+
+    public static function userCredits($return = '') {
         $arr = array();
         $arr[] = array(
             'title' => '生产厂家',
             'css' => 'info',
-            'type' => 'producer',            
+            'type' => 'producer',
         );
         $arr[] = array(
             'title' => '厂家客服',
             'css' => 'info',
-            'type' => 'pro_service',            
+            'type' => 'pro_service',
         );
         $arr[] = array(
             'title' => '经销商',
             'css' => 'info',
-            'type' => 'dealer',            
+            'type' => 'dealer',
         );
         $arr[] = array(
             'title' => '代理商',
             'css' => 'info',
-            'type' => 'agent',            
+            'type' => 'agent',
         );
         $arr[] = array(
             'title' => '讲师',
             'css' => 'info',
-            'type' => 'lecturer',            
+            'type' => 'lecturer',
         );
         $arr[] = array(
             'title' => '营销团队',
             'css' => 'info',
-            'type' => 'marketing_team',            
-        );    
+            'type' => 'marketing_team',
+        );
         $arr[] = array(
             'title' => '行业杂志',
             'css' => 'info',
-            'type' => 'trade_magazine',            
-        );    
+            'type' => 'trade_magazine',
+        );
         $arr[] = array(
             'title' => '行业网站',
             'css' => 'info',
-            'type' => 'trade_website',            
-        );    
+            'type' => 'trade_website',
+        );
         $arr[] = array(
             'title' => '行业会展',
             'css' => 'info',
-            'type' => 'exhibition',            
-        );   
+            'type' => 'exhibition',
+        );
 //        $arr[] = array(
 //            'title' => '个人',
 //            'css' => 'info',
@@ -349,8 +349,8 @@ class tools {
 //        ); 
         if ($return != '') {
             //return $arr[$return];
-            foreach($arr as $list){
-                if($list['type']==$return){
+            foreach ($arr as $list) {
+                if ($list['type'] == $return) {
                     return $list;
                     break;
                 }
@@ -359,7 +359,7 @@ class tools {
             return $arr;
         }
     }
-    
+
     /**
      * 栏目的滚动显示方式 
      * @param type $return
@@ -369,13 +369,68 @@ class tools {
         $arr = array(
             0 => '无',
             'updown' => '上下',
-            'left' => '左右',            
+            'left' => '左右',
         );
         if ($return != '') {
             return $arr[$return];
         } else {
             return $arr;
         }
+    }
+
+    /**
+     * 
+     */
+    public static function city($params = array()) {
+        $dir = Yii::app()->basePath . '/data/city_data.json';
+        if (file_exists($dir)) {
+            $json = file_get_contents($dir);
+        } else {
+            return false;
+        }
+        $arr = json_decode($json, true);
+        $nameonly = true;
+        $first=false;
+        if (empty($params)) {
+            $first = 1;
+        } else {
+            $_arr = explode('#', $idstr);
+        }
+        if ($first) {
+            $name = array();
+            foreach ($arr as $val) {
+                $name[] = $val['name'];
+            }
+        } else {            
+            $_len = count($_arr);
+            $re = array();
+            switch ($_len) {
+                case 1:
+                    $re = $arr[$_arr[0]];
+                    break;
+                case 2:
+                    $re = $arr[$_arr[0]];
+                    $re = $re['sub'][$_arr[1]];
+                    break;
+                case 3:
+                    $re = $arr[$_arr[0]];
+                    $re = $re['sub'][$_arr[1]];
+                    $re = $re['sub'][$_arr[2]];
+                    break;
+            }
+            if ($nameonly) {
+                $name = array();
+                if ($_len != 3) {
+                    $retmp = $re['sub'];
+                    foreach ($retmp as $val) {
+                        $name[] = $val['name'];
+                    }
+                } else {
+                    $name[] = $re['name'];
+                }
+            }
+        }
+        return $name;
     }
 
 }

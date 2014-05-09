@@ -86,4 +86,9 @@ class AjaxController extends T {
             $this->jsonOutPut(0, Yii::t('default', 'unkownerror'));
         }
     }
+    
+    public function actionCity(){
+                tools::city();
+        exit();
+    }
 }

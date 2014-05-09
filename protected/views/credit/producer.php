@@ -18,6 +18,8 @@ if($_imgSize>200){
 <p><label>企业全称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业法人：</label><input class="form-control" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
 <p><label>所在地域：</label><input class="form-control" name="localarea" id="localarea" type="text" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/></p>
+<?php echo CHtml::dropDownList('columnid','',tools::city(),array('onchange'=>'','options' => array($info['colid']=>array('selected'=>true)))); ?><span id="addPostsCol"></span>
+
 <p><label>官方网站地址：</label><input class="form-control" name="companyurl" id="companyurl" type="text" value="<?php echo $info['companyurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名：</label><input class="form-control" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人手机：</label><input class="form-control" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
