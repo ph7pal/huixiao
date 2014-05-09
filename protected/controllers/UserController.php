@@ -38,7 +38,7 @@ class UserController extends T {
         parent::init();
         $code = zmf::filterInput($_GET['code'], 't', 1);
         $this->seekey = zmf::config('authorPre');
-        if ($code != '' && isset(Yii::app()->session[$this->seekey])) {            
+        if ($code != '' || isset(Yii::app()->session[$this->seekey])) {            
             if ($code == '') {
                 $code = Yii::app()->session[$this->seekey];
             }

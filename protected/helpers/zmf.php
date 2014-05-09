@@ -173,7 +173,7 @@ class zmf {
                 if ($type == 'small') {
                     $_type = 124;
                 } elseif ($type == 'big') {
-                    $_type = 300;
+                    $_type = 600;
                 } else {
                     $_type = 124;
                 }

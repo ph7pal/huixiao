@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />                
         <meta name="robots" content="all" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="description" content="<?php if (!empty($this->pageDescription)){echo $this->pageDescription;}else{ echo zmf::config('siteDesc');}?>" />
         <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/common/css/bootstrap.css">
         <?php if(Yii::app()->getController()->id=='user'){?>

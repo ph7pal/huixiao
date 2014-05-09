@@ -9,9 +9,9 @@
         查看：<?php echo $page['hits'];?>
     </p>
 </div>
-<?php if(!Yii::app()->user->isGuest){?>
-<?php $_seeauthor=T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seepostauthor'));?>
-<?php if($_seeauthor || $page['uid']==Yii::app()->user->id){?>
+<?php //if(!Yii::app()->user->isGuest){?>
+<?php //$_seeauthor=T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seepostauthor'));?>
+<?php //if($_seeauthor || $page['uid']==Yii::app()->user->id){?>
 <div class="col-md-12 col-xs-12">
     <blockquote>
         <?php if($page['author']!=''){?>
@@ -35,8 +35,8 @@
     </blockquote>
 </div>
 <div class="clearfix"></div>
-<?php }?>
-<?php }?>
+<?php //}?>
+<?php //}?>
 <?php /*$attachinfo=  Attachments::getOne($page['attachid']);*/?>
 <?php if(!empty($attachinfo) || $page['intro']!=''){?>
 <div class="well well-sm">

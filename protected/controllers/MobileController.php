@@ -13,7 +13,7 @@ class MobileController extends T {
         parent::init();
         $this->uid = zmf::filterInput($_GET['uid']);
         if (!$this->uid) {
-            $this->message(0, '请选择需要查看的商铺');
+            $this->message(0, '请选择需要查看的用户');
         }
         $uid = $this->uid;
         if ($uid != Yii::app()->user->id) {

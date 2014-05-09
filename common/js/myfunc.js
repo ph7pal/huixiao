@@ -28,27 +28,44 @@ function ajaxAddColumn(table) {
     });
 
 }
-function ajaxCity(divid) {
-    var c = $("#columnid").val();
-    //var k=$("#"+atype).val();
-    if (table == '' || typeof table == 'undefined') {
-        alert('出现错误');
-        return false;
-    }
+function ajaxCity(a,b,d,e) {
+    var c = $("#"+a).val();    
     if (c == '0' || typeof c == 'undefined') {
-        alert('请选择主栏目');
+        alert('请选择');
         return false;
     }
+    var t=$("#"+b).val();
+    if (t == '' || typeof t == 'undefined' || e==1) {
+        t=c;
+    }else{
+        var arr=t.split('#');
+        var rt='';
+        for(var i=0;i<(e-1);i++){
+            if(typeof arr[i]!='undefined'){
+                if(rt==''){
+                    rt=arr[i];
+                }else{
+                    rt+='#'+arr[i];
+                }                 
+                 
+            }           
+        }
+        rt+='#'+c;
+        t=rt;
+    }    
     $.ajax({
         type: "POST",
-        url: addColumnUrl,
-        data: "c=" + c + "&t=" + table + "&YII_CSRF_TOKEN=" + csrfToken,
+        url: selectCityUrl,
+        data: "c=" + t + "&e="+e+"&YII_CSRF_TOKEN=" + csrfToken,
         success: function(result) {
             result = eval('(' + result + ')');
-            if (result['status'] == 1) {
-                $("#addPostsCol").html(result['msg']);
+            if (result['status'] == 1) {                                
+                $("#"+d).html(result['msg']);
+                $("#"+b).val(t);
+            }else if (result['status'] == 2) {  
+                $("#"+b).val(t);
+                $("#"+d).html('');
             } else {
-                //dialog(result['msg']);
                 alert(result['msg']);
             }
         }

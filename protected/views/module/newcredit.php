@@ -36,7 +36,7 @@ $users = UserCredit::getNews(); ?>
                     <?php foreach ($users as $key=>$ci) { ?> 
 
                         <li>
-                            <a href="<?php echo Yii::app()->createUrl('mobile/index',array('id'=>$ci['uid']));?>">
+                            <a href="<?php echo Yii::app()->createUrl('mobile/index',array('uid'=>$ci['uid']));?>">
                             <img src="<?php echo zmf::avatar($ci['uid'],'big',true);?>" class="img-responsive"/>
                             </a>
                         </li>

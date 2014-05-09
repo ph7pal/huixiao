@@ -390,10 +390,11 @@ class tools {
         }
         $arr = json_decode($json, true);
         $nameonly = true;
-        $first=false;
+        $first = false;
         if (empty($params)) {
             $first = 1;
         } else {
+            $idstr = $params['idstr'];
             $_arr = explode('#', $idstr);
         }
         if ($first) {
@@ -401,7 +402,7 @@ class tools {
             foreach ($arr as $val) {
                 $name[] = $val['name'];
             }
-        } else {            
+        } else {
             $_len = count($_arr);
             $re = array();
             switch ($_len) {
@@ -418,15 +419,25 @@ class tools {
                     $re = $re['sub'][$_arr[2]];
                     break;
             }
+            //zmf::test($re);
             if ($nameonly) {
                 $name = array();
                 if ($_len != 3) {
                     $retmp = $re['sub'];
-                    foreach ($retmp as $val) {
-                        $name[] = $val['name'];
+                    if (!empty($retmp)) {
+                        foreach ($retmp as $val) {
+                            $name[] = $val['name'];
+                        }
+                    } else {
+                        if (!empty($re)) {
+                            //$name[] = '请选择';
+                            $name[] = $re['name'];
+                        }
                     }
                 } else {
-                    $name[] = $re['name'];
+                    if (!empty($re)) {
+                        $name[] = $re['name'];
+                    }
                 }
             }
         }

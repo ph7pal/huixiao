@@ -88,7 +88,22 @@ class AjaxController extends T {
     }
     
     public function actionCity(){
-                tools::city();
-        exit();
+        $idstr=$_POST['c'];
+        $order=$_POST['e'];
+        if(!$idstr){
+            $this->jsonOutPut(1, '请选择城市');
+        }        
+        $info=tools::city(array('idstr'=>$idstr));        
+        $id=  uniqid();
+        if(!empty($info) && $info){
+            $longstr='<select name="cityid[]" id="'.$id.'" onchange="ajaxCity(\''.$id.'\',\'localarea\',\'more'.$id.'\','.($order+1).')">';
+            foreach($info as $key=>$val){
+                $longstr.='<option value="'.$key.'">'.$val.'</option>';
+            }
+            $longstr.='</select><span id="more'.$id.'"></span>';
+            $this->jsonOutPut(1, $longstr);
+        }else{
+            $this->jsonOutPut(2, '暂无下级');
+        }
     }
 }

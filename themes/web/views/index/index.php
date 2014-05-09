@@ -20,7 +20,7 @@
         <div class="panel-heading">            
             <h3 class="panel-title">
                 <?php echo $ic['colinfo']['title'];?>
-                <small><?php echo strtoupper($ic['colinfo']['name']);?></small>
+                <!--small><?php echo strtoupper($ic['colinfo']['name']);?></small-->
                 <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$ic['colinfo']['id']));?></span>
             </h3>
         </div>
