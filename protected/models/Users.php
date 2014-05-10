@@ -16,10 +16,10 @@ class Users extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, truename, groupid, status', 'required','on'=>array('insert')),
+            array('username, password, truename, email,groupid, status', 'required','on'=>array('insert')),
             array('groupid, last_login_time, status, cTime ,emailstatus,system', 'numerical', 'integerOnly' => true),
             array('username', 'length', 'max' => 50),
-            array('truename,username', 'unique'),
+            array('username,email', 'unique'),
             array('password', 'length', 'max' => 32),
             array('truename, email', 'length', 'max' => 100),
             array('qq', 'length', 'max' => 15),
@@ -27,9 +27,10 @@ class Users extends CActiveRecord {
             array('mobile, telephone', 'length', 'max' => 20),
             array('last_login_ip', 'length', 'max' => 16),
             array('login_count', 'length', 'max' => 10),
+            array('hash','length','max'=>8),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, username, password, truename, groupid, email, qq, mobile, telephone, last_login_ip, last_login_time, login_count, status, cTime , emailstatus', 'safe', 'on' => 'search'),
+            array('id, username, password, truename, groupid, email, qq, mobile, telephone, last_login_ip, last_login_time, login_count, status, cTime , emailstatus,hash', 'safe', 'on' => 'search'),
         );
     }
 
@@ -49,7 +50,7 @@ class Users extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'username' => '用户昵称',
+            'username' => '登录昵称',
             'password' => '登录密码',
             'truename' => '真实姓名',
             'groupid' => '用户组',
@@ -63,7 +64,8 @@ class Users extends CActiveRecord {
             'status' => '用户状态',
             'cTime' => '创建时间',
             'emailstatus' => '邮箱状态',
-            'system' => '是否系统'
+            'system' => '是否系统',
+            'hash'=>'随机字串',
         );
     }
 
@@ -88,6 +90,7 @@ class Users extends CActiveRecord {
         $criteria->compare('cTime', $this->cTime);
         $criteria->compare('emailstatus', $this->emailstatus);
         $criteria->compare('system', $this->system);
+        $criteria->compare('hash', $this->hash);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

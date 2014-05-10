@@ -730,7 +730,7 @@ class zmf {
         );
         $longstr = '';
         foreach ($arr as $k => $v) {
-            $longstr.='<div class="col-xs-12 col-md-8">' . $v['url'] . '</div>';
+            $longstr.='<div class="col-xs-12">' . $v['url'] . '</div>';
         }
         echo $longstr;
     }

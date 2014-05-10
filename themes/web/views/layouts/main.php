@@ -1,15 +1,4 @@
 <?php $this->beginContent('/layouts/common'); ?>
-<style>
-            .sp-search{
-                width:480px;
-                height:30px;
-                margin:30px 0 0 0px; 
-                float: left;
-                font-size: 12px;
-            }
-            .more,.more a{font-size: 12px}
-            .topkws,.topkws a{font-size:12px;}
-        </style>
 <div id="header">
     <?php $this->renderPartial('/common/topnav');?>
     <div class="sp-nav">
@@ -38,11 +27,9 @@
                         <?php }?>
                     </div>
                 </form>
-            </div>
-            
+            </div>            
         </div>       
-
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar navbar-default bs-docs-nav" role="navigation">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -67,11 +54,10 @@
                 <!--ul class="nav navbar-nav navbar-right">                  
                   <li class="active"><a href="./">管理</a></li>
                 </ul-->
-              </div><!--/.nav-collapse -->
-              
+              </div><!--/.nav-collapse -->              
             </div>
     </div>
-</div>
+</div>     
 <div id="content">
     <?php echo $content; ?>
     <?php //$this->renderPartial('/user/aside'); ?>  

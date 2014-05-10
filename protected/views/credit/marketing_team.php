@@ -15,7 +15,10 @@ if($_imgSize>200){
 ?>
 <input class="form-control" name="type" id="type" type="hidden" value="<?php echo $type;?>"/>
 <p><label>认证类型：</label><input class="form-control" value="<?php echo $typeinfo['title']; ?>" disabled/></p>    
-<p><label>所在地域：</label><input class="form-control" name="localarea" id="localarea" type="text" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/></p>
+<p><label>所在地域：</label>
+    <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
+    <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea']));?>
+</p>
 <p><label>企业全称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>负责人姓名：</label><input class="form-control" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
 <p><label>官方网站地址：</label><input class="form-control" name="officurl" id="officurl" type="text" value="<?php echo $info['officurl']; ?>" <?php echo $disabled;?>/></p>

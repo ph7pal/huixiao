@@ -15,10 +15,11 @@ if($_imgSize>200){
 ?>
 <input class="form-control" name="type" id="type" type="hidden" value="<?php echo $type;?>"/>
 <p><label>认证类型：</label><input class="form-control" value="<?php echo $typeinfo['title']; ?>" disabled/></p>    
-
+<p><label>所在地域：</label>
+    <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
+    <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea']));?>
+</p>
 <p><label>真实姓名：</label><input class="form-control" name="truename" id="truename" type="text" value="<?php echo $info['truename']; ?>" <?php echo $disabled;?>/></p>
-<p><label>所在地域：</label><input class="form-control" name="localarea" id="localarea" type="text" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/></p>
-
 <p><label>公司全称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>主打产品：</label><input class="form-control" name="mainproduct" id="mainproduct" type="text" value="<?php echo $info['mainproduct']; ?>" <?php echo $disabled;?>/></p>
 <p><label>职位名称：</label><input class="form-control" name="jobname" id="jobname" type="text" value="<?php echo $info['jobname']; ?>" <?php echo $disabled;?>/></p>

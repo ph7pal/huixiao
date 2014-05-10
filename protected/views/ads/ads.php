@@ -1,7 +1,7 @@
 <?php 
 $topads=Ads::getAllByPo($position,$type,$uid);
 if(!empty($topads)){?>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">        
+<div id="carousel-generic" class="carousel slide" data-ride="carousel">        
     <div class="carousel-inner">
 <?php foreach($topads as $key=>$_topad_img){?>    
     <div class="item <?php if($key==0){ echo 'active';}?>">
@@ -9,7 +9,7 @@ if(!empty($topads)){?>
     </div>
 <?php }?>
     </div>
-    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"></a>
-    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"></a>
+    <a class="left carousel-control" href="#carousel-generic" data-slide="prev"></a>
+    <a class="right carousel-control" href="#carousel-generic" data-slide="next"></a>
 </div>
 <?php }?>

@@ -1,3 +1,5 @@
+<?php $this->renderPartial('//ads/ads',array('position'=>'topbar','type'=>'flash','uid'=>0));?>
+<div style="margin-top: 20px;"></div>
 <?php if(!empty($indexCols)){?>
 <?php $colsNum=0;$echoDiv=false;foreach($indexCols as $key=>$ic){?>
 <?php if($colsNum!=12 && !$echoDiv){$echoDiv=true;?>

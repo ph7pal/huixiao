@@ -46,6 +46,11 @@ class ManageController extends H {
         if (empty($sinfo)) {
             $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
         }
+        if($table=='users'){
+            if($sinfo['system']){
+                $this->jsonOutPut(0, '该用户为系统用户，禁止操作！');
+            }
+        }
         if ($$table->updateByPk($keyidid, array('status' => $status))) {
             $this->jsonOutPut(1, '操作成功！');
         } else {
