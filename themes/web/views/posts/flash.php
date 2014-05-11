@@ -1,4 +1,3 @@
-<div class="row">
 <?php 
 $colid=$colinfo['id'];
 $listposts=Posts::listPosts($colid);
@@ -21,4 +20,3 @@ foreach($listposts as $ci){?>
             </p>        
         </div>
  <?php }}?>
-</div>
