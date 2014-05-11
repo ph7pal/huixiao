@@ -99,7 +99,7 @@ class Columns extends CActiveRecord {
     }
 
     public function allCols($type = 1, $second = 0, $col0 = true, $system = true) {
-        //$type 1:读取所有一级栏目；2：某一级栏目的所有子栏目；3：某文章的栏目
+        //$type 1:读取所有一级栏目；2：某一级栏目的所有子栏目；3：某文章的栏目；4：不区分
         if ($system) {
             $_sys = 'system=1';
             $sys = ' AND system=1';
@@ -133,6 +133,8 @@ class Columns extends CActiveRecord {
             }
         } elseif ($type == 3) {
             $cols = Columns::model()->findByAttributes(array('id' => $second), $_sys);
+        }elseif($type==4){
+            $cols = Columns::model()->findAllByAttributes(array('status' => 1), $_sys);
         }
         if ($type != 3) {
             if ($col0) {
@@ -153,7 +155,7 @@ class Columns extends CActiveRecord {
         } else {
             $ext = '_0';
         }
-        //$cols=  zmf::getFCache("getColsBy{$po}{$ext}");
+        $cols=  zmf::getFCache("getColsBy{$po}{$ext}");
         if ($cols) {
             return $cols;
             exit();
@@ -172,8 +174,7 @@ class Columns extends CActiveRecord {
         } else {
             return false;
         }
-        $sql = "SELECT * FROM {{columns}} {$where} ORDER BY `cTime` DESC LIMIT {$limit}";
-        //echo $sql;exit();
+        $sql = "SELECT * FROM {{columns}} {$where} ORDER BY `order` ASC LIMIT {$limit}";        
         $cols = Yii::app()->db->createCommand($sql)->queryAll();
         if (!$second) {
             zmf::setFCache("getColsBy{$po}{$ext}", $cols);
@@ -184,7 +185,7 @@ class Columns extends CActiveRecord {
         $return = array();
         if (!empty($cols)) {
             foreach ($cols as $c) {
-                $sql2 = "SELECT * FROM {{columns}} WHERE belongid={$c['id']} ORDER BY `order`";
+                $sql2 = "SELECT * FROM {{columns}} WHERE belongid={$c['id']} ORDER BY `order` ASC";
                 $return[] = array(
                     'first' => $c,
                     'second' => Yii::app()->db->createCommand($sql2)->queryAll()
@@ -321,7 +322,7 @@ class Columns extends CActiveRecord {
     }
 
     public function indexPageCols() {
-        $cols = Columns::allCols();
+        $cols = Columns::allCols(4);
         $cols['ads'] = '广告展示';
         $cols['newcredit'] = '最新认证';
         return $cols;

@@ -12,6 +12,10 @@
 </select>
 </p>
 <p>
+<label>认证图标：</label>
+<?php echo CHtml::dropDownList('creditlogo',$groupid,tools::creditLogos(),array('options' => array($creditlogo=>array('selected'=>true)))); ?>
+</p>
+<p>
 <label>对应用户组：</label>
 <?php echo CHtml::dropDownList('groupid',$groupid,UserGroup::getGroups(true),array('options' => array($groupid=>array('selected'=>true)))); ?>
 </p>

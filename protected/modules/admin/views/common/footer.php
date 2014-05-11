@@ -5,6 +5,8 @@ var addColumnUrl="<?php echo Yii::app()->createUrl('columns/get');?>";
 var csrfToken='<?php echo Yii::app()->request->csrfToken;?>';
 var currentSessionId="<?php echo Yii::app()->session->sessionID;?>";
 var setStatusUrl="<?php echo Yii::app()->createUrl('ajax/setstatus');?>";
+var changeOrderUrl="<?php echo Yii::app()->createUrl('ajax/changeorder');?>";
+
 </script>
 <script>
 

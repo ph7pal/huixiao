@@ -361,6 +361,78 @@ class tools {
     }
 
     /**
+     * 认证后显示的信用列表
+     */
+    public static function creditLogos($type = '') {
+        $arr['credit_aaa'] = array(
+            'title' => 'AAA',
+            'desc' => '偿还债务的能力极强，基本不受不利经济环境的影响，违约风险极低。'
+        );
+        $arr['credit_aa'] = array(
+            'title' => 'AA',
+            'desc' => '偿还债务的能力很强，受不利经济环境的影响不大，违约风险很低。'
+        );
+        $arr['credit_a'] = array(
+            'title' => 'A',
+            'desc' => '偿还债务能力较强，较易受不利经济环境的影响，违约风险较低。'
+        );
+        $arr['credit_bbb'] = array(
+            'title' => 'BBB',
+            'desc' => '偿还债务能力一般，受不利经济环境影响较大，违约风险一般。'
+        );
+        $arr['credit_bb'] = array(
+            'title' => 'BB',
+            'desc' => '偿还债务能力较弱，受不利经济环境影响很大，有较高违约风险。'
+        );
+        $arr['credit_b'] = array(
+            'title' => 'B',
+            'desc' => '偿还债务的能力较大地依赖于良好的经济环境，违约风险很高。'
+        );
+        $arr['credit_ccc'] = array(
+            'title' => 'CCC',
+            'desc' => '偿还债务的能力极度依赖于良好的经济环境，违约风险极高。'
+        );
+        $arr['credit_cc'] = array(
+            'title' => 'CC',
+            'desc' => '在破产或重组时可获得保护较小，基本不能保证偿还债务。'
+        );
+        $arr['credit_c'] = array(
+            'title' => 'C',
+            'desc' => '不能偿还债务。'
+        );
+        $arr['lecturer_bronze'] = array(
+            'title' => '铜牌讲师',
+            'desc' => '铜牌讲师'
+        );
+        $arr['lecturer_silver'] = array(
+            'title' => '银牌讲师',
+            'desc' => '银牌讲师'
+        );
+        $arr['lecturer_gold'] = array(
+            'title' => '金牌讲师',
+            'desc' => '金牌讲师'
+        );
+        $arr['credit_v'] = array(
+            'title' => '个人加V',
+            'desc' => '个人加V'
+        );
+        $re = array();
+        foreach ($arr as $key => $val) {
+            if (!$type) {
+               $re[$key]=$val['title']; 
+            }elseif($key==$type){
+                $re=$val;
+                break;
+            }
+        }
+        return $re;
+//        $arr[''] = array(
+//            'title'=>'',
+//            'desc'=>''
+//        );
+    }
+
+    /**
      * 栏目的滚动显示方式 
      * @param type $return
      * @return string

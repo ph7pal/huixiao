@@ -106,4 +106,34 @@ class AjaxController extends T {
             $this->jsonOutPut(2, '暂无下级');
         }
     }
+    public function actionChangeOrder() {
+        $ids = $_POST['ids'];
+        if ($ids == '') {
+            $this->jsonOutPut(0, '操作对象不能为空');
+        }
+        $arr = array_filter(explode('#', $ids));
+        if (empty($arr)) {
+            $this->jsonOutPut(0, '操作对象不能为空');
+        }
+        //zmf::test($arr);
+        $s = $e = 0;
+        foreach ($arr as $k => $v) {
+            $data = array(
+                'order' => ($k + 1)
+            );
+            //zmf::test($data);exit();
+            if (Columns::model()->updateByPk($v, $data)) {
+                $s+=1;
+            } else {
+                $e+=1;
+            }
+        }
+        if ($s == count($arr)) {
+            $this->jsonOutPut(1, '排序成功');
+        } elseif ($e > 0 AND $e < count($arr)) {
+            $this->jsonOutPut(1, '部分排序成功');
+        } else {
+            $this->jsonOutPut(0, '排序失败，可能是未做修改');
+        }
+    }
 }

@@ -16,10 +16,10 @@
     <blockquote>
         <?php if($page['author']!=''){?>
         <p><?php echo zmf::avatar($page['uid']);?></p>
-        <p>发布者:<?php echo $page['author'];?></p>
+        <p>发布者:<?php echo $page['author'];?><?php echo zmf::creditIcon($page['uid']);?></p>
         <?php }else{?>
         <p><?php echo CHtml::link(zmf::avatar($page['uid']),array('mobile/index','uid'=>$page['uid']));?></p>
-        <p>发布者:<?php $uname=  Users::getUserInfo($page['uid'],'truename'); echo CHtml::link($uname,array('mobile/index','uid'=>$page['uid']));?></p>
+        <p>发布者:<?php $uname=  Users::getUserInfo($page['uid'],'truename'); echo CHtml::link($uname,array('mobile/index','uid'=>$page['uid']));?><?php echo zmf::creditIcon($page['uid']);?></p>
         <?php }?>
         <?php if($page['copy_url']!='' && $page['copy_from']!=''){?>
         <?php if($page['copy_url']!=''){?>

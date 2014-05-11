@@ -221,3 +221,23 @@ function setStatus(a,b,c){
         }
     });
 }
+function changeOrder(){
+var ids='';
+    $('#sortable li').each(function(){
+        ids+=$(this).attr('id')+'#';
+    });    
+    $.ajax({
+    type: "POST",
+    url: changeOrderUrl,
+    data:"ids="+ids+"&YII_CSRF_TOKEN="+csrfToken,
+    success: function(result) {           
+        result = eval('('+result+')');  
+        if(result['status']=='1'){  
+            alert(result['msg']);
+            window.location.reload();
+        }else{
+            alert(result['msg']);
+        }
+    }
+});  
+}

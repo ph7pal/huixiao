@@ -198,6 +198,31 @@ class zmf {
         }
     }
 
+    public static function creditIcon($uid, $return = '') {
+        if (!$uid) {
+            return false;
+        }
+        $creditlogo = zmf::userConfig($uid, 'creditlogo');
+        if (!$creditlogo) {
+            return false;
+        }
+        if ($return == 'type') {
+            return $creditlogo;
+        }
+        $info = tools::creditLogos($creditlogo);
+        if (!$info) {
+            return false;
+        }
+        
+        $url = self::config('baseurl') . 'common/images/credits/' . $creditlogo . '.png';
+        $_url=self::attachBase('app'). '../common/images/credits/' . $creditlogo . '.png';
+        if(file_exists($_url)){
+            return "<img src='{$url}' title='" . $info['desc'] . "' alt='" . $info['title'] . "'/>";
+        }else{
+            return "<span class='btn btn-primary btn-xs' title='" . $info['desc'] . "'>" . $info['title'] . "</span>";
+        }        
+    }
+
     //fileCache
     public static function setFCache($key, $value, $expire = '60') {
         Yii::app()->filecache->set($key, $value, $expire);
@@ -918,6 +943,7 @@ class zmf {
         $arr = array();
         if ($type == 'info') {
             if (T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seeinfo'))) {
+                $arr[] = zmf::creditIcon($uid);
                 $arr[] = zmf::userConfig($uid, 'company');
                 $arr[] = zmf::userConfig($uid, 'address');
                 $arr[] = zmf::userConfig($uid, 'phone');

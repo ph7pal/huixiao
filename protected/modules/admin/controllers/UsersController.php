@@ -251,6 +251,7 @@ class UsersController extends H {
         $_c = CHtml::listData($configs, 'name', 'value');
         $reason = zmf::userConfig($uid, 'creditreason');
         $status = zmf::userConfig($uid, 'creditstatus');
+        $creditlogo=zmf::userConfig($uid,'creditlogo');
         $uinfo = Users::getUserInfo($uid);
         $data = array(
             'type' => $type,
@@ -262,6 +263,7 @@ class UsersController extends H {
             'status' => $status,
             'reason' => $reason,
             'groupid' => $uinfo['groupid'],
+            'creditlogo'=>$creditlogo,
         );
         $this->render('//credit/' . $type, $data);
     }
@@ -277,6 +279,7 @@ class UsersController extends H {
         $atype = zmf::filterInput($_POST['yesorno']);
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $groupid = zmf::filterInput($_POST['groupid']);
+        $creditlogo=zmf::filterInput($_POST['creditlogo'],'t',1);
         if (!$atype) {
             $this->jsonOutPut(0, '请选择');
         }
@@ -290,8 +293,12 @@ class UsersController extends H {
             $this->jsonOutPut(0, '缺少用户字段');
         }
         if ($atype == 1) {
+            if(!$creditlogo){
+                $this->jsonOutPut(0, '请选择认证图标');
+            }
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
+            UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');

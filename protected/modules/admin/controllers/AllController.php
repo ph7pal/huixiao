@@ -14,6 +14,14 @@ class AllController extends H {
         $colid = zmf::filterInput($_GET['colid']);
         $uid = zmf::filterInput($_GET['uid']);
         $groupid = zmf::filterInput($_GET['groupid']);
+        $_order='id';
+        $_orderList='DESC';
+        if ($table == 'columns') {
+            $position = zmf::filterInput($_GET['position'], 't', 1);
+            $listtype = zmf::filterInput($_GET['listtype'], 't', 1);
+            $_order='`order`';
+            $_orderList='ASC';
+        }
         if ($table != 'credit') {
             $where = array();
             if ($type != '') {
@@ -28,7 +36,13 @@ class AllController extends H {
             if ($groupid) {
                 $where['groupid'] = 'groupid=' . $groupid;
             }
-            $_where = '';
+            if ($position) {
+                $where['position'] = 'position="' . $position.'"';
+            }
+            if ($listtype) {
+                $where['classify'] = 'classify="' . $listtype.'"';
+            }
+            $_where = '';            
             if ($table == 'user_action') {
                 unset($where['colid']);
                 unset($where['status']);
@@ -43,9 +57,9 @@ class AllController extends H {
                 $_where = ' WHERE ' . join(' AND ', $where);
             }
 
-            $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY id DESC";
-        }else{
-            $sql = "SELECT DISTINCT(uid),`value` FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=".tools::exStatus($type)." ORDER BY id DESC";
+            $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY {$_order} {$_orderList}";
+        } else {
+            $sql = "SELECT DISTINCT(uid),`value` FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=" . tools::exStatus($type) . " ORDER BY id DESC";
         }
         Posts::getAll(array('sql' => $sql), $pages, $items);
         $data = array(
@@ -58,7 +72,7 @@ class AllController extends H {
             $this->render("/users/group", $data);
         } elseif ($table == 'user_action') {
             $this->render("/users/records", $data);
-        }elseif($table=='credit'){
+        } elseif ($table == 'credit') {
             $this->render("/users/credit", $data);
         } else {
             $this->render("/$table/index", $data);

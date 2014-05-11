@@ -59,6 +59,6 @@ if(!$blocked){
 } 
 $form=$this->endWidget(); 
 if($fromAdmin=='yes'){
-   $this->renderPartial('//credit/actions',array('uid'=>$uid,'type'=>$type,'reason'=>$reason,'status'=>$status,'groupid'=>$groupid)); 
+   $this->renderPartial('//credit/actions',array('uid'=>$uid,'type'=>$type,'reason'=>$reason,'status'=>$status,'groupid'=>$groupid,'creditlogo'=>$creditlogo)); 
 }
 ?>
