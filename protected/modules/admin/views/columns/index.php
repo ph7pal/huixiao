@@ -20,5 +20,6 @@ $this->widget('zii.widgets.jui.CJuiSortable', array(
     )
 ));
 ?>
+ <?php $this->renderPartial('/common/submitBar',array('pages'=>$pages));?>
 <a href="javascript:;" class="btn btn-primary" onclick="changeOrder();">确认排序</a>
 <?php echo CHtml::link('新增', array('columns/add'), array('class' => 'btn btn-default')); ?>

@@ -13,12 +13,12 @@ $colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo[
         <a href="<?php echo Yii::app()->createUrl('posts/show',array('id'=>$ci['id']));?>">
         <?php if($ci['attachid']!=''){?>
         <?php $attachinfo=  Attachments::getOne($ci['attachid']);if($attachinfo){?>
-        <?php echo '<img src="'.zmf::imgurl($attachinfo['logid'],$attachinfo['filePath'],'origin',$attachinfo['classify']).'" alt="'.$ci['title'].'的封面" title="'.$ci['title'].'" class="img-responsive thumbnail"/>';?>
+        <?php echo '<img src="'.zmf::imgurl($attachinfo['logid'],$attachinfo['filePath'],'200',$attachinfo['classify']).'" alt="'.$ci['title'].'的封面" title="'.$ci['title'].'" class="img-responsive"/>';?>
         <?php }else{?>
-        <img src="<?php echo zmf::noImg('url');?>" class="img-responsive thumbnail"/>
+        <img src="<?php echo zmf::noImg('url');?>" class="img-responsive"/>
         <?php }?>
         <?php }else{?>
-        <img src="<?php echo zmf::noImg('url');?>" class="img-responsive thumbnail"/>
+        <img src="<?php echo zmf::noImg('url');?>" class="img-responsive"/>
         <?php }?>
         </a>
         <p>
