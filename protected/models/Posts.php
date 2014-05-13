@@ -159,7 +159,7 @@ class Posts extends CActiveRecord {
         }
         $sql = "SELECT * FROM {{posts}} {$where} AND status=1 ORDER BY cTime LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
-        zmf::setFCache($cachekey, $items,60);
+        zmf::setFCache($cachekey, $items,600);
         return $items;
     }
 

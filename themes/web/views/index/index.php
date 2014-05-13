@@ -31,15 +31,15 @@
                 <?php if($ic['colinfo']['classify']!='thumb'){?>
                 <?php 
                     if($ic['colinfo']['classify']=='page'){
-                        $this->renderPartial('/posts/miniPage',array('colinfo'=>$ic['colinfo']));
+                        $this->renderPartial('/posts/miniPage',array('colinfo'=>$ic['colinfo'],'colnum'=>$ic['colnum']));
                     }elseif($ic['colinfo']['classify']=='logo'){
                         $this->renderPartial('/posts/logo',array('colinfo'=>$ic['colinfo'],'colnum'=>$ic['colnum']));
                     }else{
-                        $this->renderPartial('/posts/miniLists',array('colinfo'=>$ic['colinfo']));            
+                        $this->renderPartial('/posts/miniLists',array('colinfo'=>$ic['colinfo'],'colnum'=>$ic['colnum']));            
                     }
                 ?>
                 <?php }else{?>
-                    <?php $this->renderPartial('/posts/flash',array('colinfo'=>$ic['colinfo'])); ?>
+                    <?php $this->renderPartial('/posts/flash',array('colinfo'=>$ic['colinfo'],'colnum'=>$ic['colnum'])); ?>
                 <?php }?>
            </div>
         </div>
