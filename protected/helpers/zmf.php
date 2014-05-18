@@ -411,7 +411,7 @@ class zmf {
                     $str = self::badWordsReplace($str);
                 }
             }
-            $str = addslashes($str);
+            //$str = addslashes($str);
         }
         if (!empty($info)) {
             

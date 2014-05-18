@@ -36,5 +36,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/m
 
         <?php $this->renderPartial('/common/footer'); ?>
         <?php $this->renderPartial('/common/loadjs'); ?>
+    <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>    
     </body>
 </html>

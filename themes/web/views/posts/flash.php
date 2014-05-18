@@ -1,17 +1,11 @@
 <?php 
 $colid=$colinfo['id'];
 $listposts=Posts::listPosts($colid);
-if($colnum==12){
-    $colrows_min=2;
-    $colrows_max=4;
-}else if($colnum>4){
-    $colrows_min=$colrows_max=3;
-}else{
-    $colrows_min=$colrows_max=3;
-}
+$facenum=isset($facenum)?$facenum:8;
 if(!empty($listposts)){
-foreach($listposts as $ci){?>
-        <div class="col-md-<?php echo $colrows_min;?> col-xs-<?php echo $colrows_max;?>">
+foreach($listposts as $key=>$ci){?>
+<?php if($key<$facenum){?>
+        <div class="col-md-<?php echo $colnum;?> col-xs-<?php echo $colnum;?>">
             <a href="<?php echo Yii::app()->createUrl('posts/show',array('id'=>$ci['id']));?>">
             <?php if($ci['attachid']!=''){?>
             <?php $attachinfo=  Attachments::getOne($ci['attachid']);if($attachinfo){?>
@@ -27,4 +21,9 @@ foreach($listposts as $ci){?>
              <?php echo CHtml::link(zmf::subStr($ci['title'], 15), array('posts/show', 'id' => $ci['id'])); ?>   
             </p>        
         </div>
+<?php }else{?>
+<div class="col-md-4 col-xs-4">
+    <p><?php echo CHtml::link(zmf::subStr($ci['title'], 15), array('posts/show', 'id' => $ci['id'])); ?></p>
+</div>
+<?php }?>
  <?php }}?>
