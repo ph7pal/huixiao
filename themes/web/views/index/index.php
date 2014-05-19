@@ -4,22 +4,23 @@
     .no-padding{
         padding: 0;
     }
+    .order-right{
+        border-right: 1px solid #ddd;
+    }
 </style>
 <div class="row">
 <div class="col-xs-9 col-md-9 no-padding">
-    <div class="col-xs-4 col-md-4">
-        <?php $this->renderPartial('//module/newcredit');?>
-        <!--div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
+    <div class="col-xs-4 col-md-4">        
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
             <div class="panel-heading">            
-                <h4 class="panel-title">                   
+                <h4 class="panel-title">
+                    图片新闻
                 </h4>
             </div>
             <div class="panel-body">
-                <div class="col-xs-8 col-md-8">
-
-                </div>           
+              <?php $this->renderPartial('//module/flashnews');?>            
             </div>            
-        </div-->
+        </div>
     </div>
     <div class="col-xs-8 col-md-8">
         <ul id="myTab" class="nav nav-tabs">
@@ -104,163 +105,164 @@
     </div>
 </div>       
 </div>  
-    
-    
 <div class="row">    
-<div class="col-xs-12 col-md-12">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                信用厂家与产品推荐                
-            </h3>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-8 col-md-8">
-                <div class="panel panel-<?php echo $this->theme_panelStyle;?>  row">
-                    <div class="panel-heading">            
-                        <h4 class="panel-title">
-                            AAA级信用热度排行
-                            <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-xs12 col-md-12">
-                            <?php 
-                            $colinfo=  Columns::getOne(84);
-                            $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
-                            ?>
-                        </div>           
-                    </div>            
-                </div>
+    <div class="col-xs-8 col-md-8">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    AAA级信用热度排行
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
             </div>
-            <div class="col-xs-4 col-md-4">
-                <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-                    <div class="panel-heading">            
-                        <h4 class="panel-title">
-                            AAA级信用厂家推荐
-                            <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-xs-12 col-md-12">
-                            <?php 
-                            $colinfo=  Columns::getOne(84);
-                            $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
-                            ?>
-                        </div>           
-                    </div>            
-                </div>
+            <div class="panel-body">
+                <div class="col-xs12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(84);
+                    $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
+        </div>
+    </div>
+    <div class="col-xs-4 col-md-4">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    AAA级信用厂家推荐
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
             </div>
-        </div>            
+            <div class="panel-body">
+                <div class="col-xs-12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(84);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
+        </div>
     </div>
 </div>
+<div class="clearfix"></div> 
+<div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+    <div class="panel-heading">            
+        <h3 class="panel-title">
+            展会公司                
+        </h3>
+    </div>
+    <div class="panel-body">      
+        <div class="col-xs-6 col-md-6 order-right">            
+            <?php 
+            $colinfo=  Columns::getOne(94);
+            $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>4,'facenum'=>6));
+            ?>
+        </div>    
+        <div class="col-xs-3 col-md-3 order-right">            
+            <?php 
+            $colinfo=  Columns::getOne(95);
+            $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8));
+            ?>
+        </div>
+        <div class="col-xs-3 col-md-3">
+            <?php 
+            $colinfo=  Columns::getOne(96);
+            $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8));
+            ?>
+        </div>
+    </div>            
 </div>
-<div class="row">
-<!--div class="col-xs-12 col-md-12">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                厂家招商资讯                
-            </h3>
+<div class="clearfix"></div> 
+<div class="row">    
+    <div class="col-xs-8 col-md-8">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    代理商经销商排行
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(91);
+                    $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
         </div>
-        <div class="panel-body">
-            
-        </div>            
     </div>
-</div-->
-<div class="clearfix"></div>    
-<div class="col-xs-6 col-md-6">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                展会公司                
-            </h3>
+    <div class="col-xs-4 col-md-4">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    最新代理商经销商
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(91);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
         </div>
-        <div class="panel-body">
-          <?php 
-          $colinfo=  Columns::getOne(94);
-          $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>4,'facenum'=>6));
-          ?>
-        </div>            
     </div>
-</div>    
-<div class="col-xs-3 col-md-3">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                展会资讯                
-            </h3>
-        </div>
-        <div class="panel-body">
-          <?php 
-          $colinfo=  Columns::getOne(95);
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8));
-          ?>
-        </div>            
-    </div>
-</div>
-<div class="col-xs-3 col-md-3">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                展会档期                
-            </h3>
-        </div>
-        <div class="panel-body">
-          <?php 
-          $colinfo=  Columns::getOne(96);
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8));
-          ?>
-        </div>            
-    </div>
-</div>
 </div>
 <div class="row">    
-<div class="col-xs-12 col-md-12">
-    <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-        <div class="panel-heading">            
-            <h3 class="panel-title">
-                代理商经销商                
-            </h3>
+    <div class="col-xs-8 col-md-8">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    营销团队排行榜
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(91);
+                    $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
         </div>
-        <div class="panel-body">
-            <div class="col-xs-8 col-md-8">
-                <div class="panel panel-<?php echo $this->theme_panelStyle;?>  row">
-                    <div class="panel-heading">            
-                        <h4 class="panel-title">
-                            代理商经销商排行
-                            <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-xs12 col-md-12">
-                            <?php 
-                            $colinfo=  Columns::getOne(91);
-                            $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
-                            ?>
-                        </div>           
-                    </div>            
-                </div>
+    </div>
+    <div class="col-xs-4 col-md-4">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    最新营销团队
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
             </div>
-            <div class="col-xs-4 col-md-4">
-                <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-                    <div class="panel-heading">            
-                        <h4 class="panel-title">
-                            最新代理商经销商
-                            <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-xs-12 col-md-12">
-                            <?php 
-                            $colinfo=  Columns::getOne(91);
-                            $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
-                            ?>
-                        </div>           
-                    </div>            
-                </div>
-            </div>
-        </div>            
+            <div class="panel-body">
+                <div class="col-xs-12 col-md-12">
+                    <?php 
+                    $colinfo=  Columns::getOne(91);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'facenum'=>8));
+                    ?>
+                </div>           
+            </div>            
+        </div>
     </div>
 </div>
+<div class="row">    
+    <div class="col-xs-12 col-md-12">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    其他专业新闻
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">                
+                <?php 
+                $colinfo=  Columns::getOne(91);
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>4,'nottable'=>true));
+                ?>          
+            </div>            
+        </div>
+    </div>    
 </div>

@@ -1,5 +1,8 @@
 <?php 
-$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$colinfo['listnum']); ?>
+$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$colinfo['listnum']); 
+$colnum=isset($colnum)?$colnum:3;
+$list_colnum=12/$colnum;
+?>
 <?php if(!$nottable){?>
 <style>
     .myborder td{
@@ -19,9 +22,8 @@ $colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo[
 <?php }else{?>
     <?php if (!empty($colitems)) {
         foreach ($colitems as $ci) { ?>
-        <div class="col-md-4 col-xs-4">
+        <div class="col-md-<?php echo$list_colnum;?> col-xs-<?php echo$list_colnum;?>">
             <p><?php echo CHtml::link(zmf::subStr($ci['title'], 15), array('posts/show', 'id' => $ci['id'])); ?></p>
         </div>    
     <?php }} ?>
-
 <?php } ?>
