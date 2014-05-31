@@ -1,21 +1,22 @@
 <?php $this->beginContent('/layouts/common'); ?>
 <div id="header">
-    <?php $this->renderPartial('/common/topnav');?>
-    <div class="sp-nav">
-        <div class="sp-logo">
-            <a href="<?php echo Yii::app()->baseUrl;?>" class="logo">                
-                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" alt="">
-                <?php echo '新灵中国';?>
+        <div class="col-xs-12 col-sm-4 padding-right-5">
+            <a href="<?php echo Yii::app()->baseUrl;?>">                
+                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive" alt="<?php echo '新灵中国';?>">
             </a>
-            <div class="sp-search">
-                <form class="form-inline" role="form">
-                    <div class="col-xs-10 row">
-                        <input type="text" class="form-control" placeholder="请输入关键词" name="keyword" id="keyword">
+        </div>
+    <div class="search-login visible-md visible-lg">
+        <div class="col-xs-9 col-sm-5 padding-right-5">
+            <form class="form-inline" role="form">
+                    <div class="clearfix">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入关键词" name="keyword" id="keyword">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" id="search-btn">搜索</button>
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-xs-2 row">
-                        <button type="button" class="btn btn-primary" id="search-btn">搜索</button>
-                    </div>
-                    <div class="col-xs-12 topkws">
+                    <div class="topkws">
                         <?php $tops=  SearchRecords::setTops();if(!empty($tops)){?>
                         <p>
                             热门关键词：
@@ -27,8 +28,27 @@
                         <?php }?>
                     </div>
                 </form>
-            </div>            
-        </div>       
+        </div>
+        <div class="col-xs-3 col-sm-3 padding-right-5">
+            <?php if (Yii::app()->user->isGuest) { ?>
+            <?php echo CHtml::link('会员登录', array('site/login'),array('class'=>'btn btn-danger')); ?>
+            <?php echo CHtml::link('立即注册', array('site/reg'),array('class'=>'btn btn-danger')); ?>
+        <?php }else{ ?>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                  <?php echo $this->userInfo['truename'];?>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><?php echo CHtml::link('主页', array('user/index', 'id' => Yii::app()->user->id),array('role'=>'menuitem')); ?></li> 
+                  <li role="presentation"><?php echo CHtml::link('设置', array('user/config'),array('role'=>'menuitem')); ?></li>
+                  <li role="presentation"><?php echo CHtml::link('退出', array('site/logout'),array('role'=>'menuitem')); ?></li>
+                </ul>
+            </div>
+        <?php }?>
+        </div>
+    </div>
+        <div class="clearfix"></div>
         <div class="navbar navbar-default bs-docs-nav" role="navigation">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -56,7 +76,6 @@
                 </ul-->
               </div><!--/.nav-collapse -->              
             </div>
-    </div>
 </div>     
 <div id="content">
     <?php echo $content; ?>

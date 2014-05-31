@@ -29,7 +29,7 @@ $users = UserCredit::getNews();
                 </div>
             </div>
             <script>
-            jQuery(".flash-ul").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:5,interTime:50,trigger:"click"});
+            jQuery(".flash-ul").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:10,interTime:50,trigger:"click"});
             </script>
         </div>
     </div>    

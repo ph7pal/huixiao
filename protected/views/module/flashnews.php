@@ -24,12 +24,12 @@
     <ul>
         <li>
             <a href="/huixiao/index.php?r=mobile/index&uid=8">
-            <img src="http://hackzwc520.gotoip55.com/huixiao/attachments/logo/600/8/5378c581a8bab.jpg" class="img-responsive"/>
+            <img src="http://hx315.cn/attachments/logo/600/8/5378c581a8bab.jpg" class="img-responsive"/>
             </a>
         </li>
         <li>
             <a href="/huixiao/index.php?r=mobile/index&uid=8">
-            <img src="http://hackzwc520.gotoip55.com/huixiao/attachments/logo/600/8/5378c581a8bab.jpg" class="img-responsive"/>
+            <img src="http://hx315.cn/attachments/logo/600/8/5378c581a8bab.jpg" class="img-responsive"/>
             </a>
         </li>
     </ul>

@@ -11,6 +11,77 @@ class AjaxController extends T {
             $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
         }
     }
+    
+    public function actionComment() {
+        if (Yii::app()->user->isGuest) {
+            $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
+        }
+        $uid=zmf::filterInput($_GET['uid']);
+        if ($uid != Yii::app()->user->id) {
+            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+        }
+        $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addcomments'));
+        if(!$status){
+            $this->jsonOutPut(0, '非常抱歉，您暂不能参与评论。');
+        }
+        $keyid = zmf::filterInput($_GET['id']);
+        if (!isset($keyid) OR ! is_numeric($keyid)) {
+            $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+        }
+        $type = zmf::filterInput($_GET['type'], 't', 1);
+        if (!isset($type) OR ! in_array($type, array('posts', 'image'))) {
+            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+        }
+        if ($type == 'posts') {
+            $info = Posts::model()->findByPk($keyid);
+        } else {
+            $info = Attachments::model()->findByPk($keyid);
+        }
+        if (!$info) {
+            $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+        } elseif ($info['status'] != 1) {
+            $this->jsonOutPut(0, Yii::t('default', 'contentnotexists'));
+        } elseif ($type == 'posts') {
+            if ($info['reply_allow'] != 1) {
+                $this->jsonOutPut(0, '非常抱歉，该内容设置为不允许评论');
+            }
+        }
+        $model = new Comments();
+        if (isset($_POST['Comments'])) {
+            //Yii::app()->session['checkHasBadword']='no';
+            $_logid = zmf::filterInput($_POST['Comments']['logid']);
+            if ($keyid != $_logid) {
+                $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+            }
+            $inputData = $_POST['Comments'];
+            $inputData['logid'] = $keyid;
+            $content = zmf::filterInput($_POST['Comments']['content'], 't', 1);
+            if (empty($content)) {
+                $this->jsonOutPut(0, '评论内容不能为空');
+            } elseif (md5($content) == md5('请输入内容...')) {
+                $this->jsonOutPut(0, '评论内容不能为空');
+            }
+            $inputData['status'] = 1;
+            $inputData['uid'] = Yii::app()->user->id;
+            $inputData['cTime'] = time();
+            $ip = Yii::app()->request->userHostAddress;
+            $inputData['ip'] = ip2long($ip);
+            if ($inputData['email'] != '') {
+                $inputData['email'] = tools::jiaMi($inputData['email']);
+            }
+            $model->attributes = $inputData;
+            if ($model->validate()) {
+                $model->attributes = $inputData;
+                if ($model->save()) {
+                    $this->jsonOutPut(1, '新增评论成功');
+                } else {
+                    $this->jsonOutPut(0, '非常抱歉，新增评论失败');
+                }
+            } else {
+                $this->jsonOutPut(0, '非常抱歉，提交内容未通过验证');
+            }
+        }
+    }
 
     public function actionSetStatus() {
         $this->checkPower('setstatus');

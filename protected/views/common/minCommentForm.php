@@ -1,5 +1,6 @@
 <div class="form">
 <?php 
+if(!Yii::app()->user->isGuest){
 $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addcomments'));
 if($status){
 $model=new Comments();
@@ -34,7 +35,7 @@ $form=$this->beginWidget('CActiveForm', array(
 <div class="buttons">
     <p>
     <span id="loader"></span>
-    <?php echo CHtml::ajaxSubmitButton('提交',$this->createUrl('mobile/comment',array('id'=>$keyid,'type'=>$type,'uid'=>Yii::app()->user->id)),
+    <?php echo CHtml::ajaxSubmitButton('提交',$this->createUrl('ajax/comment',array('id'=>$keyid,'type'=>$type,'uid'=>Yii::app()->user->id)),
         array(
             'beforeSend'=>'function(){
             //loading("loader",0);
@@ -55,5 +56,5 @@ $form=$this->beginWidget('CActiveForm', array(
     <div class="alert alert-danger">
         非常抱歉，您暂不能参与评论。
     </div>
-<?php }?>
+<?php }}?>
 </div>

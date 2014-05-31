@@ -18,7 +18,8 @@ class T extends CController {
     public $userInfo;
     public $currentCol = array();
     //模板有关，均已theme开头
-    public $theme_panelStyle='default';
+    public $theme_panelStyle='primary';
+    public $inMobile=false;
 
     public function init() {
         if (!zmf::config('closeSite')) {
@@ -32,6 +33,13 @@ class T extends CController {
         $this->checkApp();
         if (!Yii::app()->user->isGuest) {
             $this->userInfo = Users::getUserInfo(Yii::app()->user->id);
+        }
+        $theme=Yii::app()->request->getParam('theme');
+        if($theme && in_array($theme,array('primary','info','danger','warning'))){
+            $this->theme_panelStyle=$theme;
+        }
+        if (zmf::checkmobile()) {
+            $this->inMobile = TRUE;
         }
     }
 

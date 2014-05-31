@@ -1,6 +1,6 @@
 <?php //$this->renderPartial('/common/topdesc');?>
 <div class="wrap clear">
-    <div class="col-md-8 col-xs-8">
+    <div class="col-md-8 col-xs-8 padding-right-5">
     <?php $this->renderPartial('//ads/ads',array('position'=>'logpage','type'=>'flash'));?>    
     </div>
     <div class="col-md-4 col-xs-4">

@@ -2,6 +2,9 @@
 $colid=$colinfo['id'];
 $listposts=Posts::listPosts($colid);
 $facenum=isset($facenum)?$facenum:8;
+if($this->inMobile){
+    $colnum=12;
+}
 if(!empty($listposts)){
 foreach($listposts as $key=>$ci){?>
 <?php if($key<$facenum){?>
@@ -22,7 +25,7 @@ foreach($listposts as $key=>$ci){?>
             </p>        
         </div>
 <?php }else{?>
-<div class="col-md-4 col-xs-4">
+<div class="col-md-4 col-xs-<?php echo $colnum;?>">
     <p><?php echo CHtml::link(zmf::subStr($ci['title'], 15), array('posts/show', 'id' => $ci['id'])); ?></p>
 </div>
 <?php }?>

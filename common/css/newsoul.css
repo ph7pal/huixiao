@@ -4,10 +4,9 @@ body, input, button, select, textarea { font: 12px/1.6 arial,helvetica,sans-seri
 ul{margin:0;padding:0; }
 ul li{ list-style: none;margin:0;padding:0; }
 a:link {
-color: #37a;
 text-decoration: none;
 }
-a { color: #37a; text-decoration: none; }
+a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:hover img { opacity: 0.8; }
 a img { border: none; }
@@ -65,7 +64,6 @@ a:hover.move { background-position: 100% -44px; }
 }
 .top-nav-info a {
     margin-left: 10px;
-    color: #072;
 }
 .sp-nav {
     padding: 22px 20px 0;
