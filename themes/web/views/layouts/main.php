@@ -6,7 +6,7 @@
             </a>
         </div>
     <div class="search-login visible-md visible-lg">
-        <div class="col-xs-9 col-sm-5 padding-right-5">
+        <div class="col-xs-9 col-sm-5 padding-right-15">
             <form class="form-inline" role="form">
                     <div class="clearfix">
                         <div class="input-group">
@@ -29,7 +29,7 @@
                     </div>
                 </form>
         </div>
-        <div class="col-xs-3 col-sm-3 padding-right-5">
+        <div class="col-xs-3 col-sm-3 padding-right-5 margin-left-15">
             <?php if (Yii::app()->user->isGuest) { ?>
             <?php echo CHtml::link('会员登录', array('site/login'),array('class'=>'btn btn-danger')); ?>
             <?php echo CHtml::link('立即注册', array('site/reg'),array('class'=>'btn btn-danger')); ?>

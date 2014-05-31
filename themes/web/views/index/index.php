@@ -35,8 +35,11 @@
     }
     .second-panel .panel-title{
         font-size: 14px !important;
+        font-weight:bold;
     }
-    
+    .margin-left-15{
+                padding-left: 15px !important;
+            }
 </style>
 <style type="text/css">
 		/* 本例子css */
@@ -81,14 +84,12 @@
                     图片新闻
                 </h4>
             </div>
-            <div class="panel-body">
-              <?php $this->renderPartial('//module/flashnews');?>            
-            </div>            
+            <?php $this->renderPartial('//module/flashnews');?>
         </div>
     </div>
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-12 col-md-8" style="height:280px">
         <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#news-credit" data-toggle="tab">信用资讯</a></li>
+            <li class="active"><a href="#news-credit" data-toggle="tab">会销资讯</a></li>
             <li class=""><a href="#news-news" data-toggle="tab">新闻资讯</a></li>    
             <li class=""><a href="#news-law" data-toggle="tab">政府法规</a></li>    
         </ul>
@@ -121,15 +122,15 @@
     </div> 
     <div class="clearfix"></div>
     <div class="col-xs-12 col-md-12">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
+        <div class="panel panel-danger">
             <div class="panel-heading">            
-                <h4 class="panel-title">会销黑名单曝光</h4>
+                <h4 class="panel-title"><b>会销信用黑名单曝光</b></h4>
             </div>
             <div class="panel-body">
                 <div class="col-xs-12 col-md-12">
                     <?php 
                     $colinfo=  Columns::getOne(97);
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'nottable'=>true));
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'nottable'=>true,'nodate'=>true,'topHotNum'=>3));
                     ?>
                 </div>           
             </div>            
@@ -137,15 +138,15 @@
     </div>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-md-12">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
+        <div class="panel panel-danger">
             <div class="panel-heading">            
-                <h4 class="panel-title">会销骗局</h4>
+                <h4 class="panel-title"><b>会销骗局</b></h4>
             </div>
             <div class="panel-body">
                 <div class="col-xs-12 col-md-12">
                     <?php 
                     $colinfo=  Columns::getOne(98);
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'nottable'=>true));
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>3,'nottable'=>true,'nodate'=>true,'topHotNum'=>3));
                     ?>
                 </div>           
             </div>            
@@ -156,14 +157,14 @@
     <?php $this->renderPartial('//module/newcredit',array('colnum'=>$ic['colnum']));?>
     <div class="panel panel-danger ">
         <div class="panel-heading">            
-            <h4 class="panel-title">认证指南</h4>
+            <h4 class="panel-title"><b>认证指南</b></h4>
         </div>
         <div class="panel-body">
             <div class="col-xs-12 col-md-12">
-                <p><a href="#" class="btn btn-default center-block" role="button">认证细则</a></p>
-                <p><a href="#" class="btn btn-default center-block" role="button">认证流程</a></p>
-                <p><a href="#" class="btn btn-default center-block" role="button">认证文件</a></p>
-                <p><a href="#" class="btn btn-default center-block" role="button">资料下载</a></p>  
+                <p><a href="#" class="btn btn-danger center-block" role="button">认证细则</a></p>
+                <p><a href="#" class="btn btn-primary center-block" role="button">认证流程</a></p>
+                <p><a href="#" class="btn btn-info center-block" role="button">认证文件</a></p>
+                <p><a href="#" class="btn btn-success center-block" role="button">资料下载</a></p>  
             </div>           
         </div>            
     </div>
@@ -310,10 +311,17 @@
     </div>            
 </div>
 <div class="clearfix"></div> 
-<div class="">    
-    <div class="col-xs-12 col-md-9">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-            <div class="panel-heading">            
+
+<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
+    <div class="panel-heading my-heading-border">            
+        <h3 class="panel-title">
+            会销营销团队                
+        </h3>
+    </div>
+    <div class="" style="margin-top: 5px;">      
+        <div class="col-xs-12 col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
                     营销团队排行榜
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
@@ -326,8 +334,8 @@
                 ?>          
             </div>            
         </div>
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-            <div class="panel-heading">            
+        <div class="panel panel-default">
+            <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
                     营销模式
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
@@ -336,14 +344,14 @@
             <div class="panel-body">                
                 <?php 
                 $colinfo=  Columns::getOne(75);
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'nottable'=>true,'colnum'=>4));
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'nottable'=>true,'colnum'=>4,'nodate'=>true));
                 ?>          
             </div>            
         </div>
     </div>
     <div class="col-xs-12 col-md-3">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-            <div class="panel-heading">            
+        <div class="panel panel-default">
+            <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
                     最新营销团队
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
@@ -352,14 +360,86 @@
             <div class="panel-body">
                 <?php 
                 $colinfo=  Columns::getOne(91);
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'topFaceNum'=>3));
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'topFaceNum'=>3,'nodate'=>true));
                 ?>
             </div>            
         </div>
     </div>
+    </div>            
 </div>
-<div class="">    
-    <div class="col-xs-12 col-md-12">
+<div class="clearfix">
+<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
+    <div class="panel-heading my-heading-border">            
+        <h3 class="panel-title">
+            会销行业必看知识推荐
+        </h3>
+    </div>
+    <div class="" style="margin-top: 5px;">      
+        <div class="col-xs-12 col-md-3"> 
+            <div class="panel panel-default">
+                <div class="panel-heading second-panel">            
+                    <h3 class="panel-title">
+                        知识推荐栏一               
+                    </h3>
+                </div>
+                <div class="panel-body">                 
+                    <?php 
+                    $colinfo=  Columns::getOne(95);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8,'nodate'=>true));
+                    ?>
+                </div>            
+            </div>
+        </div>    
+        <div class="col-xs-12 col-md-3"> 
+            <div class="panel panel-default">
+                <div class="panel-heading second-panel">            
+                    <h3 class="panel-title">
+                        知识推荐栏二                    
+                    </h3>
+                </div>
+                <div class="panel-body">                 
+                    <?php 
+                    $colinfo=  Columns::getOne(95);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8,'nodate'=>true));
+                    ?>
+                </div>            
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading second-panel">            
+                    <h3 class="panel-title">
+                        知识推荐栏三     
+                    </h3>
+                </div>
+                <div class="panel-body">                 
+                    <?php 
+                    $colinfo=  Columns::getOne(96);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8,'nodate'=>true));
+                    ?>
+                </div>            
+            </div>            
+        </div>
+        <div class="col-xs-12 col-md-3"> 
+            <div class="panel panel-default">
+                <div class="panel-heading second-panel">            
+                    <h3 class="panel-title">
+                        知识推荐栏四                   
+                    </h3>
+                </div>
+                <div class="panel-body">                 
+                    <?php 
+                    $colinfo=  Columns::getOne(95);
+                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>8,'nodate'=>true));
+                    ?>
+                </div>            
+            </div>
+        </div>
+    </div>            
+</div>
+</div>
+<div class="clearfix">    
+    <div class="col-xs-6 col-md-6">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -370,7 +450,55 @@
             <div class="panel-body">                
                 <?php 
                 $colinfo=  Columns::getOne(91);
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>4,'nottable'=>true));
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>1,'nottable'=>true,'nodate'=>true));
+                ?>          
+            </div>            
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-6">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    其他专业新闻
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">                
+                <?php 
+                $colinfo=  Columns::getOne(91);
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>1,'nottable'=>true,'nodate'=>true));
+                ?>          
+            </div>            
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-6">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    其他专业新闻
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">                
+                <?php 
+                $colinfo=  Columns::getOne(91);
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>1,'nottable'=>true,'nodate'=>true));
+                ?>          
+            </div>            
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-6">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+            <div class="panel-heading">            
+                <h4 class="panel-title">
+                    其他专业新闻
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>''));?></span>
+                </h4>
+            </div>
+            <div class="panel-body">                
+                <?php 
+                $colinfo=  Columns::getOne(91);
+                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfo,'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
             </div>            
         </div>

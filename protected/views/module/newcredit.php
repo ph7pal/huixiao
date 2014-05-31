@@ -4,7 +4,7 @@ $users = UserCredit::getNews();
 <?php if (!empty($users)) {?>
 <style>
     .flash-ul{ overflow:hidden; position:relative;}    
-    .flash-ul .infoList li{ height:24px; line-height:24px;   }
+    .flash-ul .infoList li{ height:25px; line-height:25px;   }
     .flash-ul .infoList li .date{ float:right; color:#999;  }
 </style>
 
@@ -20,6 +20,7 @@ $users = UserCredit::getNews();
                 <div class="bd">
                     <ul class="infoList">
                         <?php foreach ($users as $key=>$ci) { ?> 
+                        <li><?php echo CHtml::link(Users::getUserInfo($ci['uid'],'truename'),array('mobile/index','uid'=>$ci['uid']),array('target'=>'_blank'));?></li>
                         <li><?php echo CHtml::link(Users::getUserInfo($ci['uid'],'truename'),array('mobile/index','uid'=>$ci['uid']),array('target'=>'_blank'));?></li>
                         <li><?php echo CHtml::link(Users::getUserInfo($ci['uid'],'truename'),array('mobile/index','uid'=>$ci['uid']),array('target'=>'_blank'));?></li>
                         <li><?php echo CHtml::link(Users::getUserInfo($ci['uid'],'truename'),array('mobile/index','uid'=>$ci['uid']),array('target'=>'_blank'));?></li>

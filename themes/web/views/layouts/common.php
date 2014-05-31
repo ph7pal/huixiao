@@ -32,6 +32,10 @@
     </head>
     <body>
         <style>
+        	.padding-right-15{
+                padding-right: 15px !important;
+                padding-left: 0 !important;
+            }
             .padding-right-5{
                 padding-right: 5px !important;
                 padding-left: 0 !important;

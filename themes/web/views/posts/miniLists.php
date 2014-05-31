@@ -1,5 +1,6 @@
 <?php 
-$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$colinfo['listnum']); 
+$listNum=isset($listNum)?$listNum:$colinfo['listnum'];
+$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$listNum); 
 if($this->inMobile){
     $list_colnum=12;
 }else{
@@ -43,9 +44,17 @@ $topFaceNum=isset($topFaceNum)?$topFaceNum:0;
 </table>   
 <?php }else{?>
     <?php if (!empty($colitems)) {
-        foreach ($colitems as $ci) { ?>
+        foreach ($colitems as $key=>$ci) { ?>
         <div class="col-md-<?php echo $list_colnum;?> col-xs-<?php echo $list_colnum;?>">
-            <p><?php echo CHtml::link(zmf::subStr($ci['title'], 15), array('posts/show', 'id' => $ci['id'])); ?></p>
+            <p>
+            	<?php echo CHtml::link(zmf::subStr($ci['title'], 10), array('posts/show', 'id' => $ci['id'])); ?>
+            	<?php if($key<$topHotNum){?>
+            		<span style="color:red;font-weight:bold;">HOT</span>
+            	<?php }?>
+            <?php if(!$nodate){?>
+            <span class="pull-right date"><?php echo date('m-d', $ci['cTime']); ?></span>
+            <?php }?>
+            </p>            
         </div>    
     <?php }} ?>
 <?php } ?>

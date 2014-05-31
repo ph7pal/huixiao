@@ -1,6 +1,6 @@
 <style>
 /* 本例子css */
-.logobanner{ width:100%; height:220px; overflow:hidden; position:relative; border:1px solid #ddd;  }
+.logobanner{ width:100%; height:280px; overflow:hidden; position:relative; border:1px solid #ddd;  }
 .logobanner .hd{ height:15px; overflow:hidden; position:absolute; right:5px; bottom:5px; z-index:1; }
 .logobanner .hd ul{ overflow:hidden; zoom:1; float:left;  }
 .logobanner .hd ul li{ float:left; margin-right:2px;  width:15px; height:15px; line-height:14px; text-align:center; background:#fff; cursor:pointer; }
