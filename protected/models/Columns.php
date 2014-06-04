@@ -327,5 +327,13 @@ class Columns extends CActiveRecord {
         $cols['newcredit'] = '最新认证';
         return $cols;
     }
+    public function indexColumns($idstr){
+        if(!$idstr){
+            return false;
+        }
+        $sql="SELECT * FROM {{columns}} WHERE id IN($idstr) ORDER BY FIELD($idstr)";
+        $items=Yii::app()->db->createCommand($sql)->queryAll();
+        return $items;
+    }
 
 }

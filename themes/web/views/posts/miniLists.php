@@ -1,4 +1,5 @@
 <?php 
+if($colinfo){
 $listNum=isset($listNum)?$listNum:$colinfo['listnum'];
 $colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$listNum); 
 if($this->inMobile){
@@ -7,8 +8,6 @@ if($this->inMobile){
   $colnum=isset($colnum)?$colnum:3;
   $list_colnum=12/$colnum;  
 }
-
-
 $topFaceNum=isset($topFaceNum)?$topFaceNum:0;
 ?>
 <?php if(!$nottable){?>
@@ -57,4 +56,4 @@ $topFaceNum=isset($topFaceNum)?$topFaceNum:0;
             </p>            
         </div>    
     <?php }} ?>
-<?php } ?>
+<?php }} ?>

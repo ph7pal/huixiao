@@ -1,7 +1,7 @@
 <?php $this->beginContent('/layouts/common'); ?>
 <div id="header">
         <div class="col-xs-12 col-sm-4 padding-right-5">
-            <a href="<?php echo Yii::app()->baseUrl;?>">                
+            <a href="<?php echo zmf::config('baseurl');?>">                
                 <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive" alt="<?php echo '新灵中国';?>">
             </a>
         </div>
@@ -60,7 +60,7 @@
               </div>
               <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo Yii::app()->baseUrl;?>">首页</a></li>
+                    <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
                     <?php 
                     $topcols=Columns::getColsByPosition('top',true);
                     if(!empty($topcols)){

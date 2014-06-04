@@ -18,6 +18,8 @@ class UserController extends T {
     public $showNavs = false;
     //个人管理主页
     public $homeUrl;
+    //是管理员
+    public $isAdmin = false;
 
     public function actions() {
         return array(
@@ -38,7 +40,7 @@ class UserController extends T {
         parent::init();
         $code = zmf::filterInput($_GET['code'], 't', 1);
         $this->seekey = zmf::config('authorPre');
-        if ($code != '' || isset(Yii::app()->session[$this->seekey])) {            
+        if ($code != '' || isset(Yii::app()->session[$this->seekey])) {
             if ($code == '') {
                 $code = Yii::app()->session[$this->seekey];
             }
@@ -75,7 +77,7 @@ class UserController extends T {
                 Yii::app()->end();
             }
             $this->checkUser(true);
-        }        
+        }
         $this->homeUrl = Yii::app()->createUrl('user/index');
     }
 
@@ -83,7 +85,12 @@ class UserController extends T {
         $redirect = false;
         $nolimit = 0;
         $a = Yii::app()->getController()->getAction()->id;
-        if (!T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_manage'))) {            
+        $gids = zmf::config('adminGroupIds');
+        $arr = explode(',', $gids);
+        if (in_array($this->userInfo['groupid'], $arr)) {
+            $this->isAdmin = true;
+        }
+        if (!T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_manage'))) {
             if (isset(Yii::app()->session[$this->seekey])) {
                 $this->noticeInfo = '您正在以管理员身份查看该用户';
                 return true;
@@ -92,22 +99,26 @@ class UserController extends T {
                     $nolimit+=1;
                     $this->message(0, '您所在用户组暂不能访问个人管理中心', Yii::app()->baseUrl);
                 } else {
-                    $gids = zmf::config('adminGroupIds');
-                    $arr = explode(',', $gids);
                     if (in_array($this->userInfo['groupid'], $arr)) {
                         $info = '管理本站与成为商家不能兼得';
                         $nolimit+=1;
                     } else {
                         //$info = '您还不是商家，欲使用所有功能请联系：' . zmf::config('phone') . '或者' . zmf::config('email');
                         $_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
-                        if($_creditstatus!=Posts::STATUS_PASSED){
+                        if ($_creditstatus != Posts::STATUS_PASSED) {
                             $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
-                            $nolimit+=1;
-                        }                        
+                            //$nolimit+=1;
+                        }
                     }
                     $this->noticeInfo = $info;
                     $redirect = true;
                 }
+            }
+        } else {
+            $_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
+            if ($_creditstatus != Posts::STATUS_PASSED) {
+                $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
+                $this->noticeInfo = $info;                
             }
         }
         if (!$this->userInfo['emailstatus']) {
@@ -128,7 +139,7 @@ class UserController extends T {
     public function actionIndex() {
         $data = array(
             'info' => $this->userInfo,
-        );        
+        );
         $this->render('index', $data);
     }
 
@@ -257,15 +268,15 @@ class UserController extends T {
             $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
         }
         $colinfo = Columns::getOne($colid);
-        if(!$colinfo){
+        if (!$colinfo) {
             T::message(0, '该版块不存在，请核实');
-                exit();
-        }else{
-            if($colinfo['groupid']!=$this->userInfo['groupid']){
+            exit();
+        } else {
+            if ($colinfo['groupid'] != $this->userInfo['groupid']) {
                 T::message(0, '您无权在该版块写文章，请核实');
                 exit();
             }
-        }        
+        }
         $forupdate = zmf::filterInput($_GET['edit'], 't', 1);
         if ($forupdate != 'yes') {
             if (!Columns::checkWritable($colid, $uid)) {
@@ -273,7 +284,7 @@ class UserController extends T {
                 exit();
             }
         }
-        
+
         $model = new Posts();
         $keyid = zmf::getFCache("notSavePosts-{$uid}-{$colid}");
         $_keyid = zmf::filterInput($_GET['id']);
@@ -322,8 +333,8 @@ class UserController extends T {
 //            if ($info['attachid']) {
 //                $info['attachid'] = tools::jiaMi($info['attachid']);
 //            }
-            $info['content'] = zmf::text(array('keyid' => $keyid, 'imgwidth' => '530','uid'=>$this->uid), $info['content'], false, 600);
-        }        
+            $info['content'] = zmf::text(array('keyid' => $keyid, 'imgwidth' => '530', 'uid' => $this->uid), $info['content'], false, 600);
+        }
         $this->listTableTitle = '新增【' . $colinfo['title'] . '】';
         $data = array(
             'keyid' => $keyid,

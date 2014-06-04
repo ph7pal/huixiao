@@ -1,7 +1,7 @@
 <?php 
 $users = UserCredit::getNews(); 
 ?>
-<?php if (!empty($users)) {?>
+
 <style>
     .flash-ul{ overflow:hidden; position:relative;}    
     .flash-ul .infoList li{ height:25px; line-height:25px;   }
@@ -15,7 +15,8 @@ $users = UserCredit::getNews();
                 最新认证              
             </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body my-height">
+            <?php if (!empty($users)) {?>
             <div class="flash-ul">
                 <div class="bd">
                     <ul class="infoList">
@@ -32,6 +33,8 @@ $users = UserCredit::getNews();
             <script>
             jQuery(".flash-ul").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:10,interTime:50,trigger:"click"});
             </script>
+            <?php echo '<script>jQuery(".logobanner").slide({mainCell:".bd ul",effect:"left",autoPlay:true});</script>';?>
+<?php }?>
         </div>
     </div>    
 </div>
@@ -44,8 +47,3 @@ $users = UserCredit::getNews();
 
 
 
-<?php
-    echo '<script>jQuery(".logobanner").slide({mainCell:".bd ul",effect:"left",autoPlay:true});</script>';
-
-?>
-<?php }?>

@@ -1,4 +1,5 @@
 <?php
+if($colinfo){
 $colid=$colinfo['id'];
 $page = Posts::getPage($colid);
 if ($page['attachid'] > 0) {
@@ -20,4 +21,5 @@ if ($page['attachid'] > 0) {
     echo '<div class="col-md-12 col-xs-12">';
     echo '<p>' . $page['intro'] . '</p>';
     echo '</div>';
+}
 }
