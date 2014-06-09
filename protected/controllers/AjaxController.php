@@ -164,7 +164,8 @@ class AjaxController extends T {
         if(!$idstr){
             $this->jsonOutPut(1, '请选择城市');
         }        
-        $info=tools::city(array('idstr'=>$idstr));        
+        //$info=tools::city(array('idstr'=>$idstr));   
+        $info=  Area::listArea($idstr);
         $id=  uniqid();
         if(!empty($info) && $info){
             $longstr='<select name="cityid[]" id="'.$id.'" onchange="ajaxCity(\''.$id.'\',\'localarea\',\'more'.$id.'\','.($order+1).')">';

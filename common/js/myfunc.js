@@ -29,30 +29,12 @@ function ajaxAddColumn(table) {
 
 }
 function ajaxCity(a,b,d,e) {
-    var c = $("#"+a).val();    
-    if (c == '0' || typeof c == 'undefined') {
+    var t = $("#"+a).val();    
+    if (t == '0' || typeof t == 'undefined') {
         alert('请选择');
         return false;
     }
-    var t=$("#"+b).val();
-    if (t == '' || typeof t == 'undefined' || e==1) {
-        t=c;
-    }else{
-        var arr=t.split('#');
-        var rt='';
-        for(var i=0;i<(e-1);i++){
-            if(typeof arr[i]!='undefined'){
-                if(rt==''){
-                    rt=arr[i];
-                }else{
-                    rt+='#'+arr[i];
-                }                 
-                 
-            }           
-        }
-        rt+='#'+c;
-        t=rt;
-    }    
+    
     $.ajax({
         type: "POST",
         url: selectCityUrl,

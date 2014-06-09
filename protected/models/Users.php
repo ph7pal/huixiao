@@ -246,5 +246,14 @@ class Users extends CActiveRecord {
 //            'power'=>''
 //        );
     }
+    
+    public static function getLecturer($area){
+        if(!$area){
+            return false;
+        }
+        $sql="SELECT uid FROM {{user_credit}} WHERE name='localarea' AND value='$area' AND classify='lecturer'";
+        $usrs=Yii::app()->db->createCommand($sql)->queryAll();
+        return $users;
+    }
 
 }

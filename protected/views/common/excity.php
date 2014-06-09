@@ -1,5 +1,5 @@
 <?php if(!$info){?>
-<?php echo CHtml::dropDownList('cityid[]','',tools::city(),array('onchange'=>'ajaxCity("cityid","localarea","addcityholder",1)')); ?><span id="addcityholder"></span>
+<?php echo CHtml::dropDownList('cityid[]','',Area::listArea(),array('onchange'=>'ajaxCity("cityid","localarea","addcityholder",1)')); ?><span id="addcityholder"></span>
 <?php }else{?>
 <?php 
 $arr=  explode('#', $info);

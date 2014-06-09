@@ -85,6 +85,7 @@ $colinfo1=  Columns::getOne(1);
 $arr=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21);
 $idstr=join(',',$arr);
 $colinfos=Columns::indexColumns($idstr);
+$areas= Area::listArea(NUll,false,15);
 ?>
 <div class="">
 <div class="col-xs-12 col-md-9 no-padding">
@@ -252,10 +253,26 @@ $colinfos=Columns::indexColumns($idstr);
         </h3>
     </div>
     <div class="panel-body my-height">                 
-        <?php 
-        $colinfo=  Columns::getOne(90);
-        $this->renderPartial('/posts/flash',array('colinfo'=>$colinfo,'colnum'=>2,'facenum'=>12));
-        ?>
+        <ul id="tab-for-lecturer" class="nav nav-tabs">
+            <?php  foreach($areas as $ak=>$aval){?>         
+            <li <?php if($ak==0){?>class="active"<?php }?>>
+                <a href="#lecturer-tab-<?php echo $aval['id'];?>" data-toggle="tab"><?php echo $aval['name'];?></a>
+            </li>
+            <?php }?>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <?php  foreach($areas as $ak=>$aval){?>
+                <div class="tab-pane fade <?php if($ak==0){?>active<?php }?>" id="lecturer-tab-<?php echo $aval['id'];?>">
+                    <?php $this->renderPartial('//module/listLecturer',array('areaid'=>$aval['id']));?>
+                </div>
+            <?php }?>    
+        </div>
+        <script>
+        $('#tab-for-lecturer a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+          })
+        </script>
     </div>            
 </div>
 <div class="clearfix"></div>
