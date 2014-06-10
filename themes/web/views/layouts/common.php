@@ -20,6 +20,7 @@
         <?php 
         Yii::app()->clientScript->registerCoreScript('jquery'); 
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/myfunc.js", CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/bootstrap.min.js", CClientScript::POS_END);
         ?>
         <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/jquery.SuperSlide.2.1.js");?>
         <?php if((Yii::app()->getController()->id=='posts' AND Yii::app()->getController()->getAction()->id=='index')){?>
@@ -49,7 +50,6 @@
         </div>
 
         <?php $this->renderPartial('/common/footer'); ?>
-        <?php $this->renderPartial('/common/loadjs'); ?>
-    <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+        <?php $this->renderPartial('/common/loadjs'); ?>    
     </body>
 </html>

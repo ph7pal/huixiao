@@ -506,6 +506,7 @@ class UserController extends T {
             unset($_POST['type']);
             unset($_POST['btn']);
             $configs = $_POST;
+            $configs['cTime']=time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
             foreach ($configs as $k => $v) {
                 $data = array(

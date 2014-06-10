@@ -8,7 +8,7 @@ $users = UserCredit::getNews();
     .flash-ul .infoList li .date{ float:right; color:#999;  }
 </style>
 
-<div class="col-xs-<?php echo $colnum;?> col-md-<?php echo $colnum;?> moduleBox">    
+<div class="moduleBox margin-right_5px">    
     <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
         <div class="panel-heading">            
             <h3 class="panel-title">
@@ -38,12 +38,4 @@ $users = UserCredit::getNews();
         </div>
     </div>    
 </div>
-
-
-
-
-
-
-
-
-
+<div class="clearfix"></div>

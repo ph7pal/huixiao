@@ -40,6 +40,7 @@ class T extends CController {
         }
         if (zmf::checkmobile()) {
             $this->inMobile = TRUE;
+            $this->layout='mobile';
         }
     }
 

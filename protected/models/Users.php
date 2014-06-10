@@ -16,7 +16,7 @@ class Users extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, truename, email,groupid, status', 'required','on'=>array('insert')),
+            array('username, password, truename, email,groupid, status', 'required', 'on' => array('insert')),
             array('groupid, last_login_time, status, cTime ,emailstatus,system', 'numerical', 'integerOnly' => true),
             array('username', 'length', 'max' => 50),
             array('username,email', 'unique'),
@@ -27,7 +27,7 @@ class Users extends CActiveRecord {
             array('mobile, telephone', 'length', 'max' => 20),
             array('last_login_ip', 'length', 'max' => 16),
             array('login_count', 'length', 'max' => 10),
-            array('hash','length','max'=>8),
+            array('hash', 'length', 'max' => 8),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, username, password, truename, groupid, email, qq, mobile, telephone, last_login_ip, last_login_time, login_count, status, cTime , emailstatus,hash', 'safe', 'on' => 'search'),
@@ -65,7 +65,7 @@ class Users extends CActiveRecord {
             'cTime' => '创建时间',
             'emailstatus' => '邮箱状态',
             'system' => '是否系统',
-            'hash'=>'随机字串',
+            'hash' => '随机字串',
         );
     }
 
@@ -169,21 +169,21 @@ class Users extends CActiveRecord {
         echo $longstr;
     }
 
-    public static function userAside($uid,$return=array()) {
+    public static function userAside($uid, $return = array()) {
         if (!$uid) {
             return false;
         }
-        if(!empty($return)){
-            $_str=  join('-', $return);
-        }else{
-            $_str='';
+        if (!empty($return)) {
+            $_str = join('-', $return);
+        } else {
+            $_str = '';
         }
-        $cacheKey="userAside{$uid}{$_str}";        
+        $cacheKey = "userAside{$uid}{$_str}";
         //$bar=zmf::getFCache($cacheKey);
-        if($bar){
+        if ($bar) {
             return $bar;
         }
-        $bar = array();        
+        $bar = array();
         $bar['user_setting'] = array(
             'url' => CHtml::link('设置', array('user/config'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'config' ? 'current' : ''))),
             'power' => 'user_setting'
@@ -216,23 +216,23 @@ class Users extends CActiveRecord {
         $bar['user_homepage'] = array(
             'url' => CHtml::link('主页', array('mobile/index', 'uid' => $uid), array('class' => 'list_btn ', 'target' => '_blank')),
             'power' => 'user_homepage'
-        );          
-        foreach($bar as $key=>$val){
-            if(!empty($return)){
-                if(!in_array($key,$return)){
+        );
+        foreach ($bar as $key => $val) {
+            if (!empty($return)) {
+                if (!in_array($key, $return)) {
                     unset($bar[$key]);
                     continue;
                 }
-            }            
-            $_info=T::checkYesOrNo(array('uid'=>$uid,'type'=>$val['power']));            
-            if(!$_info){
+            }
+            $_info = T::checkYesOrNo(array('uid' => $uid, 'type' => $val['power']));
+            if (!$_info) {
                 unset($bar[$key]);
             }
         }
-        zmf::setFCache($cacheKey, $bar,3600);
+        zmf::setFCache($cacheKey, $bar, 3600);
         return $bar;
-        
-        
+
+
 //        $bar[] = array(
 //            'url' => '',
 //            'power' => ''
@@ -246,13 +246,53 @@ class Users extends CActiveRecord {
 //            'power'=>''
 //        );
     }
-    
-    public static function getLecturer($area){
-        if(!$area){
+
+    /**
+     * 讲师按地区查询
+     * @param type $area
+     * @return boolean
+     */
+    public static function getLecturer($area) {
+        if (!$area) {
             return false;
         }
-        $sql="SELECT uid FROM {{user_credit}} WHERE name='localarea' AND value='$area' AND classify='lecturer'";
-        $usrs=Yii::app()->db->createCommand($sql)->queryAll();
+        $key = "getLecturer-$area";
+        $usrs = zmf::getFCache($key);
+        if (!$usrs) {
+            $sql = "SELECT uid FROM {{user_credit}} WHERE name='localarea' AND value='$area' AND classify='lecturer'";
+            $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+            zmf::setFCache($key, $usrs, 3600);
+        }
+        return $users;
+    }
+
+    /**
+     * 展会公司热门排行
+     * @return array
+     */
+    public static function getExhibition() {
+        $key = "getLecturer-$area";
+        $usrs = zmf::getFCache($key);
+        if (!$usrs) {
+            $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='exhibition'";
+            $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+            zmf::setFCache($key, $usrs, 3600);
+        }
+        return $usrs;
+    }
+
+    /**
+     * 营销团队展示
+     * @return type
+     */
+    public static function getTeam() {
+        $key = "getLecturer-$area";
+        $usrs = zmf::getFCache($key);
+        if (!$usrs) {
+            $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='marketing_team'";
+            $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+            zmf::setFCache($key, $usrs, 3600);
+        }
         return $users;
     }
 

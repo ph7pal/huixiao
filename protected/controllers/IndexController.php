@@ -46,6 +46,10 @@ class IndexController extends T {
             //'pages' => $pages,
             //'seconds' => $seconds
         );
-        $this->render('index', $data);
+        if($this->inMobile){
+            $this->render('/formobile/index', $data);
+        }else{
+            $this->render('index', $data);
+        }        
     }  
 }
