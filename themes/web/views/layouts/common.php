@@ -42,7 +42,18 @@
                 padding-left: 0 !important;
             }
             .search-login{
-                padding-top:25px;
+                padding-top:55px;
+            }
+            .logo{
+                width:300px;
+                height:140px;
+            }
+            .fixed_200_150{
+                width:200px;
+                height: 113px;
+            }
+            .no-padding{
+              padding:0px;
             }
         </style>
         <div class="wrapper">

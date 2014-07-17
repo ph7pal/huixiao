@@ -2,193 +2,196 @@
 
 class PostsController extends T {
 
-    public function actionIndex() {
-        $keyid = zmf::filterInput($_GET['colid']);
-        if (!$keyid) {
-            $this->message(0, '请选择要查看的页面');
-        }
-        $colinfo = Columns::model()->findByPk($keyid);
-        if (!$colinfo) {
-            $this->message(0, '您要查看的栏目不存在，请核实');
-        } elseif ($colinfo['status'] < 1) {
-            $this->message(0, '您要查看的栏目未通过审核');
-        }
-        $this->currentCol[] = $keyid;
-        $data = array();
-        $data['info'] = $colinfo;
-        $criteria = new CDbCriteria();
-        if ($colinfo['classify'] == 'page') {
-            $page = Posts::getPage($keyid);
-            if ($page) {
-                $this->comments($page['id'], $coms, $pages);
-            } else {
-                $this->message(0, '您要查看的栏目暂无文章');
-            }
-            Posts::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $page['id']));
-            $render = 'page';
-            $data['page'] = $page;
-            $data['coms'] = $coms;
-            $data['pages'] = $pages;
-        } else {
-            $render = 'lists';
-            $colstr = Columns::getColIds($keyid);
-            if ($colstr) {
-                $_sql = "SELECT * FROM {{posts}} WHERE colid IN({$colstr}) AND status=" . Posts::STATUS_PASSED . " ORDER BY cTime DESC";
-                Posts::getAll(array('sql' => $_sql), $pages, $lists);
-            }
-
-            $data['posts'] = $lists;
-            $data['pages'] = $pages;
-        }
-        $this->pageTitle = $colinfo['title'] . ' - ' . zmf::config('sitename');
-        $this->render($render, $data);
+  public function actionIndex() {
+    $keyid = zmf::filterInput($_GET['colid']);
+    if (!$keyid) {
+      $this->message(0, '请选择要查看的页面');
     }
-
-    public function actionShow() {
-        $keyid = zmf::filterInput($_GET['id']);
-        if (!$keyid) {
-            $this->message(0, '请选择要查看的页面');
-        }
-        $info = Posts::model()->findByPk($keyid);
-        if (!$info) {
-            $this->message(0, '您所查看的文章不存在，请核实');
-        } elseif ($info['status'] < 1) {
-            $this->message(0, '您要查看的文章未通过审核');
-        }
-        $colinfo = Columns::model()->findByPk($info['colid']);
-        $sql1 = "SELECT id,title FROM {{posts}} WHERE id>:id AND colid=:colid AND status=1 ORDER BY id ASC LIMIT 1";
-        $sql2 = "SELECT id,title FROM {{posts}} WHERE id<:id AND colid=:colid AND status=1 ORDER BY id DESC LIMIT 1";
-        $nextInfo = Posts::model()->findBySql($sql1, array(':id' => $keyid, ':colid' => $info['colid']));
-        $preInfo = Posts::model()->findBySql($sql2, array(':id' => $keyid, ':colid' => $info['colid']));
-
-        if (empty($nextInfo)) {
-            //已到最后张，则返回第一张
-            $sql3 = "SELECT id,title FROM {{posts}} WHERE colid=:colid AND status=1 ORDER BY id ASC LIMIT 0,1";
-            $nextInfo = Posts::model()->findBySql($sql3, array(':colid' => $info['colid']));
-        }
-        if (empty($preInfo)) {
-            //已到第一张，则返回第后张
-            $sql4 = "SELECT id,title FROM {{posts}} WHERE colid=:colid AND status=1 ORDER BY id DESC LIMIT 1";
-            $preInfo = Posts::model()->findBySql($sql4, array(':colid' => $info['colid']));
-        }
-        $this->comments($keyid, $coms, $pages);
-        Posts::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $keyid));
-        $this->uid = $info['uid'];
-        $_sql = 'SELECT id,title FROM {{posts}} WHERE colid=' . $colinfo['id'] . ' AND  id!=' . $keyid . ' AND status=' . Posts::STATUS_PASSED;
-        Posts::getAll(array('sql' => $_sql), $_page, $likes);
-        $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seesecretinfo'));
-        if ($info['secretinfo'] != '' && $status) {
-            $info['secretinfo'] = tools::jieMi($info['secretinfo']);
-        }else{
-            $info['secretinfo']='';
-        }
-        $data = array(
-            'preInfo' => $preInfo,
-            'nextInfo' => $nextInfo,
-            'page' => $info,
-            'info' => $colinfo,
-            'coms' => $coms,
-            'pages' => $pages,
-            'likes' => $likes
-        );
-        $this->pageTitle = $info['title'] . ' - ' . $colinfo['title'] . ' - ' . zmf::config('sitename');
-        $this->render('page', $data);
+    $colinfo = Columns::model()->findByPk($keyid);
+    if (!$colinfo) {
+      $this->message(0, '您要查看的栏目不存在，请核实');
+    } elseif ($colinfo['status'] < 1) {
+      $this->message(0, '您要查看的栏目未通过审核');
     }
-
-    public function actionImages() {
-        $keyid = zmf::filterInput($_GET['id']);
-        if (isset($keyid) AND ! empty($keyid)) {
-            $info = zmf::getFCache("album{$keyid}");
-            if (!$info) {
-                $info = Album::model()->findByPk($keyid);
-                zmf::setFCache("album{$keyid}", $info);
-            }
-            if (!$info) {
-                $this->message(0, Yii::t('default', 'pagenotexists'));
-            } elseif ($info['status'] != 1) {
-                $this->message(0, Yii::t('default', 'contentnotexists'));
-            }
-            $criteria = new CDbCriteria();
-
-            $sql = "SELECT * FROM {{attachments}} WHERE logid='{$keyid}' AND classify='album' AND status=1 ORDER BY cTime DESC";
-            $db = Yii::app()->db->createCommand($sql)->queryAll();
-            $pages = new CPagination(count($db));
-            $pages->pageSize = 10;
-            $pages->applylimit($criteria);
-            $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
-            $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
-            $com->bindValue(':limit', $pages->pageSize);
-            $lists = $com->queryAll();
-            $data = array(
-                'info' => $info,
-                'posts' => $lists,
-                'pages' => $pages,
-            );
-            $this->pageTitle = $info->title . '-' . '相册-' . zmf::config('sitename');
-            $this->render('images', $data);
-        } else {
-            $this->message(0, Yii::t('default', 'pagenotexists'));
-        }
+    $this->currentCol[] = $keyid;
+    $data = array();
+    $data['info'] = $colinfo;
+    $criteria = new CDbCriteria();
+    if ($colinfo['classify'] == 'page') {
+      $page = Posts::getPage($keyid);
+      if ($page) {
+        $this->comments($page['id'], $coms, $pages);
+      } else {
+        $this->message(0, '您要查看的栏目暂无文章');
+      }
+      Posts::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $page['id']));
+      $render = 'page';
+      $data['page'] = $page;
+      $data['coms'] = $coms;
+      $data['pages'] = $pages;
+    } else {
+      if($colinfo['classify']!='thumb'){
+        $render = 'lists';
+      }else{
+        $render = $colinfo['classify'];
+      }      
+      $colstr = Columns::getColIds($keyid);
+      if ($colstr) {
+        $_sql = "SELECT * FROM {{posts}} WHERE colid IN({$colstr}) AND status=" . Posts::STATUS_PASSED . " ORDER BY cTime DESC";
+        Posts::getAll(array('sql' => $_sql), $pages, $lists);
+      }
+      $data['posts'] = $lists;
+      $data['pages'] = $pages;
     }
+    $this->pageTitle = $colinfo['title'] . ' - ' . zmf::config('sitename');
+    $this->render($render, $data);
+  }
 
-    public function actionImage() {
-        $keyid = zmf::filterInput($_GET['id']);
-        if (isset($keyid) AND ! empty($keyid)) {
-            $info = zmf::getFCache("attachment{$keyid}");
-            if (!$info) {
-                $info = Attachments::model()->findByPk($keyid);
-                zmf::setFCache("attachment{$keyid}", $info);
-            }
-            if (!$info) {
-                $this->message(0, Yii::t('default', 'pagenotexists'));
-            } elseif ($info['status'] != 1) {
-                $this->message(0, Yii::t('default', 'contentnotexists'));
-            }
-            if ($info['classify'] == 'album') {
-                $belonginfo = Album::getOne($info['logid']);
-            } else {
-                $belonginfo = '';
-            }
-            //zmf::test($info);
-
-            $criteria = new CDbCriteria();
-            $sql = "SELECT * FROM {{comments}} WHERE logid='{$keyid}' AND classify='image' AND status=1 ORDER BY cTime DESC";
-            $db = Yii::app()->db->createCommand($sql)->queryAll();
-            $pages = new CPagination(count($db));
-            $pages->pageSize = 10;
-            $pages->applylimit($criteria);
-            $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
-            $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
-            $com->bindValue(':limit', $pages->pageSize);
-            $lists = $com->queryAll();
-            $data = array(
-                'info' => $info,
-                'belonginfo' => $belonginfo,
-                'posts' => $lists,
-                'pages' => $pages,
-            );
-            $this->pageTitle = '[相册]' . $belonginfo->title . '的照片-' . zmf::config('sitename');
-            $this->render('image', $data);
-        } else {
-            $this->message(0, Yii::t('default', 'pagenotexists'));
-        }
+  public function actionShow() {
+    $keyid = zmf::filterInput($_GET['id']);
+    if (!$keyid) {
+      $this->message(0, '请选择要查看的页面');
     }
+    $info = Posts::model()->findByPk($keyid);
+    if (!$info) {
+      $this->message(0, '您所查看的文章不存在，请核实');
+    } elseif ($info['status'] < 1) {
+      $this->message(0, '您要查看的文章未通过审核');
+    }
+    $colinfo = Columns::model()->findByPk($info['colid']);
+    $sql1 = "SELECT id,title FROM {{posts}} WHERE id>:id AND colid=:colid AND status=1 ORDER BY id ASC LIMIT 1";
+    $sql2 = "SELECT id,title FROM {{posts}} WHERE id<:id AND colid=:colid AND status=1 ORDER BY id DESC LIMIT 1";
+    $nextInfo = Posts::model()->findBySql($sql1, array(':id' => $keyid, ':colid' => $info['colid']));
+    $preInfo = Posts::model()->findBySql($sql2, array(':id' => $keyid, ':colid' => $info['colid']));
 
-    public function actionComment() {
-        if (!Yii::app()->request->isAjaxRequest) {
-            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
-        }
-        if (Yii::app()->user->isGuest) {
-            $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
-        }
-        $keyid = zmf::filterInput($_GET['id']);
-        if (!isset($keyid) OR ! is_numeric($keyid)) {
-            $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
-        }
-        $type = zmf::filterInput($_GET['type'], 't', 1);
-        if (!isset($type) OR ! in_array($type, array('posts', 'image'))) {
-            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
-        }
+    if (empty($nextInfo)) {
+      //已到最后张，则返回第一张
+      $sql3 = "SELECT id,title FROM {{posts}} WHERE colid=:colid AND status=1 ORDER BY id ASC LIMIT 0,1";
+      $nextInfo = Posts::model()->findBySql($sql3, array(':colid' => $info['colid']));
+    }
+    if (empty($preInfo)) {
+      //已到第一张，则返回第后张
+      $sql4 = "SELECT id,title FROM {{posts}} WHERE colid=:colid AND status=1 ORDER BY id DESC LIMIT 1";
+      $preInfo = Posts::model()->findBySql($sql4, array(':colid' => $info['colid']));
+    }
+    $this->comments($keyid, $coms, $pages);
+    Posts::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $keyid));
+    $this->uid = $info['uid'];
+    $_sql = 'SELECT id,title FROM {{posts}} WHERE colid=' . $colinfo['id'] . ' AND  id!=' . $keyid . ' AND status=' . Posts::STATUS_PASSED;
+    Posts::getAll(array('sql' => $_sql), $_page, $likes);
+    $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seesecretinfo'));
+    if ($info['secretinfo'] != '' && $status) {
+      $info['secretinfo'] = tools::jieMi($info['secretinfo']);
+    } else {
+      $info['secretinfo'] = '';
+    }
+    $data = array(
+        'preInfo' => $preInfo,
+        'nextInfo' => $nextInfo,
+        'page' => $info,
+        'info' => $colinfo,
+        'coms' => $coms,
+        'pages' => $pages,
+        'likes' => $likes
+    );
+    $this->pageTitle = $info['title'] . ' - ' . $colinfo['title'] . ' - ' . zmf::config('sitename');
+    $this->render('page', $data);
+  }
+
+  public function actionImages() {
+    $keyid = zmf::filterInput($_GET['id']);
+    if (isset($keyid) AND ! empty($keyid)) {
+      $info = zmf::getFCache("album{$keyid}");
+      if (!$info) {
+        $info = Album::model()->findByPk($keyid);
+        zmf::setFCache("album{$keyid}", $info);
+      }
+      if (!$info) {
+        $this->message(0, Yii::t('default', 'pagenotexists'));
+      } elseif ($info['status'] != 1) {
+        $this->message(0, Yii::t('default', 'contentnotexists'));
+      }
+      $criteria = new CDbCriteria();
+
+      $sql = "SELECT * FROM {{attachments}} WHERE logid='{$keyid}' AND classify='album' AND status=1 ORDER BY cTime DESC";
+      $db = Yii::app()->db->createCommand($sql)->queryAll();
+      $pages = new CPagination(count($db));
+      $pages->pageSize = 10;
+      $pages->applylimit($criteria);
+      $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
+      $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
+      $com->bindValue(':limit', $pages->pageSize);
+      $lists = $com->queryAll();
+      $data = array(
+          'info' => $info,
+          'posts' => $lists,
+          'pages' => $pages,
+      );
+      $this->pageTitle = $info->title . '-' . '相册-' . zmf::config('sitename');
+      $this->render('images', $data);
+    } else {
+      $this->message(0, Yii::t('default', 'pagenotexists'));
+    }
+  }
+
+  public function actionImage() {
+    $keyid = zmf::filterInput($_GET['id']);
+    if (isset($keyid) AND ! empty($keyid)) {
+      $info = zmf::getFCache("attachment{$keyid}");
+      if (!$info) {
+        $info = Attachments::model()->findByPk($keyid);
+        zmf::setFCache("attachment{$keyid}", $info);
+      }
+      if (!$info) {
+        $this->message(0, Yii::t('default', 'pagenotexists'));
+      } elseif ($info['status'] != 1) {
+        $this->message(0, Yii::t('default', 'contentnotexists'));
+      }
+      if ($info['classify'] == 'album') {
+        $belonginfo = Album::getOne($info['logid']);
+      } else {
+        $belonginfo = '';
+      }
+      //zmf::test($info);
+
+      $criteria = new CDbCriteria();
+      $sql = "SELECT * FROM {{comments}} WHERE logid='{$keyid}' AND classify='image' AND status=1 ORDER BY cTime DESC";
+      $db = Yii::app()->db->createCommand($sql)->queryAll();
+      $pages = new CPagination(count($db));
+      $pages->pageSize = 10;
+      $pages->applylimit($criteria);
+      $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
+      $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
+      $com->bindValue(':limit', $pages->pageSize);
+      $lists = $com->queryAll();
+      $data = array(
+          'info' => $info,
+          'belonginfo' => $belonginfo,
+          'posts' => $lists,
+          'pages' => $pages,
+      );
+      $this->pageTitle = '[相册]' . $belonginfo->title . '的照片-' . zmf::config('sitename');
+      $this->render('image', $data);
+    } else {
+      $this->message(0, Yii::t('default', 'pagenotexists'));
+    }
+  }
+
+  public function actionComment() {
+    if (!Yii::app()->request->isAjaxRequest) {
+      $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+    }
+    if (Yii::app()->user->isGuest) {
+      $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
+    }
+    $keyid = zmf::filterInput($_GET['id']);
+    if (!isset($keyid) OR ! is_numeric($keyid)) {
+      $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+    }
+    $type = zmf::filterInput($_GET['type'], 't', 1);
+    if (!isset($type) OR ! in_array($type, array('posts', 'image'))) {
+      $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+    }
 //     $allowTime = 10;
 //     $ip = Yii::app()->request->userHostAddress;
 //     $allowT = md5($ip.$keyid.Yii::app()->user->id.$type);       
@@ -204,104 +207,138 @@ class PostsController extends T {
 //     if($refresh){
 //         $this->jsonOutPut(0,'您的操作太过频繁，请稍作休息');      
 //     }
-        if ($type == 'posts') {
-            $info = Posts::model()->findByPk($keyid);
+    if ($type == 'posts') {
+      $info = Posts::model()->findByPk($keyid);
+    } else {
+      $info = Attachments::model()->findByPk($keyid);
+    }
+
+
+    if (!$info) {
+      $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+    } elseif ($info['status'] != 1) {
+      $this->jsonOutPut(0, Yii::t('default', 'contentnotexists'));
+    } elseif ($type == 'posts') {
+      if ($info['reply_allow'] != 1) {
+        $this->jsonOutPut(0, '非常抱歉，该内容设置为不允许评论');
+      }
+    }
+    $model = new Comments();
+    if (isset($_POST['Comments'])) {
+      //Yii::app()->session['checkHasBadword']='no';
+      $_logid = zmf::filterInput($_POST['Comments']['logid']);
+      if ($keyid != $_logid) {
+        $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+      }
+      $inputData['logid'] = $keyid;
+      $content = zmf::filterInput($_POST['Comments']['content'], 't', 1);
+      if (empty($content)) {
+        $this->jsonOutPut(0, '评论内容不能为空');
+      } elseif (md5($content) == md5('请输入内容...')) {
+        $this->jsonOutPut(0, '评论内容不能为空');
+      }
+      $ip = Yii::app()->request->userHostAddress;
+      $inputData['content'] = $content;
+      $inputData['classify'] = $type;
+      $inputData['status'] = 1;
+      $inputData['uid'] = Yii::app()->user->id;
+      $inputData['cTime'] = time();
+      $inputData['ip'] = ip2long($ip);
+      $inputData['nickname'] = zmf::filterInput($_POST['Comments']['nickname'], 't', 1);
+      $inputData['email'] = zmf::filterInput($_POST['Comments']['email'], 't', 1);
+      //zmf::test($inputData);
+      $model->attributes = $inputData;
+      if ($model->validate()) {
+        $model->attributes = $inputData;
+        if ($model->save()) {
+          $this->jsonOutPut(1, '新增评论成功');
         } else {
-            $info = Attachments::model()->findByPk($keyid);
+          $this->jsonOutPut(0, '非常抱歉，新增评论失败');
         }
-
-
-        if (!$info) {
-            $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
-        } elseif ($info['status'] != 1) {
-            $this->jsonOutPut(0, Yii::t('default', 'contentnotexists'));
-        } elseif ($type == 'posts') {
-            if ($info['reply_allow'] != 1) {
-                $this->jsonOutPut(0, '非常抱歉，该内容设置为不允许评论');
-            }
-        }
-        $model = new Comments();
-        if (isset($_POST['Comments'])) {
-            //Yii::app()->session['checkHasBadword']='no';
-            $_logid = zmf::filterInput($_POST['Comments']['logid']);
-            if ($keyid != $_logid) {
-                $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
-            }
-            $inputData['logid'] = $keyid;
-            $content = zmf::filterInput($_POST['Comments']['content'], 't', 1);
-            if (empty($content)) {
-                $this->jsonOutPut(0, '评论内容不能为空');
-            } elseif (md5($content) == md5('请输入内容...')) {
-                $this->jsonOutPut(0, '评论内容不能为空');
-            }
-            $ip = Yii::app()->request->userHostAddress;
-            $inputData['content'] = $content;
-            $inputData['classify'] = $type;
-            $inputData['status'] = 1;
-            $inputData['uid'] = Yii::app()->user->id;
-            $inputData['cTime'] = time();
-            $inputData['ip'] = ip2long($ip);
-            $inputData['nickname'] = zmf::filterInput($_POST['Comments']['nickname'], 't', 1);
-            $inputData['email'] = zmf::filterInput($_POST['Comments']['email'], 't', 1);
-            //zmf::test($inputData);
-            $model->attributes = $inputData;
-            if ($model->validate()) {
-                $model->attributes = $inputData;
-                if ($model->save()) {
-                    $this->jsonOutPut(1, '新增评论成功');
-                } else {
-                    $this->jsonOutPut(0, '非常抱歉，新增评论失败');
-                }
-            } else {
-                $this->jsonOutPut(0, '非常抱歉，提交内容未通过验证');
-            }
-        }
+      } else {
+        $this->jsonOutPut(0, '非常抱歉，提交内容未通过验证');
+      }
     }
+  }
 
-    public function comments($keyid, &$coms, &$pages) {
-        $criteria = new CDbCriteria();
-        $sql = "SELECT * FROM {{comments}} WHERE logid='{$keyid}' AND status=1 ORDER BY cTime DESC";
-        $db = Yii::app()->db->createCommand($sql)->queryAll();
-        $pages = new CPagination(count($db));
-        $pages->pageSize = 10;
-        $pages->applylimit($criteria);
-        $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
-        $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
-        $com->bindValue(':limit', $pages->pageSize);
-        $coms = $com->queryAll();
-    }
+  public function comments($keyid, &$coms, &$pages) {
+    $criteria = new CDbCriteria();
+    $sql = "SELECT * FROM {{comments}} WHERE logid='{$keyid}' AND status=1 ORDER BY cTime DESC";
+    $db = Yii::app()->db->createCommand($sql)->queryAll();
+    $pages = new CPagination(count($db));
+    $pages->pageSize = 10;
+    $pages->applylimit($criteria);
+    $com = Yii::app()->db->createCommand($sql . " LIMIT :offset,:limit");
+    $com->bindValue(':offset', $pages->currentPage * $pages->pageSize);
+    $com->bindValue(':limit', $pages->pageSize);
+    $coms = $com->queryAll();
+  }
 
-    public function actionSearch() {
-        $keyword = zmf::filterInput(Yii::app()->request->getParam('keyword'), 't', 1);
-        $info = '';
-        $pre='';
-        $next='';
-        $posts=array();
-        if (!$keyword) {
-            $info = '请输入关键词';
-        }
-        $_page = zmf::filterInput($_GET['page']);
-        if (!$info) {
-            $page = isset($_page) ? $_page : 1;
-            $pageNum = 30;
-            $start = ($page - 1) * $pageNum;
-            $items = Posts::suggestSearch($keyword, 0);
-            $total=count($items);
-            $posts=array_slice($items,$start,$pageNum);
-            if($page>1){
-                $pre=CHtml::link('上一页',array('posts/search','page'=>($page-1),'keyword'=>$keyword));
-            }
-            if(($start+count($posts))<$total){
-                $next=CHtml::link('下一页',array('posts/search','page'=>($page+1),'keyword'=>$keyword));
-            }
-        }
-        $data = array();
-        $data['info'] = $info;
-        $data['posts'] = $posts;
-        $data['keyword'] = $keyword;
-        $data['pre'] = $pre;
-        $data['next'] = $next;        
-        $this->render('search', $data);
+  public function actionSearch() {
+    $keyword = zmf::filterInput(Yii::app()->request->getParam('keyword'), 't', 1);
+    $info = '';
+    $pre = '';
+    $next = '';
+    $posts = array();
+    if (!$keyword) {
+      $info = '请输入关键词';
     }
+    $_page = zmf::filterInput($_GET['page']);
+    if (!$info) {
+      $page = isset($_page) ? $_page : 1;
+      $pageNum = 30;
+      $start = ($page - 1) * $pageNum;
+      $items = Posts::suggestSearch($keyword, 0);
+      $total = count($items);
+      $posts = array_slice($items, $start, $pageNum);
+      if ($page > 1) {
+        $pre = CHtml::link('上一页', array('posts/search', 'page' => ($page - 1), 'keyword' => $keyword));
+      }
+      if (($start + count($posts)) < $total) {
+        $next = CHtml::link('下一页', array('posts/search', 'page' => ($page + 1), 'keyword' => $keyword));
+      }
+    }
+    $data = array();
+    $data['info'] = $info;
+    $data['posts'] = $posts;
+    $data['keyword'] = $keyword;
+    $data['pre'] = $pre;
+    $data['next'] = $next;
+    $this->render('search', $data);
+  }
+
+  public function actionQiye() {
+    $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='producer'";
+    Posts::getAll(array('sql' => $sql), $pages, $items);
+    $lists=array();
+    if(!empty($items)){
+      foreach($items as $it){
+        $_tmp=  UserCredit::model()->findAll($it['uid']);
+        $_tmp=CHtml::listData($_tmp,'name','value');
+        $_tmp['uid']=$it['uid'];
+        $lists[]=$_tmp;
+      }
+    }
+    $data['posts'] = $lists;
+    $data['pages'] = $pages;
+    $this->render('qiye',$data);
+  }
+  
+  public function actionJiangshi() {
+    $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='lecturer'";
+    Posts::getAll(array('sql' => $sql), $pages, $items);
+    $lists=array();
+    if(!empty($items)){
+      foreach($items as $it){
+        $_tmp=  UserCredit::model()->findAll($it['uid']);
+        $_tmp=CHtml::listData($_tmp,'name','value');
+        $_tmp['uid']=$it['uid'];
+        $lists[]=$_tmp;
+      }
+    }
+    $data['posts'] = $lists;
+    $data['pages'] = $pages;
+    $this->render('jiangshi',$data);
+  }
 
 }

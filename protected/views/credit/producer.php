@@ -21,6 +21,8 @@ if($_imgSize>200){
 </p>
 <p><label>企业全称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业法人：</label><input class="form-control" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
+<p><label>企业地址：</label><input class="form-control" name="address" id="address" type="text" value="<?php echo $info['address']; ?>" <?php echo $disabled;?>/></p>
+<p><label>企业描述：</label><input class="form-control" name="description" id="description" type="text" value="<?php echo $info['description']; ?>" <?php echo $disabled;?>/></p>
 <p><label>官方网站地址：</label><input class="form-control" name="companyurl" id="companyurl" type="text" value="<?php echo $info['companyurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名：</label><input class="form-control" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人手机：</label><input class="form-control" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>

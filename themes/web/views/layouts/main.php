@@ -2,7 +2,7 @@
 <div id="header">
         <div class="col-xs-12 col-sm-4 padding-right-5">
             <a href="<?php echo zmf::config('baseurl');?>">                
-                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive" alt="<?php echo '新灵中国';?>">
+                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive logo" alt="<?php echo '新灵中国';?>">
             </a>
         </div>
     <div class="search-login visible-md visible-lg">

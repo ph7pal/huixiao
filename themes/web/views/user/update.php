@@ -3,7 +3,7 @@
     <?php $form=$this->beginWidget('CActiveForm',array('id'=>'xform','htmlOptions'=>array('name'=>'xform'))); ?>
     <input class="form-control" name="type" id="type" type="hidden" value="info"/>
     <p><label>用户：</label><input class="form-control" value="<?php echo $info['username']; ?>" disabled/></p>    
-    <p><label>邮箱：</label><input class="form-control" name="email" id="version" type="email" value="<?php echo $info['email']; ?>"/></p>
+    <p><label>邮箱：</label><input class="form-control" value="<?php echo $info['email']; ?>" disabled/></p>
     <p><label>姓名：</label><input class="form-control" name="truename" id="truename" type="text" value="<?php echo $info['truename']; ?>"/></p>
     <p><label>QQ：</label><input class="form-control" name="qq" id="qq" type="text" value="<?php echo $info['qq']; ?>"/></p>
     <p><label>手机：</label><input class="form-control" name="mobile" id="mobile" type="text" value="<?php echo $info['mobile']; ?>"/></p>

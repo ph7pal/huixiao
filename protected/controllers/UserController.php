@@ -440,10 +440,13 @@ class UserController extends T {
                 unset($_POST['btn']);
                 unset($_POST['type']);
                 unset($_POST['csrfToken']);
+                unset($_POST['username']);
+                unset($_POST['truename']);
+                unset($_POST['email']);
                 $intoData = $_POST;
-                if ($intoData['email'] != $this->userInfo['email']) {
-                    $intoData['emailstatus'] = Posts::STATUS_NOTPASSED;
-                }
+//                if ($intoData['email'] != $this->userInfo['email']) {
+//                    $intoData['emailstatus'] = Posts::STATUS_NOTPASSED;
+//                }
             } elseif ($type == 'passwd') {
                 $old = zmf::filterInput($_POST['old_password'], 't', 1);
                 $info = Users::model()->findByPk($this->uid);
