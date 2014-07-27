@@ -53,7 +53,11 @@
                 height: 113px;
             }
             .no-padding{
-              padding:0px;
+              padding:0px !important;
+            }
+            .link-holder{
+              /*width:124px;*/
+              height:50px;
             }
         </style>
         <div class="wrapper">

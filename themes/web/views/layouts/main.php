@@ -78,37 +78,46 @@
             </div>
 </div>     
 <div id="content">
-    <?php echo $content; ?>
-    <?php //$this->renderPartial('/user/aside'); ?>  
-    <div class="extra"></div>
+  <?php echo $content; ?>   
+  <hr/>
+  <div class="extra">
+    <?php 
+    $links=Link::allLinks();
+    if(!empty($links)){?>
+    <p>友链链接：</p>    
+    <?php foreach($links as $link){?>
+    <div class="col-xs-2 no-padding link-holder">
+      <a href="<?php echo $link['url'];?>" target="_blank">
+        <?php if($link['attachid']>0 && $link['imgurl']!=''){?>
+        <img src="<?php echo $link['imgurl'];?>" class="img-responsive"/>
+        <?php }else{?>
+        <p class="text-center"><?php echo $link['title'];?></p>
+        <?php }?>
+      </a>   
+    </div>
+    <?php }?>
+    
+    <?php }?>
+  </div>
 </div>
 <div id="footer">
   <div class="wrapper clear">
-    <div class="act">        
-        <div class="box paddLeft">
-            <?php 
-            $links=Link::allLinks();
-            if(!empty($links)){?>
-            <p>友链：
-            <?php foreach($links as $link){?>            
-                <a href="<?php echo $link['url'];?>" target="_blank"><?php echo $link['title'];?></a>            
-            <?php }?>
-            </p>
-            <?php }?>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-10">
       <p>
       	<?php $address=zmf::config('address');if(!empty($address)){ echo '地址：'.$address;}?>
       	<?php $phone=zmf::config('phone');if(!empty($phone)){ echo '电话：'.$phone;}?>
-      	</p>      
+      </p>      
       <p>
-          <a href="<?php echo zmf::config('domain');?>" target="_blank"><?php echo zmf::config('sitename');?></a>
-          <?php echo zmf::config('copyright');?>
-          <?php echo zmf::config('beian');?>
+        <a href="<?php echo zmf::config('domain');?>" target="_blank"><?php echo zmf::config('sitename');?></a>
+        <?php echo zmf::config('copyright');?>
+        <?php echo zmf::config('beian');?>
       </p>
       <p>
           <?php echo stripslashes(zmf::config('tongji'));?>
       </p>
     </div>
-  </div>
+    <div class="col-xs-2"></div>    
 </div>
 </div>
 <div class="bg"></div>
