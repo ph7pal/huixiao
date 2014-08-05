@@ -67,7 +67,7 @@
 </style>
 <style>
 /* 本例子css */
-.logobanner{ width:100%; height:280px; overflow:hidden; position:relative; border:1px solid #ddd;  }
+.logobanner{ width:100%; height:280px; overflow:hidden; position:relative;}
 .logobanner .hd{ height:15px; overflow:hidden; position:absolute; right:5px; bottom:5px; z-index:1; }
 .logobanner .hd ul{ overflow:hidden; zoom:1; float:left;  }
 .logobanner .hd ul li{ float:left; margin-right:2px;  width:15px; height:15px; line-height:14px; text-align:center; background:#fff; cursor:pointer; }
@@ -487,23 +487,8 @@ $areas= Area::listArea(NUll,false,10);
     </div>            
 </div>
 <div class="clearfix"></div>
-<div class="col-xs-3 col-md-3">
-  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-      <div class="panel-heading">            
-          <h4 class="panel-title">
-              热点推荐
-              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
-          </h4>
-      </div>
-      <div class="panel-body my-height" style='height: 488px'>                
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-          ?>          
-      </div>            
-  </div>
-</div>
-<div class="col-xs-6 col-md-6 no-padding">
-  <div class="col-xs-12 col-md-6">
+
+  <div class="col-xs-5 col-md-5">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -518,7 +503,22 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-12 col-md-6 padding-right-10px">
+    <div class="col-xs-2 col-md-2">
+      <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+          <div class="panel-heading">            
+              <h4 class="panel-title">
+                  热点推荐
+                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
+              </h4>
+          </div>
+          <div class="panel-body my-height" style='height: 220px'>                
+              <?php 
+              $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
+              ?>          
+          </div>            
+      </div>
+    </div>
+    <div class="col-xs-5 col-md-5">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -534,8 +534,9 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-12 col-md-6">
-        <div class="panel panel-default">
+    <div class="clearfix"></div>
+    <div class="col-xs-5 col-md-5">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
                     <?php echo $colinfos[19]['title'];?>
@@ -549,8 +550,23 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-12 col-md-6 padding-right-10px">
-        <div class="panel panel-default margin-right_5px">
+    <div class="col-xs-2 col-md-2">
+      <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+          <div class="panel-heading">            
+              <h4 class="panel-title">
+                  人才招聘
+                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
+              </h4>
+          </div>
+          <div class="panel-body my-height" style='height: 220px'>
+              <?php 
+              $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
+              ?>          
+          </div>            
+      </div>
+    </div>
+    <div class="col-xs-5 col-md-5">
+        <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">
                     <?php echo $colinfos[20]['title'];?>
@@ -565,21 +581,3 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-</div>
-<div class="col-xs-3 col-md-3 no-padding">
-  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-      <div class="panel-heading">            
-          <h4 class="panel-title">
-              人才招聘
-              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
-          </h4>
-      </div>
-      <div class="panel-body my-height" style='height: 488px'>
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-          ?>          
-      </div>            
-  </div>
-</div>
-
-     

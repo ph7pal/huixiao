@@ -32,38 +32,9 @@
         <![endif]-->
     </head>
     <body>
-        <style>
-        	.padding-right-15{
-                padding-right: 15px !important;
-                padding-left: 0 !important;
-            }
-            .padding-right-5{
-                padding-right: 5px !important;
-                padding-left: 0 !important;
-            }
-            .search-login{
-                padding-top:55px;
-            }
-            .logo{
-                width:300px;
-                height:140px;
-            }
-            .fixed_200_150{
-                width:200px;
-                height: 113px;
-            }
-            .no-padding{
-              padding:0px !important;
-            }
-            .link-holder{
-              /*width:124px;*/
-              height:50px;
-            }
-        </style>
         <div class="wrapper">
             <?php echo $content; ?>
         </div>
-
         <?php $this->renderPartial('/common/footer'); ?>
         <?php $this->renderPartial('/common/loadjs'); ?>    
     </body>
