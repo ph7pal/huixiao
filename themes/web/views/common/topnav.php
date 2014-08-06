@@ -1,6 +1,7 @@
 <div class="top-nav">
     <a href="#" class="logo"></a>
     <div class="top-nav-info" id="top-nav-info">
+      <?php echo CHtml::link('首页',zmf::config('baseurl')); ?>
         <?php if (Yii::app()->user->isGuest) { ?>            
         <?php } else { ?>
             <?php echo CHtml::link($this->userInfo['truename'], array('user/index', 'id' => Yii::app()->user->id));

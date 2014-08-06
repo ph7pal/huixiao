@@ -6,7 +6,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 <?php echo $content; ?>
-<?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'')); ?>
+<?php echo CHtml::submitButton('保存',array('class'=>'btn btn-success','name'=>'')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form --> 
 <?php $this->endContent(); ?>

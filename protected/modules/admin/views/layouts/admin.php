@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/m
       <div class="container main">
       <span class="welcome">欢迎：<?php echo Yii::app()->user->name;?></span>
       <span ><?php echo CHtml::link('修改密码',array('users/update','id'=>Yii::app()->user->id),array('target'=>'main'));?></span>
-      <span ><?php echo CHtml::link('站点首页',Yii::app()->baseUrl,array('target'=>'_blank'));?></span>
+      <span ><?php echo CHtml::link('站点首页',zmf::config('baseurl'),array('target'=>'_blank'));?></span>
       <span ><?php echo CHtml::link('退出',array('/site/logout'));?></span>
       </div>
   </div>  

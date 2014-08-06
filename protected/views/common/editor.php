@@ -25,13 +25,20 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/upload
   $(function(){    
     myeditor=UM.getEditor('<?php echo CHtml::activeId($model,$attri);?>', {
        //UMEDITOR_HOME_URL : URL, 
+       <?php if($simple=='yes'){?>
        toolbar: [
+           'bold italic underline strikethrough ',
+            'link unlink | image',
+        ],    
+       <?php }else{?>
+        toolbar: [
            'bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
             'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
             '| justifyleft justifycenter justifyright justifyjustify |',
             'link unlink | image',
             '| horizontal print preview fullscreen undo redo', 'drafts', 'formula'
         ],
+       <?php }?>
        lang:'zh-cn', //语言
        wordCount:false, //关闭字数统计       
        initialFrameWidth:550, //宽度

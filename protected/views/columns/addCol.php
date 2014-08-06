@@ -58,7 +58,16 @@
     </div>
     <div class="form-group">
     <?php echo $form->labelEx($model,'groupid'); ?>
-    <?php echo $form->dropDownList($model,'groupid',UserGroup::getGroups(true),array('class'=>'form-control','options' => array($info['groupid']=>array('selected'=>true)))); ?>
+    <?php 
+    $_adArr=array();
+    $groups=UserGroup::getGroups(true);
+    if(!empty($info->groups)){      
+        foreach($info->groups as $v){
+          $_key=$v['groupid'];
+          $_adArr[$_key]=array('selected'=>true);
+        }
+    }
+    echo $form->dropDownList($model,'groupid',$groups,array('class'=>'form-control','options' =>$_adArr,'multiple'=>'true')); ?>
      <p class="help-block"><?php echo $form->error($model,'groupid'); ?></p>
     </div>
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default')); ?>

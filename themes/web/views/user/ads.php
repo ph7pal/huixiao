@@ -18,7 +18,7 @@
 </tr>
 <tr>
     <td>
-        <?php echo CHtml::link('新增', array('user/addads'), array('class' => 'btn btn-default')); ?>
+        <?php echo CHtml::link('新增', array('user/addads'), array('class' => 'btn btn-success')); ?>
     </td>
 </tr>
 </table>

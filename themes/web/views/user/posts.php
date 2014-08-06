@@ -7,7 +7,7 @@
         <?php $_title=Columns::getOne($row['colid'],'title'); ?>
         <td>
             <?php echo'【'.$_title.'】'.$row['title']; ?>
-            <?php echo CHtml::link('浏览', array('mobile/show', 'id' => $row['id'],'uid'=>$row['uid']),array('target'=>'_blank')); ?>
+            <?php echo CHtml::link('浏览', array('posts/show', 'id' => $row['id']),array('target'=>'_blank')); ?>
             <?php echo CHtml::link('编辑', array('user/add', 'id' => $row['id'],'colid'=>$row['colid'], 'edit' => 'yes')); ?>
             <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>
         </td>
@@ -21,7 +21,7 @@
 <?php if($colid){if(Columns::checkWritable($colid,$this->uid,true)){?>
 <tr>
     <td>
-        <?php echo CHtml::link('新增', array('user/add','colid'=>$colid), array('class' => 'btn btn-default')); ?>
+        <?php echo CHtml::link('新增', array('user/add','colid'=>$colid), array('class' => 'btn btn-success')); ?>
     </td>
 </tr>
 <?php }}?>

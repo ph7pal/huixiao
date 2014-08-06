@@ -21,7 +21,12 @@
     <?php echo $form->labelEx($model,'title'); ?>
     <?php echo $form->textField($model,'title',array('class'=>'form-control','value'=>$info['title'])); ?>
      <p class="help-block"><?php echo $form->error($model,'title'); ?></p>
-    </div>    
+    </div>
+    <div class="form-group">
+    <?php echo $form->labelEx($model,'intro'); ?>
+    <?php echo $form->textArea($model,'intro',array('class'=>'form-control','value'=>$info['intro'],'rows'=>3)); ?>
+     <p class="help-block"><?php echo $form->error($model,'intro'); ?></p>
+    </div>
     <script>
         var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'coverimg'));?>";  	
         $(document).ready(
@@ -45,32 +50,23 @@
     ?>        
     <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control','value'=>$info['attachid'])); ?> <input type="hidden" id="file_upload_input"/>      
     <p class="help-block"><?php echo $form->error($model,'attachid'); ?></p>
-    </div>
-     <div class="form-group">
-    <?php echo $form->labelEx($model,'redirect_url'); ?>
-    <?php echo $form->textField($model,'redirect_url',array('class'=>'form-control','value'=>$info['redirect_url'])); ?>
-     <p class="help-block"><?php echo $form->error($model,'redirect_url'); ?></p>
-    </div>
+    </div>     
     <div class="form-group">
     <?php echo $form->labelEx($model,'copy_url'); ?>
     <?php echo $form->textField($model,'copy_url',array('class'=>'form-control','value'=>$info['copy_url'])); ?>
+     <p class="help-block">若是产品介绍，可填其他可证明真伪的链接地址。</p> 
      <p class="help-block"><?php echo $form->error($model,'copy_url'); ?></p>
     </div>
     <div class="form-group">
     <?php echo $form->labelEx($model,'reply_allow'); ?>
     <?php echo $form->dropDownList($model,'reply_allow',tools::allowOrNot(),array('class'=>'form-control','options' => array($info['reply_allow']=>array('selected'=>true)))); ?>
      <p class="help-block"><?php echo $form->error($model,'reply_allow'); ?></p>
-    </div>
-    <div class="form-group">
-    <?php echo $form->labelEx($model,'intro'); ?>
-    <?php echo $form->textArea($model,'intro',array('class'=>'form-control','value'=>$info['intro'])); ?>
-     <p class="help-block"><?php echo $form->error($model,'intro'); ?></p>
-    </div>
+    </div>    
     <div class="form-group">
     <?php echo $form->labelEx($model,'content'); ?>
-    <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'posts'));?> 
+    <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'posts','simple'=>'yes'));?> 
      <p class="help-block"><?php echo $form->error($model,'content'); ?></p>
     </div>
-    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default')); ?>
+    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->  

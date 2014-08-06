@@ -135,6 +135,26 @@ class UserController extends T {
             $this->showNavs = true;
         }
     }
+    
+    private function checkColumn($colid){      
+      if(!$colid){
+         T::message(0, '该版块不存在，请核实');
+          exit();
+      }
+      $colinfo = Columns::getOne($colid);
+      if (!$colinfo) {
+          T::message(0, '该版块不存在，请核实');
+          exit();
+      } else {
+          $columnGroup=  ColumnRelation::model()->findAll('columnid=:colid', array(':colid'=>$colid));
+          $groupids=array_keys(CHtml::listData($columnGroup, 'groupid', ''));
+          if(empty($columnGroup) || empty($groupids) || !in_array($this->userInfo['groupid'],$groupids)){
+            T::message(0, '您无权在该版块写文章，请核实');
+            exit();
+          }
+        }
+      return $colinfo;
+    }
 
     public function actionIndex() {
         $data = array(
@@ -155,9 +175,16 @@ class UserController extends T {
         $configs = UserInfo::model()->findAllByAttributes(array('classify' => $type, 'uid' => $this->uid));
         $_c = CHtml::listData($configs, 'name', 'value');
         if ($type == 'column') {
-//            $configs = Columns::model()->findAll();
-            $configs = Columns::model()->findAll(array(
+            $columns = ColumnRelation::model()->findAll(array(
                 'condition' => 'groupid=' . $this->userInfo['groupid'],
+            ));
+            $idsarr=array_keys(CHtml::listData($columns, 'columnid', ''));
+            $idstr=join(',',$idsarr);
+            if($idstr==''){
+              $idstr=0;
+            }
+            $configs = Columns::model()->findAll(array(
+                'condition' => 'id IN(' . $idstr.')',
             ));
             $items = CHtml::listData($configs, 'id', 'title');
         }
@@ -212,6 +239,10 @@ class UserController extends T {
                 }
             }
             zmf::delFCache("userSettings{$this->uid}");
+        }else{
+          UserInfo::model()->deleteAll('uid=' . $this->uid . ' AND classify="' . $type . '"');
+          zmf::delFCache("userColumns-{$this->uid}");
+          zmf::delFCache("userSettings{$this->uid}");
         }
         $this->redirect(array('user/config', 'type' => $type));
     }
@@ -231,7 +262,7 @@ class UserController extends T {
         }
         $where = 'WHERE uid=' . $this->uid . ' AND status=' . Posts::STATUS_PASSED;
         if ($colid) {
-            $colinfo = Columns::getOne($colid);
+            $colinfo = $this->checkColumn($colid);                  
             $this->listTableTitle = $colinfo['title'];
             $_d = tools::columnDesc($colinfo['classify']);
             $this->columnDesc = '【' . $colinfo['title'] . '】' . $_d;
@@ -267,24 +298,14 @@ class UserController extends T {
         if (!$colid) {
             $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
         }
-        $colinfo = Columns::getOne($colid);
-        if (!$colinfo) {
-            T::message(0, '该版块不存在，请核实');
-            exit();
-        } else {
-            if ($colinfo['groupid'] != $this->userInfo['groupid']) {
-                T::message(0, '您无权在该版块写文章，请核实');
-                exit();
-            }
-        }
+        $colinfo = $this->checkColumn($colid);    
         $forupdate = zmf::filterInput($_GET['edit'], 't', 1);
         if ($forupdate != 'yes') {
             if (!Columns::checkWritable($colid, $uid)) {
-                T::message(0, '当前板块已不能再写，您可以去操作或修改');
+                T::message(0, '您在该版块的文章数已达上限，您可以去编辑或删除');
                 exit();
             }
         }
-
         $model = new Posts();
         $keyid = zmf::getFCache("notSavePosts-{$uid}-{$colid}");
         $_keyid = zmf::filterInput($_GET['id']);
@@ -296,7 +317,7 @@ class UserController extends T {
                     'uid' => $uid,
                     'colid' => $colid,
                     'cTime' => time(),
-                    'title' => '未编辑',
+                    'title' => '',
                 );
                 $model->save(false);
                 $keyid = $model->id;

@@ -23,7 +23,7 @@
 <?php }?>
 <tr>
     <td>
-        <?php echo CHtml::link('提问', array('user/addquestions'), array('class' => 'btn btn-default')); ?>
+        <?php echo CHtml::link('提问', array('user/addquestions'), array('class' => 'btn btn-success')); ?>
         <div class="manu" style="float:right"><?php $this->widget('CLinkPager', array('pages' => $pages)); ?> </div>
     </td>
 </tr>

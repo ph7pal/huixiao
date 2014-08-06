@@ -50,18 +50,18 @@ CREATE TABLE `pre_ads` (
 -- 表的结构 `pre_album`
 -- 
 
-CREATE TABLE `pre_album` (
+CREATE TABLE `pre_digest` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `uid` int(10) unsigned NOT NULL default '0',
-  `postid` int(10) unsigned NOT NULL default '0',
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `classify` char(16) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `attachid` int(10) unsigned NOT NULL default '0',
   `order` int(11) NOT NULL default '0',
   `status` tinyint(1) NOT NULL,
   `cTime` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- 
 -- 导出表中的数据 `pre_album`

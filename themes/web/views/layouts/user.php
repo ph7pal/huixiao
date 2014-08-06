@@ -12,7 +12,7 @@
         </div>
         <div class="nav-items">
             <ul>
-                <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
+                <li><a href="<?php echo Yii::app()->createUrl('user/index',array('id'=>$this->uid));?>">首页</a></li>
                 <?php echo Users::miniTopBar();?>
             </ul>
         </div>

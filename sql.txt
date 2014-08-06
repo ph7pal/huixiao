@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS `pre_column_relation`;
+CREATE TABLE `pre_column_relation` (
+  `id` int(11) NOT NULL auto_increment,
+  `columnid` int(11) NOT NULL,
+  `groupid` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

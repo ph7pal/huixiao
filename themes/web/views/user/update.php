@@ -8,7 +8,7 @@
     <p><label>QQ：</label><input class="form-control" name="qq" id="qq" type="text" value="<?php echo $info['qq']; ?>"/></p>
     <p><label>手机：</label><input class="form-control" name="mobile" id="mobile" type="text" value="<?php echo $info['mobile']; ?>"/></p>
     <p><label>座机：</label><input class="form-control" name="telephone" id="telephone" type="text" value="<?php echo $info['telephone']; ?>"/></p>
-    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn')); ?>
+    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success','name'=>'btn')); ?>
     <?php $form=$this->endWidget(); ?>
     <hr>
     <h3>修改密码</h3>
@@ -17,7 +17,7 @@
     <p><label>用户：</label><input class="form-control" value="<?php echo $info['username']; ?>" disabled/></p>
     <p><label>原始密码：</label><?php echo CHtml::passwordField('old_password','',array('class'=>'form-control')); ?></p>
     <p><label>新密码：</label><?php echo CHtml::passwordField('password','',array('class'=>'form-control')); ?></p>
-    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default','id'=>'btn')); ?>
+    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success','id'=>'btn')); ?>
     <?php $form=$this->endWidget(); ?>
 </div>
 

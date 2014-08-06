@@ -19,7 +19,7 @@
 	</div>
 
 	<div class="form-group">
-		<?php echo CHtml::submitButton('提问',array('class'=>'btn btn-default')); ?>
+		<?php echo CHtml::submitButton('提问',array('class'=>'btn btn-success')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

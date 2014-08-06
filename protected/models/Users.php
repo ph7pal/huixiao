@@ -125,13 +125,14 @@ class Users extends CActiveRecord {
         $type = $_GET['type'];
         $table = $_GET['table'];
         $longstr = '';
-        if ($a == 'config') {
+        if ($a == 'config' || $a == 'update' || $a == 'credit') {
             $arr = array(
-                'base' => '基本',
-                'siteinfo' => '站点',
-                'template' => '模板',
-                'column' => '板块',
+                'base' => '封面头像',
+                'template' => '主页模板',
+                'column' => '文章栏目',
             );
+            $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/update') . '">修改资料</a></li>';
+            $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/credit') . '">认证信息</a></li>';
             foreach ($arr as $k => $v) {
                 if ($type == $k) {
                     $css = 'on';
@@ -148,7 +149,9 @@ class Users extends CActiveRecord {
                 $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'ads')) . '">列表</a></li>';
                 $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/addads') . '">新增</a></li>';
             } elseif ($table == 'comments') {
-                
+            }elseif($table=='questions'){
+                $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'questions')) . '">列表</a></li>';
+                $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/addquestions') . '">新增</a></li>';
             } else {
                 $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('colid' => $colid)) . '">列表</a></li>';
                 $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
@@ -159,9 +162,8 @@ class Users extends CActiveRecord {
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
         } elseif ($c == 'users') {
             
-        } elseif ($a == 'index' || $a == 'update' || $a == 'credit') {
-            $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/update') . '">修改资料</a></li>';
-            $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/credit') . '">认证信息</a></li>';
+        } elseif ($a == 'index' ) {
+            
         } elseif ($a == 'addads') {
             $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/list', array('table' => 'ads')) . '">列表</a></li>';
             $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/addads') . '">新增</a></li>';
@@ -209,10 +211,10 @@ class Users extends CActiveRecord {
             'url' => CHtml::link('客服', array('user/list', 'table' => 'questions'), array('class' => 'list_btn ' . ($_GET['table'] == 'questions' ? 'current' : ''))),
             'power' => 'user_addquestion'
         );
-        $bar['user_stat'] = array(
-            'url' => CHtml::link('表盘', array('user/stat'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'stat' ? 'current' : ''))),
-            'power' => 'user_stat'
-        );
+//        $bar['user_stat'] = array(
+//            'url' => CHtml::link('表盘', array('user/stat'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'stat' ? 'current' : ''))),
+//            'power' => 'user_stat'
+//        );
         $bar['user_homepage'] = array(
             'url' => CHtml::link('主页', array('mobile/index', 'uid' => $uid), array('class' => 'list_btn ', 'target' => '_blank')),
             'power' => 'user_homepage'

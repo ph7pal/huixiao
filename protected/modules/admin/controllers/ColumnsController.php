@@ -74,6 +74,11 @@ class ColumnsController extends H {
             if (!$name OR $name == '') {
                 $name = tools::pinyin($title);
             }
+            $groupids=array();
+            if(!empty($_POST['Columns']['groupid'])){
+              $groupids=$_POST['Columns']['groupid'];
+              $_POST['Columns']['groupid']=1;
+            }
             $colid = zmf::filterInput($_POST['Columns']['colid']);
             $_colid = zmf::filterInput($_POST['belongid']);
             $columnid = zmf::filterInput($_POST['columnid']);
@@ -90,6 +95,19 @@ class ColumnsController extends H {
             $model->attributes = $intoData;
             if ($model->validate()) {
                 if ($model->updateByPk($thekeyid, $intoData)) {
+                  $modelGR= new ColumnRelation;
+                  $modelGR->deleteAll('columnid=:colid',array(':colid'=>$thekeyid));
+                  if(!empty($groupids)){
+                    foreach($groupids as $gid){
+                      $_data=array(
+                          'columnid'=>$thekeyid,
+                          'groupid'=>$gid
+                      );
+                      $modelGR=new ColumnRelation;
+                      $modelGR->attributes=$_data;
+                      $modelGR->save();
+                    } 
+                  }
                     UserAction::record('editcolumns', $thekeyid);
                     zmf::delFCache("notSaveColumns{$uid}");
                     $this->redirect(array('all/list','table'=>'columns'));

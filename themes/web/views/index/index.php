@@ -488,7 +488,7 @@ $areas= Area::listArea(NUll,false,10);
 </div>
 <div class="clearfix"></div>
 
-  <div class="col-xs-5 col-md-5">
+  <div class="col-xs-4 col-md-4">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -503,7 +503,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-2 col-md-2">
+    <div class="col-xs-4 col-md-4">
       <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
           <div class="panel-heading">            
               <h4 class="panel-title">
@@ -518,7 +518,7 @@ $areas= Area::listArea(NUll,false,10);
           </div>            
       </div>
     </div>
-    <div class="col-xs-5 col-md-5">
+    <div class="col-xs-4 col-md-4">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -535,7 +535,7 @@ $areas= Area::listArea(NUll,false,10);
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-5 col-md-5">
+    <div class="col-xs-4 col-md-4">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -550,7 +550,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-2 col-md-2">
+    <div class="col-xs-4 col-md-4">
       <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
           <div class="panel-heading">            
               <h4 class="panel-title">
@@ -565,7 +565,7 @@ $areas= Area::listArea(NUll,false,10);
           </div>            
       </div>
     </div>
-    <div class="col-xs-5 col-md-5">
+    <div class="col-xs-4 col-md-4">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">

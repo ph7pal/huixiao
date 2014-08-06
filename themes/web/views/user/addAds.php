@@ -45,6 +45,6 @@
     <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control','value'=>$info['attachid'])); ?> <input type="hidden" id="file_upload_input"/>      
     <p class="help-block"><?php echo $form->error($model,'attachid'); ?></p>
     </div>    
-    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default')); ?>    
+    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success')); ?>    
 <?php $this->endWidget(); ?>
 </div><!-- form -->

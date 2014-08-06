@@ -17,8 +17,8 @@ class Columns extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('title, position', 'required'),
-            array('status , system,listnum,groupid', 'numerical', 'integerOnly' => true),
-            array('belongid, attachid, order, hits, cTime,groupid,rollstyle', 'length', 'max' => 10),
+            array('status , system,listnum', 'numerical', 'integerOnly' => true),
+            array('belongid, attachid, order, hits, cTime,rollstyle', 'length', 'max' => 10),
             array('name, title, second_title', 'length', 'max' => 100),
             array('classify, position', 'length', 'max' => 32),
             array('url,listcondition', 'length', 'max' => 255),
@@ -36,6 +36,7 @@ class Columns extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'groups'=> array(self::HAS_MANY, 'ColumnRelation', 'columnid'),
         );
     }
 
@@ -279,7 +280,7 @@ class Columns extends CActiveRecord {
             if (!$str) {
                 return false;
             }
-            $sql = "SELECT id,title FROM {{columns}} WHERE id IN($str) AND groupid='{$uinfo['groupid']}' ORDER BY FIELD(id,$str)";
+            $sql = "SELECT id,title FROM {{columns}} WHERE id IN($str) ORDER BY FIELD(id,$str)";
             $items = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache("userColumns-{$uid}", $items, 86400 * 30);
         }
