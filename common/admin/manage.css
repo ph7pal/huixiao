@@ -237,10 +237,6 @@ ul.yiiPager .first,ul.yiiPager .last
     display:none;
 }
 
-.btn:hover,.form .btn:hover
-{
-    background:0;
-}
 
 .form span.required,.errorMessage,.listTag a:hover
 {
