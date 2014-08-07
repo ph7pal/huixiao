@@ -661,3 +661,7 @@ display: inline-block;
     font-size: 12px;
     
 }
+span.required
+{
+    color:red;
+}

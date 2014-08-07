@@ -19,10 +19,10 @@ if($_imgSize>200){
     <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
     <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea']));?>
 </p>
-<p><label>公司名称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>职位名称：</label><input class="form-control" name="jobname" id="jobname" type="text" value="<?php echo $info['jobname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>联系手机：</label><input class="form-control" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
-<p><label>身份证号：</label><input class="form-control" name="idcard" id="idcard" type="text" value="<?php echo $info['idcard']; ?>" <?php echo $disabled;?>/></p>
+<p><label>公司名称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>职位名称<span class="required">*</span>：</label><input class="form-control bitian" name="jobname" id="jobname" type="text" value="<?php echo $info['jobname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>联系手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
+<p><label>身份证号<span class="required">*</span>：</label><input class="form-control bitian" name="idcard" id="idcard" type="text" value="<?php echo $info['idcard']; ?>" <?php echo $disabled;?>/></p>
 <div class="form-group">
     <label>附件上传：</label><br/>
     <ol>
@@ -52,7 +52,7 @@ if($_imgSize>200){
 </div>
 <?php 
 if(!$blocked){
-    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn'));    
+    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn','onclick'=>'return checkBitian();'));    
 } 
 $form=$this->endWidget(); 
 if($fromAdmin=='yes'){

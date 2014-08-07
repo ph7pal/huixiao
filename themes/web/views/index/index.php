@@ -103,12 +103,18 @@
         background-color: #FFF;
         color:#333;
     }
+    .panel-primary .panel-title a,.panel-primary .panel-title a:hover{
+      color:#FFF;
+    }
+    .panel-default .panel-title a,.panel-default .panel-title a:hover{
+      color: #3184db;
+    }
 </style>
 <?php }?>
 
 <?php
 $colinfo1=  Columns::getOne(1);
-$arr=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22);
+$arr=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
 $idstr=join(',',$arr);
 $colinfos=Columns::indexColumns($idstr);
 $areas= Area::listArea(NUll,false,10);
@@ -164,7 +170,10 @@ $areas= Area::listArea(NUll,false,10);
     <div class="col-xs-12 col-md-12">
         <div class="panel panel-danger">
             <div class="panel-heading">            
-                <h4 class="panel-title"><b><?php echo $colinfos[4]['title'];?></b></h4>
+                <h4 class="panel-title">
+                  <b><?php echo $colinfos[4]['title'];?></b>
+                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[4]['id']));?></span>
+                </h4>
             </div>
             <div class="panel-body">
                 <div class="col-xs-12 col-md-12 my-height">
@@ -179,12 +188,14 @@ $areas= Area::listArea(NUll,false,10);
     <div class="col-xs-12 col-md-12">
         <div class="panel panel-danger">
             <div class="panel-heading">            
-                <h4 class="panel-title"><b><?php echo $colinfos[5]['title'];?></b></h4>
+                <h4 class="panel-title">
+                  <b><?php echo $colinfos[5]['title'];?></b>
+                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[5]['id']));?></span>
+                </h4>
             </div>
             <div class="panel-body">
                 <div class="col-xs-12 col-md-12 my-height">
                     <?php 
-                    $colinfo=  Columns::getOne(98);
                     $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[5],'colnum'=>3,'nottable'=>true,'nodate'=>true,'topHotNum'=>3));
                     ?>
                 </div>           
@@ -223,7 +234,7 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
                     <b><?php echo $colinfos[6]['title'];?></b>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[6]['id']));?></span>
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/qiye'));?></span>
                 </h4>
             </div>
             <div class="panel-body my-height">
@@ -250,8 +261,8 @@ $areas= Area::listArea(NUll,false,10);
         <div class="panel panel-default margin-right_5px">
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
-                    <?php echo $colinfos[7]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[7]['id']));?></span>
+                    <?php echo $colinfos[7]['title'];?>                    
+                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/qiye'));?></span>
                 </h4>
             </div>
             <div class="panel-body my-height-2x">
@@ -267,8 +278,9 @@ $areas= Area::listArea(NUll,false,10);
 <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
     <div class="panel-heading">            
         <h3 class="panel-title">
-            <?php echo $colinfos[9]['title'];?>                
-        </h3>
+          <?php echo $colinfos[9]['title'];?>
+          <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[9]['id']));?></span>
+        </h3>     
     </div>
     <div class="panel-body my-height">                 
         <?php         
@@ -280,9 +292,7 @@ $areas= Area::listArea(NUll,false,10);
 <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
     <div class="panel-heading" style="height: 38px;padding:0 15px;">  
             <div class="pull-left" style="width:30%;padding:10px 0;">
-                <h3 class="panel-title">
-                    信用优秀讲师推荐                
-                </h3>                
+                <h3 class="panel-title">信用优秀讲师推荐</h3>
             </div>
             <div class="pull-right no-nav-border">
                 <ul id="tab-for-lecturer" class="nav nav-tabs">
@@ -342,7 +352,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[10]['title'];?>      
+                      <?php echo $colinfos[10]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[10]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -356,7 +367,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default margin-right_5px">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[11]['title'];?>          
+                      <?php echo $colinfos[11]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[11]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -432,7 +444,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[13]['title'];?>
+                      <?php echo $colinfos[13]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[13]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -446,7 +459,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[14]['title'];?>           
+                      <?php echo $colinfos[14]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[14]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -460,7 +474,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[15]['title'];?>
+                      <?php echo $colinfos[15]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[15]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -474,7 +489,8 @@ $areas= Area::listArea(NUll,false,10);
             <div class="panel panel-default margin-right_5px">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
-                        <?php echo $colinfos[16]['title'];?>              
+                      <?php echo $colinfos[16]['title'];?>
+                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[16]['id']));?></span>
                     </h3>
                 </div>
                 <div class="panel-body my-height">                 
@@ -487,8 +503,8 @@ $areas= Area::listArea(NUll,false,10);
     </div>            
 </div>
 <div class="clearfix"></div>
-
-  <div class="col-xs-4 col-md-4">
+<div class="col-xs-9 col-sm-9">
+  <div class="col-xs-6 col-md-6">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -503,23 +519,8 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-4 col-md-4">
-      <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-          <div class="panel-heading">            
-              <h4 class="panel-title">
-                  热点推荐
-                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
-              </h4>
-          </div>
-          <div class="panel-body my-height" style='height: 220px'>                
-              <?php 
-              $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-              ?>          
-          </div>            
-      </div>
-    </div>
-    <div class="col-xs-4 col-md-4">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
+    <div class="col-xs-6 col-md-6">
+      <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">
                     <?php echo $colinfos[18]['title'];?>
@@ -528,14 +529,32 @@ $areas= Area::listArea(NUll,false,10);
             </div>
             <div class="panel-body my-height"  style='height: 220px'>                
                 <?php 
-                $colinfo=  Columns::getOne(91);
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[18],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
             </div>            
         </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-4 col-md-4">
+</div>
+<div class="col-xs-3 col-sm-3 no-padding">
+  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+      <div class="panel-heading">            
+          <h4 class="panel-title">
+              <?php echo $colinfos[21]['title'];?>
+              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[21]['id']));?></span>
+          </h4>
+      </div>
+      <div class="panel-body my-height" style='height: 220px'>                
+          <?php 
+          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[21],'colnum'=>1,'nottable'=>true,'nodate'=>true));
+          ?>          
+      </div>            
+  </div>            
+</div>
+<div class="clearfix"></div>
+    
+    
+<div class="col-xs-9 col-sm-9"> 
+    <div class="col-xs-6 col-md-6">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -550,22 +569,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-4 col-md-4">
-      <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-          <div class="panel-heading">            
-              <h4 class="panel-title">
-                  人才招聘
-                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
-              </h4>
-          </div>
-          <div class="panel-body my-height" style='height: 220px'>
-              <?php 
-              $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-              ?>          
-          </div>            
-      </div>
-    </div>
-    <div class="col-xs-4 col-md-4">
+    <div class="col-xs-6 col-md-6">
         <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -575,9 +579,24 @@ $areas= Area::listArea(NUll,false,10);
             </div>
             <div class="panel-body my-height"  style='height: 220px'>                
                 <?php 
-                $colinfo=  Columns::getOne(91);
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[20],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
             </div>            
         </div>
     </div>
+</div>
+<div class="col-xs-3 col-md-3 no-padding">
+  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
+      <div class="panel-heading">            
+          <h4 class="panel-title">
+              <?php echo $colinfos[22]['title'];?>
+              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[22]['id']));?></span>
+          </h4>
+      </div>
+      <div class="panel-body my-height" style='height: 220px'>
+          <?php 
+          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[22],'colnum'=>1,'nottable'=>true,'nodate'=>true));
+          ?>          
+      </div>            
+  </div>
+</div>    

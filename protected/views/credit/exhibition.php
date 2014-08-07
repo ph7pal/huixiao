@@ -19,12 +19,12 @@ if($_imgSize>200){
     <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
     <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea']));?>
 </p>
-<p><label>企业全称：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>企业法人：</label><input class="form-control" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
-<p><label>官方网站地址：</label><input class="form-control" name="officeurl" id="officeurl" type="text" value="<?php echo $info['officeurl']; ?>" <?php echo $disabled;?>/></p>
-<p><label>联系人姓名：</label><input class="form-control" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>联系手机：</label><input class="form-control" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
-<p><label>营业执照注册号：</label><input class="form-control" name="licensenumber" id="licensenumber" type="text" value="<?php echo $info['licensenumber']; ?>" <?php echo $disabled;?>/></p>
+<p><label>企业全称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>企业法人<span class="required">*</span>：</label><input class="form-control bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
+<p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="officeurl" id="officeurl" type="text" value="<?php echo $info['officeurl']; ?>" <?php echo $disabled;?>/></p>
+<p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>联系手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
+<p><label>营业执照注册号<span class="required">*</span>：</label><input class="form-control bitian" name="licensenumber" id="licensenumber" type="text" value="<?php echo $info['licensenumber']; ?>" <?php echo $disabled;?>/></p>
 
 <div class="form-group">
     <label>附件上传：</label><br/>
@@ -55,7 +55,7 @@ if($_imgSize>200){
 </div>
 <?php 
 if(!$blocked){
-    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn'));    
+    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn','onclick'=>'return checkBitian();'));    
 } 
 $form=$this->endWidget(); 
 if($fromAdmin=='yes'){

@@ -1,6 +1,6 @@
 <ol class="breadcrumb"> 
     <li>您的位置：</li> 
-    <li><a href="<?php echo Yii::app()->baseUrl;?>">首页</a></li>         
+    <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>         
     <?php 
     if($from!='search'){
     if($type=='album'){

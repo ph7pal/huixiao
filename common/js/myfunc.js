@@ -241,3 +241,19 @@ var ids='';
     }
 });  
 }
+function checkBitian(){
+  var hasError=false;
+  $(".bitian").each(function(){
+    if($(this).val()==''){
+      $(this).closest('p').addClass('has-error');
+      hasError=true;
+    }else{
+      $(this).closest('p').removeClass('has-error');
+    }
+  });
+  if(hasError){
+    return false;
+  }else{
+    return true;
+  }  
+}

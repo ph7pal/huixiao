@@ -548,6 +548,7 @@ class UserController extends T {
             UserInfo::addAttr($this->uid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($this->uid, 'addCredit', 'creditstatus', Posts::STATUS_STAYCHECK);
             $redirect = Yii::app()->createUrl('user/credit');
+            zmf::delFCache('userSettings'.$this->uid);
             $this->message(1, '您的资料已提交。', $redirect);
         }
         $_addedType = UserCredit::findOne($this->uid);
