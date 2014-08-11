@@ -699,64 +699,63 @@ class zmf {
         $a = Yii::app()->getController()->getAction()->id;
         $t = $_GET['table'];
         $type = $_GET['type'];
-        if ($type == 'staycheck') {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
-        $arr['审核'] = array(
-            'url' => CHtml::link('审核', array('all/list', 'table' => 'posts', 'type' => 'staycheck'), array('class' => 'list_btn' . $css)),
-            'power' => ''
+        $classify = $_GET['classify'];
+        $arr['首页'] = array(
+            'url' => CHtml::link('首页', array('index/index')),
+            'power' => '',
+            'css' => ($c == 'index') ? 'active' : ''
         );
-        if ($type == 'passed') {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
         $arr['最新'] = array(
-            'url' => CHtml::link('最新', array('all/list', 'table' => 'posts', 'type' => 'passed'), array('class' => 'list_btn' . $css)),
-            'power' => ''
+            'url' => CHtml::link('最新', array('all/list', 'table' => 'posts')),
+            'power' => '',
+            'css' => ($c == 'all' && $classify=='') ? 'active' : ''
         );
-        if ($t == 'users' && !$type) {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
-        $arr['商家'] = array(
-            'url' => CHtml::link('商家', array('all/list', 'table' => 'users', 'groupid' => self::config('shopGroupId')), array('class' => 'list_btn' . $css)),
-            'power' => ''
+        $arr['企业'] = array(
+            'url' => CHtml::link('企业', array('all/list', 'table' => 'credit', 'classify' => 'producer')),
+            'power' => '',
+            'css' => ($classify == 'producer') ? 'active' : ''
         );
-        if ($c == 'tools') {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
+        $arr['讲师'] = array(
+            'url' => CHtml::link('讲师', array('all/list', 'table' => 'credit', 'classify' => 'lecturer')),
+            'power' => '',
+            'css' => ($classify == 'lecturer') ? 'active' : ''
+        );
+        $arr['产品'] = array(
+            'url' => CHtml::link('产品', array('all/list', 'table' => 'posts', 'colid' => '10')),
+            'power' => '',
+            'css' => ($_GET['colid'] == '98') ? 'active' : ''
+        );
+        $arr['展会'] = array(
+            'url' => CHtml::link('展会', array('all/list', 'table' => 'credit', 'classify' => 'exhibition')),
+            'power' => '',
+            'css' => ($classify == 'exhibition') ? 'active' : ''
+        );
+        $arr['团队'] = array(
+            'url' => CHtml::link('团队', array('all/list', 'table' => 'credit', 'classify' => 'marketing_team')),
+            'power' => '',
+            'css' => ($classify == 'marketing_team') ? 'active' : ''
+        );
+        
         $arr['工具'] = array(
-            'url' => CHtml::link('工具', array('tools/index', 'type' => 'clearcache'), array('class' => 'list_btn' . $css)),
-            'power' => ''
+            'url' => CHtml::link('工具', array('tools/index', 'type' => 'clearcache')),
+            'power' => '',
+            'css' => (in_array($c, array('tools'))) ? 'active' : ''
         );
-        if ($c == 'config') {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
         $arr['设置'] = array(
-            'url' => CHtml::link('设置', array('config/index'), array('class' => 'list_btn' . $css)),
-            'power' => ''
+            'url' => CHtml::link('设置', array('config/index')),
+            'power' => '',
+            'css' => (in_array($c, array('config'))) ? 'active' : '',
         );
-        if ($c == 'record') {
-            $css = ' current';
-        } else {
-            $css = '';
-        }
-        $arr['记录'] = array(
-            'url' => CHtml::link('记录', array('record/index'), array('class' => 'list_btn' . $css)),
-            'power' => ''
-        );
-        $longstr = '';
+        
+        
+        
+        
+        
+        $longstr = '<ul class="nav nav-pills nav-stacked">';
         foreach ($arr as $k => $v) {
-            $longstr.='<div class="col-xs-12">' . $v['url'] . '</div>';
+          $longstr.='<li role="presentation" class="' . $v['css'] . '">' . $v['url'] . '</li>';
         }
+        $longstr.='</ul>';
         echo $longstr;
     }
 

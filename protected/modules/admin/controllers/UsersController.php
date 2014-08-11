@@ -292,19 +292,23 @@ class UsersController extends H {
         if (!$touid) {
             $this->jsonOutPut(0, '缺少用户字段');
         }
+        $relarr=array();
         if ($atype == 1) {
             if(!$creditlogo){
                 $this->jsonOutPut(0, '请选择认证图标');
             }
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
-            UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
-            UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
+            //UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
+            //UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
+            $relarr['medal']=$creditlogo;
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
         }
+        $relarr['status']=$atype;
         UserInfo::addAttr($touid, 'addCredit', 'creditreason', $reason);
-        UserInfo::addAttr($touid, 'addCredit', 'creditstatus', $atype);
+        //UserInfo::addAttr($touid, 'addCredit', 'creditstatus', $atype);
+        CreditRelation::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
         zmf::delUserConfig($touid);
         $this->jsonOutPut(1, '操作成功');
     }

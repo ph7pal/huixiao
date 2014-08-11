@@ -532,6 +532,7 @@ class UserController extends T {
             $configs = $_POST;
             $configs['cTime']=time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
+            CreditRelation::model()->deleteAll('uid=' . $this->uid);
             foreach ($configs as $k => $v) {
                 $data = array(
                     'uid' => $this->uid,
@@ -547,6 +548,15 @@ class UserController extends T {
             }
             UserInfo::addAttr($this->uid, 'addCredit', 'lock', 'yes');
             UserInfo::addAttr($this->uid, 'addCredit', 'creditstatus', Posts::STATUS_STAYCHECK);
+            $relarr=array(
+                'uid' => $this->uid,
+                'classify' => zmf::filterInput($type, 't'),
+                'status' => Posts::STATUS_STAYCHECK,
+                'cTime' => time(),
+            );
+            $modelCr=new CreditRelation();
+            $modelCr->attributes=$relarr;
+            $modelCr->save();
             $redirect = Yii::app()->createUrl('user/credit');
             zmf::delFCache('userSettings'.$this->uid);
             $this->message(1, '您的资料已提交。', $redirect);

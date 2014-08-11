@@ -11,6 +11,7 @@ class AllController extends H {
     public function actionList() {
         $table = zmf::filterInput($_GET['table'], 't', 1);
         $type = zmf::filterInput($_GET['type'], 't', 1);
+        $classify = zmf::filterInput($_GET['classify'], 't', 1);
         $colid = zmf::filterInput($_GET['colid']);
         $uid = zmf::filterInput($_GET['uid']);
         $groupid = zmf::filterInput($_GET['groupid']);
@@ -26,6 +27,8 @@ class AllController extends H {
             $where = array();
             if ($type != '') {
                 $where['status'] = "status=" . tools::exStatus($type);
+            }else{
+                $where['status'] = "status!=0";
             }
             if ($colid) {
                 $where['colid'] = 'colid=' . $colid;
@@ -59,7 +62,15 @@ class AllController extends H {
 
             $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY {$_order} {$_orderList}";
         } else {
-            $sql = "SELECT DISTINCT(uid),`value` FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=" . tools::exStatus($type) . " ORDER BY id DESC";
+          if(!$type){
+            $type='passed';
+          }
+          if(!$classify || !in_array($classify,array('producer','lecturer','exhibition','marketing_team'))){
+            $where='';
+          }else{
+            $where=' WHERE classify="'.$classify.'"';
+          }
+            $sql = "SELECT * FROM {{credit_relation}} $where ORDER BY `order` DESC";
         }
         Posts::getAll(array('sql' => $sql), $pages, $items);
         $data = array(

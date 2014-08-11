@@ -8,10 +8,6 @@ Yii::app()->clientScript->registerCoreScript('jquery',CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/uploadify/jquery.uploadify-3.1.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/myfunc.js", CClientScript::POS_END);
 ?>
-<!--[if lt IE 9]>
-<script src=”http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js”></script>
-<script src=”http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js”></script>
-<![endif]-->
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl?>/common/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl?>/common/admin/manage.css">
 </head>
@@ -48,9 +44,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/m
                   <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" alt="<?php echo zmf::config('sitename');?>"/>
                   </a>
               </div>
-              <div style="margin:0 auto;width:195px;">
-              	<?php echo zmf::adminBar();?>
-              </div>
+              <div class="clearfix"></div>
+              <?php echo zmf::adminBar();?>
           </div>
         </div>
         <div class="col-xs-10 col-md-10">
