@@ -168,7 +168,7 @@ class AjaxController extends T {
         $info=  Area::listArea($idstr);
         $id=  uniqid();
         if(!empty($info) && $info){
-            $longstr='<select name="cityid[]" id="'.$id.'" onchange="ajaxCity(\''.$id.'\',\'localarea\',\'more'.$id.'\','.($order+1).')">';
+            $longstr='<select name="cityid[]" id="'.$id.'" onchange="ajaxCity(\''.$id.'\',\'localarea\',\'more'.$id.'\','.($order+1).')"><option value=0>--请选择--</option>';
             foreach($info as $key=>$val){
                 $longstr.='<option value="'.$key.'">'.$val.'</option>';
             }

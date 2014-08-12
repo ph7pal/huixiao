@@ -261,9 +261,13 @@ class Users extends CActiveRecord {
         $key = "getLecturer-$area";
         $usrs = zmf::getFCache($key);
         if (!$usrs) {
-            $sql = "SELECT uid FROM {{user_credit}} WHERE name='localarea' AND value='$area' AND classify='lecturer'";
+          $areaArr=  Area::getChildren($area);
+          $idstr=join(',',$areaArr);
+          if($idstr){
+            $sql = "SELECT uid FROM {{credit_relation}} WHERE localarea IN($idstr) AND classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
             $usrs = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache($key, $usrs, 3600);
+          }
         }
         return $users;
     }
@@ -273,10 +277,10 @@ class Users extends CActiveRecord {
      * @return array
      */
     public static function getExhibition() {
-        $key = "getLecturer-$area";
+        $key = "getExhibition-$area";
         $usrs = zmf::getFCache($key);
         if (!$usrs) {
-            $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='exhibition'";
+            $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='exhibition' AND status=1 ORDER BY `order` LIMIT 10";
             $usrs = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache($key, $usrs, 3600);
         }
@@ -288,10 +292,10 @@ class Users extends CActiveRecord {
      * @return type
      */
     public static function getTeam() {
-        $key = "getLecturer-$area";
+        $key = "getMarketingTeam-$area";
         $usrs = zmf::getFCache($key);
         if (!$usrs) {
-            $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='marketing_team'";
+            $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order` LIMIT 10";
             $usrs = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache($key, $usrs, 3600);
         }

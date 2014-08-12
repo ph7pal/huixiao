@@ -5,3 +5,5 @@ CREATE TABLE `pre_column_relation` (
   `groupid` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+alter table pre_credit_relation add localarea char(16) not null default '';

@@ -106,9 +106,8 @@ class UserCredit extends CActiveRecord {
     }
     
     public static function getNews(){
-        $sql = "SELECT DISTINCT(uid) FROM {{user_info}} WHERE classify='addCredit' AND `name`='creditstatus' AND `value`=1 ORDER BY id DESC";
-        Posts::getAll(array('sql' => $sql), $pages, $items);
-        $items=  array_merge($items,$items);
+        $sql = "SELECT uid FROM {{credit_relation}} WHERE status=1 ORDER BY cTime DESC LIMIT 10";
+        $items=Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
 

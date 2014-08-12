@@ -34,25 +34,7 @@ function ajaxCity(a,b,d,e) {
         alert('请选择');
         return false;
     }
-    var t=$("#"+b).val();
-    if (t == '' || typeof t == 'undefined' || e==1) {
-        t=c;
-    }else{
-        var arr=t.split('#');
-        var rt='';
-        for(var i=0;i<(e-1);i++){
-            if(typeof arr[i]!='undefined'){
-                if(rt==''){
-                    rt=arr[i];
-                }else{
-                    rt+='#'+arr[i];
-                }                 
-                 
-            }           
-        }
-        rt+='#'+c;
-        t=rt;
-    }    
+    var t=c;
     $.ajax({
         type: "POST",
         url: selectCityUrl,
@@ -70,7 +52,6 @@ function ajaxCity(a,b,d,e) {
             }
         }
     });
-
 }
 function delUploadImg(attachid, clearid) {
     if (attachid == '') {
@@ -242,6 +223,10 @@ var ids='';
 });  
 }
 function checkBitian(){
+  if($('#localarea').val()==''){
+    alert('请选择地区');
+    return false;
+  }  
   var hasError=false;
   $(".bitian").each(function(){
     if($(this).val()==''){
@@ -250,7 +235,7 @@ function checkBitian(){
     }else{
       $(this).closest('p').removeClass('has-error');
     }
-  });
+  });  
   if(hasError){
     return false;
   }else{

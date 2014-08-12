@@ -17,7 +17,7 @@ if($_imgSize>200){
 <p><label>认证类型<span class="required">*</span>：</label><input class="form-control" value="<?php echo $typeinfo['title']; ?>" disabled/></p>
 <p><label>所在地域：</label>
     <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
-    <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea']));?>
+    <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
 </p>
 <p><label>企业全称<span class="required">*</span>：</label><input class="form-control  bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业法人<span class="required">*</span>：</label><input class="form-control  bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>

@@ -516,7 +516,7 @@ class UserController extends T {
 
     public function actionCredit() {
         $this->checkUser();
-        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
+        //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $_info = zmf::userConfig($this->uid, 'lock');
         if ($_info == 'yes') {
@@ -530,9 +530,13 @@ class UserController extends T {
             unset($_POST['type']);
             unset($_POST['btn']);
             $configs = $_POST;
+            $tmparr=array_reverse(array_filter($configs['cityid']));
+            unset($configs['cityid']);
             $configs['cTime']=time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
             CreditRelation::model()->deleteAll('uid=' . $this->uid);
+            $cityid=$tmparr[0];
+            $configs['localarea']=$cityid;     
             foreach ($configs as $k => $v) {
                 $data = array(
                     'uid' => $this->uid,
@@ -553,6 +557,7 @@ class UserController extends T {
                 'classify' => zmf::filterInput($type, 't'),
                 'status' => Posts::STATUS_STAYCHECK,
                 'cTime' => time(),
+                'localarea'=>$cityid
             );
             $modelCr=new CreditRelation();
             $modelCr->attributes=$relarr;

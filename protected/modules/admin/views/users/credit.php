@@ -14,7 +14,8 @@
             echo $typeinfo['title']; 
             ?></td>
         <td>
-            <?php echo CHtml::link('查看',array('users/listcredit','uid'=>$row['uid'],'type'=>$type));?>
+          <?php echo CHtml::link('编辑',array('users/listcredit','uid'=>$row['uid'],'type'=>$type));?>
+          <?php echo CHtml::link('查看',array('users/listcredit','uid'=>$row['uid'],'type'=>$type));?>
         </td>
     </tr>
 <?php endforeach; ?>

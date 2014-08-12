@@ -28,14 +28,14 @@ class CreditRelation extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, classify, medal, status', 'required'),
+        array('uid, classify,status', 'required'),
         array('uid, status', 'numerical', 'integerOnly' => true),
         array('order, cTime', 'length', 'max' => 10),
-        array('classify', 'length', 'max' => 16),
+        array('classify,localarea', 'length', 'max' => 16),
         array('medal', 'length', 'max' => 50),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, order, classify, medal, status, cTime', 'safe', 'on' => 'search'),
+        array('id, uid, order, classify, medal, status, cTime,localarea', 'safe', 'on' => 'search'),
     );
   }
 
@@ -61,6 +61,7 @@ class CreditRelation extends CActiveRecord {
         'medal' => '徽章',
         'status' => '状态',
         'cTime' => '创建时间',
+        'localarea'=>'所在地区'
     );
   }
 
@@ -88,6 +89,7 @@ class CreditRelation extends CActiveRecord {
     $criteria->compare('medal', $this->medal, true);
     $criteria->compare('status', $this->status);
     $criteria->compare('cTime', $this->cTime, true);
+    $criteria->compare('localarea', $this->localarea, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,
