@@ -24,14 +24,14 @@ class Posts extends CActiveRecord {
             array('title,colid', 'required'),
             //array('copy_url', 'url'),
             array('colid, albumid, reply_allow, status,top', 'numerical', 'integerOnly' => true),
-            array('uid, hits, order, last_update_time, cTime', 'length', 'max' => 10),
+            array('uid, hits, order, last_update_time, cTime, start_time, expired_time', 'length', 'max' => 10),
             array('nickname', 'length', 'max' => 30),
             array('author, copy_from ,attachid', 'length', 'max' => 100),
             array('title, second_title, title_style, seo_title, seo_description, seo_keywords, copy_url, redirect_url', 'length', 'max' => 255),
             array('name', 'length', 'max' => 50),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top', 'safe', 'on' => 'search'),
+            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top, start_time, expired_time', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,7 +76,9 @@ class Posts extends CActiveRecord {
             'cTime' => '创建时间',
             'attachid' => '封面图片',
             'secretinfo' => '敏感信息',
-            'top'=>'置顶'
+            'top'=>'置顶',
+            'start_time'=>'开始时间',
+            'expired_time'=>'结束时间'
         );
     }
 
@@ -112,6 +114,8 @@ class Posts extends CActiveRecord {
         $criteria->compare('attachid', $this->attachid, true);
         $criteria->compare('secretinfo', $this->secretinfo, true);
         $criteria->compare('top', $this->top, true);
+        $criteria->compare('start_time', $this->top, true);
+        $criteria->compare('expired_time', $this->top, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -132,6 +136,8 @@ class Posts extends CActiveRecord {
             $colid = $params['colid'];
             $condition=$params['condition'];
             $top=$params['top'];
+            $fields=$params['fields'];
+            $order=$params['order'];
             $_pre=join('-',$params);
         } else {
             $colid = $params;
@@ -157,9 +163,15 @@ class Posts extends CActiveRecord {
         if(!$top){
             $where.=' AND top=1';
         }
-        $sql = "SELECT * FROM {{posts}} {$where} AND status=1 ORDER BY cTime LIMIT {$limit}";
+        if(!$fields){
+          $fields='*';
+        }
+        if(!$order){
+          $order='cTime';
+        }
+        $sql = "SELECT {$fields} FROM {{posts}} {$where} AND status=1 ORDER BY {$order} LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
-        zmf::setFCache($cachekey, $items,600);
+        zmf::setFCache($cachekey, $items,3600);
         return $items;
     }
 

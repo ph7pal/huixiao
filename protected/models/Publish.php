@@ -18,6 +18,12 @@ class Publish extends CFormModel {
         if (!empty($_POST['tagname'])) {
             $tagNames = array_unique(array_filter($_POST['tagname']));
         }
+        if (isset($intoData['start_time'])) {
+            $intoData['start_time'] = strtotime($intoData['start_time']);
+        }
+        if (isset($intoData['expired_time'])) {
+            $intoData['expired_time'] = strtotime($intoData['expired_time']);
+        }
         $intoKeyid = zmf::filterInput($_POST['Posts']['id'], 't', 1);
         $intoData['status'] = 1;
         $content = $_POST['Posts']['content'];
@@ -44,6 +50,8 @@ class Publish extends CFormModel {
 //        if ($attachid != '') {
 //            $attachid = tools::jieMi($attachid);
 //        }
+        $content = strip_tags($content, '<b><strong><em><span><a><p><u><i><img><br><br/>');
+        $content = preg_replace("/style=\"[^\"]*?\"/i", "", $content);
         $intoData['content'] = $content;
         $intoData['attachid'] = $attachid;
         if ($_POST['Posts']['secretinfo'] != '') {

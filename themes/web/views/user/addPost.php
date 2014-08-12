@@ -17,6 +17,7 @@
     <?php echo Chtml::textField('',$colinfo['title'],array('disabled'=>'disabled','class'=>'form-control')); ?> 
      <p class="help-block"><?php echo $form->error($model,'colid'); ?></p>
     </div>
+<?php $fieldsArr=array();if($colinfo['post_fields']!=''){$arr=explode(',',$colinfo['post_fields']);$fieldsArr=array_filter($arr);}?>
      <div class="form-group">
     <?php echo $form->labelEx($model,'title'); ?>
     <?php echo $form->textField($model,'title',array('class'=>'form-control','value'=>$info['title'])); ?>
@@ -61,7 +62,21 @@
     <?php echo $form->labelEx($model,'reply_allow'); ?>
     <?php echo $form->dropDownList($model,'reply_allow',tools::allowOrNot(),array('class'=>'form-control','options' => array($info['reply_allow']=>array('selected'=>true)))); ?>
      <p class="help-block"><?php echo $form->error($model,'reply_allow'); ?></p>
-    </div>    
+    </div>
+    <?php if(in_array('start_time',$fieldsArr)){?>
+    <div class="form-group">
+    <?php echo $form->labelEx($model,'start_time'); ?>
+    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array('model'=>$model,'attribute'=>'start_time','language'=>'zh-cn','value'=>date('Y/m/d',$info['start_time']),'options'=>array('showAnim'=>'fadeIn'),'htmlOptions'=>array('readonly'=>'readonly','class'=>'form-control','value'=>($info['start_time'])? date('Y/m/d',$info['start_time']) : ''),));?>  
+     <p class="help-block"><?php echo $form->error($model,'start_time'); ?></p>
+    </div>
+    <?php }?>
+    <?php if(in_array('expired_time',$fieldsArr)){?>
+    <div class="form-group">
+    <?php echo $form->labelEx($model,'expired_time'); ?>
+    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array('model'=>$model,'attribute'=>'expired_time','language'=>'zh-cn','value'=>date('Y/m/d',$info['expired_time']),'options'=>array('showAnim'=>'fadeIn'),'htmlOptions'=>array('readonly'=>'readonly','class'=>'form-control','value'=>($info['expired_time'])? date('Y/m/d',$info['expired_time']) : ''),));?>
+     <p class="help-block"><?php echo $form->error($model,'expired_time'); ?></p>
+    </div>
+    <?php }?>
     <div class="form-group">
     <?php echo $form->labelEx($model,'content'); ?>
     <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'posts','simple'=>'yes'));?> 

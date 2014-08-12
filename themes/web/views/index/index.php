@@ -512,7 +512,7 @@ $areas= Area::listArea(NUll,false,10);
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
                 </h4>
             </div>
-            <div class="panel-body my-height" style='height: 220px'>                
+            <div class="panel-body my-height">                
                 <?php 
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
@@ -527,7 +527,7 @@ $areas= Area::listArea(NUll,false,10);
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[18]['id']));?></span>
                 </h4>
             </div>
-            <div class="panel-body my-height"  style='height: 220px'>                
+            <div class="panel-body my-height">                
                 <?php 
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[18],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
@@ -543,7 +543,7 @@ $areas= Area::listArea(NUll,false,10);
               <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[21]['id']));?></span>
           </h4>
       </div>
-      <div class="panel-body my-height" style='height: 220px'>                
+      <div class="panel-body my-height">
           <?php 
           $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[21],'colnum'=>1,'nottable'=>true,'nodate'=>true));
           ?>          
@@ -562,7 +562,7 @@ $areas= Area::listArea(NUll,false,10);
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[19]['id']));?></span>
                 </h4>
             </div>
-            <div class="panel-body my-height"  style='height: 220px'>                
+            <div class="panel-body my-height">                
                 <?php 
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[19],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
@@ -577,7 +577,7 @@ $areas= Area::listArea(NUll,false,10);
                     <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[20]['id']));?></span>
                 </h4>
             </div>
-            <div class="panel-body my-height"  style='height: 220px'>                
+            <div class="panel-body my-height">                
                 <?php 
                 $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[20],'colnum'=>1,'nottable'=>true,'nodate'=>true));
                 ?>          
@@ -593,7 +593,7 @@ $areas= Area::listArea(NUll,false,10);
               <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[22]['id']));?></span>
           </h4>
       </div>
-      <div class="panel-body my-height" style='height: 220px'>
+      <div class="panel-body my-height">
           <?php 
           $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[22],'colnum'=>1,'nottable'=>true,'nodate'=>true));
           ?>          

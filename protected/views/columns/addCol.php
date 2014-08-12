@@ -70,6 +70,12 @@
     echo $form->dropDownList($model,'groupid',$groups,array('class'=>'form-control','options' =>$_adArr,'multiple'=>'true')); ?>
      <p class="help-block"><?php echo $form->error($model,'groupid'); ?></p>
     </div>
+    <div class="form-group">
+    <?php echo $form->labelEx($model,'post_fields'); ?>
+    <?php echo $form->textArea($model,'post_fields',array('class'=>'form-control','value'=>$info['post_fields'])); ?>
+     <p class="help-block"><?php echo $form->error($model,'post_fields'); ?></p>
+    </div>
+  
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->

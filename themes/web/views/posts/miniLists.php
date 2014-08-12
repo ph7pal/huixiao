@@ -1,7 +1,7 @@
 <?php 
 if($colinfo){
 $listNum=isset($listNum)?$listNum:$colinfo['listnum'];
-$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop')),$listNum); 
+$colitems = Posts::allPosts(array('colid'=>$colinfo['id'],'condition'=>$colinfo['listcondition'],'top'=>zmf::config('orderByTop'),'fields'=>isset($fields) ? $fields : 'id,title,attachid,cTime','order'=>isset($order) ? $order : ''),$listNum); 
 if($this->inMobile){
     $list_colnum=12;
 }else{

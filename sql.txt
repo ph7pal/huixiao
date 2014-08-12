@@ -7,3 +7,6 @@ CREATE TABLE `pre_column_relation` (
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 alter table pre_credit_relation add localarea char(16) not null default '';
+alter table pre_posts add start_time int(10) not null default 0;
+alter table pre_posts add expired_time int(10) not null default 0;
+alter table pre_columns add post_fields varchar(255) not null default '';

@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/upload
        wordCount:false, //关闭字数统计       
        initialFrameWidth:550, //宽度
        initialFrameHeight:300, //高度       
-       focus:true,
+       focus:false,
        pasteplain:true,
        elementPathEnabled : false,       
        contextMenu:[],       
@@ -53,7 +53,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/upload
        removeFormatAttributes:'class,style,lang,width,height,align,hspace,valign',
        imageScaleEnabled:false,
        dropFileEnabled:false,
-       indentValue:'0em',
+       indentValue:'2em',
+       zIndex:1, 
        textarea:'<?php echo CHtml::activeId($model,$attri);?>',
        fileFieldName:'filedata',
        imageUrl:tipImgUploadUrl,

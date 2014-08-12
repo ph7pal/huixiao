@@ -21,11 +21,11 @@ class Columns extends CActiveRecord {
             array('belongid, attachid, order, hits, cTime,rollstyle', 'length', 'max' => 10),
             array('name, title, second_title', 'length', 'max' => 100),
             array('classify, position', 'length', 'max' => 32),
-            array('url,listcondition', 'length', 'max' => 255),
+            array('url,listcondition,post_fields', 'length', 'max' => 255),
             array('url,listnum', 'length', 'max' => 3),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition,groupid,rollstyle', 'safe', 'on' => 'search'),
+            array('id, belongid, name, title, second_title, classify, position, url, attachid, order, hits, status, cTime ,system,listnum,listcondition,groupid,rollstyle,post_fields', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,6 +63,7 @@ class Columns extends CActiveRecord {
             'listcondition' => '显示条件',
             'groupid' => '对应用户组',
             'rollstyle'=>'滚动方式',
+            'post_fields'=>'文章栏目'
         );
     }
 
@@ -89,6 +90,7 @@ class Columns extends CActiveRecord {
         $criteria->compare('listcondition', $this->listcondition, true);
         $criteria->compare('groupid', $this->groupid, true);
         $criteria->compare('rollstyle', $this->rollstyle, true);
+        $criteria->compare('post_fields', $this->post_fields, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
