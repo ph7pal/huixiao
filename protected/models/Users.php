@@ -276,11 +276,11 @@ class Users extends CActiveRecord {
      * 展会公司热门排行
      * @return array
      */
-    public static function getExhibition() {
-        $key = "getExhibition-$area";
+    public static function getExhibition($type='exhibition') {
+        $key = "get-{$type}-top";
         $usrs = zmf::getFCache($key);
         if (!$usrs) {
-            $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='exhibition' AND status=1 ORDER BY `order` LIMIT 10";
+            $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `order` LIMIT 10";
             $usrs = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache($key, $usrs, 3600);
         }

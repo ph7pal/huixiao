@@ -267,6 +267,20 @@ class UsersController extends H {
         );
         $this->render('//credit/' . $type, $data);
     }
+    
+    public function actionUpdateCredit($id){
+      $model = CreditRelation::model()->findByPk($id);
+      if ($model === null)
+      throw new CHttpException(404, 'The requested page does not exist.');
+      if (isset($_POST['CreditRelation'])) {
+        $model->attributes = $_POST['CreditRelation'];
+        if ($model->save())
+          $this->redirect(array('all/list', 'table' => 'credit','classify'=>$model->classify));
+      }
+      $this->render('updateCredit', array(
+          'model' => $model,
+      ));
+    }
 
     public function actionDocredit() {
         if (!Yii::app()->request->isAjaxRequest) {
@@ -307,7 +321,7 @@ class UsersController extends H {
         }
         $relarr['status']=$atype;
         UserInfo::addAttr($touid, 'addCredit', 'creditreason', $reason);
-        //UserInfo::addAttr($touid, 'addCredit', 'creditstatus', $atype);
+        UserInfo::addAttr($touid, 'addCredit', 'creditstatus', $atype);
         CreditRelation::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
         zmf::delUserConfig($touid);
         $this->jsonOutPut(1, '操作成功');

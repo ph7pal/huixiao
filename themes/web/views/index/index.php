@@ -238,9 +238,7 @@ $areas= Area::listArea(NUll,false,10);
                 </h4>
             </div>
             <div class="panel-body my-height">
-                <?php                 
-                $this->renderPartial('/posts/flash',array('colinfo'=>$colinfos[6],'colnum'=>3,'facenum'=>8));
-                ?>        
+                <?php $this->renderPartial('//module/qiye',array('colinfo'=>$colinfos[6],'colnum'=>6));?>     
             </div>            
         </div>
         <div class="panel panel-default">
@@ -266,9 +264,7 @@ $areas= Area::listArea(NUll,false,10);
                 </h4>
             </div>
             <div class="panel-body my-height-2x">
-                <?php                 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[7],'topFaceNum'=>3,'nodate'=>true));
-                ?>
+                <?php $this->renderPartial('//module/qiye',array('colinfo'=>$colinfos[7],'colnum'=>1));?>
             </div>            
         </div>
     </div>
