@@ -29,24 +29,28 @@
 <tr>
     <td>邮箱：<?php echo $info['email'];?>
         <?php if(!$info['emailstatus']){?>
-        <?php
-        echo CHtml::ajaxSubmitButton('发送验证信息',$this->createUrl('email/send',array('type'=>'validate')),
-        array(
-            'beforeSend'=>'function(){
-            $("#miniComSubmit").attr("disabled","true");
-            }',
-            'success'=>"function(data){
-                data = eval('('+data+')');
-                if(data['status']=='0'){
-                alert(data['msg']);
-                setTimeout(\"$('#miniComSubmit').removeAttr('disabled');\",10000);
-                }else{
-                alert(data['msg']);
-                }
-            }",
-        ),
-       array('id'=>'miniComSubmit','class'=>'btn btn-danger btn-xs'));
-        ?>
+        <?php echo CHtml::button('发送验证信息',array('class'=>'btn btn-danger btn-xs validate'));?>
+      <script>
+      $(document).ready(function(){
+        $(".validate").click(function(){
+          $.ajax({
+              type: "POST",
+              url: '<?php echo $this->createUrl('email/send',array('type'=>'validate'));?>',
+              data: "YII_CSRF_TOKEN=" + csrfToken,
+              beforeSend:function(){$(".validate").attr("disabled","true");},
+              success: function(data) {
+                  data = eval('('+data+')');
+                  if(data['status']=='0'){
+                    alert(data['msg']);
+                    setTimeout("$('.validate').removeAttr('disabled');",10000);
+                  }else{
+                    alert(data['msg']);
+                  }
+              }
+          });
+        });
+      });
+      </script>
         <?php }else{?>
             <button type="button" class="btn btn-success btn-xs">已验证</button>
         <?php }?>

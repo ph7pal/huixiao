@@ -4,5 +4,5 @@
     <?php echo $form->textField($model,'order',array('size'=>11,'maxlength'=>11,'class'=>'form-control')); ?>
     <?php echo $form->error($model,'order'); ?>
 </div>
-<?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'')); ?>
+<?php echo CHtml::submitButton('排序',array('class'=>'btn btn-default','name'=>'')); ?>
 <?php $form=$this->endWidget(); ?>

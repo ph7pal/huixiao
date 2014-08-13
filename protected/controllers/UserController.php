@@ -90,6 +90,13 @@ class UserController extends T {
         if (in_array($this->userInfo['groupid'], $arr)) {
             $this->isAdmin = true;
         }
+        if (!$this->userInfo['emailstatus']) {
+            if (zmf::config('validateEmail')) {
+                $this->validateEmail = '欲使用所有功能，请验证您的邮箱';
+                $redirect = true;
+                $nolimit+=1;
+            }
+        }
         if (!T::checkYesOrNo(array('uid' => $this->uid, 'type' => 'user_manage'))) {
             if (isset(Yii::app()->session[$this->seekey])) {
                 $this->noticeInfo = '您正在以管理员身份查看该用户';
@@ -106,7 +113,11 @@ class UserController extends T {
                         //$info = '您还不是商家，欲使用所有功能请联系：' . zmf::config('phone') . '或者' . zmf::config('email');
                         $_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
                         if ($_creditstatus != Posts::STATUS_PASSED) {
-                            $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
+                          if($this->validateEmail!=''){
+                            $info = '认证之前请先激活您的邮箱，' . CHtml::link('点此激活邮箱', 'javascript:;', array('class' => 'btn btn-danger btn-xs validate'));
+                          }else{
+                            $info = '您尚未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
+                          }
                             //$nolimit+=1;
                         }
                     }
@@ -120,14 +131,7 @@ class UserController extends T {
                 $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
                 $this->noticeInfo = $info;                
             }
-        }
-        if (!$this->userInfo['emailstatus']) {
-            if (zmf::config('validateEmail')) {
-                $this->validateEmail = '欲使用所有功能，请验证您的邮箱';
-                $redirect = true;
-                $nolimit+=1;
-            }
-        }
+        }        
         if ($redirect && !$from) {
             $this->redirect(array('user/index'));
         }

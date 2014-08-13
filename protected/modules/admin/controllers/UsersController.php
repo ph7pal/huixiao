@@ -244,8 +244,14 @@ class UsersController extends H {
     public function actionListCredit() {
         $uid = zmf::filterInput($_GET['uid']);
         $type = zmf::filterInput($_GET['type'], 't', 1);
+        $action = zmf::filterInput($_GET['action'], 't', 1);
         if (!$uid || !$type) {
             $this->message(0, '数据不全');
+        }
+        if($action=='update'){
+          $blocked=false;
+        }else{
+          $blocked=true;
         }
         $configs = UserCredit::model()->findAllByAttributes(array('classify' => $type, 'uid' => $uid));
         $_c = CHtml::listData($configs, 'name', 'value');
@@ -255,7 +261,7 @@ class UsersController extends H {
         $uinfo = Users::getUserInfo($uid);
         $data = array(
             'type' => $type,
-            'blocked' => TRUE,
+            'blocked' => $blocked,
             'info' => $_c,
             'uid' => $uid,
             'imgSize' => 600,

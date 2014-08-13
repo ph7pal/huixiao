@@ -143,7 +143,7 @@ class EmailController extends T {
         // 可选项，向下兼容考虑
         $mail->MsgHTML($message);                         // 设置邮件内容
         $mail->AddAddress($to, $this->username);
-        //$mail->SMTPDebug = 3;
+        $mail->SMTPDebug = 0;
         if (!$mail->Send()) {
             return false;
         } else {
