@@ -319,7 +319,7 @@ class UsersController extends H {
             }
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
             //UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
-            //UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
+            UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
             $relarr['medal']=$creditlogo;
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
         } else {

@@ -35,6 +35,12 @@
                echo "/>{$v}</label></li>";  
             }
         }?>
+     <!--li class="list-group-item">
+       <div class="input-group">
+        <span class="input-group-addon">每小时发布文章数量：</span>
+        <input type="text" class="form-control" placeholder="每小时发布文章数量"  value="<?php echo $mine['posts_perh'];?>">
+       </div>
+     </li-->
     </ul>    
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-primary')); ?> 
 <?php $this->endWidget(); ?>

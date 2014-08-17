@@ -198,13 +198,17 @@ class zmf {
         }
     }
 
-    public static function creditIcon($uid, $return = '') {
-        if (!$uid) {
+    public static function creditIcon($uid='', $return = '',$creditType='') {
+        if (!$uid && !$creditType) {
             return false;
         }
-        $creditlogo = zmf::userConfig($uid, 'creditlogo');
-        if (!$creditlogo) {
-            return false;
+        if($uid){
+          $creditlogo = zmf::userConfig($uid, 'creditlogo');
+          if (!$creditlogo) {
+              return false;
+          }
+        }else{
+          $creditlogo=$creditType;
         }
         if ($return == 'type') {
             return $creditlogo;

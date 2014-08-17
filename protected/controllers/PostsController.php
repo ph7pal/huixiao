@@ -308,14 +308,16 @@ class PostsController extends T {
   }
 
   public function actionQiye() {
-    $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='producer'";
+    $sql = "SELECT DISTINCT(uid) FROM {{credit_relation}} WHERE classify='producer' AND status!=".Posts::STATUS_PASSED;
     Posts::getAll(array('sql' => $sql), $pages, $items);
     $lists=array();
     if(!empty($items)){
       foreach($items as $it){
-        $_tmp=  UserCredit::model()->findAll($it['uid']);
-        $_tmp=CHtml::listData($_tmp,'name','value');
+        $_tmp=  UserCredit::model()->findAll('uid=:uid',array(':uid'=>$it['uid']));
+        $_tmp=CHtml::listData($_tmp,'name','value');        
         $_tmp['uid']=$it['uid'];
+        $_posts=Posts::getAll(array('sql'=>"SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6",'pageSize'=>0), $a, $b);
+        $_tmp['posts']=$_posts;
         $lists[]=$_tmp;
       }
     }
@@ -325,14 +327,18 @@ class PostsController extends T {
   }
   
   public function actionJiangshi() {
-    $sql = "SELECT DISTINCT(uid) FROM {{user_credit}} WHERE classify='lecturer'";
+    $sql = "SELECT uid,medal FROM {{credit_relation}} WHERE classify='lecturer' AND status=".Posts::STATUS_PASSED;
     Posts::getAll(array('sql' => $sql), $pages, $items);
     $lists=array();
     if(!empty($items)){
       foreach($items as $it){
-        $_tmp=  UserCredit::model()->findAll($it['uid']);
+        $_tmp=  UserCredit::model()->findAll('uid=:uid',array(':uid'=>$it['uid']));
         $_tmp=CHtml::listData($_tmp,'name','value');
         $_tmp['uid']=$it['uid'];
+        $_tmp['medal']=$it['medal'];
+        $_tmp['truename']=Users::getUserInfo($it['uid'],'truename');
+        $_posts=Posts::getAll(array('sql'=>"SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6",'pageSize'=>0), $a, $b);
+        $_tmp['posts']=$_posts;
         $lists[]=$_tmp;
       }
     }

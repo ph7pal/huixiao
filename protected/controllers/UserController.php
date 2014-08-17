@@ -342,7 +342,7 @@ class UserController extends T {
         }
         $info = $model->findByPk($keyid);
         if (!$info) {
-            zmf::delFCache("notSavePosts{$uid}");
+            zmf::delFCache("notSavePosts-{$uid}-{$colid}");
             $this->message(0, '非常抱歉，您查看的页面不存在');
         }
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'posts-addPost-form') {
@@ -352,7 +352,8 @@ class UserController extends T {
         if (isset($_POST['Posts'])) {
             $info = Publish::addPost($this->uid);
             if ($info === TRUE) {
-                $this->redirect(array('user/list', 'colid' => $colid));
+              zmf::delFCache("notSavePosts-{$uid}-{$colid}");
+              $this->redirect(array('user/list', 'colid' => $colid));
             }
         } else {
 //            if ($info['attachid']) {
