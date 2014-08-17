@@ -308,7 +308,7 @@ class PostsController extends T {
   }
 
   public function actionQiye() {
-    $sql = "SELECT DISTINCT(uid) FROM {{credit_relation}} WHERE classify='producer' AND status=".Posts::STATUS_PASSED;
+    $sql = "SELECT DISTINCT(uid) FROM {{credit_relation}} WHERE classify='producer' AND status!=".Posts::STATUS_PASSED;
     Posts::getAll(array('sql' => $sql), $pages, $items);
     $lists=array();
     if(!empty($items)){
