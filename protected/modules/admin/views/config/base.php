@@ -52,3 +52,18 @@
     </select>
 </p>
 <p><label>搜索关键词("#"隔开)：</label><textarea class="form-control" name="hotsearchs"><?php echo $c['hotsearchs'];?></textarea></p>
+<p><label>开启敏感词提醒：</label>
+    <select name="checkBadWords" id="checkBadWords">
+        <option value="0" <?php if($c['checkBadWords']=='0'){?>selected="selected"<?php }?>>否</option>
+        <option value="1" <?php if($c['checkBadWords']=='1'){?>selected="selected"<?php }?>>是</option>
+    </select>
+</p>
+<p><label>敏感词("#"隔开)：</label><textarea class="form-control" name="badwords"><?php echo $c['badwords'];?></textarea></p>
+<div class="form-group"><label>敏感词触发处理方式：</label>
+    <select name="badwordsHandleStyle" id="badwordsHandleStyle">
+        <option  value='filter' <?php if($c['badwordsHandleStyle']=='filter'){?>selected="selected"<?php }?>>仅过滤</option>
+        <option  value='notice' <?php if($c['badwordsHandleStyle']=='notice'){?>selected="selected"<?php }?>>仅通知</option> 
+        <option  value='filterNotice' <?php if($c['badwordsHandleStyle']=='filterNotice'){?>selected="selected"<?php }?>>过滤通知</option>
+        <option  value='forbidden' <?php if($c['badwordsHandleStyle']=='forbidden'){?>selected="selected"<?php }?>>禁止通过</option>
+    </select>
+</div>

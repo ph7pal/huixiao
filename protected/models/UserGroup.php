@@ -17,12 +17,12 @@ class UserGroup extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('title, status', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
+            array('status,posts_perh,comments_perh,attach_perh', 'numerical', 'integerOnly' => true),
             array('title', 'length', 'max' => 50),
             array('cTime', 'length', 'max' => 10),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, title, powers, status, cTime', 'safe', 'on' => 'search'),
+            array('id, title, powers, status, cTime,posts_perh,comments_perh,attach_perh', 'safe', 'on' => 'search'),
         );
     }
 
@@ -46,6 +46,9 @@ class UserGroup extends CActiveRecord {
             'powers' => '用户组权限',
             'status' => '状态',
             'cTime' => '创建时间',
+            'posts_perh' => '每小时文章数',
+            'comments_perh' => '每小时评论数',
+            'attach_perh' => '每小时图片数',
         );
     }
 
@@ -59,6 +62,9 @@ class UserGroup extends CActiveRecord {
         $criteria->compare('powers', $this->powers, true);
         $criteria->compare('status', $this->status);
         $criteria->compare('cTime', $this->cTime, true);
+        $criteria->compare('posts_perh', $this->posts_perh, true);
+        $criteria->compare('comments_perh', $this->comments_perh, true);
+        $criteria->compare('attach_perh', $this->attach_perh, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

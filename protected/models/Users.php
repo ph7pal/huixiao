@@ -301,5 +301,59 @@ class Users extends CActiveRecord {
         }
         return $users;
     }
+    /**
+     * 获取用户一个小时内能发布的数量
+     * @param type $type
+     * @param type $uid
+     * @return boolean
+     */
+    public static function publishedNum($type = 'posts',$uid='') {
+        if (Yii::app()->user->isGuest && !$uid) {
+            return false;
+        }else{
+            if(!$uid){
+                $uid=Yii::app()->user->id;
+            }
+        }
+        $uinfo=  Users::getUserInfo($uid);
+        if(!$uinfo){
+          return false;
+        }
+        $ginfo=  UserGroup::getInfo($uinfo['groupid']);
+        if(!$ginfo){
+          return false;
+        }
+        if($type=='posts'){
+          $num=$ginfo['posts_perh'];
+        }elseif($type=='comments'){
+          $num=$ginfo['comments_perh'];
+        }elseif($type=='attaches'){
+          $num=$ginfo['attach_perh'];
+        }else{
+          return false;
+        }
+        if ($num == 0) {
+            return true;
+        }
+        $y = zmf::time('','Y');
+        $m = zmf::time('','m');
+        $d = zmf::time('','d');
+        $h = zmf::time('','H');
+        $str = $y . '-' . $m . '-' . $d . ' ' . $h . ':0:0';
+        $end = time();
+        $start = strtotime($str);
+        if ($type == 'posts') {
+            $num1 = Posts::model()->count('uid=:uid AND cTime>:start', array(':uid' => $uid, ':start' => $start));            
+        } elseif ($type == 'attaches') {
+            $num1 = Attachments::model()->count('uid=:uid AND cTime>:start', array(':uid' => $uid, ':start' => $start));
+        } elseif ($type == 'comments') {
+            $num1 = Comments::model()->count('uid=:uid AND cTime>:start', array(':uid' => $uid, ':start' => $start));
+        }
+        if (($num1 + $num2) >= $num) {
+            return false;
+        } else {
+            return ($num - $num1);
+        }
+    }
 
 }

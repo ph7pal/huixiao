@@ -308,6 +308,9 @@ class UserController extends T {
             if (!Columns::checkWritable($colid, $uid)) {
                 T::message(0, '您在该版块的文章数已达上限，您可以去编辑或删除');
                 exit();
+            }elseif(!Users::publishedNum('posts')){
+                T::message(0, '您本时段的发布次数已用完');
+                exit();
             }
         }
         $model = new Posts();

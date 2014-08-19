@@ -423,6 +423,29 @@ class zmf {
             return $str;
         }
     }
+    
+    public static function badWordsReplace($str, $returnOnly = false) {
+      if (self::config('checkBadWords')) {
+        $words=self::config('badwords');
+        if (!$words) {
+          return $str;
+        } else {
+          $arr=explode('#',$words);
+          if(empty($arr)){
+            return $str;
+          }
+          foreach($arr as $val){
+            if(strpos($str, $val)!==false){
+              Yii::app()->session['checkHasBadword']=='yes';
+              break;
+            }
+          }
+        }
+        return $str;
+      } else {
+        return $str;
+      }
+    }
 
     public static function filterOutput($str) {
         $str = self::keywordsUrl($str);

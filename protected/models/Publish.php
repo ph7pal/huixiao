@@ -3,6 +3,7 @@
 class Publish extends CFormModel {
 
     public static function addPost($uid) {
+        Yii::app()->session['checkHasBadword']='no';
         $model = new Posts();
         $colid = zmf::filterInput($_POST['Posts']['colid']);
         $_colid = zmf::filterInput($_POST['colid']);
@@ -25,7 +26,12 @@ class Publish extends CFormModel {
             $intoData['expired_time'] = strtotime($intoData['expired_time']);
         }
         $intoKeyid = zmf::filterInput($_POST['Posts']['id'], 't', 1);
-        $intoData['status'] = 1;
+        if(Yii::app()->session['checkHasBadword']=='yes'){
+          $inputData['status'] = Posts::STATUS_STAYCHECK;
+        }else{
+          $inputData['status'] = Posts::STATUS_PASSED;
+        }
+        Yii::app()->session['checkHasBadword']='no';
         $content = $_POST['Posts']['content'];
         $pattern = "/<[img|IMG].*?data=[\'|\"](.*?)[\'|\"].*?[\/]?>/i";
         preg_match_all($pattern, $content, $match);
