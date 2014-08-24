@@ -133,7 +133,10 @@ class UsersController extends H {
             $intoData = array(
                 'title' => zmf::filterInput($_POST['UserGroup']['title'], 't', 1),
                 'powers' => 'zmf',
-                'status' => 1
+                'status' => 1,
+                'posts_perh' => zmf::filterInput($_POST['UserGroup']['posts_perh']),
+                'comments_perh' => zmf::filterInput($_POST['UserGroup']['comments_perh']),
+                'attach_perh' => zmf::filterInput($_POST['UserGroup']['attach_perh']),
             );
             $powers = $_POST['powers'];
             $model->attributes = $intoData;
@@ -146,9 +149,9 @@ class UsersController extends H {
                                 'gid' => $thekeyid,
                                 'powers' => $p
                             );
-                            $model = new GroupPowers();
-                            $model->attributes = $_data;
-                            $model->save();
+                            $modelGP = new GroupPowers();
+                            $modelGP->attributes = $_data;
+                            $modelGP->save();
                         }
                     } else {
                         GroupPowers::model()->deleteAll("gid=$thekeyid");
@@ -164,9 +167,9 @@ class UsersController extends H {
                                 'gid' => $thekeyid,
                                 'powers' => $p
                             );
-                            $model = new GroupPowers();
-                            $model->attributes = $_data;
-                            $model->save();
+                            $modelGP = new GroupPowers();
+                            $modelGP->attributes = $_data;
+                            $modelGP->save();
                         }
                     } else {
                         GroupPowers::model()->deleteAll("gid=$thekeyid");
@@ -242,6 +245,7 @@ class UsersController extends H {
     }
 
     public function actionListCredit() {
+        $this->checkPower('listcredit');
         $uid = zmf::filterInput($_GET['uid']);
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $action = zmf::filterInput($_GET['action'], 't', 1);
@@ -275,6 +279,7 @@ class UsersController extends H {
     }
     
     public function actionUpdateCredit($id){
+      $this->checkPower('updatecredit');
       $model = CreditRelation::model()->findByPk($id);
       if ($model === null)
       throw new CHttpException(404, 'The requested page does not exist.');
@@ -289,6 +294,7 @@ class UsersController extends H {
     }
 
     public function actionDocredit() {
+        $this->checkPower('updatecredit');
         if (!Yii::app()->request->isAjaxRequest) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
         }
@@ -331,6 +337,18 @@ class UsersController extends H {
         CreditRelation::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
         zmf::delUserConfig($touid);
         $this->jsonOutPut(1, '操作成功');
+    }
+    /**
+     * 删除用户为keyid的认证信息
+     */
+    public function actionDelcredit(){
+      $this->checkPower('delcredit');
+      $keyid=zmf::filterInput($_GET['id']);
+      UserCredit::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
+      CreditRelation::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
+      UserInfo::model()->deleteAll('uid=:uid AND (classify="addCredit" OR classify="userCredit")',array(':uid'=>$keyid));
+      UserAction::record('delcredit', $keyid);
+      $this->message(1, '已成功删除');
     }
 
 }

@@ -35,13 +35,23 @@
                echo "/>{$v}</label></li>";  
             }
         }?>
-     <!--li class="list-group-item">
-       <div class="input-group">
-        <span class="input-group-addon">每小时发布文章数量：</span>
-        <input type="text" class="form-control" placeholder="每小时发布文章数量"  value="<?php echo $mine['posts_perh'];?>">
-       </div>
-     </li-->
-    </ul>    
+    </ul>
+  
+  <div class="form-group">
+    <?php echo $form->labelEx($model,'posts_perh'); ?>
+    <?php echo $form->textField($model,'posts_perh',array('class'=>'form-control','value'=>$info['posts_perh'])); ?>
+     <p class="help-block"><?php echo $form->error($model,'posts_perh'); ?></p>
+  </div>
+  <div class="form-group">
+    <?php echo $form->labelEx($model,'comments_perh'); ?>
+    <?php echo $form->textField($model,'comments_perh',array('class'=>'form-control','value'=>$info['comments_perh'])); ?>
+     <p class="help-block"><?php echo $form->error($model,'comments_perh'); ?></p>
+  </div>
+  <div class="form-group">
+    <?php echo $form->labelEx($model,'attach_perh'); ?>
+    <?php echo $form->textField($model,'attach_perh',array('class'=>'form-control','value'=>$info['attach_perh'])); ?>
+     <p class="help-block"><?php echo $form->error($model,'attach_perh'); ?></p>
+  </div>
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-primary')); ?> 
 <?php $this->endWidget(); ?>
 </div><!-- form -->

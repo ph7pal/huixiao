@@ -32,13 +32,17 @@ class AttachmentsController extends T {
     }
     if (Yii::app()->user->isGuest) {
       $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
-    }
+    }    
     $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_addupload'));
     if (!$status) {
       $_status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'upload'), true, true, true);
       if (!$_status) {
         $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。--' . Yii::app()->user->id);
       }
+    }
+    if(!Users::publishedNum('attaches')){
+        T::message(0, '您本时段的上传次数已用完');
+        exit();
     }
     if (!isset($_FILES["filedata"]) || !is_uploaded_file($_FILES["filedata"]["tmp_name"]) || $_FILES["filedata"]["error"] != 0) {
       $this->jsonOutPut(0, '无效上传，请重试');

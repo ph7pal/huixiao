@@ -27,14 +27,7 @@
     <?php echo $form->labelEx($model,'intro'); ?>
     <?php echo $form->textArea($model,'intro',array('class'=>'form-control','value'=>$info['intro'],'rows'=>3)); ?>
      <p class="help-block"><?php echo $form->error($model,'intro'); ?></p>
-    </div>
-    <script>
-        var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'coverimg'));?>";  	
-        $(document).ready(
-        function(){    	
-            singleUploadify('<?php echo CHtml::activeId($model,"attachid");?>_upload','<?php echo CHtml::activeId($model,"attachid");?>',1);
-        });  
-    </script>
+    </div>    
     <div class="form-group">
     <?php echo $form->labelEx($model,'attachid'); ?>
     <div id="<?php echo CHtml::activeId($model,"attachid");?>_upload"></div>
@@ -90,6 +83,12 @@
       <?php echo CHtml::checkBoxList('tagids',$postTags,  Tags::allTags());?>
     </div>
     <?php }?>
-    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success')); ?>
+    <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success','id'=>'user-addPost')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->  
+<script>
+var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'coverimg'));?>"; $(document).ready(function(){
+singleUploadify('<?php echo CHtml::activeId($model,"attachid");?>_upload','<?php echo CHtml::activeId($model,"attachid");?>',1);
+;$("#user-addPost").click(function(){$(window).unbind("beforeunload");});
+});  
+</script>

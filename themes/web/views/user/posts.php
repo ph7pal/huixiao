@@ -15,7 +15,7 @@
 <?php endforeach; ?>
 <tr>
     <td>        
-        <div class="manu" style="float:right"><?php $this->widget('CLinkPager', array('pages' => $pages)); ?> </div>
+        <?php $this->renderPartial('/common/pager', array('pages' => $pages)); ?> 
     </td>
 </tr>
 <?php if($colid){if(Columns::checkWritable($colid,$this->uid,true)){?>

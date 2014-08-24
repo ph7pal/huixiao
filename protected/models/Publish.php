@@ -3,11 +3,11 @@
 class Publish extends CFormModel {
 
   public static function addPost($uid) {
+    Yii::app()->session['checkHasBadword'] = 'no';
     $model = new Posts();
     $colid = zmf::filterInput($_POST['Posts']['colid']);
     $_colid = zmf::filterInput($_POST['colid']);
     $columnid = zmf::filterInput($_POST['columnid']);
-    $tagids = $_POST['tagids'];
     if ($colid == '0' OR ! $colid) {
       $colid = $columnid;
     }
@@ -26,20 +26,16 @@ class Publish extends CFormModel {
       $intoData['expired_time'] = strtotime($intoData['expired_time']);
     }
     $intoKeyid = zmf::filterInput($_POST['Posts']['id'], 't', 1);
-    $intoData['status'] = 1;
-    $content = $_POST['Posts']['content'];
+    $intoData['title']=zmf::filterInput($intoData['title'],'t',1);
+    $content = zmf::filterInput($_POST['Posts']['content'],'t');
     $pattern = "/<[img|IMG].*?data=[\'|\"](.*?)[\'|\"].*?[\/]?>/i";
     preg_match_all($pattern, $content, $match);
     if (!empty($match[0])) {
       $arr = array();
       foreach ($match[0] as $key => $val) {
         $_key = $match[1][$key];
-//                    if (!$_key || !is_numeric($_key)) {
-//                        continue;
-//                    }
         $arr[$_key] = $val;
         $arr_attachids[] = $match[1][$key];
-        //$arr_attachids[] = tools::jieMi($match[1][$key]);
       }
       if (!empty($arr)) {
         foreach ($arr as $thekey => $imgsrc) {
@@ -48,9 +44,6 @@ class Publish extends CFormModel {
       }
     }
     $attachid = zmf::filterInput($_POST['Posts']['attachid'], 't', 1);
-//        if ($attachid != '') {
-//            $attachid = tools::jieMi($attachid);
-//        }
     $content = strip_tags($content, '<b><strong><em><span><a><p><u><i><img><br><br/>');
     $content = preg_replace("/style=\"[^\"]*?\"/i", "", $content);
     $intoData['content'] = $content;
@@ -58,6 +51,12 @@ class Publish extends CFormModel {
     if ($_POST['Posts']['secretinfo'] != '') {
       $_POST['Posts']['secretinfo'] = tools::jiaMi($_POST['Posts']['secretinfo']);
     }
+    if (Yii::app()->session['checkHasBadword'] == 'yes') {
+      $intoData['status'] = Posts::STATUS_STAYCHECK;
+    } else {
+      $intoData['status'] = Posts::STATUS_PASSED;
+    }
+    Yii::app()->session['checkHasBadword'] = 'no';
     $model->attributes = $intoData;
     if ($model->validate()) {
       if ($model->updateByPk($intoKeyid, $intoData)) {
@@ -68,9 +67,9 @@ class Publish extends CFormModel {
             Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED), "id IN($ids)");
           }
         }
-        if (!empty($tagids)) {          
+        if (!empty($tagids)) {
           foreach ($tagids as $tag) {
-            TagRelation::checkAndWriteTag($intoKeyid,NULL,$tag);
+            TagRelation::checkAndWriteTag($intoKeyid, NULL, $tag);
           }
         }
         zmf::delFCache("notSavePosts{$uid}");

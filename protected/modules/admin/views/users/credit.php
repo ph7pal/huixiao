@@ -17,6 +17,7 @@
           <?php echo CHtml::link('编辑',array('users/listcredit','uid'=>$row['uid'],'type'=>$type,'action'=>'update'));?>
           <?php echo CHtml::link('排序',array('users/updatecredit','id'=>$row['id']));?>
           <?php echo CHtml::link('查看',array('users/listcredit','uid'=>$row['uid'],'type'=>$type));?>
+          <?php echo CHtml::link('删除',array('users/delcredit','id'=>$row['uid']));?>
         </td>
     </tr>
 <?php endforeach; ?>

@@ -9,7 +9,7 @@
              'prevPageLabel' => '上一页',    
              'nextPageLabel' => '下一页',    
              'pages' => $pages,    
-             'maxButtonCount'=>13         
+             'maxButtonCount'=>8
          )
          
          );

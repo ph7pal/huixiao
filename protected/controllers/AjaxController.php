@@ -24,6 +24,10 @@ class AjaxController extends T {
     if (!$status) {
       $this->jsonOutPut(0, '非常抱歉，您暂不能参与评论。');
     }
+    if (!Users::publishedNum('comments')) {
+      T::message(0, '您本时段的评论次数已用完');
+      exit();
+    }
     $keyid = zmf::filterInput($_GET['id']);
     if (!isset($keyid) OR ! is_numeric($keyid)) {
       $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
@@ -48,7 +52,7 @@ class AjaxController extends T {
     }
     $model = new Comments();
     if (isset($_POST['Comments'])) {
-      //Yii::app()->session['checkHasBadword']='no';
+      Yii::app()->session['checkHasBadword'] = 'no';
       $_logid = zmf::filterInput($_POST['Comments']['logid']);
       if ($keyid != $_logid) {
         $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
@@ -61,7 +65,12 @@ class AjaxController extends T {
       } elseif (md5($content) == md5('请输入内容...')) {
         $this->jsonOutPut(0, '评论内容不能为空');
       }
-      $inputData['status'] = 1;
+      if (Yii::app()->session['checkHasBadword'] == 'yes') {
+        $inputData['status'] = Posts::STATUS_STAYCHECK;
+      } else {
+        $inputData['status'] = Posts::STATUS_PASSED;
+      }
+      Yii::app()->session['checkHasBadword'] = 'no';
       $inputData['uid'] = Yii::app()->user->id;
       $inputData['cTime'] = time();
       $ip = Yii::app()->request->userHostAddress;
@@ -210,19 +219,19 @@ class AjaxController extends T {
     }
   }
 
-  public function actionDelCredit() {    
+  public function actionDelCredit() {
     //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_delcredit', 'url' => $this->homeUrl));
-    $uid=Yii::app()->user->id;
-    $succ=0;
-    if(UserInfo::model()->deleteAll('uid=:uid AND classify="addCredit"',array(':uid'=>$uid))){
+    $uid = Yii::app()->user->id;
+    $succ = 0;
+    if (UserInfo::model()->deleteAll('uid=:uid AND classify="addCredit"', array(':uid' => $uid))) {
       $succ++;
     }
-    if(UserCredit::model()->deleteAll('uid=:uid',array(':uid'=>$uid))){
+    if (UserCredit::model()->deleteAll('uid=:uid', array(':uid' => $uid))) {
       $succ++;
     }
-    if($succ>0){
+    if ($succ > 0) {
       $this->jsonOutPut(1, '删除认证信息成功');
-    }else{
+    } else {
       $this->jsonOutPut(0, '删除认证信息成功');
     }
   }
