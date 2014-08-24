@@ -22,8 +22,25 @@ class EmailController extends T {
                 $this->username=$userinfo['truename'];
                 $subject = '验证邮箱';
                 $valicode = md5(uniqid());
-                $code = $uid . '#' . $type . '#' . time() . '#' . $valicode;
-                $code = tools::jiaMi($code);
+                $codeinfo=UserInfo::model()->find('uid=:uid AND `name`=:name AND classify=:classify',array(':uid'=>$uid,':name'=>'code',':classify'=>'emailcode'));
+                if($codeinfo){
+                  $code = tools::jieMi($code);
+                  $arr = explode('#', $code);
+                  if ((time() - $arr[2]) > 86400) {
+                      //链接已经过时
+                      $code = $uid . '#' . $type . '#' . time() . '#' . $valicode;
+                      $code = tools::jiaMi($code);
+                  }elseif((time() - $arr[2]) < 600){
+                    $this->jsonOutPut(0, '邮件已发送，请10分钟后重试');
+                  }else{
+                    UserInfo::model()->deleteAll('uid=:uid AND `name`=:name AND classify=:classify',array(':uid'=>$uid,':name'=>'code',':classify'=>'emailcode'));
+                    $code = $uid . '#' . $type . '#' . time() . '#' . $valicode;
+                    $code = tools::jiaMi($code);
+                  }
+                }else{
+                  $code = $uid . '#' . $type . '#' . time() . '#' . $valicode;
+                  $code = tools::jiaMi($code);
+                }
                 $url = zmf::config('domain') . Yii::app()->createUrl('email/profile', array('code' => $code));
                 //$message = '请验证您的邮箱：' . CHtml::link($url, $url);
                 $this->codeurl=$url;
@@ -79,6 +96,10 @@ class EmailController extends T {
                     $url=Yii::app()->createUrl('user/index');
                 }                
                 if ($info) {
+                  $groupid=zmf::config('validateEmailGroup');
+                  if($groupid>0){
+                    Users::model()->updateByPk($arr[0], array('groupid' =>$groupid ));
+                  }
                     $this->message(1, '验证成功', $url);
                 } else {
                     $this->message(0, '验证失败',$url);

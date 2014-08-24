@@ -117,7 +117,7 @@ class SearchRecords extends CActiveRecord {
         }
         return $tops;
     }
-    public static function setTops(){
+    public static function getTops(){
         $keys=zmf::config('hotsearchs');
         if($keys){
            $arr=  explode('#', $keys);

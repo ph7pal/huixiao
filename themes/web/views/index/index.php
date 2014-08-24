@@ -119,14 +119,14 @@ $idstr=join(',',$arr);
 $colinfos=Columns::indexColumns($idstr);
 $areas= Area::listArea(NUll,false,10);
 ?>
-<div class="well-sm well visible-md visible-lg">
+<div class="well-sm well">
    <h1><?php echo $colinfos[21]['title'];?></h1>
    <hr/>
    <?php $this->renderPartial('/posts/marqueeleft',array('colinfo'=>$colinfos[21]));?>
 </div>
 <div class="clearfix">
-<div class="col-xs-12 col-md-9 no-padding">
-    <div class="col-xs-12 col-md-4">        
+<div class="col-xs-9 col-md-9 no-padding">
+    <div class="col-xs-4 col-md-4">        
         <div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
             <div class="panel-heading">            
                 <h4 class="panel-title">
@@ -136,7 +136,7 @@ $areas= Area::listArea(NUll,false,10);
             <?php $this->renderPartial('//module/flashnews',array('colinfo'=>$colinfos[0]));?>
         </div>
     </div>
-    <div class="col-xs-12 col-md-8 my-height">
+    <div class="col-xs-8 col-md-8 my-height">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#news-credit" data-toggle="tab"><?php echo $colinfos[1]['title'];?></a></li>
             <li class=""><a href="#news-news" data-toggle="tab"><?php echo $colinfos[2]['title'];?></a></li>    
@@ -203,7 +203,7 @@ $areas= Area::listArea(NUll,false,10);
         </div>
     </div>
 </div>
-<div class="col-xs-12 col-md-3 visible-md visible-lg">
+<div class="col-xs-3 col-md-3">
     <?php $this->renderPartial('//module/newcredit');?>
     <div class="panel panel-danger margin-right_5px">
         <div class="panel-heading">            
@@ -229,7 +229,7 @@ $areas= Area::listArea(NUll,false,10);
         </h3>
     </div>
     <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-12 col-md-9">
+        <div class="col-xs-9 col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
@@ -255,7 +255,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-3 col-md-3">
         <div class="panel panel-default margin-right_5px">
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
@@ -287,38 +287,37 @@ $areas= Area::listArea(NUll,false,10);
 <div class="clearfix"></div> 
 <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
     <div class="panel-heading" style="height: 38px;padding:0 15px;">  
-            <div class="pull-left" style="width:30%;padding:10px 0;">
-                <h3 class="panel-title">信用优秀讲师推荐</h3>
-            </div>
-            <div class="pull-right no-nav-border">
-                <ul id="tab-for-lecturer" class="nav nav-tabs">
-                    <?php  foreach($areas as $ak=>$aval){?>         
-                    <li <?php if($ak==0){?>class="active"<?php }?>>
-                        <a href="#lecturer-tab-<?php echo $aval['id'];?>" data-toggle="tab"><?php echo $aval['name'];?></a>
-                    </li>
-                    <?php }?>
-                </ul>
-            </div>
+      <div class="pull-left no-nav-border">
+          <ul id="tab-for-lecturer" class="nav nav-tabs">
+            <li class="active"><a href="#lecturer-tab-0" data-toggle="tab">信用优秀讲师推荐</a></li>
+              <?php  foreach($areas as $ak=>$aval){?>         
+              <li>
+                  <a href="#lecturer-tab-<?php echo $aval['id'];?>" data-toggle="tab"><?php echo $aval['name'];?></a>
+              </li>
+              <?php }?>
+            <li><?php echo CHtml::link('更多','javscript:;',array('onclick'=>'window.location="'.Yii::app()->createUrl('posts/jiangshi').'";'));?></li>  
+          </ul>
+      </div>
     </div>
     <div class="panel-body my-height"> 
-        <div class="col-xs-4">
-            
-        </div>
-        
-        
-        
         <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="lecturer-tab-0">
+            <?php $this->renderPartial('//module/listLecturer',array('areaid'=>0));?>
+          </div>
             <?php  foreach($areas as $ak=>$aval){?>
-                <div class="tab-pane fade <?php if($ak==0){?>active<?php }?>" id="lecturer-tab-<?php echo $aval['id'];?>">
+                <div class="tab-pane fade" id="lecturer-tab-<?php echo $aval['id'];?>">
                     <?php $this->renderPartial('//module/listLecturer',array('areaid'=>$aval['id']));?>
                 </div>
             <?php }?>    
         </div>
         <script>
-        $('#tab-for-lecturer a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-          })
+          $(document).ready(function(){
+            $('#tab-for-lecturer a').click(function (e) {
+              e.preventDefault()
+              $(this).tab('show')
+            });
+            $('#tab-for-lecturer li:eq(0) a').tab('show');
+            });
         </script>
     </div>            
 </div>
@@ -330,7 +329,7 @@ $areas= Area::listArea(NUll,false,10);
         </h3>
     </div>
     <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-12 col-md-6"> 
+        <div class="col-xs-6 col-md-6"> 
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -344,7 +343,7 @@ $areas= Area::listArea(NUll,false,10);
                 </div>            
             </div>
         </div>    
-        <div class="col-xs-12 col-md-3"> 
+        <div class="col-xs-3 col-md-3"> 
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -359,7 +358,7 @@ $areas= Area::listArea(NUll,false,10);
                 </div>            
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-3 col-md-3">
             <div class="panel panel-default margin-right_5px">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -385,7 +384,7 @@ $areas= Area::listArea(NUll,false,10);
         </h3>
     </div>
     <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-12 col-md-9">
+        <div class="col-xs-9 col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
@@ -412,7 +411,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>            
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-xs-3 col-md-3">
         <div class="panel panel-default margin-right_5px">
             <div class="panel-heading second-panel">            
                 <h4 class="panel-title">
@@ -436,7 +435,7 @@ $areas= Area::listArea(NUll,false,10);
         </h3>
     </div>
     <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-12 col-md-3"> 
+        <div class="col-xs-3 col-md-3"> 
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -451,7 +450,7 @@ $areas= Area::listArea(NUll,false,10);
                 </div>            
             </div>
         </div>    
-        <div class="col-xs-12 col-md-3"> 
+        <div class="col-xs-3 col-md-3"> 
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -466,7 +465,7 @@ $areas= Area::listArea(NUll,false,10);
                 </div>            
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-3 col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">
@@ -481,7 +480,7 @@ $areas= Area::listArea(NUll,false,10);
                 </div>            
             </div>            
         </div>
-        <div class="col-xs-12 col-md-3"> 
+        <div class="col-xs-3 col-md-3"> 
             <div class="panel panel-default margin-right_5px">
                 <div class="panel-heading second-panel">            
                     <h3 class="panel-title">

@@ -4,6 +4,7 @@ class PostsController extends T {
 
   public function actionIndex() {
     $keyid = zmf::filterInput($_GET['colid']);
+    $tagid = zmf::filterInput($_GET['tagid']);
     if (!$keyid) {
       $this->message(0, '请选择要查看的页面');
     }
@@ -14,9 +15,8 @@ class PostsController extends T {
       $this->message(0, '您要查看的栏目未通过审核');
     }
     $this->currentCol[] = $keyid;
-    $data = array();
+    $data = $selectedTags = array();
     $data['info'] = $colinfo;
-    $criteria = new CDbCriteria();
     if ($colinfo['classify'] == 'page') {
       $page = Posts::getPage($keyid);
       if ($page) {
@@ -30,18 +30,31 @@ class PostsController extends T {
       $data['coms'] = $coms;
       $data['pages'] = $pages;
     } else {
-      if($colinfo['classify']!='thumb'){
+      if ($colinfo['classify'] != 'thumb') {
         $render = 'lists';
-      }else{
+      } else {
         $render = $colinfo['classify'];
-      }      
-      $colstr = Columns::getColIds($keyid);
-      if ($colstr) {
-        $_sql = "SELECT * FROM {{posts}} WHERE colid IN({$colstr}) AND status=" . Posts::STATUS_PASSED . " ORDER BY cTime DESC";
-        Posts::getAll(array('sql' => $_sql), $pages, $lists);
       }
+      $colstr = Columns::getColIds($keyid);
+      $where='';
+      if ($colstr) {
+        $_sql = "SELECT id,title,colid,uid,cTime FROM {{posts}} WHERE colid IN({$colstr}) AND status=" . Posts::STATUS_PASSED . " ORDER BY cTime DESC";
+      }
+      if($tagid){
+          $_sql= "SELECT id,title,colid,uid,cTime FROM {{posts}} p WHERE id IN(SELECT DISTINCT(logid) FROM {{tag_relation}} tr WHERE tr.tagid ={$tagid} AND tr.classify='posts') ORDER BY hits DESC";
+       }
+      Posts::getAll(array('sql' => $_sql), $pages, $lists);
+      $fieldsArr = array();
+      if ($colinfo['post_fields'] != '') {
+        $arr = explode(',', $colinfo['post_fields']);
+        $fieldsArr = array_filter($arr);
+      }
+      $tags = Tags::allTags();
       $data['posts'] = $lists;
       $data['pages'] = $pages;
+      $data['fieldsArr'] = $fieldsArr;
+      $data['tags'] = $tags;
+      $data['selectedTags'] = $selectedTags;
     }
     $this->pageTitle = $colinfo['title'] . ' - ' . zmf::config('sitename');
     $this->render($render, $data);
@@ -308,43 +321,43 @@ class PostsController extends T {
   }
 
   public function actionQiye() {
-    $sql = "SELECT DISTINCT(uid) FROM {{credit_relation}} WHERE classify='producer' AND status=".Posts::STATUS_PASSED;
+    $sql = "SELECT DISTINCT(uid) FROM {{credit_relation}} WHERE classify='producer' AND status=" . Posts::STATUS_PASSED;
     Posts::getAll(array('sql' => $sql), $pages, $items);
-    $lists=array();
-    if(!empty($items)){
-      foreach($items as $it){
-        $_tmp=  UserCredit::model()->findAll('uid=:uid',array(':uid'=>$it['uid']));
-        $_tmp=CHtml::listData($_tmp,'name','value');        
-        $_tmp['uid']=$it['uid'];
-        $_posts=Posts::getAll(array('sql'=>"SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6",'pageSize'=>0), $a, $b);
-        $_tmp['posts']=$_posts;
-        $lists[]=$_tmp;
+    $lists = array();
+    if (!empty($items)) {
+      foreach ($items as $it) {
+        $_tmp = UserCredit::model()->findAll('uid=:uid', array(':uid' => $it['uid']));
+        $_tmp = CHtml::listData($_tmp, 'name', 'value');
+        $_tmp['uid'] = $it['uid'];
+        $_posts = Posts::getAll(array('sql' => "SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6", 'pageSize' => 0), $a, $b);
+        $_tmp['posts'] = $_posts;
+        $lists[] = $_tmp;
       }
     }
     $data['posts'] = $lists;
     $data['pages'] = $pages;
-    $this->render('qiye',$data);
+    $this->render('qiye', $data);
   }
-  
+
   public function actionJiangshi() {
-    $sql = "SELECT uid,medal FROM {{credit_relation}} WHERE classify='lecturer' AND status=".Posts::STATUS_PASSED;
+    $sql = "SELECT uid,medal FROM {{credit_relation}} WHERE classify='lecturer' AND status=" . Posts::STATUS_PASSED;
     Posts::getAll(array('sql' => $sql), $pages, $items);
-    $lists=array();
-    if(!empty($items)){
-      foreach($items as $it){
-        $_tmp=  UserCredit::model()->findAll('uid=:uid',array(':uid'=>$it['uid']));
-        $_tmp=CHtml::listData($_tmp,'name','value');
-        $_tmp['uid']=$it['uid'];
-        $_tmp['medal']=$it['medal'];
-        $_tmp['truename']=Users::getUserInfo($it['uid'],'truename');
-        $_posts=Posts::getAll(array('sql'=>"SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6",'pageSize'=>0), $a, $b);
-        $_tmp['posts']=$_posts;
-        $lists[]=$_tmp;
+    $lists = array();
+    if (!empty($items)) {
+      foreach ($items as $it) {
+        $_tmp = UserCredit::model()->findAll('uid=:uid', array(':uid' => $it['uid']));
+        $_tmp = CHtml::listData($_tmp, 'name', 'value');
+        $_tmp['uid'] = $it['uid'];
+        $_tmp['medal'] = $it['medal'];
+        $_tmp['truename'] = Users::getUserInfo($it['uid'], 'truename');
+        $_posts = Posts::getAll(array('sql' => "SELECT id,title,attachid FROM {{posts}} WHERE uid={$it['uid']} AND status=1 LIMIT 6", 'pageSize' => 0), $a, $b);
+        $_tmp['posts'] = $_posts;
+        $lists[] = $_tmp;
       }
     }
     $data['posts'] = $lists;
     $data['pages'] = $pages;
-    $this->render('jiangshi',$data);
+    $this->render('jiangshi', $data);
   }
 
 }

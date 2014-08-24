@@ -7,6 +7,7 @@
 Yii::app()->clientScript->registerCoreScript('jquery',CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/uploadify/jquery.uploadify-3.1.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/myfunc.js", CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/bootstrap.min.js", CClientScript::POS_END);
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl?>/common/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl?>/common/admin/manage.css">
@@ -49,7 +50,23 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/m
           </div>
         </div>
         <div class="col-xs-10 col-md-10">
-            <?php echo $content;?>
+          <?php if(!empty($this->menu)){?>
+          <div class="dropdown pull-right">
+            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              更多操作
+             <span class="caret"></span>
+            </button>
+            <?php 
+              $this->widget('zii.widgets.CMenu', array(
+                  'id'=>'myMenu',
+                  'activeCssClass'=>'active',
+                  'items'=>$this->menu,
+                  'htmlOptions'=>array('class'=>'dropdown-menu'),
+              ));
+              ?>  
+          </div>
+          <?php }?>
+          <?php echo $content;?>
         </div>        
   </div>
 </div>

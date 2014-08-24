@@ -51,4 +51,7 @@
         <option value="1" <?php if($c['validateEmail']=='1'){?>selected="selected"<?php }?>>是</option>
     </select>
 </p>
+<p><label>验证邮箱后的用户组：</label>
+    <?php echo CHtml::dropDownList('validateEmailGroup',$c['validateEmailGroup'],UserGroup::getGroups(true),array('options' => array($info['validateEmailGroup']=>array('selected'=>true)))); ?>
+</p>
 <p><label>搜索关键词("#"隔开)：</label><textarea class="form-control" name="hotsearchs"><?php echo $c['hotsearchs'];?></textarea></p>

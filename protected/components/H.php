@@ -3,6 +3,8 @@
 class H extends CController {
 
     public $layout = 'admin';
+    public $menu = array();
+    public $breadcrumbs = array();
     protected $_noColButOther;
     public $listTableTitle; //当前查看列表的名称
 

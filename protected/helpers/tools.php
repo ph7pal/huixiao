@@ -342,11 +342,11 @@ class tools {
             'css' => 'info',
             'type' => 'exhibition',
         );
-//        $arr[] = array(
-//            'title' => '个人',
-//            'css' => 'info',
-//            'type' => 'personal',            
-//        ); 
+        $arr[] = array(
+            'title' => '个人',
+            'css' => 'info',
+            'type' => 'personal',            
+        ); 
         if ($return != '') {
             //return $arr[$return];
             foreach ($arr as $list) {

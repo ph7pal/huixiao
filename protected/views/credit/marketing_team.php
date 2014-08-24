@@ -20,6 +20,7 @@ if($_imgSize>200){
     <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
 </p>
 <p><label>企业全称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>团队名称<span class="required">*</span>：</label><input class="form-control bitian" name="teamname" id="teamname" type="text" value="<?php echo $info['teamname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>负责人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
 <p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="officurl" id="officurl" type="text" value="<?php echo $info['officurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
@@ -56,7 +57,9 @@ if($_imgSize>200){
 </div>
 <?php 
 if(!$blocked){
-    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn','onclick'=>'return checkBitian();'));    
+  echo CHtml::submitButton('提交',array('class'=>'btn btn-success','name'=>'btn','onclick'=>'return checkBitian();'));    
+}elseif($fromAdmin!='yes'){
+  $this->renderPartial('//credit/reset'); 
 } 
 $form=$this->endWidget(); 
 if($fromAdmin=='yes'){

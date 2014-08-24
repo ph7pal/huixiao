@@ -623,6 +623,7 @@ class zmf {
         if ($c == 'all') {
             $arr = array(
                 'posts' => '文章',
+                'tags' => '标签',
                 'comments' => '评论',
                 'attachments' => '附件',
                 'ads' => '展示',

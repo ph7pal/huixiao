@@ -154,6 +154,9 @@ a:hover.move { background-position: 100% -44px; }
 .breadcrumbs a{
     color:#5a9475;
 }
+.breadcrumb{
+  margin-bottom: 0px;
+}
 .main .mod {
     margin: 0 35px 50px;
 }
@@ -683,7 +686,8 @@ span.required,.errorMessage
     font-size: 12px;
 }
 .more,.more a{font-size: 12px}
-.topkws,.topkws a{font-size:12px;}
+.topkws{padding:10px 0 0;}
+.topkws a{font-size:12px;padding:0 2px 0}
 .container .navbar-header,
 .container .navbar-collapse {
   margin-right: 0;
@@ -769,7 +773,7 @@ span.required,.errorMessage
                 padding-left: 0 !important;
             }
             .search-login{
-                padding-top:55px;
+                padding-top:65px;
             }
             .logo{
                 width:300px;
@@ -786,3 +790,32 @@ span.required,.errorMessage
               /*width:124px;*/
               height:50px;
             }
+            .tags-holder{
+              margin-bottom: 20px;
+            }
+            .tag-title{
+    padding:4px 0;
+  }
+  .tag-area{
+    margin: 0;
+    padding: 0;
+  }
+  .tag-area li{
+    display: inline-block;
+    padding: 4px;
+  }
+  .zmf-border-bottom{
+    border-bottom: 1px dashed #e9e9e9;
+  }
+  .close-info{
+    display: none;
+  }
+  .tag-area .closeinfo{
+    display: none;
+  }
+  li.selected-tag{
+    border: 1px solid #e9e9e9;
+    padding: 2px 6px;
+  }
+  .selected-tag button{margin-left: 5px;}
+  .selected-tag:hover{border-color:#37a}

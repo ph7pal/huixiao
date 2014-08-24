@@ -1,0 +1,2 @@
+<?php
+echo CHtml::ajaxSubmitButton('重填',$this->createUrl('ajax/delcredit'),array('success'=>"function(data){data = eval('('+data+')');if(data['status']=='0'){alert(data['msg']);}else{window.location.reload();}}",),array('class'=>'btn btn-danger','confirm'=>'确定重新填写认证信息？')); 

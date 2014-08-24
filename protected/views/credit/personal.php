@@ -32,5 +32,14 @@
 <p class="help-block"></p>
 <div class="clearfix"></div>
 </div>
-<?php echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn','onclick'=>'return checkBitian();')); ?>
-<?php $form=$this->endWidget(); ?>
+<?php 
+if(!$blocked){
+  echo CHtml::submitButton('提交',array('class'=>'btn btn-success','name'=>'btn','onclick'=>'return checkBitian();'));    
+}elseif($fromAdmin!='yes'){
+  $this->renderPartial('//credit/reset'); 
+} 
+$form=$this->endWidget(); 
+if($fromAdmin=='yes'){
+   $this->renderPartial('//credit/actions',array('uid'=>$uid,'type'=>$type,'reason'=>$reason,'status'=>$status,'groupid'=>$groupid,'creditlogo'=>$creditlogo)); 
+}
+?>

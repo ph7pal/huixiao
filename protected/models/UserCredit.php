@@ -110,5 +110,35 @@ class UserCredit extends CActiveRecord {
         $items=Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
+    public static function listQiye(){
+      $uids=  Users::getExhibition('producer',0);
+      if(!empty($uids)){
+        $uids=array_keys(CHtml::listData($uids,'uid',''));
+        $ids=join(',',$uids);
+        if($ids!=''){
+          $sql="SELECT uid,`value` FROM {{user_credit}} WHERE `name`='companyname' AND classify='producer' AND uid IN($ids) ";
+          $users=Yii::app()->db->createCommand($sql)->queryAll();
+          $arr=CHtml::listData($users,'uid','value');
+          return $arr;
+        } 
+      }
+      return array();
+    }
+    public static function listTeam(){
+      
+      $sql1 = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order`";
+      $uids=Yii::app()->db->createCommand($sql1)->queryAll();
+      if(!empty($uids)){
+        $uids=array_keys(CHtml::listData($uids,'uid',''));
+        $ids=join(',',$uids);
+        if($ids!=''){
+          $sql="SELECT uid,`value` FROM {{user_credit}} WHERE `name`='teamname' AND classify='marketing_team' AND uid IN($ids) ";
+          $users=Yii::app()->db->createCommand($sql)->queryAll();
+          $arr=CHtml::listData($users,'uid','value');
+          return $arr;
+        } 
+      }
+      return array();
+    }
 
 }

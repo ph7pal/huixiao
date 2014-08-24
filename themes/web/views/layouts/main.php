@@ -1,12 +1,12 @@
 <?php $this->beginContent('/layouts/common'); ?>
 <div id="header">
-        <div class="col-xs-12 col-sm-4 padding-right-5">
+        <div class="col-xs-4 col-sm-4 padding-right-5">
             <a href="<?php echo zmf::config('baseurl');?>">                
                 <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive logo" alt="<?php echo '新灵中国';?>">
             </a>
         </div>
-    <div class="search-login visible-md visible-lg">
-        <div class="col-xs-9 col-sm-5 padding-right-15">
+    <div class="search-login">
+        <div class="col-xs-5 col-sm-5 padding-right-15">
             <form class="form-inline" role="form">
                     <div class="clearfix">
                         <div class="input-group">
@@ -17,12 +17,11 @@
                         </div>
                     </div>
                     <div class="topkws">
-                        <?php $tops=  SearchRecords::setTops();if(!empty($tops)){?>
+                        <?php $tops=  SearchRecords::getTops();if(!empty($tops)){?>
                         <p>
                             热门关键词：
                                 <?php foreach($tops as $tpkw){
-                                    //echo CHtml::link($tpkw,array('search/posts','keyword'=>$tpkw),array('class'=>'topkws'));
-                                    echo $tpkw;
+                                    echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));
                                 }?>
                         </p>
                         <?php }?>

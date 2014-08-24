@@ -57,7 +57,9 @@ if($_imgSize>200){
 </div>
 <?php 
 if(!$blocked){
-    echo CHtml::submitButton('提交',array('class'=>'btn btn-default','name'=>'btn','onclick'=>'return checkBitian();'));    
+  echo CHtml::submitButton('提交',array('class'=>'btn btn-success','name'=>'btn','onclick'=>'return checkBitian();'));    
+}elseif($fromAdmin!='yes'){
+  $this->renderPartial('//credit/reset'); 
 } 
 $form=$this->endWidget(); 
 if($fromAdmin=='yes'){

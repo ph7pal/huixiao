@@ -10,6 +10,10 @@ class AllController extends H {
 
     public function actionList() {
         $table = zmf::filterInput($_GET['table'], 't', 1);
+        if($table=='tags'){
+          $this->redirect(array('tags/index'));
+          exit();
+        }
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $classify = zmf::filterInput($_GET['classify'], 't', 1);
         $colid = zmf::filterInput($_GET['colid']);

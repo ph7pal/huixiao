@@ -82,6 +82,14 @@
     <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'posts','simple'=>'yes'));?> 
      <p class="help-block"><?php echo $form->error($model,'content'); ?></p>
     </div>
+    <?php if(in_array('tags',$fieldsArr)){
+      $tagsArr=Tags::getPostTags($info['id'],'posts');if(empty($tagsArr)){$tagsArr=array();}$postTags=array_keys(CHtml::listData($tagsArr,'id',''));?>
+    <div class="form-group">
+      <label>标签选择</label>
+      <div class="clearfix"></div>
+      <?php echo CHtml::checkBoxList('tagids',$postTags,  Tags::allTags());?>
+    </div>
+    <?php }?>
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->  
