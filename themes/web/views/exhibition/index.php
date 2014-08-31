@@ -8,20 +8,10 @@
   <div class="panel panel-default">
     <!--div class="panel-heading"></div-->
     <div class="panel-body">
-      <p><b>企业地址：</b><?php echo $creditInfo['address'];?></p>
-      <p><b>官方网站：</b><a href="<?php echo $creditInfo['companyurl'];?>" target="_blank"><?php echo $creditInfo['companyurl'];?></a></p>
-      <p><b>企业描述：</b><?php echo $creditInfo['description'];?></p>
-    </div>
-  </div>
-  <div class="clearfix"></div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        公司动态        
-      </h4>      
-    </div>
-    <div class="panel-body">
-      <?php $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[16],'colnum'=>8,'nodate'=>true));?>
+      <p><b>企业全称：</b><?php echo $creditInfo['companyname'];?></p>
+      <p><b>官方网站：</b><a href="<?php echo $creditInfo['officeurl'];?>" target="_blank"><?php echo $creditInfo['officeurl'];?></a></p>
+      <p><b>联系人：</b><?php echo $creditInfo['contactname'];?></p>
+      <p><b>联系手机：</b><?php echo $creditInfo['contactmobile'];?></p>
     </div>
   </div>
 </div>
@@ -29,7 +19,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        推荐产品
+        展会资讯
         <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[4]['id']));?></span>
       </h4>      
     </div>
@@ -41,7 +31,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        讲师团队        
+        展会展示        
       </h4>      
     </div>
     <div class="panel-body">

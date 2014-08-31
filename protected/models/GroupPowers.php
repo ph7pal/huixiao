@@ -141,6 +141,12 @@ class GroupPowers extends CActiveRecord {
             'editquestions' => '回复留言',
             'delquestions' => '删除留言',
         );
+        $lang['credit']['desc'] = '用户认证相关';
+        $lang['credit']['detail'] = array(
+            'listcredit' => '查看用户认证信息',
+            'updatecredit' => '更新用户认证信息',
+            'delcredit' => '删除用户认证信息',
+        );
         $lang['usermanage']['desc'] = '用户自管理相关';
         $lang['usermanage']['detail'] = array(
             'user_manage' => '进入自管理中心',

@@ -393,7 +393,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>
             <div class="panel-body my-height">                
                 <?php 
-                $this->renderPartial('/module/team');
+                $this->renderPartial('/module/team',array('type'=>'top','colnum'=>6));
                 ?>          
             </div>            
         </div>
@@ -420,7 +420,7 @@ $areas= Area::listArea(NUll,false,10);
             </div>
             <div class="panel-body my-height-2x">
                 <?php 
-                $this->renderPartial('/module/team');
+                $this->renderPartial('/module/team',array('type'=>'new','colnum'=>1));
                 ?>
             </div>            
         </div>

@@ -253,10 +253,11 @@ class Users extends CActiveRecord {
   /**
    * 讲师按地区查询
    * @param type $area，为0则为所有地区的推荐
+   * @param type $uid，不为0为某企业的讲师
    * @return boolean
    */
-  public static function getLecturer($area) {
-    $key = "getLecturer-$area";
+  public static function getLecturer($area,$uid=0) {
+    $key = "getLecturer-$area-$uid";
     $usrs = zmf::getFCache($key);
     if (!$usrs) {
       if ($area > 0) {
@@ -268,7 +269,11 @@ class Users extends CActiveRecord {
           $sql = "SELECT uid FROM {{credit_relation}} WHERE localarea IN(0) AND classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
         }
       } else {
-        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
+        if($uid!=0){
+          $sql = "SELECT uid FROM {{user_credit}} WHERE classify='lecturer' AND `name`='belongCompany' AND `value`={$uid} LIMIT 10";
+        }else{
+          $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
+        }
       }
       $usrs = Yii::app()->db->createCommand($sql)->queryAll();
       zmf::setFCache($key, $usrs, 3600);
@@ -280,14 +285,14 @@ class Users extends CActiveRecord {
    * 展会公司热门排行
    * @return array
    */
-  public static function getExhibition($type = 'exhibition', $limit = 10) {
-    $key = "get-{$type}-top-{$limit}";
+  public static function getExhibition($type = 'exhibition', $limit = 10 ,$order='order') {
+    $key = "get-{$type}-top-{$limit}-{$order}";
     $usrs = zmf::getFCache($key);
     if (!$usrs) {
       if ($limit == 0) {
-        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `order`";
+        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `{$order}`";
       } else {
-        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `order` LIMIT {$limit}";
+        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `{$order}` LIMIT {$limit}";
       }
       $usrs = Yii::app()->db->createCommand($sql)->queryAll();
       zmf::setFCache($key, $usrs, 3600);
@@ -299,13 +304,13 @@ class Users extends CActiveRecord {
    * 营销团队展示
    * @return type
    */
-  public static function getTeam() {
-    $key = "getMarketingTeam-$area";
-    $usrs = zmf::getFCache($key);
-    if (!$usrs) {
+  public static function getTeam($type='') {
+    $key = "getMarketingTeam-$type";
+    $users = zmf::getFCache($key);
+    if (!$users) {
       $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order` LIMIT 10";
-      $usrs = Yii::app()->db->createCommand($sql)->queryAll();
-      zmf::setFCache($key, $usrs, 3600);
+      $users = Yii::app()->db->createCommand($sql)->queryAll();
+      zmf::setFCache($key, $users, 3600);
     }
     return $users;
   }

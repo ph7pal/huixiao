@@ -1,7 +1,15 @@
 <?php
-$users=Users::getTeam();
+$listNum=isset($listNum)?$listNum:$colinfo['listnum'];
+if($this->inMobile){
+  $colnum=isset($colnum)?$colnum:3;
+  $list_colnum=12/$colnum;  
+}else{
+  $colnum=isset($colnum)?$colnum:3;
+  $list_colnum=12/$colnum;  
+}
+$users=Users::getTeam($type);
 if(!empty($users)){
     foreach($users as $uid){
-        echo '<div class="col-xs-2 col-sm-2">'.CHtml::link(zmf::avatar($uid,'small').Users::getUserInfo($uid,'truename'),array('mobile/index','uid'=>$uid),array('target'=>'_blank')).zmf::creditIcon($uid).'</div>';
+        echo '<div class="col-xs-'.$list_colnum.' col-sm-'.$list_colnum.'">'.CHtml::link(zmf::avatar($uid['uid'],'small').Users::getUserInfo($uid['uid'],'truename'),array('team/index','id'=>$uid['uid']),array('target'=>'_blank')).'</div>';
     }
 }

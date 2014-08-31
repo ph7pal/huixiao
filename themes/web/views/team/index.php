@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        自我推荐        
+        团队介绍        
       </h4>      
     </div>
     <div class="panel-body">
@@ -13,7 +13,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        个人案例        
+        团队案例        
       </h4>      
     </div>
     <div class="panel-body">
@@ -23,7 +23,7 @@
 </div>
 <div class="col-xs-3 col-sm-3 no-padding">
   <div class="alert alert-danger">
-    <p><?php echo $creditInfo['truename'];?></p>
+    <p><?php echo $creditInfo['teamname'];?></p>
   </div>
   <div class="panel panel-default">
     <!--div class="panel-heading"></div-->
