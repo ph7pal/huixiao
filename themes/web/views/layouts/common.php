@@ -28,10 +28,14 @@
         <?php }?>
     </head>
     <body>
-        <div class="wrapper">
-            <?php echo $content; ?>
-        </div>
-        <?php $this->renderPartial('/common/footer'); ?>
-        <?php $this->renderPartial('/common/loadjs'); ?>    
+    <?php echo $content; ?>
+      <style>
+        .navbar-default {
+        }
+        .navbar-default .navbar-nav > .active > a {          
+        }
+      </style>
+    <?php $this->renderPartial('/common/footer'); ?>
+    <?php $this->renderPartial('/common/loadjs'); ?>    
     </body>
 </html>

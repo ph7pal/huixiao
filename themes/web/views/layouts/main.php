@@ -1,4 +1,5 @@
 <?php $this->beginContent('/layouts/common'); ?>
+<div class="wrapper">
 <div id="header">
         <div class="col-xs-4 col-sm-4 padding-right-5">
             <a href="<?php echo zmf::config('baseurl');?>">                
@@ -47,35 +48,36 @@
         <?php }?>
         </div>
     </div>
-        <div class="clearfix"></div>
-        <div class="navbar navbar-default bs-docs-nav" role="navigation">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-              </div>
-              <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
-                    <?php 
-                    $topcols=Columns::getColsByPosition('top',true);
-                    if(!empty($topcols)){
-                    foreach($topcols as $_t){
-                    ?>          
-                    <li <?php if(in_array($_t['first']['id'],$this->currentCol)){echo 'class="active"';}?>>
-                      <?php echo CHtml::link($_t['first']['title'],array('posts/index','colid'=>$_t['first']['id']));?>           
-                    </li>
-                    <?php }}?>
-                </ul>
-                <!--ul class="nav navbar-nav navbar-right">                  
-                  <li class="active"><a href="./">管理</a></li>
-                </ul-->
-              </div><!--/.nav-collapse -->              
-            </div>
-</div>     
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="navbar navbar-default" role="navigation">
+  <div class="wrapper">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse  no-padding">
+      <ul class="nav navbar-nav">
+          <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
+          <?php 
+          $topcols=Columns::getColsByPosition('top',true);
+          if(!empty($topcols)){
+          foreach($topcols as $_t){
+          ?>          
+          <li <?php if(in_array($_t['first']['id'],$this->currentCol)){echo 'class="active"';}?>>
+            <?php echo CHtml::link($_t['first']['title'],array('posts/index','colid'=>$_t['first']['id']));?>           
+          </li>
+          <?php }}?>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
 <div id="content">
   <?php echo $content; ?>   
   <hr/>
@@ -120,4 +122,5 @@
 </div>
 </div>
 <div class="bg"></div>
+</div>
 <?php $this->endContent(); ?>

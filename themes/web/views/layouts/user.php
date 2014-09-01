@@ -1,4 +1,5 @@
-<?php $this->beginContent('/layouts/common'); ?>    	
+<?php $this->beginContent('/layouts/common'); ?>
+<div class="wrapper">
 <div id="header">
     <?php $this->renderPartial('/common/topnav');?>
     <div class="sp-nav">
@@ -26,4 +27,5 @@
     <div class="extra"></div>
 </div>
 <div class="bg"></div>
+</div>
 <?php $this->endContent(); ?>            

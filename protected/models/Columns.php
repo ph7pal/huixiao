@@ -264,7 +264,7 @@ class Columns extends CActiveRecord {
         return $arr;
     }
 
-    public function userColumns($uid = '') {
+    public function userColumns($uid = '',$field='id,title') {
         if (Yii::app()->user->isGuest && !$uid) {
             return false;
         } elseif ($uid == '') {
@@ -276,13 +276,13 @@ class Columns extends CActiveRecord {
         } elseif ($uinfo['status'] != Posts::STATUS_PASSED) {
             return false;
         }
-        $items = zmf::getFCache("userColumns-{$uid}");
+        $items = zmf::getFCache("userColumns-{$uid}-{$field}");
         if (!$items) {
             $str = zmf::userConfig($uid, 'column');
             if (!$str) {
                 return false;
             }
-            $sql = "SELECT id,title FROM {{columns}} WHERE id IN($str) ORDER BY FIELD(id,$str)";
+            $sql = "SELECT {$field} FROM {{columns}} WHERE id IN($str) ORDER BY FIELD(id,$str)";
             $items = Yii::app()->db->createCommand($sql)->queryAll();
             zmf::setFCache("userColumns-{$uid}", $items, 86400 * 30);
         }

@@ -1,5 +1,4 @@
-<div class="well well-sm">
-  <h1><?php echo $creditInfo['companyname'];?></h1>
+<div class="well well-sm" style="background: url(common/images/bg.gif) center no-repeat;height: 125px;">  
 </div>
 <div class="col-xs-3 col-sm-3 padding-right-15">
   <div class="alert alert-danger">
@@ -13,31 +12,34 @@
       <p><b>企业描述：</b><?php echo $creditInfo['description'];?></p>
     </div>
   </div>
-  <div class="clearfix"></div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        公司动态        
-      </h4>      
-    </div>
-    <div class="panel-body">
-      <?php $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[16],'colnum'=>8,'nodate'=>true));?>
-    </div>
-  </div>
 </div>
 <div class="col-xs-9 col-sm-9 no-padding">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" <?php if($colid=='' && $type==''){?>class="active"<?php }?>><?php echo CHtml::link('首页',array('qiye/index','id'=>$uid));?></li>
+    <?php if(!empty($columns)){?>
+    <?php foreach($columns as $col){?>
+    <li role="presentation" <?php if($colid==$col['id']){?>class="active"<?php }?>><?php echo CHtml::link($col['title'],array('qiye/index','id'=>$uid,'colid'=>$col['id']));?></li>
+    <?php }?>
+    <?php }?>
+    <li role="presentation" <?php if($type=='js'){?>class="active"<?php }?>><?php echo CHtml::link('优秀讲师',array('qiye/index','id'=>$uid,'type'=>'js'));?></li>
+  </ul>
+  <div style="margin-bottom: 15px;"></div>
+  <?php if(!empty($selected)){?>
+  <?php foreach($selected as $sel){?>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        推荐产品
-        <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[4]['id']));?></span>
+        <?php echo $sel['title'];?>
       </h4>      
     </div>
     <div class="panel-body">
-      <?php $this->renderPartial('/posts/flash',array('colinfo'=>$colinfos[9],'colnum'=>2,'facenum'=>12));?>
+      <?php $this->renderPartial('/posts/miniLists',array('colinfo'=>$sel,'uid'=>$uid,'colnum'=>2,'facenum'=>12));?>
     </div>
   </div>
+  <?php }?>
+  <?php }?>
   <div class="clearfix"></div>
+  <?php if((!$colid && $type=='js') || (!$colid && !$type)){?>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -48,4 +50,6 @@
       <?php $this->renderPartial('//module/listLecturer',array('areaid'=>0,'uid'=>$uid));?>
     </div>
   </div>
+  <?php }?>
+  
 </div>
