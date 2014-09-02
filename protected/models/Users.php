@@ -23,6 +23,7 @@ class Users extends CActiveRecord {
         array('password', 'length', 'max' => 32),
         array('truename, email', 'length', 'max' => 100),
         array('qq', 'length', 'max' => 15),
+        array('username', 'checkUsername'),
         array('email', 'email'),
         array('mobile, telephone', 'length', 'max' => 20),
         array('last_login_ip', 'length', 'max' => 16),
@@ -99,6 +100,14 @@ class Users extends CActiveRecord {
 
   public static function model($className = __CLASS__) {
     return parent::model($className);
+  }
+  
+  public function checkUsername($attribute, $params){    
+    if(!ctype_alnum($this->username)){
+       $this->addError('username', '登录名称只能是英文或数字');
+    }elseif(mb_strlen($this->username,'GBK')<4){
+      $this->addError('username', '登录名称必须大于3个字符');
+    }
   }
 
   public function getUserInfo($uid, $return = '') {
@@ -276,6 +285,13 @@ class Users extends CActiveRecord {
         }
       }
       $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+      if(!empty($usrs)){
+        foreach($usrs as $key=>$one){
+          $uname=Users::getUserInfo($one['uid'],'truename');
+          $one['truename']=$uname;
+          $usrs[$key]=$one;
+        }
+      }
       zmf::setFCache($key, $usrs, 3600);
     }
     return $usrs;
@@ -295,6 +311,13 @@ class Users extends CActiveRecord {
         $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `{$order}` LIMIT {$limit}";
       }
       $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+      if(!empty($usrs)){
+        foreach($usrs as $key=>$one){
+          $uname=  UserCredit::model()->find('uid=:uid AND classify=:classify AND `name`=:name',array(':uid'=>$one['uid'],':classify'=>$type,':name'=>'companyname'));
+          $one['truename']=$uname['value'];
+          $usrs[$key]=$one;
+        }
+      }
       zmf::setFCache($key, $usrs, 3600);
     }
     return $usrs;
@@ -305,12 +328,19 @@ class Users extends CActiveRecord {
    * @return type
    */
   public static function getTeam($type='') {
-    $key = "getMarketingTeam-$type";
-    $users = zmf::getFCache($key);
+    $cachekey = "getMarketingTeam-$type";
+    $users = zmf::getFCache($cachekey);
     if (!$users) {
       $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order` LIMIT 10";
       $users = Yii::app()->db->createCommand($sql)->queryAll();
-      zmf::setFCache($key, $users, 3600);
+      if(!empty($users)){
+        foreach($users as $key=>$one){
+          $uname=  UserCredit::model()->find('uid=:uid AND classify=:classify AND `name`=:name',array(':uid'=>$one['uid'],':classify'=>'marketing_team',':name'=>'teamname'));
+          $one['truename']=$uname['value'];
+          $users[$key]=$one;
+        }
+      }
+      zmf::setFCache($cachekey, $users, 3600);
     }
     return $users;
   }

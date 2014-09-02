@@ -15,16 +15,16 @@
         'enableClientValidation'=>true
 )); ?>
         <p>
-        <label>用户名</label>
-        <?php echo $form->textField($model,'username', array('class'=>'form-control')); ?> <?php echo $form->error($model,'username'); ?>
+        <label>用户名/Email</label>
+        <?php echo $form->textField($model,'username', array('class'=>'form-control','placeholder'=>'用户名/Email')); ?> <?php echo $form->error($model,'username'); ?>
         </p>
         <p>
         <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-        <?php echo $form->passwordField($model,'password', array('class'=>'form-control')); ?> <?php echo $form->error($model,'password'); ?>
+        <?php echo $form->passwordField($model,'password', array('class'=>'form-control','placeholder'=>'请输入密码')); ?> <?php echo $form->error($model,'password'); ?>
         </p>
         <p>
         <label>验证码</label>
-        <?php echo $form->textField($model,'verifyCode', array('class'=>'form-control verify-code')); ?>
+        <?php echo $form->textField($model,'verifyCode', array('class'=>'form-control verify-code','placeholder'=>'请输入验证码')); ?>
         <?php echo $form->error($model,'verifyCode'); ?>
         <?php $this->widget ( 'CCaptcha', array ('showRefreshButton' => true, 'clickableImage' => true, 'buttonType' => 'link', 'buttonLabel' => '换一张', 'imageOptions' => array ('alt' => '点击换图', 'align'=>'absmiddle'  ) ) );?>
         </p>

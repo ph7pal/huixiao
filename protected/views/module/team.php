@@ -10,6 +10,6 @@ if($this->inMobile){
 $users=Users::getTeam($type);
 if(!empty($users)){
     foreach($users as $uid){
-        echo '<div class="col-xs-'.$list_colnum.' col-sm-'.$list_colnum.'">'.CHtml::link(zmf::avatar($uid['uid'],'small').Users::getUserInfo($uid['uid'],'truename'),array('team/index','id'=>$uid['uid']),array('target'=>'_blank')).'</div>';
+        echo '<div class="col-xs-'.$list_colnum.' col-sm-'.$list_colnum.'">'.CHtml::link(zmf::avatar($uid['uid'],'small').$uid['truename'],array('team/index','id'=>$uid['uid']),array('target'=>'_blank')).'</div>';
     }
 }

@@ -11,30 +11,31 @@
             <div class="panel-body">
         <?php $form=$this->beginWidget('CActiveForm', array(
                 'id'=>'users-addUser-form',
-                'enableAjaxValidation'=>true,
+                'enableAjaxValidation'=>false,
+            'enableClientValidation'=>true
         )); ?>	
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<p>
 		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('class'=>'form-control')); ?>
+		<?php echo $form->textField($model,'username',array('class'=>'form-control','placeholder'=>'用于登录')); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</p>
     <p >
 		<?php echo $form->labelEx($model,'truename'); ?>
-		<?php echo $form->textField($model,'truename',array('class'=>'form-control')); ?>
+		<?php echo $form->textField($model,'truename',array('class'=>'form-control','placeholder'=>'用于显示')); ?>
 		<?php echo $form->error($model,'truename'); ?>
 	</p>
 
 	<p >
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('class'=>'form-control')); ?>
+		<?php echo $form->passwordField($model,'password',array('class'=>'form-control','placeholder'=>'请输入密码')); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</p> 
 	<p>
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('class'=>'form-control')); ?>
+		<?php echo $form->textField($model,'email',array('class'=>'form-control','placeholder'=>'请输入常用邮箱')); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</p>
     <p>
