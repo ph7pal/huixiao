@@ -10,6 +10,6 @@ if($this->inMobile){
 $users=Users::getExhibition('producer');
 if(!empty($users)){
     foreach($users as $uid){
-        echo '<div class="'.$list_colnum.' col-xs-'.$list_colnum.'">'.CHtml::link(zmf::avatar($uid['uid'],'small').$uid['truename'],array('qiye/index','id'=>$uid['uid']),array('target'=>'_blank')).zmf::creditIcon($uid['uid']).'</div>';
+        echo '<div class="'.$list_colnum.' col-xs-'.$list_colnum.'">'.CHtml::link(zmf::avatar($uid['uid'],'small').$uid['truename'],array('qiye/index','id'=>$uid['uid']),array('target'=>'_blank')).'</div>';
     }
 }
