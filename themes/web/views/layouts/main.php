@@ -1,4 +1,63 @@
 <?php $this->beginContent('/layouts/common'); ?>
+<style>
+  .logo{
+    width:220px;
+    height:auto;
+  }
+  .search-login{
+    padding-top: 25px;
+  }
+  .topkws{
+    padding: 0;
+  }
+  .top-hearder{
+    height: 35px;
+    width: 100%;
+    background: #f5f5f5;    
+    line-height: 35px;
+  }
+  .navbar-default{
+    background: url("common/images/hd_bg.gif") repeat-x center;
+    border-left:1px solid #d9534f;
+    border-bottom:2px solid #ac2925;
+  }
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: none;
+  }
+  .navbar-default .navbar-nav>li>a {
+    color: #d43f3a;
+  }
+  .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #333333;
+  }
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+  color: #333333;
+  }
+</style>
+<div class="top-hearder">
+  <div class="wrapper">
+    <div class="pull-right">
+      <?php if (Yii::app()->user->isGuest) { ?>
+            <?php echo CHtml::link('会员登录', array('site/login')); ?>
+            <?php echo CHtml::link('立即注册', array('site/reg')); ?>
+        <?php }else{ ?>
+            <div class="dropdown">
+                <span class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                  <?php echo $this->userInfo['truename'];?>
+                  <span class="caret"></span>
+                </span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><?php echo CHtml::link('主页', array('user/index', 'id' => Yii::app()->user->id),array('role'=>'menuitem')); ?></li> 
+                  <li role="presentation"><?php echo CHtml::link('设置', array('user/config'),array('role'=>'menuitem')); ?></li>
+                  <li role="presentation"><?php echo CHtml::link('退出', array('site/logout'),array('role'=>'menuitem')); ?></li>
+                </ul>
+            </div>
+        <?php }?>
+    </div>
+  </div>
+</div>
+
+
 <div class="wrapper">
 <div id="header">
         <div class="col-xs-4 col-sm-4 padding-right-5">
@@ -7,45 +66,27 @@
             </a>
         </div>
     <div class="search-login">
-        <div class="col-xs-5 col-sm-5 padding-right-15">
+        <div class="col-xs-5 col-sm-5 padding-right-15 pull-right">
             <form class="form-inline" role="form">
-                    <div class="clearfix">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="请输入关键词" name="keyword" id="keyword">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" id="search-btn">搜索</button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="topkws">
-                        <?php $tops=  SearchRecords::getTops();if(!empty($tops)){?>
-                        <p>
-                            热门关键词：
-                                <?php foreach($tops as $tpkw){
-                                    echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));
-                                }?>
-                        </p>
-                        <?php }?>
-                    </div>
-                </form>
-        </div>
-        <div class="col-xs-3 col-sm-3 padding-right-5 margin-left-15">
-            <?php if (Yii::app()->user->isGuest) { ?>
-            <?php echo CHtml::link('会员登录', array('site/login'),array('class'=>'btn btn-danger')); ?>
-            <?php echo CHtml::link('立即注册', array('site/reg'),array('class'=>'btn btn-danger')); ?>
-        <?php }else{ ?>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                  <?php echo $this->userInfo['truename'];?>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                  <li role="presentation"><?php echo CHtml::link('主页', array('user/index', 'id' => Yii::app()->user->id),array('role'=>'menuitem')); ?></li> 
-                  <li role="presentation"><?php echo CHtml::link('设置', array('user/config'),array('role'=>'menuitem')); ?></li>
-                  <li role="presentation"><?php echo CHtml::link('退出', array('site/logout'),array('role'=>'menuitem')); ?></li>
-                </ul>
-            </div>
-        <?php }?>
+              <div class="topkws">
+                  <?php $tops=  SearchRecords::getTops();if(!empty($tops)){?>
+                  <p>
+                      热门关键词：
+                          <?php foreach($tops as $tpkw){
+                              echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));
+                          }?>
+                  </p>
+                  <?php }?>
+              </div>
+              <div class="clearfix">
+                  <div class="input-group">
+                      <input type="text" class="form-control" placeholder="请输入关键词" name="keyword" id="keyword">
+                      <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary" id="search-btn">搜索</button>
+                      </span>
+                  </div>
+              </div>                    
+            </form>
         </div>
     </div>
 </div>
