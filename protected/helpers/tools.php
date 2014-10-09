@@ -30,7 +30,7 @@ class tools {
     $arr = explode('\\', strtoupper(str_replace('"', '', json_encode(urldecode($string)))));
     $arr = array_values(array_filter($arr));
     for ($i = 0; $i < count($arr); $i++) {
-      $_pin.=$pinyin['\\' . $arr[$i]] . ' ';
+      $_pin.=$pinyin['\\' . $arr[$i]];
     }
     return strtolower($_pin);
   }

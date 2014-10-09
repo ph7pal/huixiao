@@ -155,6 +155,7 @@ class GroupPowers extends CActiveRecord {
             'user_checkcomments' => '用户查看留言或评论',
             'user_delcomments' => '用户删除留言或评论',
             'user_ads'=>'用户新增展示',
+            'user_goods'=>'用户新增产品',
             'user_addquestion'=>'用户在线提问',
             'user_stat' => '用户查看统计',
             'user_credit' => '用户认证',

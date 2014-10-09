@@ -90,27 +90,50 @@ class zmf {
         }
     }
 
-    public static function uploadDirs($logid, $base = 'site', $type = 'scenic', $return = '') {
-        $dirConfig = self::config('imgThumbSize');
-        if ($dirConfig == '') {
-            return false;
+    public static function uploadDirs($logid='', $base = 'site', $type = 'posts', $return = '') {
+      $dirConfig = self::config('imgThumbSize');
+      //$dirConfig = '124,600,origin';
+      $sizes = array_unique(array_filter(explode(",", $dirConfig)));
+      if (empty($sizes)) {
+        return false;
+      }
+      $dir = array();
+      if ($base === 'site') {
+        //根据网站          
+        if (self::config('imgVisitUrl') != '') {
+          $baseUrl = self::config('imgVisitUrl') . '/';
+        } else {
+          $baseUrl = self::config('baseurl') . 'attachments/';
         }
-        //$dirConfig = '124,200,300,600,origin';
-        $sizes = array_unique(array_filter(explode(",", $dirConfig)));
-        if (empty($sizes)) {
-            return false;
-            exit;
+      } elseif ($base === 'app') {
+        //根据应用来
+        if (self::config('imgUploadUrl') != '') {
+          $baseUrl = self::config('imgUploadUrl') . '/';
+        } else {
+          $baseUrl = Yii::app()->basePath . "/../attachments/";
         }
-        $dir = array();
-        $baseUrl = self::attachBase($base);
-        foreach ($sizes as $size) {
-            $dir[$size] = $baseUrl . $type . '/' . $size . '/' . $logid;
+      } elseif ($base == 'upload') {
+        //解决imagick open图片问题
+        if (self::config('imgUploadUrl') != '') {
+          $baseUrl = self::config('imgUploadUrl') . '/';
+        } else {
+          $baseUrl = self::config('baseurl') . 'attachments/';
         }
-        if (!empty($return)) {
-            $dir = $dir[$return];
+      } else {
+        $baseUrl = '';
+      }
+      foreach ($sizes as $size) {
+        if($logid>0){
+          $dir[$size] = $baseUrl . $type . '/' . $size . '/' . $logid;
+        }else{
+          $dir[$size] = $baseUrl . $type . '/' . $size .'/';
         }
-        return $dir;
-    }
+      }
+      if (!empty($return)) {
+        $dir = $dir[$return];
+      }
+      return $dir;
+  }
 
     public static function attachBase($base) {
         if ($base === 'site') {

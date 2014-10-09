@@ -1,597 +1,618 @@
-<?php $this->renderPartial('//ads/ads',array('position'=>'topbar','type'=>'flash','uid'=>0));?>
-<div style="margin-top: 20px;"></div>
-<?php if(!$this->inMobile){?>
-<style>
-    
-    .order-right{
-        border-right: 1px solid #ddd;
-    }
-    .no-border{
-        border:none;
-        -webkit-box-shadow: none;
-        box-shadow: none; 
-    }
-    .my-heading-border{
-        border:1px solid #DDD
-    }
-    .myborder td{
-        border-top:none !important;
-        border-bottom: 1px solid #dddddd;
-    }
-    a.toplink{
-        color:red;
-    }
-    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
-    padding-right: 5px !important;
-    padding-left: 0 !important;
-    }
-    .panel{
-        margin-bottom: 8px !important;
-    }
-    .second-panel{
-        padding:8px 15px !important;
-    }
-    .second-panel .panel-title{
-        font-size: 14px !important;
-        font-weight:bold;
-    }
-    .margin-left-15{
-                padding-left: 15px !important;
-            }
-            .my-height{
-                height:280px;
-            }
-            .my-height-2x{
-                height:602px;
-            }
-            .margin-right_5px{
-                margin-right: -5px;
-            }
-            .padding-right-10px{
-                padding-right: 10px !important;
-            }
-    .no-padding{
-        padding: 0 !important;
-    }        
-</style>
-<style type="text/css">
-		/* 本例子css */
-		.txtMarquee-left{ position:relative;}
-		.txtMarquee-left .hd{ overflow:hidden;  height:30px;padding:0 10px;  }
-		.txtMarquee-left .bd .tempWrap{ width:900px !important; }
-		.txtMarquee-left .bd ul{ overflow:hidden; zoom:1; }
-		.txtMarquee-left .bd ul li{ margin-right:20px;  float:left; height:24px; line-height:24px;  text-align:left; _display:inline; width:auto !important;  }/* 用 width:auto !important 覆盖SuperSlide自动生成的宽度，解决文字不衔接问题 */
-
-
-		.txtMarquee-left .bd ul li span{ color:#999;  }
-</style>
-<style>
-/* 本例子css */
-.logobanner{ width:100%; height:280px; overflow:hidden; position:relative;}
-.logobanner .hd{ height:15px; overflow:hidden; position:absolute; right:5px; bottom:5px; z-index:1; }
-.logobanner .hd ul{ overflow:hidden; zoom:1; float:left;  }
-.logobanner .hd ul li{ float:left; margin-right:2px;  width:15px; height:15px; line-height:14px; text-align:center; background:#fff; cursor:pointer; }
-.logobanner .hd ul li.on{ background:#f00; color:#fff; }
-.logobanner .bd{ position:relative; height:100%; z-index:0;   }
-.logobanner .bd li{ zoom:1; vertical-align:middle; }
-.logobanner .bd img{ display:block;  }
-
-/* 下面是前/后按钮代码，如果不需要删除即可 */
-.logobanner .prev,
-.logobanner .next{ position:absolute; left:3%; top:50%; margin-top:-25px; display:block; width:32px; height:40px; background:url(../images/slider-arrow.png) -110px 5px no-repeat; filter:alpha(opacity=50);opacity:0.5;   }
-.logobanner .next{ left:auto; right:3%; background-position:8px 5px; }
-.logobanner .prev:hover,
-.logobanner .next:hover{ filter:alpha(opacity=100);opacity:1;  }
-.logobanner .prevStop{ display:none;  }
-.logobanner .nextStop{ display:none;  }
-</style>
-<style>
-    .no-nav-border .nav-tabs{
-        border-bottom: none;
-    }
-    #tab-for-lecturer{
-        margin-top: 1px;
-    }
-    #tab-for-lecturer li a{
-        color:#FFF;
-        border:none;
-    }
-    #tab-for-lecturer .active a{
-        color:#333;
-    }
-    #tab-for-lecturer>li>a:hover{    
-        background-color: #FFF;
-        color:#333;
-    }
-    .panel-primary .panel-title a,.panel-primary .panel-title a:hover{
-      color:#FFF;
-    }
-    .panel-default .panel-title a,.panel-default .panel-title a:hover{
-      color: #3184db;
-    }
-</style>
-<?php }?>
-
-<?php
-$colinfo1=  Columns::getOne(1);
-$arr=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);
-$idstr=join(',',$arr);
-$colinfos=Columns::indexColumns($idstr);
-$areas= Area::listArea(NUll,false,10);
-?>
-<div class="well-sm well">
-   <h1><?php echo $colinfos[21]['title'];?></h1>
-   <hr/>
-   <?php $this->renderPartial('/posts/marqueeleft',array('colinfo'=>$colinfos[21]));?>
-</div>
-<div class="clearfix">
-<div class="col-xs-9 col-md-9 no-padding">
-    <div class="col-xs-4 col-md-4">        
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?> ">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[0]['title'];?>
-                </h4>
-            </div>
-            <?php $this->renderPartial('//module/flashnews',array('colinfo'=>$colinfos[0]));?>
-        </div>
-    </div>
-    <div class="col-xs-8 col-md-8 my-height">
-        <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#news-credit" data-toggle="tab"><?php echo $colinfos[1]['title'];?></a></li>
-            <li class=""><a href="#news-news" data-toggle="tab"><?php echo $colinfos[2]['title'];?></a></li>    
-            <li class=""><a href="#news-law" data-toggle="tab"><?php echo $colinfos[3]['title'];?></a></li>    
-        </ul>
-        <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active in" id="news-credit">
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[1],'colnum'=>12));
-          ?>
-        </div>
-        <div class="tab-pane fade" id="news-news">
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[2],'colnum'=>12));
-          ?>
-        </div>
-        <div class="tab-pane fade" id="news-law">
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[3],'colnum'=>12));
-          ?>
-        </div>        
+<div class="content index_page">
+  <div class="w_960">
+    <div style="height: 135px; width: 100%; border: 1px solid #ccc">
+      <div style="float: left; width: 130px; margin-top: 20px;">
+        <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/hot.png" />
       </div>
-        <script>
-        $('#myTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-          })
-        </script>
-    </div> 
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-md-12">
-        <div class="panel panel-danger">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                  <b><?php echo $colinfos[4]['title'];?></b>
-                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[4]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body">
-                <div class="col-xs-12 col-md-12 my-height">
-                    <?php                     
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[4],'colnum'=>3,'nottable'=>true,'nodate'=>true,'topHotNum'=>3));
-                    ?>
-                </div>           
-            </div>            
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-md-12">
-        <div class="panel panel-danger">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                  <b><?php echo $colinfos[5]['title'];?></b>
-                  <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[5]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body">
-                <div class="col-xs-12 col-md-12 my-height">
-                    <?php 
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[5],'colnum'=>3,'nottable'=>true,'nodate'=>true,'topHotNum'=>3));
-                    ?>
-                </div>           
-            </div>            
-        </div>
-    </div>
-</div>
-<div class="col-xs-3 col-md-3">
-    <?php $this->renderPartial('//module/newcredit');?>
-    <div class="panel panel-danger margin-right_5px">
-        <div class="panel-heading">            
-            <h4 class="panel-title"><b>认证指南</b></h4>
-        </div>
-        <div class="panel-body">
-            <div class="col-xs-12 col-md-12">
-                <p><a href="#" class="btn btn-danger center-block" role="button">认证细则</a></p>
-                <p><a href="#" class="btn btn-primary center-block" role="button">认证流程</a></p>
-                <p><a href="#" class="btn btn-info center-block" role="button">认证文件</a></p>
-                <p><a href="#" class="btn btn-success center-block" role="button">资料下载</a></p>  
-            </div>           
-        </div>            
-    </div>
-</div>       
-</div>
-<div class="clearfix"></div>
-
-<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
-    <div class="panel-heading my-heading-border">            
-        <h3 class="panel-title">
-            信用厂家、产品推荐                
-        </h3>
-    </div>
-    <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-9 col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    <b><?php echo $colinfos[6]['title'];?></b>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/qiye'));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">
-                <?php $this->renderPartial('//module/qiye',array('colinfo'=>$colinfos[6],'colnum'=>6));?>     
-            </div>            
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[8]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[8]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php                 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[8],'colnum'=>3,'nottable'=>true));
-                ?>        
-            </div>            
-        </div>
-    </div>
-    <div class="col-xs-3 col-md-3">
-        <div class="panel panel-default margin-right_5px">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[7]['title'];?>                    
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/qiye'));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height-2x">
-                <?php $this->renderPartial('//module/qiye',array('colinfo'=>$colinfos[7],'colnum'=>1));?>
-            </div>            
-        </div>
-    </div>
-    </div>            
-</div>
-<div class="clearfix"></div> 
-<div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-    <div class="panel-heading">            
-        <h3 class="panel-title">
-          <?php echo $colinfos[9]['title'];?>
-          <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[9]['id']));?></span>
-        </h3>     
-    </div>
-    <div class="panel-body my-height">                 
-        <?php         
-        $this->renderPartial('/posts/flash',array('colinfo'=>$colinfos[9],'colnum'=>2,'facenum'=>12));
-        ?>
-    </div>            
-</div>
-<div class="clearfix"></div> 
-<div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-    <div class="panel-heading" style="height: 38px;padding:0 15px;">  
-      <div class="pull-left no-nav-border">
-          <ul id="tab-for-lecturer" class="nav nav-tabs">
-            <li class="active"><a href="#lecturer-tab-0" data-toggle="tab">信用优秀讲师推荐</a></li>
-              <?php  foreach($areas as $ak=>$aval){?>         
-              <li>
-                  <a href="#lecturer-tab-<?php echo $aval['id'];?>" data-toggle="tab"><?php echo $aval['name'];?></a>
-              </li>
-              <?php }?>
-            <li><?php echo CHtml::link('更多','javscript:;',array('onclick'=>'window.location="'.Yii::app()->createUrl('posts/jiangshi').'";'));?></li>  
-          </ul>
-      </div>
-    </div>
-    <div class="panel-body my-height"> 
-        <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade active in" id="lecturer-tab-0">
-            <?php $this->renderPartial('//module/listLecturer',array('areaid'=>0));?>
+      <div class="hot" style="float: right; width: 830px;">
+        <h1>
+          <a href="#">关于开展“AAA级信用企业”信用评级的通知</a>
+        </h1>
+        <div id="div1" class="scroll_div" style="overflow: hidden">
+          <div id="scroll_begin" class="scroll_div1">
+            <?php $item=$mainCols['toutiaotuijian'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '·'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'&nbsp;&nbsp;'; }}?>
           </div>
-            <?php  foreach($areas as $ak=>$aval){?>
-                <div class="tab-pane fade" id="lecturer-tab-<?php echo $aval['id'];?>">
-                    <?php $this->renderPartial('//module/listLecturer',array('areaid'=>$aval['id']));?>
-                </div>
-            <?php }?>    
+          <div id="scroll_end" class="scroll_div2"></div>
         </div>
-        <script>
-          $(document).ready(function(){
-            $('#tab-for-lecturer a').click(function (e) {
-              e.preventDefault()
-              $(this).tab('show')
-            });
-            $('#tab-for-lecturer li:eq(0) a').tab('show');
-            });
-        </script>
-    </div>            
-</div>
-<div class="clearfix"></div>
-<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
-    <div class="panel-heading my-heading-border">            
-        <h3 class="panel-title">
-            展会公司                
-        </h3>
+      </div>
     </div>
-    <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-6 col-md-6"> 
-            <div class="panel panel-default">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                        热门展会公司               
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                   <?php                     
-                    $this->renderPartial('//module/exhibition');
-                    ?>
-                </div>            
+    <div class="grid_index_01 clearfix">
+      <div class="col_main">
+        <div class="main_wrap">
+          <div class="tab_module nomartop" id="TabAdS01">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">会销资讯<s class="s1"></s><s class="s2"></s></li>
+                <li>新闻资讯<s class="s1"></s><s class="s2"></s></li>
+                <li>政府法规<s class="s1"></s><s class="s2"></s></li>
+              </ul>
             </div>
-        </div>    
-        <div class="col-xs-3 col-md-3"> 
-            <div class="panel panel-default">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[10]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[10]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php                     
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[10],'colnum'=>8));
-                    ?>
-                </div>            
+            <div class="focus">
+              <!--会销资讯 开始-->
+              <ul class="textList">
+                <?php $item=$mainCols['huixiaozixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+              <!--会销资讯 结束-->
+              <!--新闻资讯 开始-->
+              <ul class="textList" style="display: none">
+                <?php $item=$mainCols['xinwenzixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+              <!--新闻资讯 结束-->
+              <!--政府法规 开始-->
+              <ul class="textList" style="display: none">
+                <?php $item=$mainCols['zhengfufagui'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+              <!--政府法规 结束-->
             </div>
+            <!--头版新闻结束-->
+          </div>
         </div>
-        <div class="col-xs-3 col-md-3">
-            <div class="panel panel-default margin-right_5px">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[11]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[11]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php                     
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[11],'colnum'=>8));
-                    ?>
-                </div>            
-            </div>            
-        </div>
-    </div>            
-</div>
-<div class="clearfix"></div> 
+      </div>
 
-<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
-    <div class="panel-heading my-heading-border">            
-        <h3 class="panel-title">
-            会销营销团队                
-        </h3>
-    </div>
-    <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-9 col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    营销团队排行榜
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/module/team',array('type'=>'top','colnum'=>6));
-                ?>          
-            </div>            
+      <div class="col_sub">
+        <div class="slideIMG">
+          <div id="feature_list">
+            <ul id="tabs">
+              <li><a href="javascript:;">1</a> </li>
+              <li><a href="javascript:;">2</a> </li>
+              <li><a href="javascript:;">3</a> </li>
+              <li><a href="javascript:;">4</a> </li>
+              <li><a href="javascript:;">5</a> </li>
+            </ul>
+            <ul id="output">
+              <li><a href="#" target="_blank">
+                  <img src="UpFile/singlefile/0696547b-4cc4-4d38-809d-d0b977e775b2.jpg" alt="大型公益验房活动第二季正式开启" /></a></li>
+              <li><a href="#" target="_blank">
+                  <img src="UpFile/singlefile/6d25d1cc-20af-4bca-be72-1845043c79d6.jpg" alt="一切设计要从本源出发——设计泰斗柳冠中" /></a></li>
+              <li><a href="#" target="_blank">
+                  <img src="UpFile/singlefile/636382a3-a672-49ec-9d51-30209762bbd5.jpg" alt="高性价比环保装修 打造健康生活首要标准" /></a></li>
+              <li><a href="#" target="_blank">
+                  <img src="UpFile/singlefile/f2f24f8a-8897-4331-b309-479e2cbbf6ba.jpg" alt="夏季装修“四要诀”轻松打造清凉居室" /></a></li>
+              <li><a href="#" target="_blank">
+                  <img src="UpFile/singlefile/afaa3c58-ab3b-448b-880a-2f0aae9722b2.jpg" alt="《装修达人》国庆首发免费签送" /></a></li>
+            </ul>
+          </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[12]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[12]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[12],'nottable'=>true,'colnum'=>4,'nodate'=>true));
-                ?>          
-            </div>            
-        </div>
-    </div>
-    <div class="col-xs-3 col-md-3">
-        <div class="panel panel-default margin-right_5px">
-            <div class="panel-heading second-panel">            
-                <h4 class="panel-title">
-                    最新营销团队                    
-                </h4>
-            </div>
-            <div class="panel-body my-height-2x">
-                <?php 
-                $this->renderPartial('/module/team',array('type'=>'new','colnum'=>1));
-                ?>
-            </div>            
-        </div>
-    </div>
-    </div>            
-</div>
-<div class="clearfix"></div>
-<div class="panel panel-<?php echo $this->theme_panelStyle;?> no-border">
-    <div class="panel-heading my-heading-border">            
-        <h3 class="panel-title">
-            会销行业必看知识推荐
-        </h3>
-    </div>
-    <div class="" style="margin-top: 5px;">      
-        <div class="col-xs-3 col-md-3"> 
-            <div class="panel panel-default">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[13]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[13]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php                     
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[13],'colnum'=>8,'nodate'=>true));
-                    ?>
-                </div>            
-            </div>
-        </div>    
-        <div class="col-xs-3 col-md-3"> 
-            <div class="panel panel-default">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[14]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[14]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php 
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[14],'colnum'=>8,'nodate'=>true));
-                    ?>
-                </div>            
-            </div>
-        </div>
-        <div class="col-xs-3 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[15]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[15]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php 
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[15],'colnum'=>8,'nodate'=>true));
-                    ?>
-                </div>            
-            </div>            
-        </div>
-        <div class="col-xs-3 col-md-3"> 
-            <div class="panel panel-default margin-right_5px">
-                <div class="panel-heading second-panel">            
-                    <h3 class="panel-title">
-                      <?php echo $colinfos[16]['title'];?>
-                      <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[16]['id']));?></span>
-                    </h3>
-                </div>
-                <div class="panel-body my-height">                 
-                    <?php 
-                    $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[16],'colnum'=>8,'nodate'=>true));
-                    ?>
-                </div>            
-            </div>
-        </div>
-    </div>            
-</div>
-<div class="clearfix"></div>
-<div class="col-xs-9 col-sm-9">
-  <div class="col-xs-6 col-md-6">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[17]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[17]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[17],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-                ?>          
-            </div>            
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-6">
-      <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[18]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[18]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[18],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-                ?>          
-            </div>            
-        </div>
-    </div>
-</div>
-<div class="col-xs-3 col-sm-3 no-padding">
-  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-      <div class="panel-heading">            
-          <h4 class="panel-title">
-              <?php echo $colinfos[21]['title'];?>
-              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[21]['id']));?></span>
-          </h4>
       </div>
-      <div class="panel-body my-height">
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[21],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-          ?>          
-      </div>            
-  </div>            
-</div>
-<div class="clearfix"></div>
-    
-    
-<div class="col-xs-9 col-sm-9"> 
-    <div class="col-xs-6 col-md-6">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[19]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[19]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[19],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-                ?>          
-            </div>            
+      <!--最新认证 开始-->
+      <div class="col_extra">
+        <div class="tab_module nomartop">
+          <div class="hd">
+            <ul class="clearfix tab-hd">
+              <li class="select">最新认证<s class="s1"></s><s class="s2"></s></li>
+            </ul>
+          </div>
+          <div class="bd zxgs" style="height: 260px;">
+            <!--最新认证开始-->
+            <ul id="mulitline1">
+              <?php if (!empty($newCredits)) {?>
+              <?php foreach ($newCredits as $key=>$ci) { ?> 
+              <li class="item"><?php echo CHtml::link(Users::getUserInfo($ci['uid'],'truename'),array('mobile/index','uid'=>$ci['uid']),array('target'=>'_blank'));?></li>
+              <?php }?>
+              <?php }?>
+            </ul>
+            <!--最新认证结束-->
+          </div>
         </div>
-    </div>
-    <div class="col-xs-6 col-md-6">
-        <div class="panel panel-<?php echo $this->theme_panelStyle;?> margin-right_5px">
-            <div class="panel-heading">            
-                <h4 class="panel-title">
-                    <?php echo $colinfos[20]['title'];?>
-                    <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[20]['id']));?></span>
-                </h4>
-            </div>
-            <div class="panel-body my-height">                
-                <?php 
-                $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[20],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-                ?>          
-            </div>            
-        </div>
-    </div>
-</div>
-<div class="col-xs-3 col-md-3 no-padding">
-  <div class="panel panel-<?php echo $this->theme_panelStyle;?>">
-      <div class="panel-heading">            
-          <h4 class="panel-title">
-              <?php echo $colinfos[22]['title'];?>
-              <span class="pull-right more"><?php echo CHtml::link('更多',array('posts/index','colid'=>$colinfos[22]['id']));?></span>
-          </h4>
+
       </div>
-      <div class="panel-body my-height">
-          <?php 
-          $this->renderPartial('/posts/miniLists',array('colinfo'=>$colinfos[22],'colnum'=>1,'nottable'=>true,'nodate'=>true));
-          ?>          
-      </div>            
+      <!--最新认证 结束-->
+    </div>
   </div>
-</div>    
+  <!--黑名单 开始-->
+  <div class="floor floor_1">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">会销信用黑名单曝光</span><span class="right"><a href="#" class="view_all">浏览全部</a></span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="module_03 xuetang" style="height: 300px">
+
+        <div class="bd grid_02 clearfix">
+          <div class="col_main">
+            <div class="main_wrap">
+              <div class="c_news">
+                <ul>
+                   <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col_sub">
+            <div class="l_news">
+              <!--ul class="img_list clearfix">
+                <li><a href="#">
+                    <img src="#" alt="" width="118" height="89" /><span class="title">如何收纳物品释放卫生间空间</span></a></li>                
+              </ul-->
+              <ul class="txt_list">
+                <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>              </ul>
+            </div>
+          </div>
+          <div class="col_extra">
+            <div class="module_04" id="Tab2">
+              <div class="bd small_paixu">
+                <ul class="tab-cont">
+                  <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--黑名单 结束-->
+  <!--会销骗局 开始-->
+  <div class="floor floor_2">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">会销骗局</span><span class="right"><a href="/wen/list_33.html" class="view_all">浏览全部</a></span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="module_03 xuetang">
+
+        <div class="bd grid_02 clearfix">
+          <div class="col_main">
+            <div class="main_wrap">
+              <div class="c_news">
+                <ul>
+                  <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col_sub">
+            <div class="l_news">
+              <!--ul class="img_list clearfix">
+                <li><a href="#">
+                    <img src="#" alt="" width="118" height="89" /><span class="title"></span></a></li>
+              </ul-->
+              <ul class="txt_list">
+                <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+            </div>
+          </div>
+          <div class="col_extra">
+            <div class="module_04" id="Div1">
+              <div class="bd small_paixu">
+                <ul class="tab-cont">
+                  <?php $item=$mainCols['zhanhuidangqi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--会销骗局 结束-->
+  <div class="floor floor_3">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">生产厂家</span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="grid_index_03 martop5 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 0px;">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">AAA级信用热度排行<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>
+              </div>
+              <div class="bd yxtd yxtdw_f" style="height: 232px">
+                <ul class="clearfix">
+                  <!--AAA级信用热度排行开始-->
+                  <?php
+                  if(!empty($qiyes)){
+                    foreach($qiyes as $qiye){
+                        echo '<li class="item">'.CHtml::link(zmf::avatar($qiye['uid'],'small').'<span class="title">'.$qiye['truename'].'</span>',array('qiye/index','id'=>$qiye['uid']),array('target'=>'_blank')).'</li>';
+                    }
+                  }
+                  ?>
+                  <!--AAA级信用热度排行结束-->
+                </ul>
+              </div>
+            </div>
+            <div class="tab_module">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">厂家招商资讯<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+
+              </div>
+              <div class="bd hb_news">
+                <ul class="clearfix">
+                  <!--商家推广资讯开始-->
+                  <?php $item=$mainCols['changjiazhaoshangzixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <!--商家推广资讯结束-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col_sub">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">AAA级信用厂家推荐<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="bd zxgs" style="height: 380px;">
+              <!--AAA级信用厂家推荐 开始 一共20条数据-->
+              <ul id="mulitline2">
+                <?php if(!empty($qiyes)){foreach($qiyes as $qiye){echo '<li class="item">'.CHtml::link($qiye['truename'],array('qiye/index','id'=>$qiye['uid']),array('target'=>'_blank')).'</li>';}}?>
+              </ul>
+              <!--AAA级信用厂家推荐 结束-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module_03 module_03_2" id="TabAdS03">
+        <div class="hd">
+          <span class="title">热销产品推荐</span> <a href="#" target="_blank" class="view_all">浏览全部</a> <span class="nav">
+
+            <!--热销商品 品种开始-->
+            <div class="hotx">
+              <div class="hdnav">
+                <ul>
+                  <li class="select">全部<s class="s1"></s><s class="s2"></s></li>
+                  <li>中式<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+              </div>
+            </div>
+            <!--  <a href="#" target="_blank" title="中式">中式</a>|
+             <a href="#" target="_blank" title="欧式古典">欧式古典</a>|
+       <a href="#" target="_blank" title="现代简约">现代简约</a>|
+          <a href="#" target="_blank" title="美式乡村">美式乡村</a>|
+              <a href="#" target="_blank" title="地中海风格">地中海风格</a>|
+                                                                                                                                                                     <a href="#" target="_blank" title="乡村风格">乡村风格</a>-->
+            <!--热销商品 品种结束-->
+          </span>
+        </div>
+        <div class="bd tk_img_list">
+          <ul class="clearfix">
+            <!--热销产品推荐 开始 一共12条数据-->
+            <li class="item"><a href="#" target="_blank" title="富力城">
+                <img src="UpFile/singlefile/aebb98fd-0298-4f7a-a979-d2f08eedf749.jpg" width="135" height="88" alt="" /><span class="title">富力城</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="保利高尔夫．豪园">
+                <img src="UpFile/singlefile/9d045993-11f7-470d-99cb-9741f714621e.jpg" width="135" height="88" alt="" /><span class="title">保利高尔夫．豪园</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="协信天骄城作品">
+                <img src="UpFile/singlefile/004370e5-f3cc-454f-be11-866e1d483734.jpg" width="135" height="88" alt="" /><span class="title">协信天骄城作品</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="8万打造93平温馨家">
+                <img src="UpFile/singlefile/7e0fcb4e-6520-41fb-a146-90ce4b5ce6a7.jpg" width="135" height="88" alt="" /><span class="title">8万打造93平温馨家</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="网购达人打造甜蜜二居">
+                <img src="UpFile/singlefile/b0214e65-759f-47f9-8a81-7f1e91b4e963.jpg" width="135" height="88" alt="" /><span class="title">网购达人打造甜蜜二居</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="迷人主卫设计简约宜人家">
+                <img src="UpFile/singlefile/2602ca7e-4431-4173-bf0c-1bd5e4ed47bc.jpg" width="135" height="88" alt="" /><span class="title">迷人主卫设计简约宜人家</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="现代美式宅二室二厅">
+                <img src="UpFile/singlefile/ffb9ec21-7143-4afb-b30c-f35a02f3e90c.jpg" width="135" height="88" alt="" /><span class="title">现代美式宅二室二厅</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="135平三室二厅甜蜜窝">
+                <img src="UpFile/singlefile/2f057030-77c5-48e6-ac1b-9fdcdfd508e6.jpg" width="135" height="88" alt="" /><span class="title">135平三室二厅甜蜜窝</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="6万半包打造温馨二居">
+                <img src="UpFile/singlefile/b9d2cc87-bb04-4a9d-8645-32fb93a47869.jpg" width="135" height="88" alt="" /><span class="title">6万半包打造温馨二居</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="巧用隐形门现代亮丽家">
+                <img src="UpFile/singlefile/4da167fc-57b5-4a7d-9d65-598182540de9.jpg" width="135" height="88" alt="" /><span class="title">巧用隐形门现代亮丽家</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="紫色浪漫简约质感生活">
+                <img src="UpFile/singlefile/ce0a5d37-266d-4a95-8194-c151f7dfa19e.jpg" width="135" height="88" alt="" /><span class="title">紫色浪漫简约质感生活</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="95平二室二厅完美田园风">
+                <img src="UpFile/singlefile/03d09eb2-32a3-47dc-b16a-3845cd6f0a28.jpg" width="135" height="88" alt="" /><span class="title">95平二室二厅完美田园风</span></a></li>
+            <!--热销产品推荐 结束-->
+          </ul>
+        </div>
+        <div class="bd tk_img_list" style="display: none">
+          <ul class="clearfix">
+            <!--热销产品推荐 开始 一共12条数据-->
+            <li class="item"><a href="#" target="_blank" title="富力城">
+                <img src="UpFile/singlefile/aebb98fd-0298-4f7a-a979-d2f08eedf749.jpg" width="135" height="88" alt="" /><span class="title">富力城</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="保利高尔夫．豪园">
+                <img src="UpFile/singlefile/9d045993-11f7-470d-99cb-9741f714621e.jpg" width="135" height="88" alt="" /><span class="title">保利高尔夫．豪园</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="协信天骄城作品">
+                <img src="UpFile/singlefile/004370e5-f3cc-454f-be11-866e1d483734.jpg" width="135" height="88" alt="" /><span class="title">协信天骄城作品</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="8万打造93平温馨家">
+                <img src="UpFile/singlefile/7e0fcb4e-6520-41fb-a146-90ce4b5ce6a7.jpg" width="135" height="88" alt="" /><span class="title">8万打造93平温馨家</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="网购达人打造甜蜜二居">
+                <img src="UpFile/singlefile/b0214e65-759f-47f9-8a81-7f1e91b4e963.jpg" width="135" height="88" alt="" /><span class="title">网购达人打造甜蜜二居</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="迷人主卫设计简约宜人家">
+                <img src="UpFile/singlefile/2602ca7e-4431-4173-bf0c-1bd5e4ed47bc.jpg" width="135" height="88" alt="" /><span class="title">迷人主卫设计简约宜人家</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="现代美式宅二室二厅">
+                <img src="UpFile/singlefile/ffb9ec21-7143-4afb-b30c-f35a02f3e90c.jpg" width="135" height="88" alt="" /><span class="title">现代美式宅二室二厅</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="135平三室二厅甜蜜窝">
+                <img src="UpFile/singlefile/2f057030-77c5-48e6-ac1b-9fdcdfd508e6.jpg" width="135" height="88" alt="" /><span class="title">135平三室二厅甜蜜窝</span></a></li>
+            <li class="item"><a href="#" target="_blank" title="6万半包打造温馨二居">
+                <img src="UpFile/singlefile/b9d2cc87-bb04-4a9d-8645-32fb93a47869.jpg" width="135" height="88" alt="" /><span class="title">6万半包打造温馨二居</span></a></li>
+
+            <!--热销产品推荐 结束-->
+          </ul>
+        </div>
+      </div>
+      <div class="grid_index_04 clearfix">
+        <div class="col_main">
+          <div class="main_wrap">
+            <div class="tab_module martop10" id="TabAdS02">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">推荐优秀讲师<s class="s1"></s><s class="s2"></s></li>
+                  <?php  foreach($areas as $ak=>$aval){?><li><?php echo $aval['name'];?><s class="s1"></s><s class="s2"></s></li><?php }?>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/jiangshi'),array('target'=>'_blank','class'=>'more'));?>   
+              </div>
+              <div class="m_a m_a_2">
+
+                <div class=" designer">
+                  <ul class="clearfix tab-cont">
+                    <?php 
+                    if(!empty($topLecturers)){
+                        foreach($topLecturers as $topLecturer){
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($topLecturer['uid'],'small').'<span class="name">'.$topLecturer['truename'].'</span>',array('lecturer/index','id'=>$topLecturer['uid']),array('target'=>'_blank')).'</li>';
+                        }
+                    }
+                    ?>
+                  </ul>
+                  <?php  foreach($areas as $ak=>$aval){?>
+                  <ul class="clearfix tab-cont" style="display: none">
+                    <?php
+                    $areaLectureres=Users::getLecturer($aval['id']);
+                    if(!empty($areaLectureres)){
+                        foreach($areaLectureres as $areaLecturer){
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($areaLecturer['uid'],'small').'<span class="name">'.$areaLecturer['truename'].'</span>',array('lecturer/index','id'=>$areaLecturer['uid']),array('target'=>'_blank')).'</li>';
+                        }
+                    }?>
+                  </ul>      
+                  <?php }?> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!--热销产品推荐 开始-->
+  <div class="floor floor_4">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">展会公司</span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="grid_index_01 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 490px; margin-right: 240px">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">展会资讯<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuizixun']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+              </div>
+              <div class="focus">
+                <ul class="textList" style="height: 280px">
+                  <?php $item=$mainCols['zhanhuizixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+              <!--头版新闻结束-->
+            </div>
+          </div>
+        </div>
+
+        <div class="col_sub" style="width: 480px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">热门展会公司<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="bd zxgs w_f" style="height: 300px;">
+              <ul class="clearfix">
+                <!--热门展会公司开始-->
+                <?php if(!empty($topExes)){foreach($topExes as $key=>$topEx){echo '<li class="item">'.CHtml::link(zmf::avatar($topEx['uid'],'small').'<span class="title">'.$topEx['truename'].'</span>',array('exhibition/index','id'=>$topEx['uid']),array('target'=>'_blank')).'</li>'; }}?>
+                <!--热门展会公司结束-->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col_extra" style="width: 230px; margin-left: -230px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">展会档期<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuidangqi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="module_04" id="Div3">
+
+              <div class="bd small_paixu" style="height: 298px;">
+                <ul class="tab-cont clearfix">
+                  <?php $item=$mainCols['zhanhuidangqi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">13-25</em>'.'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--热销产品推荐 结束-->
+
+    </div>
+  </div>
+  <!--营销团队 开始-->
+  <div class="floor floor_5">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">营销团队</span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="grid_index_03 martop5 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 0px;">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">营销团队排行榜<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+              </div>
+              <div class="bd yxtd yxtdw_f" style="height: 232px">
+                <ul class="clearfix">
+                  <!--营销团队开始-->
+                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['truename'].'</span>',array('team/index','id'=>$topTeam['uid']),array('target'=>'_blank')).'</li>'; }}?>
+                  <!--营销团队结束-->
+                </ul>
+              </div>
+            </div>
+            <div class="tab_module">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">营销模式<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['yingxiaomoshi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+              </div>
+              <div class="bd hb_news">
+                <ul class="clearfix">
+                  <!--商家推广资讯开始-->
+                  <?php $item=$mainCols['yingxiaomoshi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <!--商家推广资讯结束-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col_sub">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">最新营销团队<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="bd zxgs" style="height: 380px;">
+              <!--最新营销团队 数据循环 开始 一共20条数据-->
+              <ul id="mulitline3">
+                <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['truename'],array('team/index','id'=>$newTeam['uid']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+              <!--最新营销团队 数据循环 开始 一共20条数据-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--营销团队 结束-->
+  <!--会销行业必看知识推荐 开始-->
+  <div class="floor floor_6">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">会销行业知识推荐</span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="grid_index_03 martop5 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 490px; margin-right: 240px;">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">知识推荐栏三<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhishituijian3']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+              </div>
+              <div class="bd notice">
+                <ul>
+                  <!--知识推荐栏三开始 一共12条数据-->
+                  <?php $item=$mainCols['zhishituijian3'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>                  
+                  <!--知识推荐栏三结束 一共12条数据-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col_sub fl">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">知识推荐栏四<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhishituijian4']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="module_04">
+              <div class="bd small_paixu">
+                <ul class="tab-cont">
+                  <!--知识推荐栏四开始 一共10条数据-->
+                  <?php $item=$mainCols['zhishituijian4'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <!--知识推荐栏四开始 一共10条数据-->
+                </ul>
+                <!--最新公告结束-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col_extra fl" style="width: 480px">
+          <div class="tab_module nomartop" style="width: 230px; float: left;">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">知识推荐栏一<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhishituijian1']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+            </div>
+            <div class="bd notice">
+              <!--知识推荐栏一开始 一共12条数据-->
+              <ul>
+                <?php $item=$mainCols['zhishituijian1'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>                
+              </ul>
+              <!--知识推荐栏一结束-->
+            </div>
+          </div>
+          <div class="tab_module nomartop" style="width: 230px; float: right">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">知识推荐栏二<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhishituijian2']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>              
+            </div>
+            <div class="bd notice">
+              <!--知识推荐栏二开始 一共12条数据-->
+              <ul>
+                <?php $item=$mainCols['zhishituijian2'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>  
+              </ul>
+              <!--知识推荐栏二结束 一共12条数据-->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--会销行业必看知识推荐 结束-->
+<!--职位招聘 开始-->
+<div class="w_960">
+
+  <div class="blockB job">
+    <div class="hd"><i class="icon icon_pin"></i>最新招聘职位</div>
+    <div class="bd">
+      <ul class="clearfix">
+        
+        <?php $item=$mainCols['zhaopin'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item"><span class="company">'.CHtml::link(Users::getUserInfo($one['uid'],'truename'),array('mobile/index','uid'=>$one['uid']),array('target'=>'_blank')).'</span><span class="post">'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</span></li>'; }}?>
+      </ul>
+    </div>
+    <?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['zhishituijian2']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+  </div>
+  <div class="blank10">
+  </div>
+
+
+
+</div>
+<!--职位招聘 结束-->

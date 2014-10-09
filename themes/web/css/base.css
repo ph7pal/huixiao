@@ -1,0 +1,62 @@
+body,ul,li,b,h1,h2,h3,h4,h5,h6,p,dd,dt,dl,span,a,input,textarea,i{font-size:12px;margin:0;padding:0;}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{margin: 0;padding: 0;}
+body, button, input, select, textarea{font: 12px simsun;color: #555;}
+h1, h2, h3, h4, h5, h6{font-size: 100%;}
+.yahei{font-family: "微软雅黑";}
+address, cite, dfn, em, var{font-style: normal;}
+code, kbd, pre, samp{font-family: courier new,courier,monospace;}
+small{font-size: 12px;}
+ul, ol{list-style: none;}
+a{text-decoration: none;color: #16b;}
+/*a{color: #000;text-decoration: none;}*/
+
+a:hover{text-decoration: underline;}
+sup{vertical-align: text-top;}
+label{vertical-align: middle;}
+sub{vertical-align: text-bottom;}
+legend{color: #000;}
+fieldset, img{border: 0;}
+table{border-collapse: collapse;border-spacing: 0;}
+button, input, select, textarea{font-size: 100%;}
+.blank10{clear: both;height: 10px;overflow: hidden;}
+.clearfix:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;line-height: 0;font-size: 0;}
+.clearfix{display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix{height: 1%;}
+.clearfix{display: block;}
+.fl{float:left}
+.fr{float:right}
+.hide{display: none;}
+.blank10{height: 10px;overflow: hidden;}
+/*-共用类-*/
+
+.fontw{font-weight:normal}
+.font18{font-size:18px;font-family:"微软雅黑";color:#333;}
+.fontS14{font-size:14px;font-family:"宋体";}
+.fontW14{font-size:14px;font-family:"微软雅黑";color:#E3393B;}
+.font22{font-size:22px;font-family:"微软雅黑", "宋体";}
+.font26{font-size:26px;font-family:arial;}
+.font16{font-size:16px;font-family:"微软雅黑", "宋体";}
+.fontNum{font-family:Arial, Helvetica, sans-serif;font-style:normal;}
+.fontGrey1,.fontGrey1 a{color:#333;}
+.fontGrey2,.fontGrey2 a{color:#666;}
+.fontGrey3,.fontGrey3 a{color:#999;}
+.fontBlue,.fontBlue a{color:#016FE0;}
+.fontRed,.fontRed a{color:#E3393B;}
+a:hover{color:#CC0000;}
+a{text-decoration:none;cursor:pointer;}
+a img{border:none;}
+ul li{list-style:none;}
+input{cursor:pointer;}
+.fontUnderline{text-decoration:line-through;}
+.clear{clear:both;}
+
+/* End hide from IE-mac*/
+#Search{background-color: #f3f2ef;cursor: pointer;width: 50px;border: solid 1px #829fbb;height: 24px;text-decoration: none;margin-bottom: 1px;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{display: block;margin: 0;padding: 0;}
+
+/*html5 elements*/
+.totop{font-size: 12px;height: 50px;line-height: 35px;overflow: hidden;width: 50px;}
+.totop a{background: url("../images/totop.gif") no-repeat scroll 0 0 transparent;display: block;height: 50px;text-decoration: none;text-indent: -9999px;width: 50px;}
+
+

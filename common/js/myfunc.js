@@ -120,7 +120,7 @@ function singleUploadify(placeHolder, inputId, limit) {
             mystat = this;
             if (data['status'] == 1) {
                 var id = parseInt(10000 * Math.random());
-                var img = "<p id='" + id + "'><img src='" + data['imgsrc'] + "'/><a href='javascript:;' onclick=\"minDelImg('" + id + "','" + inputId + "','" + data['attachid'] + "',this);\">删除</a></p>";
+                var img = "<div class='pull-left' style='width:124px;' id='" + id + "'><img src='" + data['imgsrc'] + "'/><p class='text-center'><a href='javascript:;' onclick=\"minDelImg('" + id + "','" + inputId + "','" + data['attachid'] + "',this);\">删除</a></p><input type='hidden' name='uploadAttach[]' value='"+data['attachid']+"'/></div>";
                 $("#fileSuccess").append(img);
                 $("#" + inputId).val(data['attachid']);
             } else {

@@ -330,13 +330,38 @@ class Columns extends CActiveRecord {
         $cols['newcredit'] = '最新认证';
         return $cols;
     }
-    public function indexColumns($idstr){
-        if(!$idstr){
+    public function indexColumns($arr){
+        if(empty($arr)){
             return false;
         }
-        $sql="SELECT * FROM {{columns}} WHERE id IN($idstr) ORDER BY FIELD($idstr)";
+        $extra=array();
+        foreach($arr as $one){
+          $extra[]='`name`="'.$one.'"';
+        }
+        if(empty($extra)){
+            return false;
+        }
+        $idstr=join(' OR ',$extra);
+        if(!$idstr){
+          return false;
+        }
+        //$sql="SELECT * FROM {{columns}} WHERE id IN($idstr) ORDER BY FIELD($idstr)";
+        $sql="SELECT id,listcondition,listnum,name,title FROM {{columns}} WHERE $idstr";
         $items=Yii::app()->db->createCommand($sql)->queryAll();
-        return $items;
+        $real=array();
+        if(!empty($items)){
+          foreach($items as $it){
+            $_key=$it['name'];
+            $real[$_key]['colinfo']=$it;
+            
+            $colitems = Posts::allPosts(array('colid'=>$it['id'],'condition'=>$it['listcondition'],'top'=>zmf::config('orderByTop'),'fields'=>'id,title,attachid,cTime','order'=>NULL),$it['listnum'],NULL); 
+            $real[$_key]['posts']=$colitems;
+            
+            
+            
+          }
+        }
+        return $real;
     }
 
 }

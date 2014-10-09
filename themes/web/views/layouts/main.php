@@ -1,167 +1,210 @@
-<?php $this->beginContent('/layouts/common'); ?>
-<style>
-  .logo{
-    width:220px;
-    height:auto;
-  }
-  .search-login{
-    padding-top: 25px;
-  }
-  .topkws{
-    padding: 0;
-  }
-  .top-hearder{
-    height: 35px;
-    width: 100%;
-    background: #f5f5f5;    
-    line-height: 35px;
-  }
-  .navbar-default{
-    background: url("common/images/hd_bg.gif") repeat-x center;
-    border-left:1px solid #d9534f;
-    border-bottom:2px solid #ac2925;
-  }
-  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-    border: none;
-  }
-  .navbar-default .navbar-nav>li>a {
-    color: #d43f3a;
-  }
-  .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
-    color: #333333;
-  }
-  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-  color: #333333;
-  }
-</style>
-<div class="top-hearder">
-  <div class="wrapper">
-    <div class="pull-right">
-      <?php if (Yii::app()->user->isGuest) { ?>
-            <?php echo CHtml::link('会员登录', array('site/login')); ?>
-            <?php echo CHtml::link('立即注册', array('site/reg')); ?>
-        <?php }else{ ?>
-            <div class="dropdown">
-                <span class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                  <?php echo $this->userInfo['truename'];?>
-                  <span class="caret"></span>
-                </span>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                  <li role="presentation"><?php echo CHtml::link('主页', array('user/index', 'id' => Yii::app()->user->id),array('role'=>'menuitem')); ?></li> 
-                  <li role="presentation"><?php echo CHtml::link('设置', array('user/config'),array('role'=>'menuitem')); ?></li>
-                  <li role="presentation"><?php echo CHtml::link('退出', array('site/logout'),array('role'=>'menuitem')); ?></li>
-                </ul>
-            </div>
-        <?php }?>
-    </div>
-  </div>
-</div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
+    <?php 
+    Yii::app()->clientScript->registerCoreScript('jquery'); 
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/jquery.scrolltotop.js", CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/select.jQuery.js", CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/common.js", CClientScript::POS_END);
+    ?>
+  </head>
+  <body>
+    <div class="bg2013s">
+      <!--头部-->
+      <div class="w_960 header clearfix">
+        <h1 class="logo">
+          <a href="#">
+            <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="" height="90" /></a></h1>
 
+        <div class="searchBar">
 
-<div class="wrapper">
-<div id="header">
-        <div class="col-xs-4 col-sm-4 padding-right-5">
-            <a href="<?php echo zmf::config('baseurl');?>">                
-                <img src="<?php echo Yii::app()->baseUrl;?>/common/images/logo.png" class="img-responsive logo" alt="<?php echo '新灵中国';?>">
-            </a>
+          <div class="searchBarBd">
+            <p class="txt" >
+              <input type="text" id="s_txt" class="s_txt" />
+            </p>
+
+            <p class="btn"  >
+              <button type="submit" class="s_btn" id="s_btn" >
+                搜索</button>
+            </p>
+          </div>
+          <p class="s_nav clearfix">
+            <span>热门关键词:</span>
+            <a href="#" target="_blank" style="color: #f86b0d;">视频样板房</a>
+            <a href="#" target="_blank">投诉维权</a>
+            <a href="#" target="_blank" style="color: #202ba7;">自助建站</a>
+            <a href="#" target="_blank">创意家居</a>
+            <a href="#" target="_blank" style="color: #e60a4c;">风水</a>
+            <a href="#" target="_blank" style="font-weight: bold;">装修日记</a>
+          </p>
+
         </div>
-    <div class="search-login">
-        <div class="col-xs-5 col-sm-5 padding-right-15 pull-right">
-            <form class="form-inline" role="form">
-              <div class="topkws">
-                  <?php $tops=  SearchRecords::getTops();if(!empty($tops)){?>
-                  <p>
-                      热门关键词：
-                          <?php foreach($tops as $tpkw){
-                              echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));
-                          }?>
-                  </p>
-                  <?php }?>
-              </div>
-              <div class="clearfix">
-                  <div class="input-group">
-                      <input type="text" class="form-control" placeholder="请输入关键词" name="keyword" id="keyword">
-                      <span class="input-group-btn">
-                          <button type="button" class="btn btn-primary" id="search-btn">搜索</button>
-                      </span>
-                  </div>
-              </div>                    
-            </form>
+        <div class="fr" style="margin-right: 20px; float: right; margin-top: 30px;">
+          <a href="#" class="loginBtn"></a>
+          <a href="#" class="zcBtn"></a>
         </div>
-    </div>
-</div>
-</div>
-<div class="clearfix"></div>
-<div class="navbar navbar-default" role="navigation">
-  <div class="wrapper">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-      </button>
-    </div>
-    <div class="navbar-collapse collapse  no-padding">
-      <ul class="nav navbar-nav">
-          <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
-          <?php 
-          $topcols=Columns::getColsByPosition('top',true);
-          if(!empty($topcols)){
-          foreach($topcols as $_t){
-          ?>          
-          <li <?php if(in_array($_t['first']['id'],$this->currentCol)){echo 'class="active"';}?>>
-            <?php echo CHtml::link($_t['first']['title'],array('posts/index','colid'=>$_t['first']['id']));?>           
-          </li>
-          <?php }}?>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="wrapper">
-<div id="content">
-  <?php echo $content; ?>   
-  <hr/>
-  <div class="extra">
+
+      </div>
+      <div style="clear: both"></div>
+      <!--导航条-->
+      <div class="channelNav">
+        <div class="w_960 channelNavBd">
+          <ul>
+            <li class="current"><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
+            <?php 
+            $topcols=Columns::getColsByPosition('top',true);
+            if(!empty($topcols)){
+            foreach($topcols as $_t){
+            ?>          
+            <li <?php if(in_array($_t['first']['id'],$this->currentCol)){echo 'class="current"';}?>>
+              <?php echo CHtml::link($_t['first']['title'],array('posts/index','colid'=>$_t['first']['id']));?>           
+            </li>
+            <?php }}?>            
+          </ul>
+        </div>
+      </div>
+      <!--导航条ENDing-->
+    <?php echo $content; ?>
+    <!--底部-->
+<!----友情链接----->
+<div class="frlink">
+  <div style="position: relative; padding-right: 40px;">
+    <p class="txt">
     <?php 
     $links=Link::allLinks();
     if(!empty($links)){?>
-    <p>友链链接：</p>    
+    <strong>[友链链接]</strong>
     <?php foreach($links as $link){?>
-    <div class="col-xs-2 no-padding link-holder">
-      <a href="<?php echo $link['url'];?>" target="_blank">
-        <?php if($link['attachid']>0 && $link['imgurl']!=''){?>
-        <img src="<?php echo $link['imgurl'];?>" class="img-responsive"/>
-        <?php }else{?>
-        <p class="text-center"><?php echo $link['title'];?></p>
-        <?php }?>
+      <a href="<?php echo $link['url'];?>" target="_blank" class="td_linkTatle">
+        <?php //if($link['attachid']>0 && $link['imgurl']!=''){?>
+        <!--img src="<?php echo $link['imgurl'];?>" class="img-responsive"/-->
+        <?php //}else{?>
+        <?php echo $link['title'];?>
+        <?php //}?>
       </a>   
+    <?php }?>
+    <?php }?>
+    </p>
+    <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
+      <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/search_more.jpg" /><!--向下箭头-->
     </div>
-    <?php }?>
-    
-    <?php }?>
+    <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
+      <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/search_less.jpg" /><!--向上箭头-->
+    </div>
   </div>
 </div>
-<div id="footer">
-  <div class="wrapper clear">
-    <div class="col-xs-2"></div>
-    <div class="col-xs-10">
-      <p>
-      	<?php $address=zmf::config('address');if(!empty($address)){ echo '地址：'.$address;}?>
-      	<?php $phone=zmf::config('phone');if(!empty($phone)){ echo '电话：'.$phone;}?>
-      </p>      
-      <p>
-        <a href="<?php echo zmf::config('domain');?>" target="_blank"><?php echo zmf::config('sitename');?></a>
-        <?php echo zmf::config('copyright');?>
-        <?php echo zmf::config('beian');?>
-      </p>
-      <p>
-          <?php echo stripslashes(zmf::config('tongji'));?>
-      </p>
+<!--网站底部开始-->
+<div class="w_960 footer">
+  <p class="f_nav">
+    <a href='#'>设为首页</a>|
+    <a href="#">加入收藏</a>|
+    <a href="#" target="_blank">隐私条款</a>|
+    <a href="#" target="_blank">广告服务</a>|
+    <a href="#" target="_blank">网站地图</a>|
+    <a href="#" target="_blank">关于我们</a>|
+    <a href="#" target="_blank">免责声明</a>|
+    <a href="#" target="_blank">友情链接</a>
+  </p>
+  <p>
+    Copyright @ 2003-2016 cqzs.com All Right Reserved.　Powered By MoMoCMS 2.0
+
+    装饰行业第一门户 重庆装饰网 重庆日报装建专刊 客服热线:<b>400-023-1508</b>
+  </p>
+  <p><a href="#">重庆装饰网</a>　版权所有　网站备案：<a href="#" target="_blank">渝ICP备05007965</a></p>
+  <p>
+    <a href="#">
+      <img height="52" width="776" alt="safeverify 2.0" src="<?php echo Yii::app()->theme->baseUrl ?>/images/anquan.gif" /></a>
+  </p>
+  <p>
+    <a href="#">
+      <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/anquan.jpg" style="width: 70px;" /></a>
+  <p>
+</div>
+
+<!--底部弹出框-->
+<div id="mytool_clean" style="height: 0px;"></div>
+<div id="mytool">
+  <div class="mybtn">
+    <div class="ztc" id="ztc">
+      <div class="form">
+        <ul class="clearfix">
+          <li><span class="a">QQ：</span><span class="b">
+              <input type="text" id="QQ" maxlength="15" class="ipt" value="" />
+            </span></li>
+          <li><span class="a">电话：</span><span class="b">
+              <input type="text" id="KPhone" maxlength="15" class="ipt" value="" />
+            </span></li>
+          <li><span class="a">称呼：</span><span class="b">
+              <input type="text" id="ZName" maxlength="20" class="ipt" value="" />
+            </span></li>
+          <li>
+            <input class="btn" id="zxztc" type="button" value="提交" />
+          </li>
+        </ul>
+      </div>
+      <div class="txt">如果您准备装修房子，请将您的联系方式提交给我们或<span style="color: red">扫一扫右边二维码</span>加重庆装饰网微信公共号，我们会第一时间给您发送商家优惠信息。</div>
+      <a href="javascript:void(0);" class="close" onclick="closemytool()">关闭</a>
     </div>
-    <div class="col-xs-2"></div>    
-</div>
-</div>
-<div class="bg"></div>
-</div>
-<?php $this->endContent(); ?>
+  </div>
+</div>  
+      
+      
+      
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  $(function() {
+    $('#mulitline1').scrolling(19, 13);//最新认证
+    $('#mulitline2').scrolling(20, 19); //AAA级信用厂家推荐
+    $('#mulitline3').scrolling(20, 19);//最新营销团队
+
+    $('#TabAdS01 .hd li').hover(function() {
+      $(this).addClass("select").siblings().removeClass("select");
+      var n = $(this).index("#TabAdS01 .hd li");
+      $("#TabAdS01 .focus ul").eq(n).show().siblings().hide();
+    })
+
+    $('#TabAdS02 .hd li').hover(function() {
+      $(this).addClass("select").siblings().removeClass("select");
+      $(this).prepend('<s class="s1"></s><s class="s2">');
+      var n = $(this).index("#TabAdS02 .hd li");
+      $("#TabAdS02 .tab-cont").eq(n).show().siblings().hide();
+    })
+    $('#TabAdS03 .hdnav li').hover(function() {
+      $(this).addClass("select").siblings().removeClass("select");
+      $(this).prepend('<s class="s1"></s><s class="s2">');
+      var n = $(this).index("#TabAdS03 .hdnav li");
+      $("#TabAdS03 .tk_img_list").eq(n).show().siblings("#TabAdS03 .tk_img_list").hide();
+    })
+    jQuery.featureList($("#tabs li"), $("#output li"), {start_item: 0});//图片交换
+  })
+</script>
+<script language="javascript" type="text/javascript">
+  //热点聚焦的文字左滚动
+  var speed = 20
+  var scroll_begin = document.getElementById("scroll_begin");
+  var scroll_div = document.getElementById("div1");
+  var scroll_end = document.getElementById("scroll_end");
+  scroll_end.innerHTML = scroll_begin.innerHTML
+  var MyMar = setInterval(Marquee, speed)
+  scroll_div.onmouseover = function() {
+    clearInterval(MyMar)
+  }
+  scroll_div.onmouseout = function() {
+    MyMar = setInterval(Marquee, speed)
+  }
+  function Marquee() {
+    if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
+      scroll_div.scrollLeft -= scroll_begin.offsetWidth + 200
+    else
+      scroll_div.scrollLeft++
+  }
+</script>

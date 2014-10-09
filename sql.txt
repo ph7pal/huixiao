@@ -14,3 +14,31 @@ alter table pre_columns add post_fields varchar(255) not null default '';
 alter table pre_user_group add posts_perh tinyint(3) not null default 0;
 alter table pre_user_group add comments_perh tinyint(3) not null default 0;
 alter table pre_user_group add attach_perh tinyint(3) not null default 0;
+
+DROP TABLE IF EXISTS   `pre_goods`;
+CREATE TABLE `pre_goods` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `piwen` varchar(255) NOT NULL,
+  `gongxiao` varchar(255) NOT NULL,
+  `desc`text NOT NULL,
+  `desc2`text NOT NULL,
+  `desc3`text NOT NULL,
+  `desc4`text NOT NULL,
+
+  `colid` int(10) NOT NULL, 
+  `colid2` int(10) NOT NULL, 
+  `colid3` int(10) NOT NULL, 
+  `colid4` int(10) NOT NULL, 
+  `colid5` int(10) NOT NULL, 
+
+  
+
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

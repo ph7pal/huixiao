@@ -256,7 +256,7 @@ class UserController extends T {
     $this->layout = 'user';
     $colid = zmf::filterInput($_GET['colid']);
     $table = zmf::filterInput($_GET['table'], 't', 1);
-    if ($table == '' || !in_array($table, array('posts', 'ads', 'questions', 'comments'))) {
+    if ($table == '' || !in_array($table, array('posts', 'ads', 'questions', 'comments', 'goods'))) {
       $table = 'posts';
     }
     if ($table == 'comments') {
@@ -264,7 +264,7 @@ class UserController extends T {
     } else {
       $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
     }
-    $where = 'WHERE uid=' . $this->uid . ' AND status IN(' . Posts::STATUS_PASSED.','.Posts::STATUS_STAYCHECK.')';
+    $where = 'WHERE uid=' . $this->uid . ' AND status IN(' . Posts::STATUS_PASSED . ',' . Posts::STATUS_STAYCHECK . ')';
     if ($colid) {
       $colinfo = $this->checkColumn($colid);
       $this->listTableTitle = $colinfo['title'];
@@ -278,6 +278,8 @@ class UserController extends T {
       $this->listTableTitle = '在线提问';
     } elseif ($table == 'comments') {
       $this->listTableTitle = '用户评论或留言';
+    } elseif ($table == 'goods') {
+      $this->listTableTitle = '产品展示';
     }
     if ($table == 'comments') {
       $sql = "SELECT * FROM {{comments}} WHERE logid IN(SELECT DISTINCT(id) FROM {{posts}} WHERE uid={$this->uid} AND status=" . Posts::STATUS_PASSED . ") AND status=" . Posts::STATUS_PASSED . " ORDER BY id DESC";
@@ -294,71 +296,71 @@ class UserController extends T {
     $this->render($table, $data);
   }
 
-     public function actionAdd() {
-        $this->checkUser();
-        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
-        $uid = $this->uid;
-        $colid = zmf::filterInput($_GET['colid']);
-        if (!$colid) {
-            $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
-        }
-        $colinfo = $this->checkColumn($colid);    
-        $forupdate = zmf::filterInput($_GET['edit'], 't', 1);
-        if ($forupdate != 'yes') {
-            if (!Columns::checkWritable($colid, $uid)) {
-                T::message(0, '您在该版块的文章数已达上限，您可以去编辑或删除');
-                exit();
-            }elseif(!Users::publishedNum('posts')){
-                T::message(0, '您本时段的发布次数已用完');
-                exit();
-            }
-        }
-        $model = new Posts();
-        $keyid = zmf::getFCache("notSavePosts-{$uid}-{$colid}");
-        $_keyid = zmf::filterInput($_GET['id']);
-        if (!$keyid AND ! $_keyid) {
-            $_info = $model->findByAttributes(array('uid' => $uid, 'colid' => $colid), 'status=:status', array(':status' => '0'));
-            if (!$_info) {
-                $model->attributes = array(
-                    'status' => 0,
-                    'uid' => $uid,
-                    'colid' => $colid,
-                    'cTime' => time(),
-                    'title' => '',
-                );
-                $model->save(false);
-                $keyid = $model->id;
-            } else {
-                $keyid = $_info['id'];
-            }
-            zmf::setFCache("notSavePosts-{$uid}-{$colid}", $keyid, 3600);
-            $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
-        } elseif ($keyid != $_keyid AND $forupdate != 'yes') {
-            if (!$keyid) {
-                zmf::delFCache("notSavePosts-{$uid}-{$colid}");
-                $this->message(0, '操作有误，正在为您重新跳转至发布页', Yii::app()->createUrl('user/add', array('colid' => $colid)));
-            } else {
-                $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
-            }
-        } else {
-            $keyid = $_keyid;
-        }
-        $info = $model->findByPk($keyid);
-        if (!$info) {
-            zmf::delFCache("notSavePosts-{$uid}-{$colid}");
-            $this->message(0, '非常抱歉，您查看的页面不存在');
-        }
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'posts-addPost-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-        if (isset($_POST['Posts'])) {
-            $info = Publish::addPost($this->uid);
-            if ($info === TRUE) {
-              zmf::delFCache("notSavePosts-{$uid}-{$colid}");
-              $this->redirect(array('user/list', 'colid' => $colid));
-            }
-        } else {
+  public function actionAdd() {
+    $this->checkUser();
+    $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
+    $uid = $this->uid;
+    $colid = zmf::filterInput($_GET['colid']);
+    if (!$colid) {
+      $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
+    }
+    $colinfo = $this->checkColumn($colid);
+    $forupdate = zmf::filterInput($_GET['edit'], 't', 1);
+    if ($forupdate != 'yes') {
+      if (!Columns::checkWritable($colid, $uid)) {
+        T::message(0, '您在该版块的文章数已达上限，您可以去编辑或删除');
+        exit();
+      } elseif (!Users::publishedNum('posts')) {
+        T::message(0, '您本时段的发布次数已用完');
+        exit();
+      }
+    }
+    $model = new Posts();
+    $keyid = zmf::getFCache("notSavePosts-{$uid}-{$colid}");
+    $_keyid = zmf::filterInput($_GET['id']);
+    if (!$keyid AND ! $_keyid) {
+      $_info = $model->findByAttributes(array('uid' => $uid, 'colid' => $colid), 'status=:status', array(':status' => '0'));
+      if (!$_info) {
+        $model->attributes = array(
+            'status' => 0,
+            'uid' => $uid,
+            'colid' => $colid,
+            'cTime' => time(),
+            'title' => '',
+        );
+        $model->save(false);
+        $keyid = $model->id;
+      } else {
+        $keyid = $_info['id'];
+      }
+      zmf::setFCache("notSavePosts-{$uid}-{$colid}", $keyid, 3600);
+      $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
+    } elseif ($keyid != $_keyid AND $forupdate != 'yes') {
+      if (!$keyid) {
+        zmf::delFCache("notSavePosts-{$uid}-{$colid}");
+        $this->message(0, '操作有误，正在为您重新跳转至发布页', Yii::app()->createUrl('user/add', array('colid' => $colid)));
+      } else {
+        $this->redirect(array('user/add', 'id' => $keyid, 'colid' => $colid));
+      }
+    } else {
+      $keyid = $_keyid;
+    }
+    $info = $model->findByPk($keyid);
+    if (!$info) {
+      zmf::delFCache("notSavePosts-{$uid}-{$colid}");
+      $this->message(0, '非常抱歉，您查看的页面不存在');
+    }
+    if (isset($_POST['ajax']) && $_POST['ajax'] === 'posts-addPost-form') {
+      echo CActiveForm::validate($model);
+      Yii::app()->end();
+    }
+    if (isset($_POST['Posts'])) {
+      $info = Publish::addPost($this->uid);
+      if ($info === TRUE) {
+        zmf::delFCache("notSavePosts-{$uid}-{$colid}");
+        $this->redirect(array('user/list', 'colid' => $colid));
+      }
+    } else {
 //            if ($info['attachid']) {
 //                $info['attachid'] = tools::jiaMi($info['attachid']);
 //            }
@@ -459,6 +461,61 @@ class UserController extends T {
     }
     $this->listTableTitle = '在线提问';
     $this->render('addQuestions', array('model' => $model));
+  }
+
+  public function actionGoods() {
+    $model = new Goods;
+
+    // Uncomment the following line if AJAX validation is needed
+    // $this->performAjaxValidation($model);
+
+    if (isset($_POST['Goods'])) {
+      $uid=Yii::app()->user->id;
+      if (!empty($_POST['tagids'])) {
+        Yii::app()->session['checkHasBadword'] = 'no';
+        $tagids = array_filter(array_unique($_POST['tagids']));
+        if (!empty($tagids)) {
+          $_POST['Goods']['colid'] = $tagids[0];
+          $_POST['Goods']['colid2'] = $tagids[1];
+          $_POST['Goods']['colid3'] = $tagids[2];
+          $_POST['Goods']['colid4'] = $tagids[3];
+          $_POST['Goods']['colid5'] = $tagids[4];
+        }
+      }
+      $_POST['Goods']['title']=zmf::filterInput($_POST['Goods']['title'],'t',1);
+      $_POST['Goods']['piwen']=zmf::filterInput($_POST['Goods']['piwen'],'t',1);
+      $_POST['Goods']['gongxiao']=zmf::filterInput($_POST['Goods']['gongxiao'],'t',1);
+      $_POST['Goods']['desc']=zmf::filterInput($_POST['Goods']['desc'],'t');
+      $_POST['Goods']['desc2']=zmf::filterInput($_POST['Goods']['desc2'],'t');
+      $_POST['Goods']['desc3']=zmf::filterInput($_POST['Goods']['desc3'],'t');
+      $_POST['Goods']['desc4']=zmf::filterInput($_POST['Goods']['desc4'],'t');
+      
+      $arr_attachids=$_POST['uploadAttach'];
+      if (Yii::app()->session['checkHasBadword'] == 'yes') {
+        $status = Posts::STATUS_STAYCHECK;
+      } else {
+        $status = Posts::STATUS_PASSED;
+      }
+      Yii::app()->session['checkHasBadword'] = 'no';
+      $_POST['Goods']['uid'] = $uid;
+      $_POST['Goods']['status'] = $status;
+      $_POST['Goods']['cTime'] = time();
+      $model->attributes = $_POST['Goods'];
+      if ($model->save()) {
+        if (!empty($arr_attachids)) {
+          $ids = join(',', $arr_attachids);
+          if ($ids != '') {
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$model->id AND uid={$uid} AND classify='goods'");
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED), "id IN($ids)");
+          }
+        }
+        $this->redirect(array('user/list', 'table' => 'goods'));
+      }
+    }
+    $this->listTableTitle = '新增产品展示';
+    $this->render('//goods/create', array(
+        'model' => $model,
+    ));
   }
 
   public function actionUpdate() {
