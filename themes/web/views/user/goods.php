@@ -2,6 +2,12 @@
 <h3><?php echo $this->listTableTitle;?></h3>
 <table class="table table-hover table-condensed">
 <?php if(!empty($posts)){foreach ($posts as $row): ?> 
+
+
+
+
+
+
     <tr <?php tools::exStatusToClass($row['status']);?>>
         <td>
             <div class="bs-callout bs-callout-info">

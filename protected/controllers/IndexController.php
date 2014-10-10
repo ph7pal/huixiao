@@ -56,6 +56,7 @@ class IndexController extends T {
     $newTeams=Users::getTeam('new');
     $topLecturers=Users::getLecturer(0);
     $topExes=Users::getExhibition('exhibition',10,'order');
+    $topGoods=Goods::tops();
     $this->pageTitle = zmf::config('sitename') . ' - ' . zmf::config('shortTitle');
     $data = array(
         'mainCols' => $colinfos,
@@ -65,7 +66,8 @@ class IndexController extends T {
         'topTeams'=>$topTeams,
         'newTeams'=>$newTeams,
         'topLecturers'=>$topLecturers,
-        'topExes'=>$topExes
+        'topExes'=>$topExes,
+        'topGoods'=>$topGoods
             //'seconds' => $seconds
     );
     $this->render('index', $data);

@@ -114,5 +114,11 @@ class Goods extends CActiveRecord {
   public static function model($className = __CLASS__) {
     return parent::model($className);
   }
+  
+  public static function tops(){
+  	$sql="SELECT * FROM {{goods}} ORDER BY hits DESC LIMIT 10";
+  	$items=Yii::app()->db->createCommand($sql)->queryAll();
+  	return $items;
+  	}
 
 }

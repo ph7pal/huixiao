@@ -7,11 +7,14 @@
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
     <?php 
     Yii::app()->clientScript->registerCoreScript('jquery'); 
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/jquery.scrolltotop.js", CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/select.jQuery.js", CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/common.js", CClientScript::POS_END);
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/chanpin.js", CClientScript::POS_END);    
     ?>
   </head>
   <body>

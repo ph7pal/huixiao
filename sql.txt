@@ -20,7 +20,7 @@ CREATE TABLE `pre_goods` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `uid` int(11) NOT NULL,
   `faceimg` int(10) NOT NULL,
-  `title` varchar(200) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `piwen` varchar(255) NOT NULL,
   `gongxiao` varchar(255) NOT NULL,
   `desc`text NOT NULL,
@@ -33,6 +33,42 @@ CREATE TABLE `pre_goods` (
   `colid3` int(10) NOT NULL, 
   `colid4` int(10) NOT NULL, 
   `colid5` int(10) NOT NULL, 
+
+  
+
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+
+
+DROP TABLE IF EXISTS   `pre_jobs`;
+CREATE TABLE `pre_jobs` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `gs_title` varchar(255) NOT NULL COMMENT '公司名称',
+  `gs_didian` varchar(255) NOT NULL COMMENT '公司地点',
+  `gs_guimo` varchar(255) NOT NULL COMMENT '公司规模',
+  `gs_xingzhi` varchar(255) NOT NULL COMMENT '公司性质',
+  `gs_miaoshu` text NOT NULL COMMENT '公司描述',
+  `gs_zhuye` varchar(255) NOT NULL COMMENT '公司主页',
+  `gz_miaoshu` text NOT NULL COMMENT '工作描述',
+  `gz_didian` varchar(255) NOT NULL COMMENT '工作地点',
+  `gz_jingyan` varchar(255) NOT NULL COMMENT '工作经验',
+  `gz_xingzhi` varchar(255) NOT NULL COMMENT '工作薪资',
+  `gz_zdxueli` varchar(255) NOT NULL COMMENT '最低学历',
+  `gz_gljy` varchar(255) NOT NULL COMMENT '管理经验',
+  `gz_xinzi` varchar(255) NOT NULL COMMENT '工作薪资',
+  `gz_renshu` varchar(255) NOT NULL COMMENT '招聘人数',
+  `gz_zhiwei` varchar(255) NOT NULL COMMENT '工作职位',
+  `gz_fuli` varchar(255) NOT NULL COMMENT '工作福利',
+  `gz_contactor` varchar(255) NOT NULL COMMENT '联系人',
+  `gz_contact` varchar(255) NOT NULL COMMENT '联系方式',  
 
   
 
