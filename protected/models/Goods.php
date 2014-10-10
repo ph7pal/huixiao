@@ -116,8 +116,22 @@ class Goods extends CActiveRecord {
   }
   
   public static function tops(){
-  	$sql="SELECT * FROM {{goods}} ORDER BY hits DESC LIMIT 10";
+  	$sql="SELECT id,title,faceimg FROM {{goods}} ORDER BY hits DESC LIMIT 12";
   	$items=Yii::app()->db->createCommand($sql)->queryAll();
+    if (!empty($items)) {
+      foreach ($items as $key => $goods) {
+        $faceurl = zmf::noImg('url');
+        if ($goods['faceimg'] > 0) {
+          $attachinfo = Attachments::getOne($goods['faceimg']);
+          if ($attachinfo) {
+            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '200') . $attachinfo['filePath'];
+          }
+        }
+        $goods['faceurl'] = $faceurl;
+        $items[$key] = $goods;
+      }
+    }
+    
   	return $items;
   	}
 

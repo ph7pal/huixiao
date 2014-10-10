@@ -7,8 +7,12 @@
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
+<?php if((Yii::app()->getController()->id!='index')){//AND Yii::app()->getController()->getAction()->id=='index'?>    
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
+<?php }?>    
     <?php 
     Yii::app()->clientScript->registerCoreScript('jquery'); 
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/jquery.scrolltotop.js", CClientScript::POS_END);
@@ -162,7 +166,7 @@
     </div>
   </body>
 </html>
-
+<?php if((Yii::app()->getController()->id=='index' AND Yii::app()->getController()->getAction()->id=='index')){?>
 <script type="text/javascript">
   $(function() {
     $('#mulitline1').scrolling(19, 13);//最新认证
@@ -211,3 +215,4 @@
       scroll_div.scrollLeft++
   }
 </script>
+<?php }?>

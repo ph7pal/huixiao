@@ -256,53 +256,28 @@
       </div>
       <div class="module_03 module_03_2" id="TabAdS03">
         <div class="hd">
-          <span class="title">热销产品推荐</span> <a href="#" target="_blank" class="view_all">浏览全部</a> <span class="nav">
-
+          <span class="title">热销产品推荐</span> <?php echo CHtml::link('浏览全部',array('goods/index'),array('target'=>'_blank','class'=>'view_all'));?><span class="nav">
             <!--热销商品 品种开始-->
             <div class="hotx">
               <div class="hdnav">
-                <ul>
+                <!--ul>
                   <li class="select">全部<s class="s1"></s><s class="s2"></s></li>
                   <li>中式<s class="s1"></s><s class="s2"></s></li>
-                </ul>
+                </ul-->
               </div>
             </div>
-            <!--  <a href="#" target="_blank" title="中式">中式</a>|
-             <a href="#" target="_blank" title="欧式古典">欧式古典</a>|
-       <a href="#" target="_blank" title="现代简约">现代简约</a>|
-          <a href="#" target="_blank" title="美式乡村">美式乡村</a>|
-              <a href="#" target="_blank" title="地中海风格">地中海风格</a>|
-                                                                                                                                                                     <a href="#" target="_blank" title="乡村风格">乡村风格</a>-->
             <!--热销商品 品种结束-->
           </span>
         </div>
         <div class="bd tk_img_list">
           <ul class="clearfix">
             <!--热销产品推荐 开始 一共12条数据-->
-            <li class="item"><a href="#" target="_blank" title="富力城">
-                <img src="UpFile/singlefile/aebb98fd-0298-4f7a-a979-d2f08eedf749.jpg" width="135" height="88" alt="" /><span class="title">富力城</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="保利高尔夫．豪园">
-                <img src="UpFile/singlefile/9d045993-11f7-470d-99cb-9741f714621e.jpg" width="135" height="88" alt="" /><span class="title">保利高尔夫．豪园</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="协信天骄城作品">
-                <img src="UpFile/singlefile/004370e5-f3cc-454f-be11-866e1d483734.jpg" width="135" height="88" alt="" /><span class="title">协信天骄城作品</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="8万打造93平温馨家">
-                <img src="UpFile/singlefile/7e0fcb4e-6520-41fb-a146-90ce4b5ce6a7.jpg" width="135" height="88" alt="" /><span class="title">8万打造93平温馨家</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="网购达人打造甜蜜二居">
-                <img src="UpFile/singlefile/b0214e65-759f-47f9-8a81-7f1e91b4e963.jpg" width="135" height="88" alt="" /><span class="title">网购达人打造甜蜜二居</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="迷人主卫设计简约宜人家">
-                <img src="UpFile/singlefile/2602ca7e-4431-4173-bf0c-1bd5e4ed47bc.jpg" width="135" height="88" alt="" /><span class="title">迷人主卫设计简约宜人家</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="现代美式宅二室二厅">
-                <img src="UpFile/singlefile/ffb9ec21-7143-4afb-b30c-f35a02f3e90c.jpg" width="135" height="88" alt="" /><span class="title">现代美式宅二室二厅</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="135平三室二厅甜蜜窝">
-                <img src="UpFile/singlefile/2f057030-77c5-48e6-ac1b-9fdcdfd508e6.jpg" width="135" height="88" alt="" /><span class="title">135平三室二厅甜蜜窝</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="6万半包打造温馨二居">
-                <img src="UpFile/singlefile/b9d2cc87-bb04-4a9d-8645-32fb93a47869.jpg" width="135" height="88" alt="" /><span class="title">6万半包打造温馨二居</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="巧用隐形门现代亮丽家">
-                <img src="UpFile/singlefile/4da167fc-57b5-4a7d-9d65-598182540de9.jpg" width="135" height="88" alt="" /><span class="title">巧用隐形门现代亮丽家</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="紫色浪漫简约质感生活">
-                <img src="UpFile/singlefile/ce0a5d37-266d-4a95-8194-c151f7dfa19e.jpg" width="135" height="88" alt="" /><span class="title">紫色浪漫简约质感生活</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="95平二室二厅完美田园风">
-                <img src="UpFile/singlefile/03d09eb2-32a3-47dc-b16a-3845cd6f0a28.jpg" width="135" height="88" alt="" /><span class="title">95平二室二厅完美田园风</span></a></li>
+            <?php if(!empty($topGoods)){?>
+            <?php foreach($topGoods as $goods){?>
+            <li class="item">
+              <?php echo CHtml::link(CHtml::image($goods['faceurl'],$goods['title'],array('width'=>135,'height'=>101)).'<span class="title">'.$goods['title'].'</span>',array('goods/view','id'=>$goods['id']));?></li>
+                <?php }?>
+            <?php }?>
             <!--热销产品推荐 结束-->
           </ul>
         </div>
@@ -311,23 +286,6 @@
             <!--热销产品推荐 开始 一共12条数据-->
             <li class="item"><a href="#" target="_blank" title="富力城">
                 <img src="UpFile/singlefile/aebb98fd-0298-4f7a-a979-d2f08eedf749.jpg" width="135" height="88" alt="" /><span class="title">富力城</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="保利高尔夫．豪园">
-                <img src="UpFile/singlefile/9d045993-11f7-470d-99cb-9741f714621e.jpg" width="135" height="88" alt="" /><span class="title">保利高尔夫．豪园</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="协信天骄城作品">
-                <img src="UpFile/singlefile/004370e5-f3cc-454f-be11-866e1d483734.jpg" width="135" height="88" alt="" /><span class="title">协信天骄城作品</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="8万打造93平温馨家">
-                <img src="UpFile/singlefile/7e0fcb4e-6520-41fb-a146-90ce4b5ce6a7.jpg" width="135" height="88" alt="" /><span class="title">8万打造93平温馨家</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="网购达人打造甜蜜二居">
-                <img src="UpFile/singlefile/b0214e65-759f-47f9-8a81-7f1e91b4e963.jpg" width="135" height="88" alt="" /><span class="title">网购达人打造甜蜜二居</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="迷人主卫设计简约宜人家">
-                <img src="UpFile/singlefile/2602ca7e-4431-4173-bf0c-1bd5e4ed47bc.jpg" width="135" height="88" alt="" /><span class="title">迷人主卫设计简约宜人家</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="现代美式宅二室二厅">
-                <img src="UpFile/singlefile/ffb9ec21-7143-4afb-b30c-f35a02f3e90c.jpg" width="135" height="88" alt="" /><span class="title">现代美式宅二室二厅</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="135平三室二厅甜蜜窝">
-                <img src="UpFile/singlefile/2f057030-77c5-48e6-ac1b-9fdcdfd508e6.jpg" width="135" height="88" alt="" /><span class="title">135平三室二厅甜蜜窝</span></a></li>
-            <li class="item"><a href="#" target="_blank" title="6万半包打造温馨二居">
-                <img src="UpFile/singlefile/b9d2cc87-bb04-4a9d-8645-32fb93a47869.jpg" width="135" height="88" alt="" /><span class="title">6万半包打造温馨二居</span></a></li>
-
             <!--热销产品推荐 结束-->
           </ul>
         </div>

@@ -97,7 +97,7 @@
 /*---------列表显示 开始----------*/
 .list_mod .mod{position:relative; width:100%; border-bottom:1px solid #d4d4d4; margin-bottom:19px; overflow:hidden;}
 .list_mod .b_prod{float:left; display:inline; width:625px; padding-bottom:16px; overflow:hidden; }
-.list_mod .pic, .list_mod .pic a{width:165px; height:165px;}
+.list_mod .pic, .list_mod .pic a{width:163px; height:122px;}
 .list_mod .pic img{width:165px;}
 .list_mod .b_result .gnzz{width:270px; line-height:20px; max-height:40px; padding-bottom:2px; overflow:hidden;}
 .list_mod .pic a{display:block; width:158px; height:158px;}
@@ -114,7 +114,7 @@
 .big_mod .view a.big_view{background-position: -43px -4px;}
 .big_mod .view a.list_view{background-position: -105px -4px;}
 .big_mod .mod{float:left; width:165px; height:325px; margin-left:24px; padding-bottom:34px; overflow:hidden;}
-.big_mod .b_result .pic, .big_mod .b_result .pic a{display:block; width:163px; height:163px; clear:both; overflow:hidden;}
+.big_mod .b_result .pic, .big_mod .b_result .pic a{display:block; width:163px; height:122px; clear:both; overflow:hidden;}
 .big_mod .b_result .b_info{padding-top:13px; *padding-top:6px; _padding-top:13px;clear:both; overflow:hidden}
 .big_mod .b_result .gnzz{display:block; font:12px/16px "宋体"; padding-top:2px; max-height:32px; overflow:hidden;}
 .big_mod .b_result .c_name{line-height:20px; padding-top:4px;height:20px; overflow:hidden;}
