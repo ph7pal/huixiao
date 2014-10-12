@@ -124,8 +124,7 @@ class UserCredit extends CActiveRecord {
       }
       return array();
     }
-    public static function listTeam(){
-      
+    public static function listTeam(){      
       $sql1 = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order`";
       $uids=Yii::app()->db->createCommand($sql1)->queryAll();
       if(!empty($uids)){
@@ -139,6 +138,40 @@ class UserCredit extends CActiveRecord {
         } 
       }
       return array();
+    }
+    
+    public static function checkType($type){
+      if(!$type || !in_array($type,array('agent','dealer','exhibition','lecturer','trade_magazine','producer','pro_service','marketing_team','trade_website'))){
+        return false;
+      }
+      return TRUE;
+    }
+    public static function loadModel($type){
+      if(!self::checkType($type)){
+        throw new CHttpException(404,'不存在的类型');
+      }
+      if($type=='agent'){
+        return new Agent;
+      }elseif($type=='dealer'){
+        return new Dealer;
+      }elseif($type=='exhibition'){
+        return new Exhibition;
+      }elseif($type=='lecturer'){
+        return new Lecturer;
+      }elseif($type=='trade_magazine'){
+        return new Magazine;
+      }elseif($type=='producer'){
+        return new Producer;
+      }elseif($type=='pro_service'){
+        return new Servicer;
+      }elseif($type=='marketing_team'){
+        return new Team;
+      }elseif($type=='trade_website'){
+        return new Website;
+      }elseif($type==''){
+        
+      }
+      
     }
 
 }

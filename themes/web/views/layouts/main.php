@@ -12,6 +12,7 @@
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/Job.css" rel="stylesheet" type="text/css" />
 <?php }?>    
     <?php 
     Yii::app()->clientScript->registerCoreScript('jquery'); 
@@ -53,8 +54,8 @@
 
         </div>
         <div class="fr" style="margin-right: 20px; float: right; margin-top: 30px;">
-          <a href="#" class="loginBtn"></a>
-          <a href="#" class="zcBtn"></a>
+          <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
+          <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
         </div>
 
       </div>

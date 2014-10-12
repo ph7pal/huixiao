@@ -256,7 +256,7 @@ class UserController extends T {
     $this->layout = 'user';
     $colid = zmf::filterInput($_GET['colid']);
     $table = zmf::filterInput($_GET['table'], 't', 1);
-    if ($table == '' || !in_array($table, array('posts', 'ads', 'questions', 'comments', 'goods'))) {
+    if ($table == '' || !in_array($table, array('posts', 'ads', 'questions', 'comments', 'goods', 'jobs'))) {
       $table = 'posts';
     }
     if ($table == 'comments') {
@@ -280,6 +280,8 @@ class UserController extends T {
       $this->listTableTitle = '用户评论或留言';
     } elseif ($table == 'goods') {
       $this->listTableTitle = '产品展示';
+    } elseif ($table == 'jobs') {
+      $this->listTableTitle = '招聘';
     }
     if ($table == 'comments') {
       $sql = "SELECT * FROM {{comments}} WHERE logid IN(SELECT DISTINCT(id) FROM {{posts}} WHERE uid={$this->uid} AND status=" . Posts::STATUS_PASSED . ") AND status=" . Posts::STATUS_PASSED . " ORDER BY id DESC";
@@ -464,13 +466,10 @@ class UserController extends T {
   }
 
   public function actionGoods() {
+    //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));    
     $model = new Goods;
-
-    // Uncomment the following line if AJAX validation is needed
-    // $this->performAjaxValidation($model);
-
     if (isset($_POST['Goods'])) {
-      $uid=Yii::app()->user->id;
+      $uid = Yii::app()->user->id;
       if (!empty($_POST['tagids'])) {
         Yii::app()->session['checkHasBadword'] = 'no';
         $tagids = array_filter(array_unique($_POST['tagids']));
@@ -482,15 +481,15 @@ class UserController extends T {
           $_POST['Goods']['colid5'] = $tagids[4];
         }
       }
-      $_POST['Goods']['title']=zmf::filterInput($_POST['Goods']['title'],'t',1);
-      $_POST['Goods']['piwen']=zmf::filterInput($_POST['Goods']['piwen'],'t',1);
-      $_POST['Goods']['gongxiao']=zmf::filterInput($_POST['Goods']['gongxiao'],'t',1);
-      $_POST['Goods']['desc']=zmf::filterInput($_POST['Goods']['desc'],'t');
-      $_POST['Goods']['desc2']=zmf::filterInput($_POST['Goods']['desc2'],'t');
-      $_POST['Goods']['desc3']=zmf::filterInput($_POST['Goods']['desc3'],'t');
-      $_POST['Goods']['desc4']=zmf::filterInput($_POST['Goods']['desc4'],'t');
-      
-      $arr_attachids=$_POST['uploadAttach'];
+      $_POST['Goods']['title'] = zmf::filterInput($_POST['Goods']['title'], 't', 1);
+      $_POST['Goods']['piwen'] = zmf::filterInput($_POST['Goods']['piwen'], 't', 1);
+      $_POST['Goods']['gongxiao'] = zmf::filterInput($_POST['Goods']['gongxiao'], 't', 1);
+      $_POST['Goods']['desc'] = zmf::filterInput($_POST['Goods']['desc'], 't');
+      $_POST['Goods']['desc2'] = zmf::filterInput($_POST['Goods']['desc2'], 't');
+      $_POST['Goods']['desc3'] = zmf::filterInput($_POST['Goods']['desc3'], 't');
+      $_POST['Goods']['desc4'] = zmf::filterInput($_POST['Goods']['desc4'], 't');
+
+      $arr_attachids = $_POST['uploadAttach'];
       if (Yii::app()->session['checkHasBadword'] == 'yes') {
         $status = Posts::STATUS_STAYCHECK;
       } else {
@@ -514,6 +513,49 @@ class UserController extends T {
     }
     $this->listTableTitle = '新增产品展示';
     $this->render('//goods/create', array(
+        'model' => $model,
+    ));
+  }
+
+  public function actionJobs($id='') {
+    //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
+    $uid = Yii::app()->user->id;
+    if($id){
+      $model=Jobs::model()->findByPk($id);
+      if($model===null){
+        $this->message(0, '页面不存在', Yii::app()->createUrl('user/list',array('table'=>'jobs')));
+      }elseif($model->uid!=$uid){
+        $this->message(0, '不允许的操作');
+      }
+    }else{
+      $model = new Jobs;
+    }    
+    if (isset($_POST['Jobs'])) {
+      Yii::app()->session['checkHasBadword'] = 'no';      
+      $items=$_POST['Jobs'];
+      foreach($items as $key=>$item){
+        $items[$key]=zmf::filterInput($item, 't',1);
+      }
+      $_POST['Jobs']=$items;
+      if (Yii::app()->session['checkHasBadword'] == 'yes') {
+        $status = Posts::STATUS_STAYCHECK;
+      } else {
+        $status = Posts::STATUS_PASSED;
+      }
+      Yii::app()->session['checkHasBadword'] = 'no';
+      $_POST['Jobs']['uid'] = $uid;
+      $_POST['Jobs']['status'] = $status;
+      $_POST['Jobs']['cTime'] = time();
+      $model->attributes = $_POST['Jobs'];
+      if ($model->save())
+        $this->redirect(array('user/list', 'table' => 'jobs'));
+    }
+    if($model->isNewRecord){
+      $this->listTableTitle = '新增招聘信息';
+    }else{
+      $this->listTableTitle = '更新招聘信息';
+    }
+    $this->render('//jobs/create', array(
         'model' => $model,
     ));
   }
@@ -592,6 +634,11 @@ class UserController extends T {
     $_c = array();
     if (!empty($_POST) && !$blocked) {
       $type = $_POST['type'];
+      if(!UserCredit::checkType($type)){
+        $this->message(0, '不允许的认证类型，请核实');
+      }else{
+        $realModel=  UserCredit::loadModel($type);
+      }
       unset($_POST['type']);
       unset($_POST['btn']);
       $configs = $_POST;
@@ -600,8 +647,9 @@ class UserController extends T {
       $configs['cTime'] = time();
       UserCredit::model()->deleteAll('uid=' . $this->uid);
       CreditRelation::model()->deleteAll('uid=' . $this->uid);
+      $realModel->deleteAll('uid=' . $this->uid);
       $cityid = $tmparr[0];
-      $configs['localarea'] = $cityid;
+      $configs['localarea'] = $cityid;      
       foreach ($configs as $k => $v) {
         $data = array(
             'uid' => $this->uid,
@@ -614,6 +662,14 @@ class UserController extends T {
         if (!$model->save()) {
           //$this->message(0, $content);
         }
+      }
+      $configs['uid']=$this->uid;
+      $configs['status']=Posts::STATUS_STAYCHECK;
+      $realModel->attributes=$configs;
+      if(!$realModel->save()){
+        UserCredit::model()->deleteAll('uid=' . $this->uid);
+        CreditRelation::model()->deleteAll('uid=' . $this->uid);
+        $this->message(0, '写入认证信息出错');
       }
       UserInfo::addAttr($this->uid, 'addCredit', 'lock', 'yes');
       UserInfo::addAttr($this->uid, 'addCredit', 'creditstatus', Posts::STATUS_STAYCHECK);
@@ -632,8 +688,9 @@ class UserController extends T {
       $this->message(1, '您的资料已提交。', $redirect);
     }
     $_addedType = UserCredit::findOne($this->uid);
-    if ($_addedType['classify'])
+    if ($_addedType['classify']){
       $type = $_addedType['classify'];
+    }
     $reason = zmf::userConfig($this->uid, 'creditreason');
     $status = zmf::userConfig($this->uid, 'creditstatus');
     if ($type) {

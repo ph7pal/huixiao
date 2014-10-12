@@ -319,6 +319,7 @@ class UsersController extends H {
             $this->jsonOutPut(0, '缺少用户字段');
         }
         $relarr=array();
+        $realModel=  UserCredit::loadModel($type);
         if ($atype == 1) {
             if(!$creditlogo){
                 $this->jsonOutPut(0, '请选择认证图标');
@@ -328,8 +329,10 @@ class UsersController extends H {
             UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
             $relarr['medal']=$creditlogo;
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
+            $realModel->updateAll(array('status'=>$atype), 'uid=:uid',array(':uid'=>$touid));
         } else {
             UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
+            $realModel->updateAll(array('status'=>$atype), 'uid=:uid',array(':uid'=>$touid));
         }
         $relarr['status']=$atype;
         UserInfo::addAttr($touid, 'addCredit', 'creditreason', $reason);

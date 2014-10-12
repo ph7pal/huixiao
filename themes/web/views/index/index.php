@@ -209,9 +209,9 @@
                 <ul class="clearfix">
                   <!--AAA级信用热度排行开始-->
                   <?php
-                  if(!empty($qiyes)){
-                    foreach($qiyes as $qiye){
-                        echo '<li class="item">'.CHtml::link(zmf::avatar($qiye['uid'],'small').'<span class="title">'.$qiye['truename'].'</span>',array('qiye/index','id'=>$qiye['uid']),array('target'=>'_blank')).'</li>';
+                  if(!empty($topProducers)){
+                    foreach($topProducers as $qiye){
+                        echo '<li class="item">'.CHtml::link(zmf::avatar($qiye['uid'],'small').'<span class="title">'.$qiye['companyname'].'</span>',array('qiye/index','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';
                     }
                   }
                   ?>
@@ -240,16 +240,16 @@
           <div class="tab_module nomartop">
             <div class="hd">
               <ul class="clearfix tab-hd">
-                <li class="select">AAA级信用厂家推荐<s class="s1"></s><s class="s2"></s></li>
+                <li class="select">最新厂家<s class="s1"></s><s class="s2"></s></li>
               </ul>
               <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
             </div>
             <div class="bd zxgs" style="height: 380px;">
-              <!--AAA级信用厂家推荐 开始 一共20条数据-->
+              <!--最新AAA级信用厂家 开始 一共20条数据-->
               <ul id="mulitline2">
-                <?php if(!empty($qiyes)){foreach($qiyes as $qiye){echo '<li class="item">'.CHtml::link($qiye['truename'],array('qiye/index','id'=>$qiye['uid']),array('target'=>'_blank')).'</li>';}}?>
+                <?php if(!empty($newProducers)){foreach($newProducers as $qiye){echo '<li class="item">'.CHtml::link($qiye['companyname'],array('qiye/index','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';}}?>
               </ul>
-              <!--AAA级信用厂家推荐 结束-->
+              <!--最新AAA级信用厂家 结束-->
             </div>
           </div>
         </div>
@@ -373,7 +373,7 @@
             <div class="bd zxgs w_f" style="height: 300px;">
               <ul class="clearfix">
                 <!--热门展会公司开始-->
-                <?php if(!empty($topExes)){foreach($topExes as $key=>$topEx){echo '<li class="item">'.CHtml::link(zmf::avatar($topEx['uid'],'small').'<span class="title">'.$topEx['truename'].'</span>',array('exhibition/index','id'=>$topEx['uid']),array('target'=>'_blank')).'</li>'; }}?>
+                <?php if(!empty($topExhibitions)){foreach($topExhibitions as $key=>$topEx){echo '<li class="item">'.CHtml::link(zmf::avatar($topEx['uid'],'small').'<span class="title">'.$topEx['companyname'].'</span>',array('exhibition/view','id'=>$topEx['id']),array('target'=>'_blank')).'</li>'; }}?>
                 <!--热门展会公司结束-->
               </ul>
             </div>
@@ -388,7 +388,6 @@
               <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuidangqi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
             </div>
             <div class="module_04" id="Div3">
-
               <div class="bd small_paixu" style="height: 298px;">
                 <ul class="tab-cont clearfix">
                   <?php $item=$mainCols['zhanhuidangqi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">13-25</em>'.'</li>'; }}?>
@@ -396,7 +395,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <!--热销产品推荐 结束-->
@@ -424,7 +422,7 @@
               <div class="bd yxtd yxtdw_f" style="height: 232px">
                 <ul class="clearfix">
                   <!--营销团队开始-->
-                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['truename'].'</span>',array('team/index','id'=>$topTeam['uid']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['teamname'].'</span>',array('team/index','id'=>$topTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
                   <!--营销团队结束-->
                 </ul>
               </div>
@@ -457,7 +455,7 @@
             <div class="bd zxgs" style="height: 380px;">
               <!--最新营销团队 数据循环 开始 一共20条数据-->
               <ul id="mulitline3">
-                <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['truename'],array('team/index','id'=>$newTeam['uid']),array('target'=>'_blank')).'</li>'; }}?>
+                <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['teamname'],array('team/index','id'=>$newTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
               </ul>
               <!--最新营销团队 数据循环 开始 一共20条数据-->
             </div>
@@ -562,10 +560,10 @@
     <div class="bd">
       <ul class="clearfix">
         
-        <?php $item=$mainCols['zhaopin'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item"><span class="company">'.CHtml::link(Users::getUserInfo($one['uid'],'truename'),array('mobile/index','uid'=>$one['uid']),array('target'=>'_blank')).'</span><span class="post">'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</span></li>'; }}?>
+        <?php if(!empty($newJobs)){foreach($newJobs as $one){echo '<li class="item"><span class="company">'.CHtml::link($one['gs_title'],array('jobs/view','id'=>$one['id']),array('target'=>'_blank')).'</span><span class="post">'.CHtml::link($one['title'],array('jobs/view','id'=>$one['id']),array('target'=>'_blank')).'</span></li>'; }}?>
       </ul>
     </div>
-    <?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['zhishituijian2']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+    <?php echo CHtml::link('浏览全部',array('jobs/index'),array('target'=>'_blank','class'=>'more'));?>
   </div>
   <div class="blank10">
   </div>

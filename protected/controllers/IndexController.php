@@ -43,7 +43,6 @@ class IndexController extends T {
         'zhishituijian2',
         'zhishituijian3',
         'zhishituijian4',
-        'zhaopin',
             //''
     );
 
@@ -52,22 +51,35 @@ class IndexController extends T {
     $areas = Area::listArea(NUll, false, 10);
     $newCredits = UserCredit::getNews(); //最新认证
     $qiyes = Users::getExhibition('producer');
-    $topTeams=Users::getTeam('top');
-    $newTeams=Users::getTeam('new');
-    $topLecturers=Users::getLecturer(0);
-    $topExes=Users::getExhibition('exhibition',10,'order');
-    $topGoods=Goods::tops();
+    //$topTeams=Users::getTeam('top');
+    //$newTeams=Users::getTeam('new');
+    $topLecturers = Users::getLecturer(0);
+    //$topExes = Users::getExhibition('exhibition', 10, 'order');
+    $topGoods = Goods::tops();
+    $newJobs = Jobs::getNews();
+    $newTeams = Team::getNews();
+    $topTeams = Team::getTops();
+    //$newExhibitions = Exhibitions::getNews();
+    $topExhibitions = Exhibition::getTops();
+    $newProducers = Producer::getNews();
+    $topProducers = Producer::getTops();
     $this->pageTitle = zmf::config('sitename') . ' - ' . zmf::config('shortTitle');
     $data = array(
         'mainCols' => $colinfos,
         'newCredits' => $newCredits,
         'qiyes' => $qiyes,
-        'areas'=>$areas,
-        'topTeams'=>$topTeams,
-        'newTeams'=>$newTeams,
-        'topLecturers'=>$topLecturers,
-        'topExes'=>$topExes,
-        'topGoods'=>$topGoods
+        'areas' => $areas,
+        'topTeams' => $topTeams,
+        'newTeams' => $newTeams,
+//        'newExhibitions' => $newExhibitions,
+        'topExhibitions' => $topExhibitions,
+        'topTeams' => $topTeams,
+        'topLecturers' => $topLecturers,
+//        'topExes' => $topExes,
+        'topGoods' => $topGoods,
+        'newJobs' => $newJobs,
+        'newProducers' => $newProducers,
+        'topProducers' => $topProducers,
             //'seconds' => $seconds
     );
     $this->render('index', $data);

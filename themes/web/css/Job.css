@@ -1,4 +1,4 @@
-﻿
+
 .main_960{width:960px;margin:15px auto;}
     .main2 a {
         color:#000
@@ -23,13 +23,13 @@ a{text-decoration:none;}
 .clr{ clear:both;}
 .ico_dy_new{ }
 .ico_dy_new i{ display:inline-block;}
-.ico_dy_new .dy_info{background:url(../Images/ico_dy_new.png) no-repeat 0px 0px; width:15px; height:12px; margin:6px 3px 0px 0px ; }
-.ico_dy_new .dy_new{background:url(../Images/ico_dy_new.png) no-repeat 0px -17px; width:18px; height:7px;margin:4px  0px 0px 2px;}
+.ico_dy_new .dy_info{background:url(../images/ico_dy_new.png) no-repeat 0px 0px; width:15px; height:12px; margin:6px 3px 0px 0px ; }
+.ico_dy_new .dy_new{background:url(../images/ico_dy_new.png) no-repeat 0px -17px; width:18px; height:7px;margin:4px  0px 0px 2px;}
 /*currentsearch_new end*/
 
 /**职位搜索**/
-.Search-boxtop{height:7px;overflow:hidden;background:url(../Images/bg_sprites.png) 0 -100px no-repeat;}
-.Search-boxbottom{height:12px;overflow:hidden;background:url(../Images/bg_sprites.png) 0 -112px no-repeat;}
+.Search-boxtop{height:7px;overflow:hidden;background:url(../images/bg_sprites.png) 0 -100px no-repeat;}
+.Search-boxbottom{height:12px;overflow:hidden;background:url(../images/bg_sprites.png) 0 -112px no-repeat;}
 .search{background:url(../images/search_middlebg.png) top repeat-x #3f7dd5;border-left:1px solid #3e7cd4;border-right:1px solid #3e7cd4;}
 #funSearch{width:988px;}
 #searchForm{height:auto;font-size:12px;}
@@ -41,10 +41,10 @@ a{text-decoration:none;}
 #searchForm div .keyword-tab{color:#4572b3;}
 #searchForm div .keyword-tab a{display:inline-block;text-align:center;width:62px;height:27px;line-height:27px;margin-top:3px;}
 #searchForm div .keyword-tab a:hover{text-decoration:underline;}
-#searchForm div .keyword-tab a.current{background:url(../Images/search_keywordtab.png) bottom no-repeat;}
+#searchForm div .keyword-tab a.current{background:url(../images/search_keywordtab.png) bottom no-repeat;}
 #searchForm .industry input,#searchForm .job input,
 #searchForm .workingtime input,#searchForm .degree input,
-#searchForm .comptype input,#searchForm .compsize input{width:256px;padding-left:25px;text-align:left;background:url(../Images/botton_sprites.png) 0 0 no-repeat;width:290px;height:27px;overflow:hidden;line-height:26px;cursor:pointer;margin-left:0;}
+#searchForm .comptype input,#searchForm .compsize input{width:256px;padding-left:25px;text-align:left;background:url(../images/botton_sprites.png) 0 0 no-repeat;width:290px;height:27px;overflow:hidden;line-height:26px;cursor:pointer;margin-left:0;}
 #searchForm .industry input:hover,#searchForm .job input:hover,
 #searchForm .workingtime input:hover,#searchForm .degree input:hover,
 #searchForm .comptype input:hover,#searchForm .compsize input:hover{background-position:0 -50px;}
@@ -53,9 +53,9 @@ a{text-decoration:none;}
 #searchForm .comptype input:active,#searchForm .compsize input:active{background-position:0 -100px;}
 #searchForm .time select,#searchForm .Distance select{width:290px;padding:4px;height:27px;}
 #searchForm .keyword{width:610px;height:60px;background:none;}
-#searchForm .keyword input{background:url(../Images/search_keyword.png) no-repeat;color:#999;height:19px;line-height:18px;width:595px;padding:4px 0 4px 15px;}
+#searchForm .keyword input{background:url(../images/search_keyword.png) no-repeat;color:#999;height:19px;line-height:18px;width:595px;padding:4px 0 4px 15px;}
 #KeyWord_kw2{margin:0;}
-#searchForm .city2 input,#searchForm .markcity input,#searchForm .landmark input{width:215px;height:19px;line-height:18px;text-align:left;padding:4px 0 4px 10px;margin:0;background:url(../Images/bg_sprites.png) 0 0 no-repeat;float:left;}
+#searchForm .city2 input,#searchForm .markcity input,#searchForm .landmark input{width:215px;height:19px;line-height:18px;text-align:left;padding:4px 0 4px 10px;margin:0;background:url(../images/bg_sprites.png) 0 0 no-repeat;float:left;}
 #searchForm .city2 input:hover,
 #searchForm .markcity input:hover,
 #searchForm .landmark input:hover{background-position:0 0;}
@@ -66,7 +66,7 @@ a{text-decoration:none;}
 #searchForm .markcity .search-citybtn:hover,
 #searchForm .landmark .search-citybtn:hover{background-position:-226px 0;}
 #searchForm .searchbtn{text-align:right;padding-right:20px;width:270px;}
-#searchForm .searchbtn .doesSearch{background:url(../Images/botton_sprites.png) -300px -103px no-repeat;width:129px;height:34px;}
+#searchForm .searchbtn .doesSearch{background:url(../images/botton_sprites.png) -300px -103px no-repeat;width:129px;height:34px;}
 #searchForm .searchbtn .doesSearch:hover{background-position:-300px -50px;}
 #searchForm .searchbtn .doesSearch:active{background-position:-300px 0px;}
 #searchForm .searchbtn a{margin-left:10px;}
@@ -78,11 +78,11 @@ a{text-decoration:none;}
 #searchForm .Salary-range select{width:102px;padding:4px;height:27px;}
 #searchForm .job-category .category{line-height:27px;vertical-align:-2px;margin-right:30px;}
 #searchForm .job-category .category input{vertical-align:-2px;margin-right:5px;}
-#searchForm .returnback{width:930px;height:21px;padding-top:5px;text-align:right;margin-top:0;background:url(../Images/returnback_bg.png) bottom repeat-x;}
-#searchForm .returnback:hover{background:url(../Images/returnback_bg.png) bottom repeat-x;}
-#searchForm .returnback a{background:url(../Images/returnback.png) left no-repeat;padding-left:18px;}
-#searchForm .slideUp a{background:url(../Images/sligup.png) left center no-repeat;padding:6px 0 5px 22px;line-height:20px;}
-#searchForm .slideUp a.down{background:url(../Images/sligdown.png) left center no-repeat;}
+#searchForm .returnback{width:930px;height:21px;padding-top:5px;text-align:right;margin-top:0;background:url(../images/returnback_bg.png) bottom repeat-x;}
+#searchForm .returnback:hover{background:url(../images/returnback_bg.png) bottom repeat-x;}
+#searchForm .returnback a{background:url(../images/returnback.png) left no-repeat;padding-left:18px;}
+#searchForm .slideUp a{background:url(../images/sligup.png) left center no-repeat;padding:6px 0 5px 22px;line-height:20px;}
+#searchForm .slideUp a.down{background:url(../images/sligdown.png) left center no-repeat;}
 #searchForm .slideUp,#searchForm .searchbtn{margin-top:15px;height:36px;}
 #searchForm #moreoption{margin:0;padding:0;width:988px;height:auto;}
 /**地图搜索 职位 工作 长度小**/
@@ -96,21 +96,21 @@ a{text-decoration:none;}
 #searchForm .industry-small input:visited{background-position:0 -200px;}
 #searchForm .keyword-small,#searchForm .Salary-range-long{width:320px;margin-left:10px;}
 #searchForm .Salary-range-long select{width:118px;}
-#searchForm .keyword-small input{width:305px;background:url(../Images/search_keywordsmall.png) no-repeat;}
+#searchForm .keyword-small input{width:305px;background:url(../images/search_keywordsmall.png) no-repeat;}
 #searchForm .time-small,#searchForm .city-small{width:130px;margin-left:10px;}
 #searchForm .time-small select{width:128px;}
-#searchForm .city-small input{background:url(../Images/bg_sprites.png) -700px 0 no-repeat;width:57px;}
+#searchForm .city-small input{background:url(../images/bg_sprites.png) -700px 0 no-repeat;width:57px;}
 #searchForm .city-small .search-citybtn{width:63px;background-position:-767px 0;padding-left:0;}
 #searchForm .city-small .search-citybtn:hover{background-position:-767px 0;}
 /**sou suo song 20120604**/
 #searchForm div:hover{background:none;}
 #searchForm .currentFocus{background:none;}
 /**search-History**/
-.search-History{width:970px;margin:0px auto;font-size:12px;background:url(../Images/search_history_result.png) bottom repeat-x #c9e9ff;}
-.search-History-bottom{width:100%;height:14px;overflow:hidden;background:url(../Images/search-historybottom.png) bottom no-repeat;}
+.search-History{width:970px;margin:0px auto;font-size:12px;background:url(../images/search_history_result.png) bottom repeat-x #c9e9ff;}
+.search-History-bottom{width:100%;height:14px;overflow:hidden;background:url(../images/search-historybottom.png) bottom no-repeat;}
 .search-History-Result{border-left:1px solid #d6eaff;border-right:1px solid #d6eaff;padding:10px 20px;padding-bottom:0;line-height:24px;}
 .search-History-Result dt{font-weight:bold;color:#555;width:68px;float:left;}
-.search-History-Result dd{width:850px;height:24px;overflow:hidden;float:right;color:#315aaa;padding-left:10px;background:url(../Images/dotted.png) left no-repeat;}
+.search-History-Result dd{width:850px;height:24px;overflow:hidden;float:right;color:#315aaa;padding-left:10px;background:url(../images/dotted.png) left no-repeat;}
 .search-History-Result dd.clearfix{background:none;float:none;height:0;}
 /**广告位**/
 .adsBox{margin-top:20px;}
@@ -120,7 +120,7 @@ a{text-decoration:none;}
 .ad4in1 li:nth-child(6n){margin-right:0;}
 /**分类导航**/
 .cate-nav{margin-top:20px;border:1px solid #e0e0e0;padding:1px;width:990px;color:#555;font-size:12px;}
-.cate-nav h2{font-weight:bold;padding-left:20px;font-size:16px;height:42px;line-height:40px;background:url(../Images/cateNavDtbg.png) repeat-x;}
+.cate-nav h2{font-weight:bold;padding-left:20px;font-size:16px;height:42px;line-height:40px;background:url(../images/cateNavDtbg.png) repeat-x;}
 .cate-tree{float:left;height:425px;overflow-y:auto;}
 .cate-tree{cursor:pointer;}
 .cate-tree-lv1{width:160px;background-color:#e9e9e9;}
@@ -132,7 +132,7 @@ a{text-decoration:none;}
 .cate-tree-lv2 ul,.cate-tree-lv3 ul,.cate-tree-lv4 ul{margin:30px 0 0 10px;width:94%;*width:88%;}
 .cate-tree-lv2 li,.cate-tree-lv3 li,.cate-tree-lv4 li{height:24px;line-height:24px;padding-left:10px;border:1px solid transparent;margin-bottom:5px;/* hack for ie6 bordercolor's transparent */_border-color:gray;_filter:chroma(color=gray);}
 .cate-tree-lv2 li.current,.cate-tree-lv2 li:hover,.cate-tree-lv3 li.current,.cate-tree-lv3 li:hover{background-color:#f7f7f7;border:1px solid #dbdbdb;}
-.cate-tree-lv2 li.current,.cate-tree-lv3 li.current{font-weight:bold;background:url(../Images/cateNavArrow.png) no-repeat 97%;}
+.cate-tree-lv2 li.current,.cate-tree-lv3 li.current{font-weight:bold;background:url(../images/cateNavArrow.png) no-repeat 97%;}
 .cate-tree-lv2 li.current,.cate-tree-lv3 li.current{background-color:#fff;}
 /* 第四列，当有第四列时 */
 .cate-tree-lv4{width:323px;}
@@ -144,9 +144,9 @@ a{text-decoration:none;}
 /**职位终端**/
 .Terminal-title{font-size:20px;font-family:黑体;color:#315aaa;height:50px;overflow:hidden;line-height:52px;padding:4px 0 0 30px;}
 /**公司介绍**/
-.left-box{width:811px;background:url(../Images/shadowmid.png) left repeat-y;float:left;overflow:hidden;}
-.left-boxtop{height:11px;overflow:hidden;background:url(../Images/shadowtop1.png) left no-repeat;}
-.left-boxbot{height:12px;overflow:hidden;background:url(../Images/shadowbot.png) left no-repeat;}
+.left-box{width:811px;background:url(../images/shadowmid.png) left repeat-y;float:left;overflow:hidden;}
+.left-boxtop{height:11px;overflow:hidden;background:url(../images/shadowtop1.png) left no-repeat;}
+.left-boxbot{height:12px;overflow:hidden;background:url(../images/shadowbot.png) left no-repeat;}
 .left-boxmid{padding:8px 20px;}
 .right-box{float:right;width:155px;overflow:hidden;}
 .basic-information{padding-bottom:15px;border-bottom:2px solid #d6e5f8;}
@@ -163,16 +163,16 @@ a{text-decoration:none;}
 .company-headline .current:hover{text-decoration:none;}
 .company-introduction{font-size:14px;color:#555;padding:10px;line-height:24px;}
 .company-introduction p{padding:8px 0;}
-.img-valign{display:inline-block;width:107px;height:30px;vertical-align:-8px;background:url(../Images/button_sprites.png) 0 -96px no-repeat;}
+.img-valign{display:inline-block;width:107px;height:30px;vertical-align:-8px;background:url(../images/button_sprites.png) 0 -96px no-repeat;}
 .img-valign:hover{background-position:0 -128px;}
 .img-valign:active{background-position:0 -160px;}
 .img-valign img{visibility:hidden;}
-.view-btn{width:111px;height:28px;margin-top:3px;background:url(../Images/button_sprites.png) -89px 0 no-repeat;float:right;*margin-top:-32px;}
+.view-btn{width:111px;height:28px;margin-top:3px;background:url(../images/button_sprites.png) -89px 0 no-repeat;float:right;*margin-top:-32px;}
 .view-btn:hover{background-position:-89px -29px;}
 .view-btn:active{background-position:-89px -58px;}
 /*.city-job-tab{font-size:14px;color:#d0cfcf;line-height:38px;border-bottom:2px solid #d6e5f8;}
 .city-job-tab a{color:#315aaa;margin:0 20px;display:inline-block;}
-.city-job-tab a.current{text-decoration:none;font-weight:bold;color:#555555;background:url(../Images/blurup.png) bottom center no-repeat}*/
+.city-job-tab a.current{text-decoration:none;font-weight:bold;color:#555555;background:url(../images/blurup.png) bottom center no-repeat}*/
 .basic-time{font-size:13px;margin-top:10px;border:0;}
 .basic-time dt{width:80px;font-family:simsun; line-height:17px;}
 .basic-time dd{width:620px; height:28px; line-height:17px;}
@@ -303,8 +303,8 @@ ul.other_do{padding-left:5px;margin-top:10px;width:110px;}
 .search-left-navmid dd.sub_ways_nav li{line-height:18px;padding-left:5px;}
 .search-mapcont-list{width:718px;float:left;margin-left:-1px;}
 /*排列方式*/
-.list-heads{line-height:30px;color:#555555;padding:20px 0 10px 20px;background:url(../Images/listhead.png) left top no-repeat;}
-.list-heads a{display:inline-block;padding-left:16px;color:#999;margin:0 6px;background:url(../Images/icon_sprites.png) 0 0 no-repeat;}
+.list-heads{line-height:30px;color:#555555;padding:20px 0 10px 20px;background:url(../images/listhead.png) left top no-repeat;}
+.list-heads a{display:inline-block;padding-left:16px;color:#999;margin:0 6px;background:url(../images/icon_sprites.png) 0 0 no-repeat;}
 .list-heads a:hover{color:#315aaa;}
 .list-heads a.modeof1{background-position:0 -290px;}
 .list-heads a.modeof1current,.list-heads a.modeof1:hover{background-position:-1px 6px;}
@@ -321,7 +321,7 @@ ul.other_do{padding-left:5px;margin-top:10px;width:110px;}
 .list-heads a.modeof3current{font-weight:bold;color:#315aaa;}
 /*排列方式*/
 .list-heads span{float:right;*margin-top:-40px;padding-right:10px;line-height:30px;*line-height:30px;}
-.search-result-cont{background:url(../Images/resultelistbg.png) top repeat-y;padding:5px 5px 0 10px;}
+.search-result-cont{background:url(../images/resultelistbg.png) top repeat-y;padding:5px 5px 0 10px;}
 /*循环数据头部 开始*/
 .search-result-tabth{background:url(../images/resultelisthead.png) 0 20px no-repeat;}
 .search-result-tabth th{height:30px;text-align:left;padding-left:10px;}
@@ -361,27 +361,27 @@ ul.other_do{padding-left:5px;margin-top:10px;width:110px;}
 .search-result-infotab .tabCol1 p{color:#555;}
 .search-result-infotab .tabCol2{text-align:center;line-height:30px;width:122px;}
 .search-result-tab .hideTr:hover .tabCol2{}
-/*.ordering-btn{display:inline-block;width:103px;height:27px;background:url(../Images/button_sprites.png) -112px -97px no-repeat;}
+/*.ordering-btn{display:inline-block;width:103px;height:27px;background:url(../images/button_sprites.png) -112px -97px no-repeat;}
 .ordering-btn:hover{background-position:-112px -129px;}
 .ordering-btn:active{background-position:-112px -161px;}
 .ordering-btn img{visibility:hidden;}*/
 /*循环数据中 收藏职位*/
-.Collection{background:url(../Images/icon_sprites.png) 0 -361px no-repeat;padding:4px 0 0 15px;*background-position:0 -363px;}
+.Collection{background:url(../images/icon_sprites.png) 0 -361px no-repeat;padding:4px 0 0 15px;*background-position:0 -363px;}
 /*循环数据中 展开隐藏 箭头*/
-.search-result-tab .showTR-btn a{background:url(../Images/listsligdown.png) left no-repeat;display:inline-block;width:16px;height:16px;}
-.search-result-tab .showTR-btn a.showTR-up-btn{background:url(../Images/listsligdup.png) left no-repeat;}
+.search-result-tab .showTR-btn a{background:url(../images/listsligdown.png) left no-repeat;display:inline-block;width:16px;height:16px;}
+.search-result-tab .showTR-btn a.showTR-up-btn{background:url(../images/listsligdup.png) left no-repeat;}
 .showTR-btn a:hover{text-decoration:none;}
 /*循环数据底部 头部 全选*/
-.applay-select{background-color:#f1f1f1;padding-top:10px;width:714px;height:43px;background:url(../Images/applayselectbottom.png) left bottom no-repeat;}
+.applay-select{background-color:#f1f1f1;padding-top:10px;width:714px;height:43px;background:url(../images/applayselectbottom.png) left bottom no-repeat;}
 .applay-All{float:left;padding-left:21px;}
 .applay-All label{color:#315aaa;}
 .applay-All label input{vertical-align:-2px;width:15px;margin-right:5px;}
 /*申请职位，收藏职位按钮 开始*/
 .selectall-btn,.Collection-btn{width:103px;height:28px;margin:0 5px;overflow:hidden;}
-.selectall-btn{background:url(../Images/button_sprites.png) -223px 0 no-repeat;}
+.selectall-btn{background:url(../images/button_sprites.png) -223px 0 no-repeat;}
 .selectall-btn:hover{background-position:-223px -29px;}
 .selectall-btn:active{background-position:-223px -59px;}
-.Collection-btn{background:url(../Images/button_sprites.png) -223px -96px no-repeat;}
+.Collection-btn{background:url(../images/button_sprites.png) -223px -96px no-repeat;}
 .Collection-btn:hover{background-position:-223px -126px;}
 .Collection-btn:active{background-position:-223px -156px;}
 /*申请职位，收藏职位按钮 结束*/
@@ -411,7 +411,7 @@ ul.other_do{padding-left:5px;margin-top:10px;width:110px;}
 .interested-thing li{background:url(../images/dotted.png) 12px 8px no-repeat;line-height:21px;padding:0 20px 10px 20px;}
 .interested-thing li a{margin-right:25px;display:inline-block;}
 /**全都展开的列表 详情显示样式**/
-.search-result-tabF{background:url(../Images/showTrFbg.png) bottom center no-repeat;border:1px solid #fff;}
+.search-result-tabF{background:url(../images/showTrFbg.png) bottom center no-repeat;border:1px solid #fff;}
 .search-result-tabF .tabCol6{width:622px;font-size:14px;padding-top:10px;}
 .search-result-tabF .tabCol7{width:70px;text-align:center;padding-top:10px;}
 .search-result-tabF .Jobname input{}
@@ -690,7 +690,7 @@ div,ul,li,h2 {padding:0;margin:0;}
     list-style:none;
 }
 .bottom-blue {
-    background: url("../Images/blue_img.png") no-repeat;
+    background: url("../images/blue_img.png") no-repeat;
     color: #FFFFFF;
     display: block;
     float: left;
@@ -745,7 +745,7 @@ div,ul,li,h2 {padding:0;margin:0;}
     padding: 5px 20px 20px;
     width: 178px;
     height:891px;
-    background: url(../Images/urgent_left_img.png) no-repeat;
+    background: url(../images/urgent_left_img.png) no-repeat;
     _padding-right:18px;
 }
 .urgent-terminalpage-left-bgimg h1 {
@@ -815,7 +815,7 @@ div,ul,li,h2 {padding:0;margin:0;}
     box-shadow:3px 3px 3px #fff inset;
 }
 .urgent-terminalpage-left-bgimg .search-img {
-    background:url(../Images/urgent_terminalpage_icon.png) no-repeat 0 -154px;
+    background:url(../images/urgent_terminalpage_icon.png) no-repeat 0 -154px;
     border-left:0;
     height:30px;
     width:40px;
@@ -845,7 +845,7 @@ div,ul,li,h2 {padding:0;margin:0;}
     width:21px;
     height:22px;
     float:left;
-    background:url(../Images/urgent_terminalpage_icon.png) -15px -6px no-repeat;
+    background:url(../images/urgent_terminalpage_icon.png) -15px -6px no-repeat;
 }
 .urgent-terminalpage-title {
     height:35px;
@@ -873,16 +873,10 @@ div,ul,li,h2 {padding:0;margin:0;}
 .urgent-button-img {
     width:122px;
     height:38px;
-    background:url(../Images/urgent_terminalpage_button.png) 0 0 no-repeat;
+    background:url(../images/urgent_terminalpage_button.png) 0 0 no-repeat;
     border:none;
 }
-body{
-    font-size:12px;
-    font-family:simsun;
-    background:url(http://img03.zhaopin.cn/2012/img/jobs/bg_img.png) center repeat;
-    margin:0;
-    padding:0;
-}
+
 .terminalpage-right ul,.nav-bar ul,.bottom-tips ul,.sbc ul,input {
     margin:0;
     padding:0;
@@ -891,23 +885,6 @@ body{
 .terminalpage-left-top h1,.terminalpage-left-top h2,.terminalpage-right h2 {
     margin:0;
     padding:0;
-}
-em {
-    font-style: normal;
-}
-
-h1,h2,h3,h4,h5,h6{
-    font-size:100%;
-    font-weight:400;
-}
-input{
-    border:none;
-    background:none;
-}
-button{
-    border:none;
-    vertical-align:middle;
-    cursor:pointer;
 }
 .terminalpage strong {
     font-weight:bold;
@@ -1100,7 +1077,7 @@ a:hover {
 
 /*职位亮点标签*/
 .welfare-tab-box{ margin-top:0px;}
-.welfare-tab-box span{ display:inline-block; padding:2px 7px; background:#CCE7F5; border:1px solid #B2D8EE; margin:10px 10px 0px 0; font:500 12px "Microsoft Yahei"; color:#528BB5;}
+.welfare-tab-box span{ display:inline-block; padding:2px 7px; margin:10px 10px 0px 0; font:500 12px "Microsoft Yahei"; color:#528BB5;}
 
      
 

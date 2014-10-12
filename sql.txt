@@ -51,27 +51,242 @@ CREATE TABLE `pre_jobs` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `uid` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `gs_title` varchar(255) NOT NULL COMMENT 'π´Àæ√˚≥∆',
-  `gs_didian` varchar(255) NOT NULL COMMENT 'π´Àæµÿµ„',
-  `gs_guimo` varchar(255) NOT NULL COMMENT 'π´ÀæπÊƒ£',
-  `gs_xingzhi` varchar(255) NOT NULL COMMENT 'π´Àæ–‘÷ ',
-  `gs_miaoshu` text NOT NULL COMMENT 'π´Àæ√Ë ˆ',
-  `gs_zhuye` varchar(255) NOT NULL COMMENT 'π´Àæ÷˜“≥',
-  `gz_miaoshu` text NOT NULL COMMENT 'π§◊˜√Ë ˆ',
-  `gz_didian` varchar(255) NOT NULL COMMENT 'π§◊˜µÿµ„',
-  `gz_jingyan` varchar(255) NOT NULL COMMENT 'π§◊˜æ≠—È',
-  `gz_xingzhi` varchar(255) NOT NULL COMMENT 'π§◊˜–Ω◊ ',
-  `gz_zdxueli` varchar(255) NOT NULL COMMENT '◊ÓµÕ—ß¿˙',
-  `gz_gljy` varchar(255) NOT NULL COMMENT 'π‹¿Ìæ≠—È',
-  `gz_xinzi` varchar(255) NOT NULL COMMENT 'π§◊˜–Ω◊ ',
-  `gz_renshu` varchar(255) NOT NULL COMMENT '’–∆∏»À ˝',
-  `gz_zhiwei` varchar(255) NOT NULL COMMENT 'π§◊˜÷∞Œª',
-  `gz_fuli` varchar(255) NOT NULL COMMENT 'π§◊˜∏£¿˚',
-  `gz_contactor` varchar(255) NOT NULL COMMENT '¡™œµ»À',
-  `gz_contact` varchar(255) NOT NULL COMMENT '¡™œµ∑Ω Ω',  
+  `gs_title` varchar(255) NOT NULL COMMENT 'ÂÖ¨Âè∏ÂêçÁß∞',
+  `gs_didian` varchar(255) NOT NULL COMMENT 'ÂÖ¨Âè∏Âú∞ÁÇπ',
+  `gs_guimo` varchar(255) NOT NULL COMMENT 'ÂÖ¨Âè∏ËßÑÊ®°',
+  `gs_xingzhi` varchar(255) NOT NULL COMMENT 'ÂÖ¨Âè∏ÊÄßË¥®',
+  `gs_miaoshu` text NOT NULL COMMENT 'ÂÖ¨Âè∏ÊèèËø∞',
+  `gs_zhuye` varchar(255) NOT NULL COMMENT 'ÂÖ¨Âè∏‰∏ªÈ°µ',
+  `gz_miaoshu` text NOT NULL COMMENT 'Â∑•‰ΩúÊèèËø∞',
+  `gz_didian` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúÂú∞ÁÇπ',
+  `gz_jingyan` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúÁªèÈ™å',
+  `gz_xingzhi` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúËñ™ËµÑ',
+  `gz_zdxueli` varchar(255) NOT NULL COMMENT 'ÊúÄ‰ΩéÂ≠¶ÂéÜ',
+  `gz_gljy` varchar(255) NOT NULL COMMENT 'ÁÆ°ÁêÜÁªèÈ™å',
+  `gz_xinzi` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúËñ™ËµÑ',
+  `gz_renshu` varchar(255) NOT NULL COMMENT 'ÊãõËÅò‰∫∫Êï∞',
+  `gz_zhiwei` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúËÅå‰Ωç',
+  `gz_fuli` varchar(255) NOT NULL COMMENT 'Â∑•‰ΩúÁ¶èÂà©',
+  `gz_contactor` varchar(255) NOT NULL COMMENT 'ËÅîÁ≥ª‰∫∫',
+  `gz_contact` varchar(255) NOT NULL COMMENT 'ËÅîÁ≥ªÊñπÂºè',  
 
   
 
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_agent`;
+CREATE TABLE `pre_agent` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,    
+  `companyowner` varchar(255) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,
+  `jobname` varchar(255) NOT NULL,
+  `officurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+
+DROP TABLE IF EXISTS   `pre_dealer`;
+CREATE TABLE `pre_dealer` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,    
+  `companyowner` varchar(255) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,
+  `jobname` varchar(255) NOT NULL,
+  `officurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_exhibition`;
+CREATE TABLE `pre_exhibition` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,    
+  `companyowner` varchar(255) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,
+  `jobname` varchar(255) NOT NULL,
+  `officurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_lecturer`;
+CREATE TABLE `pre_lecturer` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `companyowner` varchar(255) NOT NULL,  
+  `belongCompany` varchar(255) NOT NULL,
+  `belongTeam` varchar(255) NOT NULL,
+  `jobname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `idcard` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_team`;
+CREATE TABLE `pre_team` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `teamname` varchar(255) NOT NULL,  
+  `companyowner` varchar(255) NOT NULL,
+  `officurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_personal`;
+CREATE TABLE `pre_personal` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `contactname` varchar(255) NOT NULL,  
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `useremail` varchar(255) NOT NULL,
+  `idcard` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_servicer`;
+CREATE TABLE `pre_servicer` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `truename` varchar(255) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `mainproduct` varchar(255) NOT NULL,
+  `jobname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `idcard` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_producer`;
+CREATE TABLE `pre_producer` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `companyowner` varchar(255) NOT NULL,  
+  `address` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `companyurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_magazine`;
+CREATE TABLE `pre_magazine` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `companyowner` varchar(255) NOT NULL,  
+  `officurl` varchar(255) NOT NULL,
+  `contactname` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `mainproduct` varchar(255) NOT NULL,
+  `magazinename` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,  
+  `cTime` int(11) NOT NULL,  
+  `hits` int(11) NOT NULL,
+  `top` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_website`;
+CREATE TABLE `pre_website` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `faceimg` int(10) NOT NULL,
+  `localarea` int(10) NOT NULL,  
+  `companyname` varchar(255) NOT NULL,  
+  `companyowner` varchar(255) NOT NULL,  
+  `websitename` varchar(255) NOT NULL,
+  `websiteurl` varchar(255) NOT NULL,
+  `websiteowner` varchar(255) NOT NULL,
+  `contactmobile` varchar(255) NOT NULL,
+  `licensenumber` varchar(255) NOT NULL,  
   `cTime` int(11) NOT NULL,  
   `hits` int(11) NOT NULL,
   `top` tinyint(1) NOT NULL,

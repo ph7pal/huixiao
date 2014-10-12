@@ -2,10 +2,10 @@
 <?php $typeinfo=tools::userCredits($type);?>
 <input class="form-control" name="type" id="type" type="hidden" value="<?php echo $type;?>"/>
 <p><label>认证类型：</label><input class="form-control" value="<?php echo $typeinfo['title']; ?>" disabled/></p>
-<p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="qq" id="qq" type="text" value="<?php echo $info['qq']; ?>"/></p>
-<p><label>联系人手机<span class="required">*</span>：</label><input class="form-control bitian" name="mobile" id="mobile" type="text" value="<?php echo $info['mobile']; ?>"/></p>
+<p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>"/></p>
+<p><label>联系人手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>"/></p>
 <p><label>有效邮箱<span class="required">*</span>：</label><input class="form-control bitian" name="useremail" id="useremail" type="text" value="<?php echo $info['useremail']; ?>"/></p>
-<p><label>身份证号<span class="required">*</span>：</label><input class="form-control bitian" name="user_id" id="user_id" type="text" value="<?php echo $info['user_id']; ?>"/></p>
+<p><label>身份证号<span class="required">*</span>：</label><input class="form-control bitian" name="idcard" id="idcard" type="text" value="<?php echo $info['idcard']; ?>"/></p>
 <div class="form-group">
     <label>附件上传：</label><br/>
     <ol>
