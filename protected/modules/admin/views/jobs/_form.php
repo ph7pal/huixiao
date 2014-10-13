@@ -1,5 +1,11 @@
-<div class="form mod">
-<h3><?php echo $this->listTableTitle;?></h3>
+<?php
+/* @var $this JobsController */
+/* @var $model Jobs */
+/* @var $form CActiveForm */
+?>
+
+<div class="form">
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'jobs-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -8,7 +14,15 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
+
 	<?php echo $form->errorSummary($model); ?>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'uid'); ?>
+		<?php echo $form->textField($model,'uid',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'uid'); ?>
+	</div>
+
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
@@ -124,7 +138,31 @@
 	</div>
 
 	<div class="form-group">
-		<?php echo CHtml::submitButton($model->isNewRecord ? '新增' : '保存',array('class'=>'btn btn-success')); ?>
+		<?php echo $form->labelEx($model,'cTime'); ?>
+		<?php echo $form->textField($model,'cTime',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'cTime'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'hits'); ?>
+		<?php echo $form->textField($model,'hits',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'hits'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'top'); ?>
+		<?php echo $form->textField($model,'top',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'top'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->textField($model,'status',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo CHtml::submitButton($model->isNewRecord ? '新增' : '保存',array('class'=>'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

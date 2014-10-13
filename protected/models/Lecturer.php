@@ -19,6 +19,9 @@
  * @property integer $hits
  * @property integer $top
  * @property integer $status
+ * @property integer $medal
+ * @property string $medal_logo
+ * @property string $medal_title
  */
 class Lecturer extends CActiveRecord {
 
@@ -36,12 +39,13 @@ class Lecturer extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid,localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime,status', 'required'),
-        array('uid, faceimg, localarea, cTime, hits, top, status', 'numerical', 'integerOnly' => true),
+        array('uid, faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status, medal_logo, medal_title', 'required'),
+        array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'length', 'max' => 255),
+        array('medal_logo, medal_title', 'length', 'max' => 16),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status', 'safe', 'on' => 'search'),
+        array('id, uid, faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
     );
   }
 
@@ -61,20 +65,23 @@ class Lecturer extends CActiveRecord {
   public function attributeLabels() {
     return array(
         'id' => 'ID',
-        'uid' => 'Uid',
-        'faceimg' => 'Faceimg',
-        'localarea' => 'Localarea',
-        'companyname' => 'Companyname',
-        'companyowner' => 'Companyowner',
-        'belongCompany' => 'Belong Company',
-        'belongTeam' => 'Belong Team',
-        'jobname' => 'Jobname',
-        'contactmobile' => 'Contactmobile',
-        'idcard' => 'Idcard',
-        'cTime' => 'C Time',
-        'hits' => 'Hits',
-        'top' => 'Top',
-        'status' => 'Status',
+        'uid' => '作者',
+        'faceimg' => '封面图',
+        'localarea' => '所在地',
+        'companyname' => '公司名称',
+        'companyowner' => '法人代表',
+        'belongCompany' => '所属公司',
+        'belongTeam' => '所属营销团队',
+        'jobname' => '职位名称',
+        'contactmobile' => '联系手机',
+        'idcard' => '身份证号',
+        'cTime' => '创建时间',
+        'hits' => '点击次数',
+        'top' => '是否置顶',
+        'status' => '状态',
+        'medal' => '徽章',
+        'medal_logo' => '徽章LOGO',
+        'medal_title' => '徽章标题',
     );
   }
 
@@ -110,6 +117,9 @@ class Lecturer extends CActiveRecord {
     $criteria->compare('hits', $this->hits);
     $criteria->compare('top', $this->top);
     $criteria->compare('status', $this->status);
+    $criteria->compare('medal', $this->medal);
+    $criteria->compare('medal_logo', $this->medal_logo, true);
+    $criteria->compare('medal_title', $this->medal_title, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,

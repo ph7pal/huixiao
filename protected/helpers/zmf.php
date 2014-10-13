@@ -765,29 +765,29 @@ class zmf {
             'css' => ($c == 'all' && $classify=='') ? 'active' : ''
         );
         $arr['企业'] = array(
-            'url' => CHtml::link('企业', array('all/list', 'table' => 'credit', 'classify' => 'producer')),
+            'url' => CHtml::link('企业', array('producer/index')),
             'power' => '',
-            'css' => ($classify == 'producer') ? 'active' : ''
+            'css' => ($c == 'producer') ? 'active' : ''
         );
         $arr['讲师'] = array(
-            'url' => CHtml::link('讲师', array('all/list', 'table' => 'credit', 'classify' => 'lecturer')),
+            'url' => CHtml::link('讲师', array('lecturer/index')),
             'power' => '',
-            'css' => ($classify == 'lecturer') ? 'active' : ''
+            'css' => ($c == 'lecturer') ? 'active' : ''
         );
         $arr['产品'] = array(
-            'url' => CHtml::link('产品', array('all/list', 'table' => 'posts', 'colid' => '10')),
+            'url' => CHtml::link('产品', array('goods/index')),
             'power' => '',
-            'css' => ($_GET['colid'] == '98') ? 'active' : ''
+            'css' => ($c == 'goods') ? 'active' : ''
         );
         $arr['展会'] = array(
-            'url' => CHtml::link('展会', array('all/list', 'table' => 'credit', 'classify' => 'exhibition')),
+            'url' => CHtml::link('展会', array('exhibition/index')),
             'power' => '',
-            'css' => ($classify == 'exhibition') ? 'active' : ''
+            'css' => ($c == 'exhibition') ? 'active' : ''
         );
         $arr['团队'] = array(
-            'url' => CHtml::link('团队', array('all/list', 'table' => 'credit', 'classify' => 'marketing_team')),
+            'url' => CHtml::link('团队', array('team/index')),
             'power' => '',
-            'css' => ($classify == 'marketing_team') ? 'active' : ''
+            'css' => ($c == 'team') ? 'active' : ''
         );
         
         $arr['工具'] = array(

@@ -292,3 +292,53 @@ CREATE TABLE `pre_website` (
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+alter table pre_agent add medal int(10) not null default 0;
+alter table pre_agent add medal_logo char(16) not null;
+alter table pre_agent add medal_title char(16) not null;
+
+alter table pre_dealer add medal int(10) not null default 0;
+alter table pre_dealer add medal_logo char(16) not null;
+alter table pre_dealer add medal_title char(16) not null;
+
+alter table pre_exhibition add medal int(10) not null default 0;
+alter table pre_exhibition add medal_logo char(16) not null;
+alter table pre_exhibition add medal_title char(16) not null;
+
+alter table pre_lecturer add medal int(10) not null default 0;
+alter table pre_lecturer add medal_logo char(16) not null;
+alter table pre_lecturer add medal_title char(16) not null;
+
+alter table pre_magazine add medal int(10) not null default 0;
+alter table pre_magazine add medal_logo char(16) not null;
+alter table pre_magazine add medal_title char(16) not null;
+
+alter table pre_personal add medal int(10) not null default 0;
+alter table pre_personal add medal_logo char(16) not null;
+alter table pre_personal add medal_title char(16) not null;
+
+alter table pre_producer add medal int(10) not null default 0;
+alter table pre_producer add medal_logo char(16) not null;
+alter table pre_producer add medal_title char(16) not null;
+
+alter table pre_servicer add medal int(10) not null default 0;
+alter table pre_servicer add medal_logo char(16) not null;
+alter table pre_servicer add medal_title char(16) not null;
+
+alter table pre_team add medal int(10) not null default 0;
+alter table pre_team add medal_logo char(16) not null;
+alter table pre_team add medal_title char(16) not null;
+
+
+alter table pre_website add medal int(10) not null default 0;
+alter table pre_website add medal_logo char(16) not null;
+alter table pre_website add medal_title char(16) not null;
+
+DROP TABLE IF EXISTS   `pre_medal`;
+CREATE TABLE `pre_medal` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL,  
+  `logo` char(16) NOT NULL,  
+  `cTime` int(11) NOT NULL,    
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

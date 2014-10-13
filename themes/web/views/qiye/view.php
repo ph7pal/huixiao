@@ -1,7 +1,6 @@
 <div class="w_960 content">
   <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('信用厂家',array('qiye/index'));?>&gt; <?php echo $info['companyname'];?></span></div>
   <div class="my_shop skin_black">
-
       <div class="shop_header">
           <div class="my_banner">
               <img style="width: 960px; height: 150px;" src="<?php echo Yii::app()->theme->baseUrl;?>/images/mall_banner1.png" alt="" />

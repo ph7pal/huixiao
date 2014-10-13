@@ -20,6 +20,9 @@
  * @property integer $hits
  * @property integer $top
  * @property integer $status
+ * @property integer $medal
+ * @property string $medal_logo
+ * @property string $medal_title
  */
 class Magazine extends CActiveRecord {
 
@@ -37,12 +40,13 @@ class Magazine extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, localarea, companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber, cTime, status', 'required'),
-        array('uid, faceimg, localarea, cTime, hits, top, status', 'numerical', 'integerOnly' => true),
+        array('uid, faceimg, localarea, companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber, cTime, hits, top, status, medal_logo, medal_title', 'required'),
+        array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber', 'length', 'max' => 255),
+        array('medal_logo, medal_title', 'length', 'max' => 16),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, faceimg, localarea, companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber, cTime, hits, top, status', 'safe', 'on' => 'search'),
+        array('id, uid, faceimg, localarea, companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
     );
   }
 
@@ -77,6 +81,9 @@ class Magazine extends CActiveRecord {
         'hits' => 'Hits',
         'top' => 'Top',
         'status' => 'Status',
+        'medal' => 'Medal',
+        'medal_logo' => 'Medal Logo',
+        'medal_title' => 'Medal Title',
     );
   }
 
@@ -113,6 +120,9 @@ class Magazine extends CActiveRecord {
     $criteria->compare('hits', $this->hits);
     $criteria->compare('top', $this->top);
     $criteria->compare('status', $this->status);
+    $criteria->compare('medal', $this->medal);
+    $criteria->compare('medal_logo', $this->medal_logo, true);
+    $criteria->compare('medal_title', $this->medal_title, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,
