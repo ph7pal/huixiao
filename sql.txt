@@ -197,7 +197,6 @@ CREATE TABLE `pre_personal` (
   `faceimg` int(10) NOT NULL,
   `localarea` int(10) NOT NULL,  
   `contactname` varchar(255) NOT NULL,  
-  `contactname` varchar(255) NOT NULL,
   `contactmobile` varchar(255) NOT NULL,
   `useremail` varchar(255) NOT NULL,
   `idcard` varchar(255) NOT NULL,  

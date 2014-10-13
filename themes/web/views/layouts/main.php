@@ -6,13 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
-    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
-<?php if((Yii::app()->getController()->id!='index')){//AND Yii::app()->getController()->getAction()->id=='index'?>    
+ <?php if(Yii::app()->getController()->id=='qiye'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsList.css" rel="stylesheet" type="text/css" />
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsIndex.css" rel="stylesheet" type="text/css" />
+<?php }elseif(Yii::app()->getController()->id!='index'){?>
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/Job.css" rel="stylesheet" type="text/css" />
+ 
+<?php }else{?>
+    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
 <?php }?>    
     <?php 
     Yii::app()->clientScript->registerCoreScript('jquery'); 

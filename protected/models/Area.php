@@ -165,5 +165,12 @@ class Area extends CActiveRecord {
       }
     }
   }
+  public function getOne($keyid, $return = '') {
+      $item = Area::model()->findByPk($keyid);
+      if ($return != '') {
+          return $item[$return];
+      }
+      return $item;
+  }
 
 }

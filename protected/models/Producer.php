@@ -132,6 +132,14 @@ class Producer extends CActiveRecord {
     return parent::model($className);
   }
   
+  public function getOne($keyid, $return = '') {
+      $item = Producer::model()->findByPk($keyid);
+      if ($return != '') {
+          return $item[$return];
+      }
+      return $item;
+  }
+  
   public static function getNews() {
     $sql = "SELECT id,companyname FROM {{producer}} ORDER BY cTime DESC LIMIT 12";
     $items = Yii::app()->db->createCommand($sql)->queryAll();

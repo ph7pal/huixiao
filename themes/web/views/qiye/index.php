@@ -1,55 +1,72 @@
-<div class="well well-sm" style="background: url(common/images/bg.gif) center no-repeat;height: 125px;">  
-</div>
-<div class="col-xs-3 col-sm-3 padding-right-15">
-  <div class="alert alert-danger">
-    <p><?php echo $creditInfo['companyname'];?></p>
+<div class="w_960 content">
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <a href="#">装修公司 </a>&gt; 栏目首页</span></div>
+
+
+  <!--条件筛选开始-->
+  <div class="designer">
+      <div class="screening" id="Div1">
+          <div class="bd" id="Div2">
+              <ul>
+                  <li class="item">
+                      <dl class="clearfix">
+                          <dt><s class="s"></s>所在区域：</dt>
+                          <dd><a href="#" class="select fl">不限</a>
+                              <div class="txt">
+                                  <a href="#">北京</a>
+                              </div>
+                              <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
+                                  <img src="Images/search_more.jpg" /><!--向下箭头-->
+                              </div>
+                              <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
+                                  <img src="Images/search_less.jpg" /><!--向上箭头-->
+                              </div>
+                          </dd>
+                      </dl>
+                  </li>
+                  <li class="item">
+                      <dl class="clearfix">
+                          <dt><s class="s"></s>主营产品：</dt>
+                          <dd style="float: left;"><a href="#" class="select fl">不限</a>
+                              <div class="txt">
+                                  <a href="#">保健品</a>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </li>
+                  <li class="item">
+                      <dl class="clearfix">
+                          <dt><s class="s"></s>信用等级：</dt>
+                          <dd><a href="#" class="select fl">不限</a>
+                              <div class="txt">
+                                  <a href="#">A</a><a href="#">AA</a><a href="#">AAA</a>
+                              </div>
+
+                          </dd>
+                      </dl>
+                  </li>
+
+
+              </ul>
+          </div>
+      </div>
+
   </div>
-  <div class="panel panel-default">
-    <!--div class="panel-heading"></div-->
-    <div class="panel-body">
-      <p><b>企业地址：</b><?php echo $creditInfo['address'];?></p>
-      <p><b>官方网站：</b><a href="<?php echo $creditInfo['companyurl'];?>" target="_blank"><?php echo $creditInfo['companyurl'];?></a></p>
-      <p><b>企业描述：</b><?php echo $creditInfo['description'];?></p>
-    </div>
+	  <!--条件筛选结束-->
+	  <!--显示项列表开始-->
+	  <!--循环显示，每次10条数据-->
+	  <?php if(!empty($posts)){foreach($posts as $post){$this->renderPartial('_view',array('data'=>$post));}}?>
+      <!--循环显示，每次10条数据结束-->
+      <!--显示项列表结束-->
+      <!--分页按钮开始-->
+      <div class="pageNavigation">
+          <div id="pagebar" class="pageNavigation">页次：<em class="c_page">1</em>/5 <span class="prev"><a class="nopage" href="#">上一页</a></span><a class="select">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><span class="next"><a class="" href="#">下一页</a></span></div>
+      </div>
+      <!--分页按钮结束-->
+      <!--广告-->
+      <div class="banner">
+          <a href="#" target="_blank">
+              <img alt="" src="Images/zxgsBanner.jpg" /></a>
+      </div>
   </div>
-</div>
-<div class="col-xs-9 col-sm-9 no-padding">
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" <?php if($colid=='' && $type==''){?>class="active"<?php }?>><?php echo CHtml::link('首页',array('qiye/index','id'=>$uid));?></li>
-    <?php if(!empty($columns)){?>
-    <?php foreach($columns as $col){?>
-    <li role="presentation" <?php if($colid==$col['id']){?>class="active"<?php }?>><?php echo CHtml::link($col['title'],array('qiye/index','id'=>$uid,'colid'=>$col['id']));?></li>
-    <?php }?>
-    <?php }?>
-    <li role="presentation" <?php if($type=='js'){?>class="active"<?php }?>><?php echo CHtml::link('优秀讲师',array('qiye/index','id'=>$uid,'type'=>'js'));?></li>
-  </ul>
-  <div style="margin-bottom: 15px;"></div>
-  <?php if(!empty($selected)){?>
-  <?php foreach($selected as $sel){?>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <?php echo $sel['title'];?>
-      </h4>      
-    </div>
-    <div class="panel-body">
-      <?php $this->renderPartial('/posts/miniLists',array('colinfo'=>$sel,'uid'=>$uid,'colnum'=>2,'facenum'=>12));?>
-    </div>
-  </div>
-  <?php }?>
-  <?php }?>
-  <div class="clearfix"></div>
-  <?php if((!$colid && $type=='js') || (!$colid && !$type)){?>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        讲师团队        
-      </h4>      
-    </div>
-    <div class="panel-body">
-      <?php $this->renderPartial('//module/listLecturer',array('areaid'=>0,'uid'=>$uid));?>
-    </div>
-  </div>
-  <?php }?>
-  
-</div>
