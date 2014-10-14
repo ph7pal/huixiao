@@ -1,0 +1,1 @@
+<?php $this->renderPartial('//goods/_form', array('model'=>$model)); ?>

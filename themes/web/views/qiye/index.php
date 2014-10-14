@@ -61,7 +61,7 @@
       <!--显示项列表结束-->
       <!--分页按钮开始-->
       <div class="pageNavigation">
-          <div id="pagebar" class="pageNavigation">页次：<em class="c_page">1</em>/5 <span class="prev"><a class="nopage" href="#">上一页</a></span><a class="select">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><span class="next"><a class="" href="#">下一页</a></span></div>
+          <div id="pagebar" class="pageNavigation"><?php  $this->renderPartial('/common/pager',array('pages'=>$pages)); ?></div>
       </div>
       <!--分页按钮结束-->
       <!--广告-->

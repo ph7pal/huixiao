@@ -12,6 +12,9 @@
 <?php }elseif(Yii::app()->getController()->id=='lecturer'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiList.css" rel="stylesheet" type="text/css" />
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" />
+<?php }elseif(Yii::app()->getController()->id=='zhanhui'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zhanhuiList.css" rel="stylesheet" type="text/css" />
+     <!--link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" /-->     
 <?php }elseif(Yii::app()->getController()->id!='index'){?>
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />

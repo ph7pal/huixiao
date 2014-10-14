@@ -1,0 +1,1 @@
+<?php $this->renderPartial('//zhanhui/_form', array('model'=>$model)); ?>

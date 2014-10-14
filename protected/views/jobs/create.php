@@ -1,0 +1,1 @@
+<?php $this->renderPartial('//jobs/_form', array('model'=>$model)); ?>

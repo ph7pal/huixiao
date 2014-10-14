@@ -212,6 +212,10 @@ class Users extends CActiveRecord {
         'url' => CHtml::link('招聘', array('user/list', 'table' => 'jobs'), array('class' => 'list_btn ' . ($_GET['table'] == 'jobs' ? 'current' : ''))),
         'power' => 'user_addquestion'
     );
+    $bar['user_zhanhui'] = array(
+        'url' => CHtml::link('展会', array('user/list', 'table' => 'zhanhui'), array('class' => 'list_btn ' . ($_GET['table'] == 'zhanhui' ? 'current' : ''))),
+        'power' => 'user_addquestion'
+    );
     $columns = Columns::userColumns($uid);
     if (!empty($columns)) {
       foreach ($columns as $val) {

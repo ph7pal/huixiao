@@ -1,0 +1,106 @@
+<div class="w_960 content">
+    <div class="position">
+        <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('展会',array('zhanhui/index'));?>&gt; <?php echo $info['title'];?></span>
+    </div>
+    <div class="tuangou">
+        <div class="grid_02 clearfix">
+            <div class="col_main">
+                <div class="main_wrap">
+                    <div class="top_box">
+                        <h1>
+                            <span class="sh">[活动结束]</span><?php echo $info['title'];?></h1>
+                        <table class="table_x" width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <em>所在区域：</em>渝北区
+                                </td>
+                                <td>
+                                    <em>活动时间：</em><span class="time_1"><?php echo date('Y年m月d日',$info['start_time']);?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <em>活动地点：</em><?php echo $info['didian'];?>
+                                </td>
+                                <td>
+                                    <s class="clock"></s>距报名截止还有<span class="day">0</span>天
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <em>报名截止：</em><span class="time_2"><?php echo date('Y年m月d日',$info['expired_time']);?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr style="line-height:25px">
+                                            <td nowrap="nowrap" valign="top">
+                                                <em>活动简介：</em>
+                                            </td>
+                                            <td align="left"><?php echo $info['description'];?></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="yibaoshu"><?php echo $info['canyu'];?></div>
+                        <s class="i_jiesu png_ie6">圆满结束</s>
+                    </div>
+                </div>
+            </div>
+            <div class="col_sub">
+                <div class="gg_maps">
+                    <div style="width: 280px; height: 277px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="grid_01 clearfix" id="ksbm">
+            <div class="col_main">
+                <div class="main_wrap">
+                    <div class="tg_m" style="width: 470px;">
+                        <div class="hd">
+                            快速报名
+                        </div>
+                        <div class="bd" style="height: 225px;">
+                            <div style="text-align: center; font: 22px;">
+                                <p style="padding-top: 60px; background-color: #fff; margin: -5px 0px 0 0;">
+                                    抱歉，本次活动报名已结束
+                                </p>
+                                <p>
+                                    欢迎您下次积极参与
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col_sub">
+                <div class="tg_m">
+                    <div class="hd">
+                        已报名的名单
+                    </div>
+                    <div class="bd">
+                        <ul id="mulitline1">
+                            <li>贺** ------ 15730128*** ------ 金城银樽b1 -17-10</li>
+                            <li>朱** ------ 15895001*** ------ 黄泥塝</li>
+                            <li>杨** ------ 13996221*** ------ 汽博</li>
+                            <li>陈** ------ 18625940*** ------ 爱加西西里</li>
+                            <li>王** ------ 15625002*** ------ 金鹏金岭</li>
+                            <li>刘** ------ 18525002*** ------ ·紫御江山</li>
+                            <li>李** ------ 13652401*** ------ 奥园</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tg_box_s">
+            <div class="hd  clearfix">
+                <a href="#" class="top">返回顶部</a>展会详情
+            </div>
+            <div class="bd hd_xiangqing">
+              <p><?php echo $info['content'];?></p>
+            </div>
+        </div>    
+    </div>
+</div>

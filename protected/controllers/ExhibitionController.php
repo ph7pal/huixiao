@@ -3,8 +3,16 @@
 class ExhibitionController extends T {
 
   public $layout = 'zhanhui';
-
+  
   public function actionIndex() {
+    $_sql = "SELECT * FROM {{zhanhui}}";
+    Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    $data['posts'] = $lists;
+    $data['pages'] = $pages;
+    $this->render('index', $data);
+  }
+
+  public function actionView() {
     $uid=zmf::filterInput($_GET['id']);
     $colid=zmf::filterInput($_GET['colid']);
     if(!$uid){
