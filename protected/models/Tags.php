@@ -223,5 +223,30 @@ class Tags extends CActiveRecord {
       return $arr;
     }
   }
+  
+  public static function getTagsGoods($tagid,$limit=10){
+    if(!$tagid){
+      return false;
+    }
+    $where.=" AND (colid={$tagid} OR colid2={$tagid} OR colid3={$tagid} OR colid4={$tagid} OR colid5={$tagid})";
+    $_sql = "SELECT id,title,faceimg FROM {{goods}} WHERE status=".Posts::STATUS_PASSED.$where." ORDER BY cTime DESC LIMIT {$limit}";
+    $lists = Yii::app()->db->createCommand($_sql)->queryAll();
+    if (!empty($lists)) {
+      foreach ($lists as $key => $goods) {
+        $faceurl = zmf::noImg('url');
+        if ($goods['faceimg'] > 0) {
+          $attachinfo = Attachments::getOne($goods['faceimg']);
+          if ($attachinfo) {
+            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+          }
+        }
+        $goods['faceurl'] = $faceurl;
+        $lists[$key] = $goods;
+      }
+    }
+    
+    
+    return $lists;
+  }
 
 }

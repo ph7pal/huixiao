@@ -9,15 +9,14 @@
                 <h1>您还可以</h1>
                 <ul>
                     <li class="urgent-gray-icon left-icon1">
-                        <a target="_blank" href="#">查看该公司其他职位
-                        </a>
+                      <?php echo CHtml::link('查看该公司其他职位',array('jobs/index','uid'=>$info['uid']));?>
                     </li>
-                    <li class="urgent-gray-icon left-icon2">
+                    <!--li class="urgent-gray-icon left-icon2">
                         <a target="_blank" href="javascript:void(0)">收藏该职位</a>
-                    </li>
-                    <li class="urgent-gray-icon left-icon3">
+                    </li-->
+                    <!--li class="urgent-gray-icon left-icon3">
                         <a target="_blank" href="javascript:void(0)">推荐给朋友</a>
-                    </li>
+                    </li-->
                 </ul>
             </div>
         </div>
@@ -91,13 +90,11 @@
                     </div>
                 </div>
                 <!--招聘信息 结束-->
-                <div class="urgent-button">
-
+                <!--div class="urgent-button">
                     <button class="urgent-button-img"
                         id="applyVacButton2" title="申请职位">
                     </button>
-
-                </div>
+                </div-->
                 <!--职位描述 开始-->
                 <div class="terminalpage-main clearfix">
                     <div class="urgent-terminalpage-title">
@@ -106,19 +103,15 @@
                     <div class="terminalpage-content">
                         <?php echo $info['gz_miaoshu'];?>
                     </div>
-
-                    <button class="urgent-button-img"
-                        id="applyVacButton1" title="申请职位">
-                    </button>
-
+                    <!--button class="urgent-button-img" id="applyVacButton1" title="申请职位"></button-->
                 </div>
                 <!--职位描述 结束-->
                 <!--招聘公司信息 开始-->
                 <div class="terminalpage-main clearfix">
                   <div class="urgent-terminalpage-title">
-                      <span class="urgent-title-name">公司介绍</span> <span class="span-right">
-                          <a target="_blank" class="color-blue" href="#">该公司其他职位
-                          </a>
+                      <span class="urgent-title-name">公司介绍</span> 
+                      <span class="span-right">
+                        <?php echo CHtml::link('该公司其他职位',array('jobs/index','uid'=>$info['uid']),array('class'=>'color-blue'));?>
                       </span>
                   </div>
                   <div class="terminalpage-content clearfix">
@@ -133,28 +126,19 @@
                           </span><span class="color-gray">公司性质：</span><?php echo $info['gs_xingzhi'];?> <span class="color-gray">|
                           </span><span class="color-gray">公司行业：</span><?php echo $info['gs_guimo'];?>
                       </div>
-                      <p>
-                          <div>
-                              <?php echo $info['gs_miaoshu'];?>
-                          </div>
-                      </p>
-                      <p>
-                      </p>
-
+                      <p><?php echo $info['gs_miaoshu'];?></p>
                   </div>
-
-
                   <div class="terminalpage-content clearfix">
-                        <h1>联系方式</h1>
-                        <h2>
-                            <div>
-                                <div>公司名称：<?php echo $info['gs_title'];?></div>
-                                <div>公司地址：<?php echo $info['gs_didian'];?></div>
-                                <div>联系人：<?php echo $info['gz_contactor'];?></div>
-                                <div>联系电话：<?php echo $info['gz_contact'];?></div>                                
-                                <div>公司主页：<?php echo $info['gs_zhuye'];?></div>
-                            </div>
-                        </h2>
+                    <h1>联系方式</h1>
+                    <h2>
+                      <div>
+                      <?php if($info['gs_title']!=''){?><div>公司名称：<?php echo $info['gs_title'];?></div><?php }?>
+                      <?php if($info['gs_didian']!=''){?><div>公司地址：<?php echo $info['gs_didian'];?></div><?php }?>
+                      <?php if($info['gz_contactor']!=''){?><div>联系人：<?php echo $info['gz_contactor'];?></div><?php }?>
+                      <?php if($info['gz_contact']!=''){?><div>联系电话：<?php echo $info['gz_contact'];?></div><?php }?>            
+                      <?php if($info['gs_zhuye']!=''){?><div>公司主页：<?php echo $info['gs_zhuye'];?></div><?php }?>
+                      </div>
+                    </h2>
 
                     </div>
 

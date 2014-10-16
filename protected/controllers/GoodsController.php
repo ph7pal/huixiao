@@ -20,12 +20,29 @@ class GoodsController extends T {
         $faceurls[] = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '600') . $attachinfo['filePath'];
       }
     }
+    $tagids=$likes=array();
+    $tagids[]=$info->colid;
+    $tagids[]=$info->colid2;
+    $tagids[]=$info->colid3;
+    $tagids[]=$info->colid4;
+    $tagids[]=$info->colid5;
+    $tagids=  array_unique(array_filter($tagids));
+    if(!empty($tagids)){
+      foreach($tagids as $key=>$tagid){
+        $_info=  Tags::getSimpleInfo($tagid);
+        if($_info){
+          $_items=Tags::getTagsGoods($tagid,4);
+          $likes[$key]['taginfo']=$_info;
+          $likes[$key]['items']=$_items;
+        }
+      }
+    }    
     $this->render('view', array(
         'info' => $info,
+        'likes' => $likes,
         'faceimg' => $faceimg,
         'faceurls' => $faceurls
     ));
-    //$this->render('view');
   }
 
   /**
@@ -67,8 +84,19 @@ class GoodsController extends T {
    * Lists all models.
    */
   public function actionIndex() {
-    $_sql = "SELECT * FROM {{goods}}";
+    $uid = zmf::filterInput($_GET['uid']);
+    $tagid = zmf::filterInput($_GET['tagid']);
+    $_where='';
+    if(is_numeric($uid) && $uid>0){
+      $_where.=' AND uid='.$uid;
+    }
+    if(is_numeric($tagid) && $tagid>0){
+      $_where.=" AND (colid={$tagid} OR colid2={$tagid} OR colid3={$tagid} OR colid4={$tagid} OR colid5={$tagid})";
+    }    
+    $_sql = "SELECT * FROM {{goods}} WHERE status=".Posts::STATUS_PASSED.$_where." ORDER BY cTime DESC";
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    $_sql = "SELECT id,title,faceimg FROM {{goods}} WHERE status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
+    $tops = Yii::app()->db->createCommand($_sql)->queryAll();
     $tags = Tags::allTags();
     if (!empty($lists)) {
       foreach ($lists as $key => $goods) {
@@ -83,7 +111,21 @@ class GoodsController extends T {
         $lists[$key] = $goods;
       }
     }
+    if (!empty($tops)) {
+      foreach ($tops as $key => $top) {
+        $faceurl = zmf::noImg('url');
+        if ($top['faceimg'] > 0) {
+          $attachinfo = Attachments::getOne($top['faceimg']);
+          if ($attachinfo) {
+            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+          }
+        }
+        $top['faceurl'] = $faceurl;
+        $tops[$key] = $top;
+      }
+    }
     $data['posts'] = $lists;
+    $data['tops'] = $tops;
     $data['pages'] = $pages;
     $data['fieldsArr'] = $fieldsArr;
     $data['tags'] = $tags;

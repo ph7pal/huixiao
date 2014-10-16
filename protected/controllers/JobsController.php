@@ -30,7 +30,13 @@ class JobsController extends T {
    * Lists all models.
    */
   public function actionIndex() {
-    $_sql = "SELECT * FROM {{jobs}}";
+    //$order=zmf::filterInput($_GET['order'],'t',1);
+    $uid=zmf::filterInput($_GET['uid']);
+    $_where='';
+    if(is_numeric($uid) && $uid>0){
+      $_where.=' AND uid='.$uid;
+    }
+    $_sql = "SELECT * FROM {{jobs}} WHERE status=".Posts::STATUS_PASSED.$_where.' ORDER BY cTime DESC';
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
     $data['posts'] = $lists;
     $data['pages'] = $pages;

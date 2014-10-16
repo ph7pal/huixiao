@@ -39,15 +39,7 @@
                           </dl>
                       </div>
                       <div class="hoscomm_list clearfix" style="margin-top:0px" >
-                          <div class="hoscomm_list_4 fl">
-                              <dl class="hoscomm_dl clearfix" style="">
-                                  <dt>效&nbsp;&nbsp;&nbsp; 果</dt>
-                                  <dd  ><em class="starline"><b style="width: 98%;"></b></em><span class="fraction">4.9</span></dd>
-                              </dl>
-                          </div>
                           <div class="hoscomm_btn fr" >
-                                <p>(为其他用户提供宝贵的参考)
-                              </p>
                                <p ><a target="_blank" href="pinglun.html" class="btn_write_comm"></a></p>
                           </div>
                       </div>

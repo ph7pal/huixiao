@@ -158,25 +158,26 @@
             <!--右侧资讯-->
             <div id="subright">
                 <!--广告图片-->
+                <?php if(!empty($likes)){?>
+                <?php foreach($likes as $like){?>
                 <!--推荐产品 开始-->
                 <div class="subRNews">
-                    <h3><font class="fr fontw"><a href="#" title="改善胃肠      ">更多&gt;&gt;</a></font><a href="/product/gscw" title="改善胃肠      ">改善胃肠      类产品</a></h3>
+                    <h3><?php echo CHtml::link($like['taginfo']['title'].' 相关产品',array('goods/index','tagid'=>$like['taginfo']['id']));?></h3>
                     <div class="proCont clearfix">
                         <!--数据循环开始 ,一共4条数据-->
                         <ul>
-                            <li><a href="#" title="韩国原装进口亿生菌" target="_blank">
-                                <img src="UpFile/singlefile/20140918025601281.jpg" alt="韩国原装进口亿生菌" /><span>韩国原装进口亿生菌</span> </a></li>
-                            <li><a href="#" title="奥诺康畅卫士" target="_blank">
-                                <img src="UpFile/singlefile/20140917023041312.jpg" alt="奥诺康畅卫士" /><span>奥诺康畅卫士</span></a></li>
-                            <li><a href="#" title='“养胃之王”猴头菇多糖' target="_blank">
-                                <img src="UpFile/singlefile/20140913035727937.jpg " alt='“养胃之王”猴头菇多糖' /><span>“养胃之王”猴头菇多糖</span></a></li>
-                            <li><a href="#" title="新品水果味听装清润宝苹果味隆重上市现全国招商" target="_blank">
-                                <img src="UpFile/singlefile/20140829083043468.jpg" alt="新品水果味听装清润宝苹果味隆重上市现全国招商" /><span>新品水果味听装清润宝苹果味隆重上市现全国招商</span> </a></li>
+                          <?php if(!empty($like['items'])){?>
+                          <?php foreach($like['items'] as $item){?>
+                            <li><?php echo CHtml::link(CHtml::image($item['faceurl'],CHtml::encode($item['title'])).'<span>'.$item['title'].'</span>',array('goods/view','id'=>$item['id']),array('target'=>'_blank')); ?></li>
+                           <?php }?>
+                           <?php }?>     
                         </ul>
                         <!--数据循环结束-->
                     </div>
                 </div>
                 <!--推荐产品 结束-->
+                <?php }?>
+                <?php }?>
                 <!--广告图片 开始-->                
                 <!--广告图片 结束-->
                 <div class="subRNews">

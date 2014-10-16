@@ -7,8 +7,11 @@
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
  <?php if(Yii::app()->getController()->id=='qiye'){?>
+    <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsList.css" rel="stylesheet" type="text/css" />
+    <?php }else{?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsIndex.css" rel="stylesheet" type="text/css" />
+    <?php }?>
 <?php }elseif(Yii::app()->getController()->id=='lecturer'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiList.css" rel="stylesheet" type="text/css" />
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" />

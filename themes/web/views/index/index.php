@@ -385,7 +385,7 @@
               <ul class="clearfix tab-hd">
                 <li class="select">展会档期<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuidangqi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+              <?php echo CHtml::link('更多',array('zhanhui/index'),array('target'=>'_blank','class'=>'more'));?> 
             </div>
             <div class="module_04" id="Div3">
               <div class="bd small_paixu" style="height: 298px;">

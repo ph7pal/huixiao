@@ -13,12 +13,13 @@
           <div class="shop_nav">
               <ul class="clearfix">
                   <li><?php echo CHtml::link('首页<s class="s"></s>',array('qiye/view','id'=>$info['id']));?></li>
+                  <li><?php echo CHtml::link('产品列表<s class="s"></s>',array('lecturer/index','belongid'=>$info['id']));?></li>
+                  <li><?php echo CHtml::link('优秀讲师<s class="s"></s>',array('qiye/view','id'=>$info['id'],'type'=>'js'));?></li>
                   <?php if(!empty($columns)){?>
 			    <?php foreach($columns as $col){?>
-			    <li <?php if($colid==$col['id']){?>class="select"<?php }?>><?php echo CHtml::link($col['title'].'<s class="s"></s>',array('qiye/view','id'=>$info['id'],'colid'=>$col['id']));?></li>
+			    <li <?php if($colid==$col['id']){?>class="select"<?php }?>><?php echo CHtml::link($col['title'].'<s class="s"></s>',array('posts/index','uid'=>$info['uid'],'colid'=>$col['id']));?></li>
 			    <?php }?>
-			    <?php }?>
-			    <li><?php echo CHtml::link('优秀讲师<s class="s"></s>',array('qiye/view','id'=>$info['id'],'type'=>'js'));?></li>
+			    <?php }?>			    
               </ul>
           </div>       
       </div>
@@ -39,12 +40,13 @@
                           </div>
                           <div class="bd">
                               <ul class="list_content have_po clearfix" id="Ul1">
-                                  <li class="item"><a href="zxgsIndex.html" class="link" target="_blank">
-                                      <img src="UpFile/singlefile/e09de4f7-f42d-41c5-ab6d-e3865f649d4c.jpg" alt="" /><span class="title">招商江湾城装修效果图</span> </a>
-                                      <p>
-                                          <em>风格：</em>中式
-                                      </p>
-                                  </li>                                  
+                                <?php if(!empty($goods)){?>
+                                <?php foreach($goods as $good){?>
+                                <li class="item">
+                                   <?php echo CHtml::link(CHtml::image($good['faceurl'],CHtml::encode($good['title'])).'<span class="title clearfix">'.$good['title'].'</span>',array('goods/view','id'=>$good['id']),array('target'=>'_blank')); ?>
+                                  </li>    
+                                <?php }?>
+                                <?php }?>                                                                
                               </ul>
                           </div>
                       </div>
@@ -55,12 +57,16 @@
                           </div>
                           <div class="bd">
                               <ul class="designer clearfix">
-                                  <li class="item"><a href="/shejishi/sjs_229.html" target="_blank">
-                                      <img src="UpFile/singlefile/c10c962c-c8d6-497b-abd5-9a79831a683d.jpg" alt="唐春" /><span class="name">唐春</span></a></li>                                  
+                                <?php if(!empty($lecturers)){?>
+                                <?php foreach($lecturers as $lecturer){?>
+                                <li class="item">
+                                  <?php echo CHtml::link(zmf::avatar($lecturer['uid'],'big').'<span class="name">'.$lecturer['truename'].'</span>',array('lecturer/view','id'=>$lecturer['id']),array('target'=>'_blank'));?>
+                                <?php }?>
+                                <?php }?>           
                               </ul>
                           </div>
                           <div class="ft">
-                              <a href="/gongsi/sjs_148.html">更多>></a>
+                              <?php echo CHtml::link('更多',array('lecturer/index','belongid'=>$info['id']));?>
                           </div>
                           <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
                           <span class="rc_br"></span>

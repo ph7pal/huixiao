@@ -5,16 +5,49 @@ class LecturerController extends T {
   //public $layout = 'jiangshi';
   
   public function actionIndex() {
-    $_sql = "SELECT * FROM {{lecturer}}";
-    Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    $order=zmf::filterInput($_GET['order'],'t',1);
+    $localarea=zmf::filterInput($_GET['localarea']);
+    $belongid=zmf::filterInput($_GET['belongid']);
+    $medal=zmf::filterInput($_GET['medal'],'t',1);
+    if(!$order || !in_array($order,array('new','top','more'))){
+      $order='new';
+    }
+    if($order=='new'){
+      $_order='cTime';
+    }elseif($order=='top'){
+      $_order='hits';
+    }elseif($order=='more'){
+      $_order='hits';
+    }
+    $_where='';
+    if(is_numeric($localarea) && $localarea>0){
+      $_where.=' AND localarea='.$localarea;
+    }
+    if($medal){
+      $_where.=" AND medal='".$localarea."'";
+    }    
+    if($belongid){
+      $_where.=" AND belongCompany='".$belongid."'";
+    }    
+    $sql = "SELECT * FROM {{lecturer}} WHERE status=".Posts::STATUS_PASSED." {$_where} ORDER BY ".$_order;
+    Posts::getAll(array('sql' => $sql), $pages, $lists);
+    $_sql = "SELECT * FROM {{lecturer}} WHERE status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
+    $tops = Yii::app()->db->createCommand($_sql)->queryAll();
     if(!empty($lists)){
       foreach($lists as $key=>$list){
         $list['truename']=Users::getUserInfo($list['uid'],'truename');
         $lists[$key]=$list;
       }
     }
+    if(!empty($tops)){
+      foreach($tops as $key=>$top){
+        $top['truename']=Users::getUserInfo($top['uid'],'truename');
+        $tops[$key]=$top;
+      }
+    }    
     $data['posts'] = $lists;
     $data['pages'] = $pages;
+    $data['tops'] = $tops;
     $this->render('index', $data);
   }
   

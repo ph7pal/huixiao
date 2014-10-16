@@ -3,11 +3,11 @@
     <!--筛选条件开始-->
     <div class="my_shop ">
         <div class="blank10"></div>
-        <div class="redNav yahei">
-            <!--div class="right"><a target="_blank" href="#" class="link">我要发布产品</a></div-->
+        <!--div class="redNav yahei">
+            <div class="right"><a target="_blank" href="#" class="link">我要发布产品</a></div>
             <span class="rc-l"></span>
             <span class="rc-r"></span>
-        </div>
+        </div-->
         <div class="screening" id="screening">
             <div class="bd" id="bd">
                 <ul>
@@ -65,7 +65,7 @@
         <!-- 产品列表 end -->
         <!--求购 start-->
 
-        <div class="redNav yahei" style="width: 960px; position: relative">
+        <!--div class="redNav yahei" style="width: 960px; position: relative">
 
             <div class="right" style="left: 10px; width: 900px; font-size: 20px">没有找到您需要的商品?<a target="_blank" href="javascript:void(0)" class="link" onclick="qiugou();">发布求购产品</a></div>
             <span class="rc-l"></span>
@@ -88,7 +88,7 @@
                     <input type="button" class="res_btn" value="取消" onclick="quxiao()" />
                 </form>
             </div>
-        </div>
+        </div-->
         <!--求购 end-->
     </div>
     <!--left end-->
@@ -102,11 +102,16 @@
             <div class="list_box">
                 <!--商品推荐循环开始， 一共10条数据-->
                 <!--第一条数据 开始-->
+                <?php if(!empty($tops)){?>
+                <?php foreach($tops as $top){?>
                 <dl>
-                    <dt class="pic"><a href="#" target="_blank" title='鱼跃悦准血糖仪Ι型（全网最低价） '>
-                        <img src="UpFile/singlefile/1384418230515.jpg" width="65" height="65" alt="鱼跃悦准血糖仪Ι型（全网最低价） "></a></dt>
-                    <dd class="p_info"><a href="#" title="鱼跃悦准血糖仪Ι型（全网最低价） " title="鱼跃悦准血糖仪Ι型（全网最低价） " target="_blank">鱼跃悦准血糖仪Ι型（全网最低价） </a></dd>
+                    <dt class="pic">
+                    <?php echo CHtml::link(CHtml::image($top['faceurl'],CHtml::encode($top['title']),array('width'=>'65')),array('goods/view','id'=>$top['id']),array('target'=>'_blank')); ?>
+                    </dt>
+                    <dd class="p_info"><?php echo CHtml::link($top['title'],array('goods/view','id'=>$top['id']),array('target'=>'_blank')); ?></dd>
                 </dl>
+                <?php }?>
+                <?php }?>
                 <!--第一条数据 结束-->
                 <!--商品推荐循环结束， 一共10条数据-->
             </div>

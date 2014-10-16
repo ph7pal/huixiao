@@ -168,7 +168,7 @@
 .b_search .p_rec .rec_tit{width:172px; height:29px; padding:0 13px; margin-top:1px; font:bold 12px/29px "宋体"; border-bottom:1px solid #e4e4e4; background:#f8f6f6;}
 .b_search .p_rec .list_box{width:184px; padding:14px 6px 0 8px; overflow:hidden;}
 .b_search .p_rec dl{padding-bottom:18px; height:67px; clear:both; overflow:hidden;}
-.b_search .p_rec .pic{float:left; width:65px; height:65px; border:1px solid #dad9d9; overflow:hidden;}
+.b_search .p_rec .pic{float:left; width:65px; height:49px;border:1px solid #dad9d9; overflow:hidden;}
 .b_search .p_rec .pic img{width:65px;}
 .b_search .p_rec dd{float:left; width:110px; max-height:32px; padding:4px 0 0 5px;overflow:hidden; line-height:16px; color:#999;}
 .b_search .p_rec .p_info a{line-height:16px;color:#666;}

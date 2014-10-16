@@ -6,5 +6,5 @@
     <p class="clearfix"><span class="fl">认证级别级别：</span>  <s class="i i_jin" title="铜牌设计师"></s></p>
     <p>所属公司：<?php echo $data['companyname'];?></p>
   </span>
-  <span class="num"><p>关 注 度：<em>930次</em></p></span>
+  <!--span class="num"><p>关 注 度：<em>930次</em></p></span-->
 </li>
