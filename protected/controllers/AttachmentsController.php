@@ -11,12 +11,12 @@ class AttachmentsController extends T {
   public function actionUpload() {
     $uptype = zmf::filterInput($_GET['type'], 't', 1);
     $classify = zmf::filterInput($_GET['classify'], 't', 1);
-    if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods'))) {
+    if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
     }
     $logid = zmf::filterInput($_GET['id']);
     if (!isset($logid) OR empty($logid)) {
-      if (!in_array($uptype,array('logo','goods'))) {
+      if (!in_array($uptype,array('logo','goods','zhanhui'))) {
         $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
       }
     }
@@ -122,7 +122,7 @@ class AttachmentsController extends T {
             }
             $image->save($_dir . $fileName);
           }
-          if ($uptype == 'posts') {
+          if (in_array($uptype,array('posts','zhanhui'))) {
             $imgsize = 600;
           } else {
             $imgsize = 124;

@@ -41,13 +41,14 @@ class Producer extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal_logo, medal_title', 'required'),
-        array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
+        array('uid, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'required'),
+        array('uid, faceimg, localarea, cTime, hits, top, status, medal,scorer,lecturers,goods', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),
         array('medal_logo, medal_title', 'length', 'max' => 16),
+        array('score', 'length', 'max' => 5),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
+        array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title,score,scorer,lecturers,goods', 'safe', 'on' => 'search'),
     );
   }
 
@@ -58,6 +59,7 @@ class Producer extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'userinfo'=>array(self::BELONGS_TO,'Users','uid')
     );
   }
 
@@ -86,6 +88,10 @@ class Producer extends CActiveRecord {
         'medal' => '徽章',
         'medal_logo' => '徽章LOGO',
         'medal_title' => '徽章标题',
+        'score' => '评分',
+        'scorer' => '评分人数',
+        'lecturers' => '讲师数',
+        'goods' => '产品数',
     );
   }
 
@@ -126,6 +132,10 @@ class Producer extends CActiveRecord {
     $criteria->compare('medal', $this->medal);
     $criteria->compare('medal_logo', $this->medal_logo, true);
     $criteria->compare('medal_title', $this->medal_title, true);
+    $criteria->compare('score', $this->score, true);
+    $criteria->compare('scorer', $this->scorer, true);
+    $criteria->compare('lecturers', $this->lecturers, true);
+    $criteria->compare('goods', $this->goods, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,

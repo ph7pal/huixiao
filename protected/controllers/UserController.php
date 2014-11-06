@@ -592,6 +592,7 @@ class UserController extends T {
       foreach ($items as $key => $item) {
         $items[$key] = zmf::filterInput($item, 't', 1);
       }
+      $items['content']=zmf::filterContent($items['content'], $arr_attachids);
       $_POST['Zhanhui'] = $items;
       if (Yii::app()->session['checkHasBadword'] == 'yes') {
         $status = Posts::STATUS_STAYCHECK;
@@ -604,19 +605,24 @@ class UserController extends T {
       $_POST['Zhanhui']['cTime'] = time();
       $model->attributes = $_POST['Zhanhui'];
       if ($model->save()) {
+        if (!empty($arr_attachids)) {
+          $ids = join(',', $arr_attachids);
+          if ($ids != '') {
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$intoKeyid AND uid={$uid} AND classify='zhanhui'");
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED), "id IN($ids)");
+          }
+        }
         $this->redirect(array('user/list', 'table' => 'zhanhui'));
       }
     }
-    if (isset($model->start_time)) {
-      $model->start_time = date('Y/m/d', $model->start_time);
-    }
-    if (isset($model->expired_time)) {
-      $model->expired_time = date('Y/m/d', $model->expired_time);
-    }
     if ($model->isNewRecord) {
       $this->listTableTitle = '新增展会信息';
+      $model->start_time = '';
+      $model->expired_time = '';
     } else {
       $this->listTableTitle = '更新展会信息';
+      $model->start_time = date('Y/m/d', $model->start_time);
+      $model->expired_time = date('Y/m/d', $model->expired_time);
     }
     $this->render('//zhanhui/create', array(
         'model' => $model,
@@ -688,8 +694,8 @@ class UserController extends T {
     $this->checkUser();
     //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
     $type = zmf::filterInput($_GET['type'], 't', 1);
-    $_info = zmf::userConfig($this->uid, 'lock');
-    if ($_info == 'yes') {
+    $_addedType = UserCredit::findOne($this->uid);
+    if ($_addedType) {
       $blocked = true;
     } else {
       $blocked = false;
@@ -713,19 +719,6 @@ class UserController extends T {
       $realModel->deleteAll('uid=' . $this->uid);
       $cityid = $tmparr[0];
       $configs['localarea'] = $cityid;
-      foreach ($configs as $k => $v) {
-        $data = array(
-            'uid' => $this->uid,
-            'name' => zmf::filterInput($k, 't'),
-            'value' => zmf::filterInput($v, 't'),
-            'classify' => zmf::filterInput($type, 't')
-        );
-        $model = new UserCredit;
-        $model->attributes = $data;
-        if (!$model->save()) {
-          //$this->message(0, $content);
-        }
-      }
       $configs['uid'] = $this->uid;
       $configs['status'] = Posts::STATUS_STAYCHECK;
       $realModel->attributes = $configs;
@@ -733,12 +726,25 @@ class UserController extends T {
         UserCredit::model()->deleteAll('uid=' . $this->uid);
         CreditRelation::model()->deleteAll('uid=' . $this->uid);
         $this->message(0, '写入认证信息出错');
+      } else {
+        $ip = Yii::app()->request->userHostAddress;
+        $data = array(
+            'uid' => $this->uid,
+            'classify' => $type,
+            'localarea' => $configs['localarea'],
+            'cTime' => time(),
+            'status' => Posts::STATUS_STAYCHECK,
+            'ip' => ip2long($ip),
+        );
+        $model = new UserCredit;
+        $model->attributes = $data;
+        if (!$model->save()) {
+          
+        }
       }
-      UserInfo::addAttr($this->uid, 'addCredit', 'lock', 'yes');
-      UserInfo::addAttr($this->uid, 'addCredit', 'creditstatus', Posts::STATUS_STAYCHECK);
       $relarr = array(
           'uid' => $this->uid,
-          'classify' => zmf::filterInput($type, 't'),
+          'classify' => $type,
           'status' => Posts::STATUS_STAYCHECK,
           'cTime' => time(),
           'localarea' => $cityid
@@ -750,15 +756,19 @@ class UserController extends T {
       zmf::delFCache('userSettings' . $this->uid);
       $this->message(1, '您的资料已提交。', $redirect);
     }
-    $_addedType = UserCredit::findOne($this->uid);
     if ($_addedType['classify']) {
       $type = $_addedType['classify'];
     }
-    $reason = zmf::userConfig($this->uid, 'creditreason');
-    $status = zmf::userConfig($this->uid, 'creditstatus');
+    $reason = $_addedType['desc'];
+    $status = $_addedType['status'];
+    $_c = array();
     if ($type) {
-      $configs = UserCredit::model()->findAllByAttributes(array('classify' => $type, 'uid' => $this->uid));
-      $_c = CHtml::listData($configs, 'name', 'value');
+      if (!UserCredit::checkType($type)) {
+        $this->message(0, '不允许的认证类型，请核实');
+      } else {
+        $realModel = UserCredit::loadModel($type);
+        $_c = $realModel->find('uid=:uid', array(':uid' => $this->uid));
+      }
     }
     $data = array(
         'type' => $type,

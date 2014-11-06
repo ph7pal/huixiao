@@ -39,7 +39,7 @@ class Website extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, faceimg, localarea, companyname, companyowner, websitename, websiteurl, websiteowner, contactmobile, licensenumber, cTime, hits, top, status, medal_logo, medal_title', 'required'),
+        array('uid,localarea, companyname, companyowner, websitename, websiteurl, websiteowner, contactmobile, licensenumber', 'required'),
         array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, websitename, websiteurl, websiteowner, contactmobile, licensenumber', 'length', 'max' => 255),
         array('medal_logo, medal_title', 'length', 'max' => 16),

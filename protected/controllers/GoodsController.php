@@ -1,6 +1,10 @@
 <?php
 
 class GoodsController extends T {
+  
+  public $showMessage='';
+  public $canMessage=false;
+  public $isSelf=false;
 
   /**
    * Displays a particular model.
@@ -37,11 +41,48 @@ class GoodsController extends T {
         }
       }
     }    
+    //留言初始化
+    $model=new Message;
+    $uid=Yii::app()->user->id;
+    if(Yii::app()->user->isGuest){
+      $this->showMessage=false;
+    }elseif($uid!=$info['uid']) {      
+      $userCredit = UserCredit::findOne($uid);
+      $messinfo=false;
+      if($userCredit){
+        $messinfo=$model->find('uid=:uid AND belongid=:bid AND classify=:class',array(':uid'=>$uid,':bid'=>$id,':class'=>'goods'));
+      }else{
+        $this->showMessage=false;
+      }      
+      if($messinfo){
+        $this->showMessage=true;
+      }elseif($userCredit){
+        $this->showMessage=false;
+        $this->canMessage=true;
+        $model->belongid=$id;
+        $model->uid=Yii::app()->user->id;
+        $model->classify='goods';
+        $model->nickname='';
+        $model->number='';
+        $model->content='';
+      }      
+    }else{
+      $this->showMessage=$this->canMessage=false;
+      $this->isSelf=true;
+    }
+    $contact=array();
+    if($this->showMessage){
+      $sql = "SELECT contactname,contactmobile FROM {{producer}} WHERE uid={$info['uid']}";
+      $contact=Yii::app()->db->createCommand($sql)->queryRow();
+    }
+    
     $this->render('view', array(
         'info' => $info,
         'likes' => $likes,
         'faceimg' => $faceimg,
-        'faceurls' => $faceurls
+        'faceurls' => $faceurls,
+        'model'=>$model,
+        'contact'=>$contact
     ));
   }
 

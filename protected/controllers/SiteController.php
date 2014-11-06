@@ -2,7 +2,7 @@
 
 class SiteController extends T {
 
-  //public $layout = 'login';
+  public $layout = 'site';
 
   public function actions() {
     return array(

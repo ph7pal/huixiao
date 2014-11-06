@@ -1,32 +1,37 @@
-<div class="item clearfix">
-    <div class="hd yahei">
-        <?php echo CHtml::link($data['title'],array('zhanhui/view','id'=>$data['id']));?><span class="lf"></span><span class="rt"></span>
-    </div>
-    <div class="left">
-        <a href="zhanhuiIndex2.html">
-            <img width="300" height="185" src="UpFile/singlefile/ca1b39dc-ca15-453f-be82-8dbd524b3e0b.jpg" alt="<?php echo $data['title'];?>" /></a>
-    </div>
-    <div class="right">
-         <p style="margin-left: 68px; text-indent: -68px;">
-            <em class="orange">展会主题：</em><?php echo $data['zhuti'];?>
-        </p>
-        <p>
-            <em>报名截止：</em><?php echo date('Y年m月d日',$data['expired_time']);?>
-        </p>
-        <p>
-            <em>展会地点：</em><?php echo $data['didian'];?>
-        </p>
-        <p>
-            <em>展会日期：</em><span class="time"><?php echo date('Y年m月d日',$data['start_time']);?></span>
-        </p>
-        <p>
-            <em>展会状态：</em>  <span class="zjing">报名中</span>
-        </p>
-        <p>
-            <a href="#" class="menu m_1">立即报名</a>
-        </p>
-    </div>
-    <div class="bao_num">
-        <?php echo $data['canyu'];?>
-    </div>
+<div class="module_x">
+  <!--数据头部--公司名称-->
+  <div class="hd clearfix">
+      <span class="title">[<?php echo $data['localname'];?>]<strong><a href="# " target="_blank"><?php echo $data['companyname'];?></a></strong></span>
+      <s class="s shiming">实名认证</s><s class="s shiqiang">十强推荐公司</s><span class="topic png_ie6">no.<em>1</em></span>
+  </div>
+  <div class="bd">
+      <div class="grid_01 clearfix">
+          <!--左侧公司简介-->
+          <div class="col_main">
+              <div class="main_wrap">
+                  <div class="clearfix">
+                      <div class="left">
+                      	<?php echo CHtml::link(zmf::avatar($data['uid'],'small').'<span class="title">'.$data['companyname'].'</span>',array('exhibition/view','id'=>$data['id']),array('target'=>'_blank'));?>
+                         <div class="tel"><?php echo $data['contactmobile'];?></div>
+                      </div>
+                      <div class="right">
+                          <h3>公司简介：</h3>
+                          <p><?php echo $data['description'];?></p>
+                          <h3>公司地址：</h3>
+                          <p><?php echo $data['address'];?></p>                          
+                      </div>
+                  </div>
+                  <div class="case_list">
+                      <ul class="clearfix">
+                        <?php $zhanhuis=$data['zhanhuis'];if(!empty($zhanhuis)){foreach($zhanhuis as $zhanhui){?>
+                          <li class="item_in"><a href="<?php echo Yii::app()->createUrl('zhanhui/view',array('id'=>$zhanhui['id']));?>" target="_blank" class="link">
+                              <img src="<?php echo $zhanhui['faceurl'];?>" alt="<?php echo $zhanhui['title'];?>" width="135" height="88" /><span class="title"><?php echo $zhanhui['title'];?></span>  </a></li>         
+                        <?php }}?>      
+                      </ul>
+                  </div>
+                  <!-- 网友评价 -->
+              </div>
+          </div>
+      </div>
+  </div>
 </div>

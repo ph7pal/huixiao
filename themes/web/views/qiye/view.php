@@ -130,10 +130,10 @@
                           该公司已通过实名认证<s class="i_rz" title="认证">认证</s>
                       </p>
                       <p class="float">
-                          <span class="b">公司产品：</span><span class="c red">5</span>
+                          <span class="b">公司产品：</span><span class="c red"><?php echo $info['goods'];?></span>
                       </p>
                       <p class="float">
-                          <span class="b">优秀讲师：</span><span class="c red">7</span>
+                          <span class="b">优秀讲师：</span><span class="c red"><?php echo $info['lecturers'];?></span>
                       </p>
                       <!--网友评价 开始-->
                        <p class="rz" style="height:1px"></p>
@@ -142,13 +142,16 @@
                            <div style="width: 200px; padding: 0px;">
                               <dl class="hoscomm_dl clearfix" style="padding: 0px; margin: 0px; width: 200px; height: 20px; line-height: 20px;">
                                   <dt style="margin-left: 5px; float: left; color: #888;">总&nbsp;评&nbsp;价：</dt>
-                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction">4.6</span> </dd>
+                                  <?php if($info['scorer']>3){?>
+                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction"><?php echo $info['score'];?></span> </dd>
+                                  <?php }else{?>
+                                  <span>评分人数太少</span>
+                                  <?php }?>
                               </dl>
                           </div>
                           <div>
                               <div class="hoscomm_btn " style="left: 20px; top:20px;">
-
-                                  <p><a target="_blank" href="pinglun.html" class="btn_write_comm"></a></p>
+                                  <p><?php echo CHtml::link('',array('qiye/score','type'=>'qiye','id'=>$info['id']),array('class'=>'btn_write_comm'));?></p>
                               </div>
                           </div>
                       </div>

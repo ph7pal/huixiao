@@ -157,11 +157,11 @@ class Jobs extends CActiveRecord {
   public static function model($className = __CLASS__) {
     return parent::model($className);
   }
-  
-  public static function getNews(){
-  	$sql="SELECT id,title,gs_title FROM {{jobs}} ORDER BY cTime DESC LIMIT 12";
-  	$items=Yii::app()->db->createCommand($sql)->queryAll();
-  	return $items;
-  	}
+
+  public static function getNews() {
+    $sql = "SELECT id,title,gs_title FROM {{jobs}} ORDER BY cTime DESC LIMIT 12";
+    $items = Yii::app()->db->createCommand($sql)->queryAll();
+    return $items;
+  }
 
 }

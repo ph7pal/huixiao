@@ -138,4 +138,18 @@ class Zhanhui extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    public static function getNews() {
+    $sql = "SELECT id,title,start_time FROM {{zhanhui}} ORDER BY cTime DESC LIMIT 12";
+    $items = Yii::app()->db->createCommand($sql)->queryAll();
+    return $items;
+  }
+  public static function getUsers($uid) {
+    if(!$uid){
+      return false;
+    }
+    $sql = "SELECT id,title,start_time,attachid FROM {{zhanhui}} WHERE uid={$uid} ORDER BY cTime DESC LIMIT 12";
+    $items = Yii::app()->db->createCommand($sql)->queryAll();
+    return $items;
+  }
 }

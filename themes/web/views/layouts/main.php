@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
- <?php if(Yii::app()->getController()->id=='qiye'){?>
+ <?php if(Yii::app()->getController()->id=='qiye' || Yii::app()->getController()->id=='exhibition'){?>
     <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsList.css" rel="stylesheet" type="text/css" />
+    <?php }elseif(Yii::app()->getController()->getAction()->id=='score'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/pinglun.css" rel="stylesheet" type="text/css" />
     <?php }else{?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsIndex.css" rel="stylesheet" type="text/css" />
     <?php }?>
@@ -17,7 +19,16 @@
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" />
 <?php }elseif(Yii::app()->getController()->id=='zhanhui'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zhanhuiList.css" rel="stylesheet" type="text/css" />
-     <!--link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" /-->     
+     <!--link href="<?php echo Yii::app()->theme->baseUrl ?>/css/jiangshiIndex.css" rel="stylesheet" type="text/css" /-->    
+<?php }elseif(Yii::app()->getController()->id=='site'){?>
+     <?php if(Yii::app()->getController()->getAction()->id=='login'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/login.css" rel="stylesheet" type="text/css" />
+    <?php }elseif(Yii::app()->getController()->getAction()->id=='reg'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/reg.css" rel="stylesheet" type="text/css" />
+    <?php }else{?>
+     
+    <?php }?>
+     
 <?php }elseif(Yii::app()->getController()->id!='index'){?>
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
@@ -40,45 +51,42 @@
     <div class="bg2013s">
       <!--头部-->
       <div class="w_960 header clearfix">
-        <h1 class="logo">
-          <a href="#">
-            <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="" height="90" /></a></h1>
-
+        <h1 class="logo"><a href="<?php echo zmf::config('baseurl');?>"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="<?php echo zmf::config('sitename');?>" height="90" /></a></h1>
         <div class="searchBar">
-
           <div class="searchBarBd">
             <p class="txt" >
-              <input type="text" id="s_txt" class="s_txt" />
+              <input type="text" id="keyword" class="s_txt" placeholder="请输入关键词"/>
             </p>
-
             <p class="btn"  >
-              <button type="submit" class="s_btn" id="s_btn" >
-                搜索</button>
+              <button type="submit" class="s_btn" id="search-btn" >搜索</button>
             </p>
           </div>
           <p class="s_nav clearfix">
+            <?php $topskw=  SearchRecords::getTops();if(!empty($topskw)){?>
             <span>热门关键词:</span>
-            <a href="#" target="_blank" style="color: #f86b0d;">视频样板房</a>
-            <a href="#" target="_blank">投诉维权</a>
-            <a href="#" target="_blank" style="color: #202ba7;">自助建站</a>
-            <a href="#" target="_blank">创意家居</a>
-            <a href="#" target="_blank" style="color: #e60a4c;">风水</a>
-            <a href="#" target="_blank" style="font-weight: bold;">装修日记</a>
+            <?php foreach($topskw as $tpkw){echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));}?>
+            <?php }?>
           </p>
-
         </div>
-        <div class="fr" style="margin-right: 20px; float: right; margin-top: 30px;">
+        <div class="fr" style="float: right; margin-top: 30px;">
+          <?php if (Yii::app()->user->isGuest) { ?>
           <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
           <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
+          <?php }else{ ?>
+          <div style="font-size: 14px; line-height: 20px;" class="clearfix">
+              <span style="float: left; font-size:14px">你好:<font style="color: #fb2b21"><?php echo $this->userInfo['truename'];?></font></span>
+              <a href="<?php echo Yii::app()->createUrl('user/index');?>" style="font-size: 14px; line-height: 25px; color: #0061da; float: left; margin-left:5px">【管理中心】</a>
+              <a href="<?php echo Yii::app()->createUrl('site/logout');?>" style="font-size: 14px; line-height: 25px; color: #0061da; float: left; margin-left:5px">退出</a>
+          </div>
+          <?php }?>
         </div>
-
       </div>
       <div style="clear: both"></div>
       <!--导航条-->
       <div class="channelNav">
         <div class="w_960 channelNavBd">
           <ul>
-            <li class="current"><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
+            <li <?php if(!$this->currentCol){?>class="current"<?php }?>><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
             <?php 
             $topcols=Columns::getColsByPosition('top',true);
             if(!empty($topcols)){
@@ -123,22 +131,11 @@
 </div>
 <!--网站底部开始-->
 <div class="w_960 footer">
-  <p class="f_nav">
-    <a href='#'>设为首页</a>|
-    <a href="#">加入收藏</a>|
-    <a href="#" target="_blank">隐私条款</a>|
-    <a href="#" target="_blank">广告服务</a>|
-    <a href="#" target="_blank">网站地图</a>|
-    <a href="#" target="_blank">关于我们</a>|
-    <a href="#" target="_blank">免责声明</a>|
-    <a href="#" target="_blank">友情链接</a>
-  </p>
   <p>
-    Copyright @ 2003-2016 cqzs.com All Right Reserved.　Powered By MoMoCMS 2.0
-
-    装饰行业第一门户 重庆装饰网 重庆日报装建专刊 客服热线:<b>400-023-1508</b>
+    <?php $address=zmf::config('address');if(!empty($address)){ echo '地址：'.$address;}?>
+    <?php $phone=zmf::config('phone');if(!empty($phone)){ echo '电话：'.$phone;}?>
   </p>
-  <p><a href="#">重庆装饰网</a>　版权所有　网站备案：<a href="#" target="_blank">渝ICP备05007965</a></p>
+  <p><a href="<?php echo zmf::config('domain');?>" target="_blank"><?php echo zmf::config('sitename');?></a>  　版权所有　网站备案：<a href="#" target="_blank"><?php echo zmf::config('beian');?></a></p>
   <p>
     <a href="#">
       <img height="52" width="776" alt="safeverify 2.0" src="<?php echo Yii::app()->theme->baseUrl ?>/images/anquan.gif" /></a>
@@ -150,35 +147,8 @@
 </div>
 
 <!--底部弹出框-->
-<div id="mytool_clean" style="height: 0px;"></div>
-<div id="mytool">
-  <div class="mybtn">
-    <div class="ztc" id="ztc">
-      <div class="form">
-        <ul class="clearfix">
-          <li><span class="a">QQ：</span><span class="b">
-              <input type="text" id="QQ" maxlength="15" class="ipt" value="" />
-            </span></li>
-          <li><span class="a">电话：</span><span class="b">
-              <input type="text" id="KPhone" maxlength="15" class="ipt" value="" />
-            </span></li>
-          <li><span class="a">称呼：</span><span class="b">
-              <input type="text" id="ZName" maxlength="20" class="ipt" value="" />
-            </span></li>
-          <li>
-            <input class="btn" id="zxztc" type="button" value="提交" />
-          </li>
-        </ul>
-      </div>
-      <div class="txt">如果您准备装修房子，请将您的联系方式提交给我们或<span style="color: red">扫一扫右边二维码</span>加重庆装饰网微信公共号，我们会第一时间给您发送商家优惠信息。</div>
-      <a href="javascript:void(0);" class="close" onclick="closemytool()">关闭</a>
     </div>
-  </div>
-</div>  
-      
-      
-      
-    </div>
+  <?php $this->renderPartial('/common/loadjs'); ?>      
   </body>
 </html>
 <?php if((Yii::app()->getController()->id=='index' AND Yii::app()->getController()->getAction()->id=='index')){?>

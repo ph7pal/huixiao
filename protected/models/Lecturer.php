@@ -39,7 +39,7 @@ class Lecturer extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status, medal_logo, medal_title', 'required'),
+        array('uid, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'required'),
         array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'length', 'max' => 255),
         array('medal_logo, medal_title', 'length', 'max' => 16),
@@ -56,6 +56,7 @@ class Lecturer extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'userinfo'=>array(self::BELONGS_TO,'Users','uid')
     );
   }
 
@@ -134,6 +135,44 @@ class Lecturer extends CActiveRecord {
    */
   public static function model($className = __CLASS__) {
     return parent::model($className);
+  }
+  
+  /**
+   * 讲师按地区查询
+   * @param type $area，为0则为所有地区的推荐
+   * @param type $uid，不为0为某企业的讲师
+   * @return boolean
+   */
+  public static function getLecturer($area,$uid=0) {
+    $key = "getLecturer-$area-$uid";
+    $usrs = zmf::getFCache($key);
+    if (!$usrs) {
+      if ($area > 0) {
+        $areaArr = Area::getChildren($area);
+        $idstr = join(',', $areaArr);
+        if ($idstr) {
+          $sql = "SELECT uid FROM {{lecturer}} WHERE localarea IN($idstr) AND status=1 LIMIT 10";
+        } else {
+          $sql = "SELECT uid FROM {{lecturer}} WHERE status=1 LIMIT 10";
+        }
+      } else {
+        if($uid!=0){
+          $sql = "SELECT uid FROM {{lecturer}} WHERE status=1 AND belongCompany='{$uid}' LIMIT 10";
+        }else{
+          $sql = "SELECT uid FROM {{lecturer}} WHERE status=1 LIMIT 10";
+        }
+      }
+      $usrs = Yii::app()->db->createCommand($sql)->queryAll();
+      if(!empty($usrs)){
+        foreach($usrs as $key=>$one){
+          $uname=Users::getUserInfo($one['uid'],'truename');
+          $one['truename']=$uname;
+          $usrs[$key]=$one;
+        }
+      }
+      zmf::setFCache($key, $usrs, 3600);
+    }
+    return $usrs;
   }
 
 }

@@ -39,7 +39,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'desc'); ?>
-		<?php echo $form->textArea($model,'desc',array('rows'=>6, 'cols'=>50,'class'=>'form-control')); ?>
+        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$model->desc,'keyid'=>$model->id,'type'=>'posts','simple'=>'yes','attribute'=>'desc'));?> 
 		<?php echo $form->error($model,'desc'); ?>
 	</div>
 

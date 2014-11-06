@@ -1,0 +1,454 @@
+﻿@charset "utf-8";
+/*重置IMG*/
+img {
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+/*按钮*/
+.butn, .butn1 {
+    display: inline-block;
+    background: url(../images/but.gif) no-repeat right 0;
+    border: 0;
+    height: 23px;
+    padding: 4px 10px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    visibility: visible;
+    overflow: visible;
+    _z-index: 1;
+}
+
+button.butn, button.butn1 {
+    line-height: 21px;
+    padding: 3px 8px 5px;
+    padding: 5px 8px 3px\9;
+    *padding: 6px 8px 2px;
+    line-height: 22px\9;
+    *line-height: 19px;
+    _padding: 4px 8px;
+    height: auto;
+}
+
+a.butn, a.butn1 {
+    line-height: 23px\9;
+    *display: inline-block;
+    _line-height: 22px;
+    _padding: 6px 8px 0;
+}
+
+    a.butn:hover, a.butn1:hover {
+        text-decoration: none;
+    }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.butn {
+        line-height: 22px;
+    }
+}
+
+.butn i, .butn1 i {
+    display: block;
+    background: url(../images/but.gif) no-repeat 0 0;
+    width: 3px;
+    border: 0;
+    height: 29px;
+    position: absolute;
+    left: -2px;
+    top: 0;
+    visibility: visible;
+}
+
+.butn:hover, .butn:active, .butn.active, .butn.disabled, .butn[disabled], .select {
+    color: #333;
+    text-decoration: none;
+}
+
+.butn:hover {
+    background-position: right -31px;
+    color: #333;
+}
+
+.butn:focus, .butn:active, .select {
+    background-position: right -62px;
+}
+
+.butn:hover i {
+    background-position: left -31px;
+}
+
+.butn:focus i, .butn:active i, .select i {
+    background-position: left -62px;
+}
+
+
+
+.btn-group {
+    position: relative;
+}
+
+    .btn-group .butn {
+        padding-right: 17px;
+    }
+
+    .btn-group .dropdown-toggle {
+        position: relative;
+        left: -10px;
+        top: 0;
+    }
+
+        .btn-group .dropdown-toggle .caret {
+            right: 11px;
+        }
+
+
+
+
+
+/*max-butn*/
+.max-butn {
+    background: url(../images/max-but.gif) no-repeat right 0;
+    height: 31px;
+    padding: 4px 20px 5px;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+    .max-butn i {
+        background: url(../images/max-but.gif) no-repeat 0 0;
+        height: 38px;
+    }
+
+button.max-butn {
+    line-height: 31px;
+    padding: 2px 18px 5px;
+    padding: 3px 18px\9;
+    *padding: 6px 18px 2px;
+    line-height: 33px\9;
+    *line-height: 27px;
+    _padding: 4px 18px;
+    height: auto;
+}
+
+a.max-butn {
+    line-height: 32px\9;
+    *display: inline-block;
+    _line-height: 28px;
+    _padding: 6px 18px 2px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.max-butn {
+        line-height: 33px;
+    }
+}
+
+.max-butn:hover, .max-butn:active, .max-butn.active, .max-butn.disabled, .max-butn[disabled] {
+    color: #333;
+}
+
+.max-butn:hover {
+    background-position: right -40px;
+    color: #333;
+}
+
+.max-butn:focus, .max-butn:active {
+    background-position: right -80px;
+}
+
+.max-butn:hover i {
+    background-position: left -40px;
+}
+
+.max-butn:focus i, .max-butn:active i {
+    background-position: left -80px;
+}
+
+.max-butn .caret {
+    top: 17px;
+    right: 9px;
+}
+
+.btn-group .max-butn {
+    padding-right: 21px;
+}
+
+.btn-group .max-dropdown-toggle {
+    position: relative;
+    left: -10px;
+    top: 0;
+}
+
+    .btn-group .max-dropdown-toggle .caret {
+        right: 17px;
+    }
+
+
+
+
+.max-butn-orange {
+    background-position: right -240px;
+    color: #fff;
+}
+
+    .max-butn-orange i {
+        background-position: left -240px;
+    }
+
+    .max-butn-orange .caret {
+        border-top: 4px solid #fff;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .max-butn-orange:hover {
+        background-position: right -280px;
+        color: #fff;
+    }
+
+    .max-butn-orange:focus, .max-butn-orange:active {
+        background-position: right -320px;
+    }
+
+    .max-butn-orange:hover i {
+        background-position: left -280px;
+    }
+
+    .max-butn-orange:focus i, .max-butn-orange:active i {
+        background-position: left -320px;
+    }
+
+
+/*文本框*/
+.control-group {
+    margin-bottom: 20px;
+    line-height: 20px;
+    position: relative;
+}
+
+    .control-group:before,
+    .control-group:after {
+        content: "";
+        display: table;
+        line-height: 0;
+    }
+
+    .control-group:before,
+    .control-group:after {
+        content: "";
+        display: table;
+        line-height: 0;
+    }
+
+    .control-group:after {
+        clear: both;
+    }
+
+.control-label {
+    float: left;
+    padding-top: 10px;
+    text-align: right;
+    width: 140px;
+    display: block;
+}
+
+.controls {
+    margin-left: 12px;
+    _margin-left: 5px;
+    float: left;
+    position: relative;
+    _z-index: 1;
+}
+
+    .controls em {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #999;
+    }
+    .controls select {
+         display: inline-block;
+        margin-bottom: 0;
+        vertical-align: middle;
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        color: #555555;
+        font-size: 14px;
+        width:215px;
+        height: 40px;
+        line-height:40px;
+        padding:5px 6px;
+        -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        border-radius: 3px 3px 3px 3px;
+    }
+    .controls input, .map-text {
+        display: inline-block;
+        margin-bottom: 0;
+        vertical-align: middle;
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        color: #555555;
+        font-size: 14px;
+        height: 20px;
+        line-height: 20px;
+        padding: 8px 6px;
+        -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        border-radius: 3px 3px 3px 3px;
+    }
+
+        .controls input:focus {
+            border-color: rgba(82, 168, 236, 0.8);
+            outline: 0;
+            outline: thin dotted \9;
+            /* IE6-9 */
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        }
+
+    .controls .moneySuggest {
+        display: none;
+        position: absolute;
+        width: 139px;
+        background: none repeat #fff;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        color: #333;
+        padding: 10px;
+        top: 41px;
+        z-index: 20;
+    }
+
+        .controls .moneySuggest li {
+            cursor: pointer;
+            border-bottom: 1px solid #F0F0F0;
+            padding: 5px;
+            color: #f60;
+            font-weight: bold;
+        }
+
+            .controls .moneySuggest li:hover {
+                background-color: #f0f0f0;
+            }
+
+.input-prepend .add-on, .input-append .add-on, .input-doble .add-do {
+    background: #eee;
+    border: 1px solid #bbb;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    height: 19px;
+    line-height: 19px;
+    min-width: 16px;
+    padding: 4px 5px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    width: auto;
+    float: left;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.input-prepend input, .input-append input {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    display: inline-block;
+    height: 19px;
+    line-height: 20px;
+    min-width: 16px;
+    padding: 4px 5px;
+    float: left;
+    border-radius: 4px 4px 4px 4px;
+    width: 156px;
+}
+
+.input-append
+.max-input .add-on, .max-input input {
+    height: 30px;
+    _line-height: 28px;
+}
+
+.max-input .add-on {
+    line-height: 30px;
+}
+/*文本框验证通过状态*/
+
+
+.help-inline {
+    display: inline;
+    margin-left: 5px;
+    vertical-align: middle;
+    color: #999;
+}
+
+.warning .help-inline {
+    background: url(../images/pic.gif) no-repeat 0 -17px;
+    padding-left: 20px;
+     display:inline
+}
+
+.success .help-inline {
+    background: url(../images/pic.gif) no-repeat 0 2px;
+    padding-left: 18px;
+    display:inline
+}
+
+.error .help-inline {
+     display:inline
+}
+
+.loading .help-inline {
+    background: url(../images/loading-small.gif) 0 2px no-repeat;
+    padding-left: 20px;
+    color: #333;
+}
+
+.form-docs .controls input {
+    width: 410px;
+}
+
+.form-docs .help-inline {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+}
+
+
+
+
+
+
+/*下拉框，不支持ＩＥ*/
+select {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    display: inline-block;
+    height: 30px;
+    padding: 4px 6px;
+    margin-bottom: 9px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #555555;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-top: -5px;
+}
+
+    select:focus {
+        outline: thin dotted #333;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+    }
+    .errorMessage{
+      color:red;
+    }

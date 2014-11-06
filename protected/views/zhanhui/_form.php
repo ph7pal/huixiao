@@ -65,7 +65,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50,'class'=>'form-control')); ?>
+        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'zhanhui','simple'=>'yes'));?> 
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 

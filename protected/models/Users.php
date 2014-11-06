@@ -272,44 +272,6 @@ class Users extends CActiveRecord {
   }
 
   /**
-   * 讲师按地区查询
-   * @param type $area，为0则为所有地区的推荐
-   * @param type $uid，不为0为某企业的讲师
-   * @return boolean
-   */
-  public static function getLecturer($area,$uid=0) {
-    $key = "getLecturer-$area-$uid";
-    $usrs = zmf::getFCache($key);
-    if (!$usrs) {
-      if ($area > 0) {
-        $areaArr = Area::getChildren($area);
-        $idstr = join(',', $areaArr);
-        if ($idstr) {
-          $sql = "SELECT uid FROM {{credit_relation}} WHERE localarea IN($idstr) AND classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
-        } else {
-          $sql = "SELECT uid FROM {{credit_relation}} WHERE localarea IN(0) AND classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
-        }
-      } else {
-        if($uid!=0){
-          $sql = "SELECT uid FROM {{user_credit}} WHERE classify='lecturer' AND `name`='belongCompany' AND `value`={$uid} LIMIT 10";
-        }else{
-          $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='lecturer' AND status=1 ORDER BY `order` LIMIT 10";
-        }
-      }
-      $usrs = Yii::app()->db->createCommand($sql)->queryAll();
-      if(!empty($usrs)){
-        foreach($usrs as $key=>$one){
-          $uname=Users::getUserInfo($one['uid'],'truename');
-          $one['truename']=$uname;
-          $usrs[$key]=$one;
-        }
-      }
-      zmf::setFCache($key, $usrs, 3600);
-    }
-    return $usrs;
-  }
-
-  /**
    * 展会公司热门排行
    * @return array
    */
@@ -318,15 +280,14 @@ class Users extends CActiveRecord {
     $usrs = zmf::getFCache($key);
     if (!$usrs) {
       if ($limit == 0) {
-        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `{$order}`";
+        $sql = "SELECT id,companyname FROM {{exhibition}} WHERE status=1";
       } else {
-        $sql = "SELECT uid FROM {{credit_relation}} WHERE classify='{$type}' AND status=1 ORDER BY `{$order}` LIMIT {$limit}";
+        $sql = "SELECT id,companyname FROM {{exhibition}} WHERE status=1 LIMIT {$limit}";
       }
       $usrs = Yii::app()->db->createCommand($sql)->queryAll();
       if(!empty($usrs)){
-        foreach($usrs as $key=>$one){
-          $uname=  UserCredit::model()->find('uid=:uid AND classify=:classify AND `name`=:name',array(':uid'=>$one['uid'],':classify'=>$type,':name'=>'companyname'));
-          $one['truename']=$uname['value'];
+        foreach($usrs as $key=>$one){          
+          $one['truename']=$uname['companyname'];
           $usrs[$key]=$one;
         }
       }

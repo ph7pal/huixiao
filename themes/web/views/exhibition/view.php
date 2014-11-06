@@ -1,42 +1,147 @@
-<div class="well well-sm">
-  <h1><?php echo $creditInfo['companyname'];?></h1>
-</div>
-<div class="col-xs-3 col-sm-3 padding-right-15">
-  <div class="alert alert-danger">
-    <p><?php echo $creditInfo['companyname'];?></p>
+<div class="w_960 content">
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('信用厂家',array('qiye/index'));?>&gt; <?php echo $info['companyname'];?></span></div>
+  <div class="my_shop skin_black">
+      <div class="shop_header">
+          <div class="my_banner">
+              <img style="width: 960px; height: 150px;" src="<?php echo Yii::app()->theme->baseUrl;?>/images/mall_banner1.png" alt="" />
+          </div>
+          <div class="shop_logo png_ie6 clearfix">
+              <div class="name_inner yahei">
+                  <?php echo $info['companyname'];?>
+              </div>
+          </div>
+          <div class="shop_nav">
+              <ul class="clearfix">
+                  <li><?php echo CHtml::link('首页<s class="s"></s>',array('qiye/view','id'=>$info['id']));?></li>
+                  <li><?php echo CHtml::link('展会<s class="s"></s>',array('exhibition/index','uid'=>$info['id']));?></li>
+                  <?php if(!empty($columns)){?>
+			    <?php foreach($columns as $col){?>
+			    <li <?php if($colid==$col['id']){?>class="select"<?php }?>><?php echo CHtml::link($col['title'].'<s class="s"></s>',array('posts/index','uid'=>$info['uid'],'colid'=>$col['id']));?></li>
+			    <?php }?>
+			    <?php }?>			    
+              </ul>
+          </div>       
+      </div>
+
+
+
+      <div class="shop_body">
+          <div class="grid_01 clearfix">
+              <!--右侧推荐-->
+              <div class="col_main">
+                  <div class="main_wrap">
+                      <div class="zdy_html">
+                      </div>
+                      <!--展会 开始-->
+                      <div class="module_a marTop10">
+                          <div class="hd bigfont">
+                              展会<s class="s left"></s><s class="s right"></s><?php echo CHtml::link('更多&gt;&gt;',array('exhibition/index','uid'=>$info['uid']),array('class'=>'more'));?>
+                          </div>
+                          <div class="bd">
+                              <ul class="list_content have_po clearfix" id="Ul1">
+                                <?php if(!empty($zhanhuis)){?>
+                                <?php foreach($zhanhuis as $good){?>
+                                <li class="item">
+                                   <?php echo CHtml::link(CHtml::image($good['faceurl'],CHtml::encode($good['title'])).'<span class="title clearfix">'.$good['title'].'</span>',array('exhibition/view','id'=>$good['id']),array('target'=>'_blank')); ?>
+                                  </li>    
+                                <?php }?>
+                                <?php }?>                                                                
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="grid_02 clearfix">
+                          <div class="col_main">
+                              <div class="main_wrap">
+                                  <div class="module_b marTop10">
+                                      <div class="hd">
+                                          本月活动档期
+                                      </div>
+                                      <div class="bd">
+                                          <ul class="news_list">
+                                              <li><a href="#" target="_blank">江北区时代中心复式260㎡半包招标</a></li>
+                                          </ul>
+                                      </div>
+                                      <div class="ft">
+                                          <a href="#">更多>></a>
+                                      </div>
+                                      <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
+                                      <span class="rc_br"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col_sub">
+                              <div class="module_b marTop10">
+                                  <div class="hd">
+                                      公司参展资讯
+                                  </div>
+                                  <div class="bd">
+                                      <ul class="news_list">
+                                          <li><a href="#" target="_blank">金科十年城米少更要巧装修</a></li>
+                                      </ul>
+                                  </div>
+                                  <div class="ft">
+                                      <a href="#">更多>></a>
+                                  </div>
+                                  <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
+                                  <span class="rc_br"></span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--左侧 公司名片-->
+              <div class="col_sub">
+                  <div class="shop_name">
+                      <?php echo $info['companyname'];?>
+                  </div>
+                  <div class="shop_info">                     
+                      <p class="float">
+                          <span class="b">联 系 人：</span><span class="c"><?php echo $info['contactname'];?></span>
+                      </p>
+                      <p class="float">
+                          <span class="b">联系电话：</span><span class="c tel"><?php echo $info['contactmobile'];?></span>
+                      </p>
+                      <p class="float">
+                          <span class="b">公司地址：</span><span class="c"><?php echo $info['address'];?></span>
+                      </p>
+                      <p class="rz">
+                          该公司已通过实名认证<s class="i_rz" title="认证">认证</s>
+                      </p>
+                      <!--网友评价 开始-->
+                      <div style="position: relative; height:80px; width: 200px;">
+                           <div style="width: 200px; padding: 0px;">
+                              <dl class="hoscomm_dl clearfix" style="padding: 0px; margin: 0px; width: 200px; height: 20px; line-height: 20px;">
+                                <?php if($info['scorer']>3){?>
+                                  <dt style="margin-left: 5px; float: left; color: #888;">总&nbsp;评&nbsp;价：</dt>
+                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction">4.6</span> </dd>
+                                  <?php }else{?>
+                                  <span>评分人数太少</span>
+                                  <?php }?>
+                              </dl>
+                          </div>
+                          <div>
+                              <div class="hoscomm_btn " style="left: 20px; top:20px;">
+
+                                  <p><a target="_blank" href="pinglun.html" class="btn_write_comm"></a></p>
+                              </div>
+                          </div>
+                      </div>
+                      <!--网友评价 结束-->
+                  </div>
+                  
+                  <div class="module_a marTop10">
+                      <div class="hd">
+                          公司招聘<s class="s left"></s><s class="s right"></s><a href="/gongsi/news_148.html"
+                              class="more">更多&gt;&gt;</a>
+                      </div>
+                      <div class="bd">
+                          <ul class="news">
+                              <li><a href="/gongsi/news_148_742.html">长嘉汇联排别墅装修效果图</a></li>                              
+                          </ul>
+                      </div>
+                  </div>                  
+              </div>
+          </div>
+      </div>
   </div>
-  <div class="panel panel-default">
-    <!--div class="panel-heading"></div-->
-    <div class="panel-body">
-      <p><b>企业全称：</b><?php echo $creditInfo['companyname'];?></p>
-      <p><b>官方网站：</b><a href="<?php echo $creditInfo['officeurl'];?>" target="_blank"><?php echo $creditInfo['officeurl'];?></a></p>
-      <p><b>联系人：</b><?php echo $creditInfo['contactname'];?></p>
-      <p><b>联系手机：</b><?php echo $creditInfo['contactmobile'];?></p>
-      <ul class="nav nav-pills nav-stacked" role="tablist">
-        <li role="presentation" <?php if($colid==''){?>class="active"<?php }?>><?php echo CHtml::link('首页',array('lecturer/index','id'=>$uid));?></li>
-        <?php if(!empty($columns)){?>
-        <?php foreach($columns as $col){?>
-        <li role="presentation" <?php if($colid==$col['id']){?>class="active"<?php }?>><?php echo CHtml::link($col['title'],array('lecturer/index','id'=>$uid,'colid'=>$col['id']));?></li>
-        <?php }?>
-        <?php }?>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="col-xs-9 col-sm-9 no-padding">
-  <?php if(!empty($selected)){?>
-  <?php foreach($selected as $sel){?>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <?php echo $sel['title'];?>
-      </h4>      
-    </div>
-    <div class="panel-body">
-      <?php $this->renderPartial('/posts/miniLists',array('colinfo'=>$sel,'uid'=>$uid,'colnum'=>2,'facenum'=>12));?>
-    </div>
-  </div>
-  <div class="clearfix"></div>
-  <?php }?>
-  <?php }?>
 </div>

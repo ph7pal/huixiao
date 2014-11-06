@@ -7,8 +7,8 @@
     <div class="tg_nav">
       <!--展会活动TAB按钮-->
       <ul class="clearfix">
-        <li class="item "><a href="javascript:void(0)" class="select">报名中的展会</a></li>
-        <li class="item "><a href="javascript:void(0)" class="">已结束的展会</a></li>
+        <li class="item "><?php echo CHtml::link('报名中的展会',array('zhanhui/index','type'=>'on'),array('class'=>($type=='on')? 'select':''));?></li>
+        <li class="item "><?php echo CHtml::link('已结束的展会',array('zhanhui/index','type'=>'over'),array('class'=>($type=='over')? 'select':''));?></li>
 
       </ul>
     </div>

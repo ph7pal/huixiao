@@ -90,8 +90,8 @@ class PostsController extends T {
     $this->comments($keyid, $coms, $pages);
     Posts::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $keyid));
     $this->uid = $info['uid'];
-    $_sql = 'SELECT id,title FROM {{posts}} WHERE colid=' . $colinfo['id'] . ' AND  id!=' . $keyid . ' AND status=' . Posts::STATUS_PASSED;
-    Posts::getAll(array('sql' => $_sql), $_page, $likes);
+    $_sql = 'SELECT id,title FROM {{posts}} WHERE colid=' . $colinfo['id'] . ' AND  id!=' . $keyid . ' AND status=' . Posts::STATUS_PASSED.' LIMIT 10';
+    $likes=Yii::app()->db->createCommand($_sql)->queryAll();
     $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_seesecretinfo'));
     if ($info['secretinfo'] != '' && $status) {
       $info['secretinfo'] = tools::jieMi($info['secretinfo']);

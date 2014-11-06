@@ -7,8 +7,7 @@
             <div class="col_main">
                 <div class="main_wrap">
                     <div class="top_box">
-                        <h1>
-                            <span class="sh">[活动结束]</span><?php echo $info['title'];?></h1>
+                      <h1><?php if($info['status']!=Posts::STATUS_PASSED){?><span class="sh">[活动结束]</span><?php }?><?php echo $info['title'];?></h1>
                         <table class="table_x" width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td>
@@ -23,7 +22,12 @@
                                     <em>活动地点：</em><?php echo $info['didian'];?>
                                 </td>
                                 <td>
-                                    <s class="clock"></s>距报名截止还有<span class="day">0</span>天
+                                  <?php 
+                                  $days=0;
+                                  if($info['expired_time']>time()){
+                                    $days=floor(($info['expired_time']-time())/86400);
+                                  }?>
+                                  <s class="clock"></s>距报名截止还有<span class="day"><?php echo $days;?></span>天
                                 </td>
                             </tr>
                             <tr>
@@ -45,7 +49,7 @@
                             </tr>
                         </table>
                         <div class="yibaoshu"><?php echo $info['canyu'];?></div>
-                        <s class="i_jiesu png_ie6">圆满结束</s>
+                        <?php if($info['status']!=Posts::STATUS_PASSED){?><s class="i_jiesu png_ie6">圆满结束</s><?php }?>
                     </div>
                 </div>
             </div>
@@ -62,14 +66,21 @@
                         <div class="hd">
                             快速报名
                         </div>
-                        <div class="bd" style="height: 225px;">
+                        <div class="bd">
                             <div style="text-align: center; font: 22px;">
+                              <?php if($info['expired_time']<=time()){?>
                                 <p style="padding-top: 60px; background-color: #fff; margin: -5px 0px 0 0;">
                                     抱歉，本次活动报名已结束
                                 </p>
                                 <p>
                                     欢迎您下次积极参与
                                 </p>
+                              <?php }else{?>
+                                <p id="canyu-zhanhui">
+                                    <?php echo CHtml::ajaxLink('立即参与', array('canyu','id'=>$info['id']),  
+array('success' => "js:function(result){result = eval('(' + result + ')');if (result['status'] == 1) {window.location.reload();} else {alert(result['msg']);}}"))?>
+                                </p>
+                              <?php }?>
                             </div>
                         </div>
                     </div>
@@ -82,13 +93,11 @@
                     </div>
                     <div class="bd">
                         <ul id="mulitline1">
-                            <li>贺** ------ 15730128*** ------ 金城银樽b1 -17-10</li>
-                            <li>朱** ------ 15895001*** ------ 黄泥塝</li>
-                            <li>杨** ------ 13996221*** ------ 汽博</li>
-                            <li>陈** ------ 18625940*** ------ 爱加西西里</li>
-                            <li>王** ------ 15625002*** ------ 金鹏金岭</li>
-                            <li>刘** ------ 18525002*** ------ ·紫御江山</li>
-                            <li>李** ------ 13652401*** ------ 奥园</li>
+                          <?php if(!empty($users)){?>
+                          <?php foreach($users as $user){?>
+                          <li><?php echo $user['truename'];?></li>
+                          <?php }?>
+                          <?php }?>
                         </ul>
                     </div>
                 </div>

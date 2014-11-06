@@ -1,6 +1,6 @@
 <!---文章内容页-->
 <div class="w_960 content">
-    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <a href="#">行业资讯 </a>&gt; <a href="#">行业动态 </a>&gt; 床垫企业推智能床垫 帮助改善睡眠</span></div>
+    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link($info['title'],array('posts/index','colid'=>$info['id']));?>&gt; <?php echo $page['title'];?></span></div>
     <div class="zzyHTML">
        
     </div>
@@ -85,83 +85,35 @@
         <!--左侧排行榜显示部分开始-->
         <div class="col_sub">
             <!--精彩推荐 开始-->
-            <div class="module_05">
-                <div class="hd">
-                    精彩推荐
-                </div>
+            <!--div class="module_05">
+                <div class="hd">精彩推荐</div>
                 <div class="bd imgList">
                     <div id="marqueediv1">
-                        <!--图片循环滚动开始，一共12条数据-->
-
                         <ul class="clearfix">
-                            <!--第一条数据开始-->
                             <li class="item"><a href="#" target="_blank">
                                 <img src="UpFile/singlefile/cd87bf84-3ccd-4d15-997c-77d0dcf3fb64.jpg" alt="金煌装饰“金九银十”全装大师系..." />
                                 <span class="title">金煌装饰“金九银十”全装大师系...</span></a></li>
-                            <!--第一条数据结束-->                            
                         </ul>
-                        <!--图片循环滚动结束，一共12条数据-->
                     </div>
                 </div>
-            </div>
+            </div-->
             <!--阅读排行榜 开始-->
             <div class="module_05" id="TabAdS01">
-                <div class="hd">
-                    装修日记阅读排行<div class="tab">
-                    </div>
-                </div>
+                <div class="hd"><?php echo $info['title'];?><div class="tab"></div></div>
                 <!--阅读排行内容开始-->
                 <div class="bd paixuList">
                     <!--数据循环开始，一共10条数据-->
                     <ul class="tab-cont">
-                        <li class="item"><s class="s s_red">1</s><a href="#" target="_blank">华润二十四城</a><span
-                            class="num">1818</span></li>
+                      <?php if(!empty($likes)){?>
+                      <?php foreach($likes as $key=>$like){?>
+                        <li class="item"><s class="s s_red"><?php echo ($key+1);?></s><?php echo CHtml::link($like['title'],array('posts/show','id'=>$like['id']));?></li>
+                      <?php }?>
+                      <?php }?>
                     </ul>
                     <!--数据循环结束，一共10条数据-->
                 </div>
                 <!--阅读排行内容结束-->
             </div>
-            <!--阅读排行榜 结束-->
-            <div class="blank10">
-            </div>
-            <!--最新装修招标 开始-->
-            <div class="module_05">
-                <div class="hd">
-                    最新装修招标<div class="more">
-                        <a href="#" target="_blank">门面</a> <a href="#" target="_blank">别墅</a> <a href="/zhaobiao/index.html?fwlx=18" target="_blank">公寓</a>
-                    </div>
-                </div>
-                <!--招标新闻内容开始-->
-                <div class="bd txtList">
-                    <!--数据循环开始-->
-                    <ul>
-                        <li class="item"><a href="#" target="_blank">渝中区瑞安工作室公共空间200㎡公装招标</a></li>
-                    </ul>
-                    <!--数据循环结束-->
-                </div>
-                <!--招标新闻内容结束-->
-            </div>
-            <!--最新装修招标 开始-->
-            <div class="blank10">
-            </div>
-            <!--案例精选 开始-->
-            <div class="module_05">
-                <div class="hd">
-                    案例精选<div class="more">
-                        <a href="/anli/index.html?lx=1&fg=23" target="_blank">中式</a> <a href="/anli/index.html?lx=1&fg=24" target="_blank">欧式古典</a> <a href="/anli/index.html?lx=1&fg=25" target="_blank">现代简约</a>
-                    </div>
-                </div>
-                <div class="bd imgList">
-                    <!--数据循环开始，一共10条数据-->
-                    <ul class="clearfix">
-                        <!--第一条数据开始-->
-                        <li class="item"><a href="#" target="_blank">
-                            <img src="UpFile/singlefile/002b90d2-814f-460d-9594-8ac2fa05392e.jpg" width="120" height="78" alt="" /><span class="title">蓝湖香颂  新中式风格</span></a></li>
-                        <!--第一条数据结束-->                        
-                    </ul>
-                </div>
-            </div>
-            <!--案例精选 结束-->
         </div>
         <!--左侧排行榜显示部分结束-->
     </div>

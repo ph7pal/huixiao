@@ -33,6 +33,7 @@ class Goods extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'messages'=>array(self::HAS_MANY,'Message','belongid','condition'=>'classify="goods"')
     );
   }
 
@@ -114,10 +115,12 @@ class Goods extends CActiveRecord {
   public static function model($className = __CLASS__) {
     return parent::model($className);
   }
-  
-  public static function tops(){
-  	$sql="SELECT id,title,faceimg FROM {{goods}} ORDER BY hits DESC LIMIT 12";
-  	$items=Yii::app()->db->createCommand($sql)->queryAll();
+
+  public static function tops($sql='') {
+    if(!$sql){
+      $sql = "SELECT id,title,faceimg FROM {{goods}} ORDER BY hits DESC LIMIT 12";
+    }    
+    $items = Yii::app()->db->createCommand($sql)->queryAll();
     if (!empty($items)) {
       foreach ($items as $key => $goods) {
         $faceurl = zmf::noImg('url');
@@ -131,8 +134,13 @@ class Goods extends CActiveRecord {
         $items[$key] = $goods;
       }
     }
-    
-  	return $items;
-  	}
+    return $items;
+  }
+  
+  public static function users($uid,$limit=6) {
+    $sql = "SELECT id,title,faceimg FROM {{goods}} WHERE uid='{$uid}' ORDER BY hits DESC LIMIT {$limit}";
+    $items=self::tops($sql);
+    return $items;
+  }
 
 }
