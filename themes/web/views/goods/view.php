@@ -66,18 +66,17 @@
                         <div class="proTBg">
                             <h3>联系方式</h3>
                             <a name="A1"></a>
-
                         </div>
-
                         <a name="lxfs" id="lxfs"></a>
                         <div id="panl1">
-
-
-                            <div class='messWarn' id="liuyanxianshi">
-                                <font>请在下方留言，提交后将自动显示联系方式 </font>
-                            </div>
-
-
+                          <div class='messWarn' id="liuyanxianshi">
+                          <?php if($this->showMessage){?>
+                            <font>联系方式：<?php echo $contact['contactname'];?> <?php echo $contact['contactmobile'];?></font>
+                            <p>请珍惜您的特权，请勿泄露及传播该信息。</p>
+                          <?php }else{?>                            
+                            <font>请在下方留言，提交后将自动显示联系方式 </font>
+                          <?php }?>
+                          </div>
                         </div>
                         <!--联系方式 结束-->
                     </div>
@@ -93,63 +92,25 @@
                             </div>
                             <div id="NewsTop_cnt2">
                                 <div class="Contentbox">
+                                  <?php if(!$this->isSelf){?>
+                                  
+                                  <?php if($this->canMessage){?>
                                     <h3>请认真填写你的信息和需求，好获取更好的支持。</h3>
-                                    <table width="98%" align="center" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td width="80" align="right">客户姓名：</td>
-                                            <td align="left">
-                                                <input type="text" id="txtInputer" />
-                                                <span style="color: Red">*</span></td>
-                                            <td width="80" align="right">联系电话：</td>
-                                            <td width="47%" align="left">
-                                                <input type="text" id="txtTelephone" />
-                                                <span style="color: Red">*</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">代理区域：</td>
-                                            <td valign="middle" align="left" height="29" class="style1">
-                                                <select name="ddlprovince" id="ddlprovince" style="width: 85px">
-                                                </select>
-                                                <select name="ddlcity" id="ddlcity" style="width: 85px">
-                                                    <option value="">请选择</option>
-                                                </select>
-
-                                                <span style="color: Red">*</span>
-
-                                            </td>
-                                            <td align="right">团队人数：</td>
-                                            <td align="left">
-                                                <input type="text" />
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td width="11%" align="right">详细内容：<br />
-                                            </td>
-                                            <td colspan="4" align="left">
-                                                <textarea name="txtContent" rows="5" cols="56" id="txtContent" class="textMessBg" style="color: Black">我对该产品有兴趣，想代理!</textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" valign="top" align="left" height="32">
-                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                        <td width="11%" height="32">&nbsp;</td>
-                                                        <td width="89%">
-                                                            <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/tjly.gif" id="btnSubmit" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div style="font-size: 12px; text-align: center; margin: 10px;">
-                                    </div>
+                                    <?php $this->renderPartial('//message/_form', array('model'=>$model)); ?>
+                                  <?php }else{?>
+                                    <?php if($this->showMessage){?>
+                                    <h3>您已留言过，隐藏信息将为您显示。</h3>
+                                    <?php }else{?>
+                                    <h3>为保证数据的真实性，请先登录并填写认证信息。</h3>
+                                    <?php }?>
+                                    <?php }?>
+                                  <?php }else{?>
+                                  <?php if(!empty($info->messages)){$messages=$info->messages;?>  
+                                   <?php foreach($messages as $message){$this->renderPartial('//message/_view',array('data'=>$message));}?> 
+                                  <?php }?>  
+                                  <?php }?>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -158,25 +119,26 @@
             <!--右侧资讯-->
             <div id="subright">
                 <!--广告图片-->
+                <?php if(!empty($likes)){?>
+                <?php foreach($likes as $like){?>
                 <!--推荐产品 开始-->
                 <div class="subRNews">
-                    <h3><font class="fr fontw"><a href="#" title="改善胃肠      ">更多&gt;&gt;</a></font><a href="/product/gscw" title="改善胃肠      ">改善胃肠      类产品</a></h3>
+                    <h3><?php echo CHtml::link($like['taginfo']['title'].' 相关产品',array('goods/index','tagid'=>$like['taginfo']['id']));?></h3>
                     <div class="proCont clearfix">
                         <!--数据循环开始 ,一共4条数据-->
                         <ul>
-                            <li><a href="#" title="韩国原装进口亿生菌" target="_blank">
-                                <img src="UpFile/singlefile/20140918025601281.jpg" alt="韩国原装进口亿生菌" /><span>韩国原装进口亿生菌</span> </a></li>
-                            <li><a href="#" title="奥诺康畅卫士" target="_blank">
-                                <img src="UpFile/singlefile/20140917023041312.jpg" alt="奥诺康畅卫士" /><span>奥诺康畅卫士</span></a></li>
-                            <li><a href="#" title='“养胃之王”猴头菇多糖' target="_blank">
-                                <img src="UpFile/singlefile/20140913035727937.jpg " alt='“养胃之王”猴头菇多糖' /><span>“养胃之王”猴头菇多糖</span></a></li>
-                            <li><a href="#" title="新品水果味听装清润宝苹果味隆重上市现全国招商" target="_blank">
-                                <img src="UpFile/singlefile/20140829083043468.jpg" alt="新品水果味听装清润宝苹果味隆重上市现全国招商" /><span>新品水果味听装清润宝苹果味隆重上市现全国招商</span> </a></li>
+                          <?php if(!empty($like['items'])){?>
+                          <?php foreach($like['items'] as $item){?>
+                            <li><?php echo CHtml::link(CHtml::image($item['faceurl'],CHtml::encode($item['title'])).'<span>'.$item['title'].'</span>',array('goods/view','id'=>$item['id']),array('target'=>'_blank')); ?></li>
+                           <?php }?>
+                           <?php }?>     
                         </ul>
                         <!--数据循环结束-->
                     </div>
                 </div>
                 <!--推荐产品 结束-->
+                <?php }?>
+                <?php }?>
                 <!--广告图片 开始-->                
                 <!--广告图片 结束-->
                 <div class="subRNews">

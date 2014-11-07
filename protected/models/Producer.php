@@ -21,6 +21,9 @@
  * @property integer $hits
  * @property integer $top
  * @property integer $status
+ * @property integer $medal
+ * @property string $medal_logo
+ * @property string $medal_title
  */
 class Producer extends CActiveRecord {
 
@@ -38,12 +41,14 @@ class Producer extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, status', 'required'),
-        array('uid, faceimg, localarea, cTime, hits, top, status', 'numerical', 'integerOnly' => true),
+        array('uid, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'required'),
+        array('uid, faceimg, localarea, cTime, hits, top, status, medal,scorer,lecturers,goods', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),
+        array('medal_logo, medal_title', 'length', 'max' => 16),
+        array('score', 'length', 'max' => 5),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status', 'safe', 'on' => 'search'),
+        array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title,score,scorer,lecturers,goods', 'safe', 'on' => 'search'),
     );
   }
 
@@ -54,6 +59,7 @@ class Producer extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'userinfo'=>array(self::BELONGS_TO,'Users','uid')
     );
   }
 
@@ -63,22 +69,29 @@ class Producer extends CActiveRecord {
   public function attributeLabels() {
     return array(
         'id' => 'ID',
-        'uid' => 'Uid',
-        'faceimg' => 'Faceimg',
-        'localarea' => 'Localarea',
-        'companyname' => 'Companyname',
-        'companyowner' => 'Companyowner',
-        'address' => 'Address',
-        'description' => 'Description',
-        'companyurl' => 'Companyurl',
-        'contactname' => 'Contactname',
-        'contactmobile' => 'Contactmobile',
-        'mainproduct' => 'Mainproduct',
-        'licensenumber' => 'Licensenumber',
-        'cTime' => 'C Time',
-        'hits' => 'Hits',
-        'top' => 'Top',
-        'status' => 'Status',
+        'uid' => '作者',
+        'faceimg' => '封面图',
+        'localarea' => '所在地',
+        'companyname' => '企业全称',
+        'companyowner' => '企业法人',
+        'address' => '企业地址',
+        'description' => '企业描述',
+        'companyurl' => '官方网站地址',
+        'contactname' => '联系人姓名',
+        'contactmobile' => '联系人手机',
+        'mainproduct' => '主打产品',
+        'licensenumber' => '营业执照注册号',
+        'cTime' => '创建时间',
+        'hits' => '点击次数',
+        'top' => '是否置顶',
+        'status' => '状态',
+        'medal' => '徽章',
+        'medal_logo' => '徽章LOGO',
+        'medal_title' => '徽章标题',
+        'score' => '评分',
+        'scorer' => '评分人数',
+        'lecturers' => '讲师数',
+        'goods' => '产品数',
     );
   }
 
@@ -116,6 +129,13 @@ class Producer extends CActiveRecord {
     $criteria->compare('hits', $this->hits);
     $criteria->compare('top', $this->top);
     $criteria->compare('status', $this->status);
+    $criteria->compare('medal', $this->medal);
+    $criteria->compare('medal_logo', $this->medal_logo, true);
+    $criteria->compare('medal_title', $this->medal_title, true);
+    $criteria->compare('score', $this->score, true);
+    $criteria->compare('scorer', $this->scorer, true);
+    $criteria->compare('lecturers', $this->lecturers, true);
+    $criteria->compare('goods', $this->goods, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,
@@ -131,12 +151,12 @@ class Producer extends CActiveRecord {
   public static function model($className = __CLASS__) {
     return parent::model($className);
   }
-  
+
   public function getOne($keyid, $return = '') {
       $item = Producer::model()->findByPk($keyid);
       if ($return != '') {
           return $item[$return];
-      }
+}
       return $item;
   }
   

@@ -352,13 +352,9 @@ class Columns extends CActiveRecord {
         if(!empty($items)){
           foreach($items as $it){
             $_key=$it['name'];
-            $real[$_key]['colinfo']=$it;
-            
+            $real[$_key]['colinfo']=$it;            
             $colitems = Posts::allPosts(array('colid'=>$it['id'],'condition'=>$it['listcondition'],'top'=>zmf::config('orderByTop'),'fields'=>'id,title,attachid,cTime','order'=>NULL),$it['listnum'],NULL); 
             $real[$_key]['posts']=$colitems;
-            
-            
-            
           }
         }
         return $real;

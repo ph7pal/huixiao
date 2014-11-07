@@ -236,4 +236,35 @@ class AjaxController extends T {
     }
   }
 
+  public function actionMessage() {
+    $model=new Message;
+    if (isset($_POST['ajax']) && $_POST['ajax'] === 'message-form') {
+      echo CActiveForm::validate($model);
+      Yii::app()->end();
+    }
+    if (isset($_POST['Message'])) {
+      Yii::app()->session['checkHasBadword'] = 'no';
+      foreach($_POST['Message'] as $key=>$val){
+        $_POST['Message'][$key]=zmf::filterInput($val,'t',1);
+      }
+      $ip = Yii::app()->request->userHostAddress;
+      $_POST['Message']['ip']=  ip2long($ip);
+      if (Yii::app()->session['checkHasBadword'] == 'yes') {
+        $status = Posts::STATUS_STAYCHECK;
+      } else {
+        $status = Posts::STATUS_PASSED;
+      }
+      $_POST['Message']['status']=  $status;
+      $_POST['Message']['localarea']=  zmf::filterInput($_POST['cityid'][0]);
+      $_POST['Message']['uid']=  Yii::app()->user->id;
+      $_POST['Message']['cTime']=  time();
+      $model->attributes = $_POST['Message'];
+      if ($model->save()){
+        $this->jsonOutPut(1, '您的留言已提交');
+      }else{
+        $this->jsonOutPut(0, '数据错误');
+      }
+    }
+  }
+
 }

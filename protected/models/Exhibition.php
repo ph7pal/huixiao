@@ -10,8 +10,7 @@
  * @property integer $localarea
  * @property string $companyowner
  * @property string $companyname
- * @property string $jobname
- * @property string $officurl
+ * @property string $officeurl
  * @property string $contactname
  * @property string $contactmobile
  * @property string $mainproduct
@@ -20,6 +19,9 @@
  * @property integer $hits
  * @property integer $top
  * @property integer $status
+ * @property integer $medal
+ * @property string $medal_logo
+ * @property string $medal_title
  */
 class Exhibition extends CActiveRecord {
 
@@ -37,12 +39,14 @@ class Exhibition extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, localarea, companyowner, companyname, jobname, officurl, contactname, contactmobile, mainproduct, licensenumber, cTime,status', 'required'),
-        array('uid, faceimg, localarea, cTime, hits, top, status', 'numerical', 'integerOnly' => true),
-        array('companyowner, companyname, jobname, officurl, contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),
+        array('uid,localarea, companyowner, companyname, officeurl, contactname, contactmobile,licensenumber', 'required'),
+        array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
+        array('companyowner, companyname , officeurl, contactname, contactmobile, mainproduct, licensenumber,address,description', 'length', 'max' => 255),
+        array('medal_logo, medal_title', 'length', 'max' => 16),
+        array('score', 'length', 'max' => 5),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, uid, faceimg, localarea, companyowner, companyname, jobname, officurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status', 'safe', 'on' => 'search'),
+        array('id, uid, faceimg, localarea, companyowner, companyname, officeurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, score,scorer,status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
     );
   }
 
@@ -62,21 +66,27 @@ class Exhibition extends CActiveRecord {
   public function attributeLabels() {
     return array(
         'id' => 'ID',
-        'uid' => 'Uid',
-        'faceimg' => 'Faceimg',
-        'localarea' => 'Localarea',
-        'companyowner' => 'Companyowner',
-        'companyname' => 'Companyname',
-        'jobname' => 'Jobname',
-        'officurl' => 'Officurl',
-        'contactname' => 'Contactname',
-        'contactmobile' => 'Contactmobile',
-        'mainproduct' => 'Mainproduct',
-        'licensenumber' => 'Licensenumber',
-        'cTime' => 'C Time',
-        'hits' => 'Hits',
-        'top' => 'Top',
-        'status' => 'Status',
+        'uid' => '作者',
+        'faceimg' => '封面图',
+        'localarea' => '所在地',
+        'companyowner' => '法人代表',
+        'companyname' => '企业全称',
+        'address' => '企业地址',
+        'description' => '企业描述',
+        'officeurl' => '官方网站地址',
+        'contactname' => '联系人姓名',
+        'contactmobile' => '联系人手机',
+        'mainproduct' => '主打产品',
+        'licensenumber' => '营业执照注册号',
+        'cTime' => '创建时间',
+        'hits' => '点击次数',
+        'top' => '是否置顶',
+        'status' => '状态',
+        'medal' => '徽章',
+        'medal_logo' => '徽章LOGO',
+        'medal_title' => '徽章标题',
+        'score' => '评分',
+        'scorer' => '评分人数',
     );
   }
 
@@ -103,8 +113,7 @@ class Exhibition extends CActiveRecord {
     $criteria->compare('localarea', $this->localarea);
     $criteria->compare('companyowner', $this->companyowner, true);
     $criteria->compare('companyname', $this->companyname, true);
-    $criteria->compare('jobname', $this->jobname, true);
-    $criteria->compare('officurl', $this->officurl, true);
+    $criteria->compare('officeurl', $this->officeurl, true);
     $criteria->compare('contactname', $this->contactname, true);
     $criteria->compare('contactmobile', $this->contactmobile, true);
     $criteria->compare('mainproduct', $this->mainproduct, true);
@@ -113,6 +122,13 @@ class Exhibition extends CActiveRecord {
     $criteria->compare('hits', $this->hits);
     $criteria->compare('top', $this->top);
     $criteria->compare('status', $this->status);
+    $criteria->compare('medal', $this->medal);
+    $criteria->compare('medal_logo', $this->medal_logo, true);
+    $criteria->compare('medal_title', $this->medal_title, true);
+    $criteria->compare('address', $this->address, true);
+    $criteria->compare('description', $this->description, true);
+    $criteria->compare('score', $this->score, true);
+    $criteria->compare('scorer', $this->scorer, true);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,

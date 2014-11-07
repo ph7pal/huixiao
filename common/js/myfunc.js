@@ -160,8 +160,7 @@ function myUploadify(){
                 myeditor.execCommand("inserthtml",img);
             ///addimage(data['url']);
             }else{
-                var longstr='<div class="flash-error" style="float:left" id="tip_error_'+tipsImgOrder+'"><div style="float:left;width:540px"><span>'+file.name+'</span><br/><span>'+data['status']+'</span></div><div style="width:20px;float:right"><a href="javascript:" onclick="closeDiv(\'tip_error_'+tipsImgOrder+'\')">X</a></div></div>';
-                $("#tipsimgerrors").append(longstr);
+              alert(data['msg']);
             }
             tipsImgOrder++;
         }

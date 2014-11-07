@@ -95,9 +95,9 @@
 
 /* ----------产品展示---------- */
 .subRNews .proCont{padding:1px 0 5px 1px}
-.subRNews .proCont li{float:left;background:#fff;margin:4px; display:inline;overflow:hidden; line-height:20px; height:135px; text-align:center; }
+.subRNews .proCont li{float:left;background:#fff;margin:4px; display:inline;overflow:hidden; line-height:20px;text-align:center; }
 .subRNews .proCont li a{display:block;color:#666666;background:#f6f6f6;padding:2px; text-decoration:none;width:110px}
-  .subRNews .proCont li img { height:110px;  width:110px;  border:none }
+.subRNews .proCont li img { height:82px;  width:110px;  border:none }
 .subRNews .proCont li a:hover{color:#026b9d;background:#f8f8f8}
 .subRNews .proCont li span{ display:block;text-align:center;margin-top:2px;height:20px; line-height:20px;}
 

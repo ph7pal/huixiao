@@ -53,23 +53,10 @@
         <div class="slideIMG">
           <div id="feature_list">
             <ul id="tabs">
-              <li><a href="javascript:;">1</a> </li>
-              <li><a href="javascript:;">2</a> </li>
-              <li><a href="javascript:;">3</a> </li>
-              <li><a href="javascript:;">4</a> </li>
-              <li><a href="javascript:;">5</a> </li>
+              <?php $item=$mainCols['tupianxinwen'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li><a href="javascript:;">'.($key+1).'</a> </li>'; }}?>
             </ul>
             <ul id="output">
-              <li><a href="#" target="_blank">
-                  <img src="UpFile/singlefile/0696547b-4cc4-4d38-809d-d0b977e775b2.jpg" alt="大型公益验房活动第二季正式开启" /></a></li>
-              <li><a href="#" target="_blank">
-                  <img src="UpFile/singlefile/6d25d1cc-20af-4bca-be72-1845043c79d6.jpg" alt="一切设计要从本源出发——设计泰斗柳冠中" /></a></li>
-              <li><a href="#" target="_blank">
-                  <img src="UpFile/singlefile/636382a3-a672-49ec-9d51-30209762bbd5.jpg" alt="高性价比环保装修 打造健康生活首要标准" /></a></li>
-              <li><a href="#" target="_blank">
-                  <img src="UpFile/singlefile/f2f24f8a-8897-4331-b309-479e2cbbf6ba.jpg" alt="夏季装修“四要诀”轻松打造清凉居室" /></a></li>
-              <li><a href="#" target="_blank">
-                  <img src="UpFile/singlefile/afaa3c58-ab3b-448b-880a-2f0aae9722b2.jpg" alt="《装修达人》国庆首发免费签送" /></a></li>
+              <?php if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link(CHtml::image($one['faceurl'],CHtml::encode($one['title'])),array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>              
             </ul>
           </div>
         </div>
@@ -103,7 +90,7 @@
   <div class="floor floor_1">
     <div class="inner">
       <div class="f_hd">
-        <span class="title">会销信用黑名单曝光</span><span class="right"><a href="#" class="view_all">浏览全部</a></span>
+        <span class="title">会销信用黑名单曝光</span><span class="right"><?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['heimingdan']['colinfo']['id']),array('target'=>'_blank','class'=>'view_all'));?></span>
       </div>
     </div>
     <div class="w_960">
@@ -133,7 +120,7 @@
             <div class="module_04" id="Tab2">
               <div class="bd small_paixu">
                 <ul class="tab-cont">
-                  <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php $item=$mainCols['topheimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
             </div>
@@ -147,7 +134,7 @@
   <div class="floor floor_2">
     <div class="inner">
       <div class="f_hd">
-        <span class="title">会销骗局</span><span class="right"><a href="/wen/list_33.html" class="view_all">浏览全部</a></span>
+        <span class="title">会销骗局</span><span class="right"><?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['huixiaopianju']['colinfo']['id']),array('target'=>'_blank','class'=>'view_all'));?></span>
       </div>
     </div>
     <div class="w_960">
@@ -178,7 +165,7 @@
             <div class="module_04" id="Div1">
               <div class="bd small_paixu">
                 <ul class="tab-cont">
-                  <?php $item=$mainCols['zhanhuidangqi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php $item=$mainCols['toppianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
             </div>
@@ -203,7 +190,7 @@
                 <ul class="clearfix tab-hd">
                   <li class="select">AAA级信用热度排行<s class="s1"></s><s class="s2"></s></li>
                 </ul>
-                <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>
+                <?php echo CHtml::link('更多',array('qiye/index'),array('target'=>'_blank','class'=>'more'));?>
               </div>
               <div class="bd yxtd yxtdw_f" style="height: 232px">
                 <ul class="clearfix">
@@ -211,7 +198,7 @@
                   <?php
                   if(!empty($topProducers)){
                     foreach($topProducers as $qiye){
-                        echo '<li class="item">'.CHtml::link(zmf::avatar($qiye['uid'],'small').'<span class="title">'.$qiye['companyname'].'</span>',array('qiye/index','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';
+                        echo '<li class="item">'.CHtml::link(zmf::avatar($qiye['uid'],'small').'<span class="title">'.$qiye['companyname'].'</span>',array('qiye/view','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';
                     }
                   }
                   ?>
@@ -229,7 +216,7 @@
               <div class="bd hb_news">
                 <ul class="clearfix">
                   <!--商家推广资讯开始-->
-                  <?php $item=$mainCols['changjiazhaoshangzixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php $item=$mainCols['zhaoshang'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                   <!--商家推广资讯结束-->
                 </ul>
               </div>
@@ -242,12 +229,12 @@
               <ul class="clearfix tab-hd">
                 <li class="select">最新厂家<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+              <?php echo CHtml::link('更多',array('qiye/index'),array('target'=>'_blank','class'=>'more'));?>   
             </div>
             <div class="bd zxgs" style="height: 380px;">
               <!--最新AAA级信用厂家 开始 一共20条数据-->
               <ul id="mulitline2">
-                <?php if(!empty($newProducers)){foreach($newProducers as $qiye){echo '<li class="item">'.CHtml::link($qiye['companyname'],array('qiye/index','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';}}?>
+                <?php if(!empty($newProducers)){foreach($newProducers as $qiye){echo '<li class="item">'.CHtml::link($qiye['companyname'],array('qiye/view','id'=>$qiye['id']),array('target'=>'_blank')).'</li>';}}?>
               </ul>
               <!--最新AAA级信用厂家 结束-->
             </div>
@@ -281,14 +268,6 @@
             <!--热销产品推荐 结束-->
           </ul>
         </div>
-        <div class="bd tk_img_list" style="display: none">
-          <ul class="clearfix">
-            <!--热销产品推荐 开始 一共12条数据-->
-            <li class="item"><a href="#" target="_blank" title="富力城">
-                <img src="UpFile/singlefile/aebb98fd-0298-4f7a-a979-d2f08eedf749.jpg" width="135" height="88" alt="" /><span class="title">富力城</span></a></li>
-            <!--热销产品推荐 结束-->
-          </ul>
-        </div>
       </div>
       <div class="grid_index_04 clearfix">
         <div class="col_main">
@@ -299,7 +278,7 @@
                   <li class="select">推荐优秀讲师<s class="s1"></s><s class="s2"></s></li>
                   <?php  foreach($areas as $ak=>$aval){?><li><?php echo $aval['name'];?><s class="s1"></s><s class="s2"></s></li><?php }?>
                 </ul>
-                <?php echo CHtml::link('更多',array('posts/jiangshi'),array('target'=>'_blank','class'=>'more'));?>   
+                <?php echo CHtml::link('更多',array('lecturer/index'),array('target'=>'_blank','class'=>'more'));?>   
               </div>
               <div class="m_a m_a_2">
 
@@ -308,7 +287,7 @@
                     <?php 
                     if(!empty($topLecturers)){
                         foreach($topLecturers as $topLecturer){
-                            echo '<li class="item">'.CHtml::link(zmf::avatar($topLecturer['uid'],'small').'<span class="name">'.$topLecturer['truename'].'</span>',array('lecturer/index','id'=>$topLecturer['uid']),array('target'=>'_blank')).'</li>';
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($topLecturer['uid'],'small').'<span class="name">'.$topLecturer['truename'].'</span>',array('lecturer/view','id'=>$topLecturer['uid']),array('target'=>'_blank')).'</li>';
                         }
                     }
                     ?>
@@ -316,10 +295,10 @@
                   <?php  foreach($areas as $ak=>$aval){?>
                   <ul class="clearfix tab-cont" style="display: none">
                     <?php
-                    $areaLectureres=Users::getLecturer($aval['id']);
+                    $areaLectureres=Lecturer::getLecturer($aval['id']);
                     if(!empty($areaLectureres)){
                         foreach($areaLectureres as $areaLecturer){
-                            echo '<li class="item">'.CHtml::link(zmf::avatar($areaLecturer['uid'],'small').'<span class="name">'.$areaLecturer['truename'].'</span>',array('lecturer/index','id'=>$areaLecturer['uid']),array('target'=>'_blank')).'</li>';
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($areaLecturer['uid'],'small').'<span class="name">'.$areaLecturer['truename'].'</span>',array('lecturer/view','id'=>$areaLecturer['uid']),array('target'=>'_blank')).'</li>';
                         }
                     }?>
                   </ul>      
@@ -368,7 +347,7 @@
               <ul class="clearfix tab-hd">
                 <li class="select">热门展会公司<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+              <?php echo CHtml::link('更多',array('exhibition/index'),array('target'=>'_blank','class'=>'more'));?>   
             </div>
             <div class="bd zxgs w_f" style="height: 300px;">
               <ul class="clearfix">
@@ -385,12 +364,12 @@
               <ul class="clearfix tab-hd">
                 <li class="select">展会档期<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuidangqi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+              <?php echo CHtml::link('更多',array('zhanhui/index'),array('target'=>'_blank','class'=>'more'));?> 
             </div>
             <div class="module_04" id="Div3">
               <div class="bd small_paixu" style="height: 298px;">
                 <ul class="tab-cont clearfix">
-                  <?php $item=$mainCols['zhanhuidangqi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">13-25</em>'.'</li>'; }}?>
+                  <?php if(!empty($zhanhuis)){foreach($zhanhuis as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('zhanhui/view','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">'.date('Y-m-d',$one['start_time']).'</em>'.'</li>'; }}?>
                 </ul>
               </div>
             </div>
@@ -417,12 +396,12 @@
                 <ul class="clearfix tab-hd">
                   <li class="select">营销团队排行榜<s class="s1"></s><s class="s2"></s></li>
                 </ul>
-                <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+                <?php //echo CHtml::link('更多',array('team/index'),array('target'=>'_blank','class'=>'more'));?>   
               </div>
               <div class="bd yxtd yxtdw_f" style="height: 232px">
                 <ul class="clearfix">
                   <!--营销团队开始-->
-                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['teamname'].'</span>',array('team/index','id'=>$topTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['teamname'].'</span>',array('team/view','id'=>$topTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
                   <!--营销团队结束-->
                 </ul>
               </div>
@@ -450,12 +429,12 @@
               <ul class="clearfix tab-hd">
                 <li class="select">最新营销团队<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('posts/qiye'),array('target'=>'_blank','class'=>'more'));?>   
+              <?php //echo CHtml::link('更多',array('team/index'),array('target'=>'_blank','class'=>'more'));?>   
             </div>
             <div class="bd zxgs" style="height: 380px;">
               <!--最新营销团队 数据循环 开始 一共20条数据-->
               <ul id="mulitline3">
-                <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['teamname'],array('team/index','id'=>$newTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
+                <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['teamname'],array('team/view','id'=>$newTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
               </ul>
               <!--最新营销团队 数据循环 开始 一共20条数据-->
             </div>

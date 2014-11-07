@@ -41,7 +41,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gs_miaoshu'); ?>
-		<?php echo $form->textArea($model,'gs_miaoshu',array('rows'=>6, 'cols'=>50,'class'=>'form-control')); ?>
+        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$model->gs_miaoshu,'keyid'=>$model->id,'type'=>'jobs','mini'=>'yes','attribute'=>'gs_miaoshu'));?> 
 		<?php echo $form->error($model,'gs_miaoshu'); ?>
 	</div>
 
@@ -53,7 +53,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_miaoshu'); ?>
-		<?php echo $form->textArea($model,'gz_miaoshu',array('rows'=>6, 'cols'=>50,'class'=>'form-control')); ?>
+        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$model->gz_miaoshu,'keyid'=>$model->id,'type'=>'jobs','mini'=>'yes','attribute'=>'gz_miaoshu'));?> 
 		<?php echo $form->error($model,'gz_miaoshu'); ?>
 	</div>
 

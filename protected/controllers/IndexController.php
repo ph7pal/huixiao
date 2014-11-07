@@ -43,17 +43,47 @@ class IndexController extends T {
         'zhishituijian2',
         'zhishituijian3',
         'zhishituijian4',
-            //''
+        'zhaoshang',
+        'yingxiaomoshi',//营销模式
     );
 
     $colinfos = Columns::indexColumns($arr);
-    //zmf::test($colinfos);
+    $tupians=$colinfos['tupianxinwen']['posts'];
+    if(!empty($tupians)){
+      foreach($tupians as $key=>$tupian){
+        $faceurl='';
+        if($tupian['attachid']>0){
+          $attachinfo=  Attachments::getOne($tupian['attachid']);
+          if($attachinfo){
+            $faceurl = zmf::uploadDirs($attachinfo['logid'], 'site', $attachinfo['classify'], 'origin') . $attachinfo['filePath'];
+          }
+        }
+        $tupian['faceurl'] = $faceurl;
+        $tupians[$key] = $tupian;
+      }
+    }
+    $colinfos['tupianxinwen']['posts']=$tupians;
+    $colinfos['topheimingdan']['posts']=array();
+    //获取黑名单最热
+    $_colinfo=$colinfos['heimingdan']['colinfo'];
+    if($_colinfo){
+      $_colitems = Posts::allPosts(array('colid'=>$_colinfo['id'],'top'=>1,'fields'=>'id,title,attachid,cTime','order'=>'hits'),10,NULL);
+      $colinfos['topheimingdan']['posts']=$_colitems;
+      $colinfos['topheimingdan']['colinfo']=$_colinfo;
+    }
+    //获取会销骗局
+    $_pjcolinfo=$colinfos['huixiaopianju']['colinfo'];
+    if($_pjcolinfo){
+      $_colitems = Posts::allPosts(array('colid'=>$_pjcolinfo['id'],'top'=>1,'fields'=>'id,title,attachid,cTime','order'=>'hits'),10,NULL);
+      $colinfos['toppianju']['posts']=$_colitems;
+      $colinfos['toppianju']['colinfo']=$_pjcolinfo;
+    }
+    
     $areas = Area::listArea(NUll, false, 10);
     $newCredits = UserCredit::getNews(); //最新认证
-    $qiyes = Users::getExhibition('producer');
     //$topTeams=Users::getTeam('top');
     //$newTeams=Users::getTeam('new');
-    $topLecturers = Users::getLecturer(0);
+    $topLecturers = Lecturer::getLecturer(0);
     //$topExes = Users::getExhibition('exhibition', 10, 'order');
     $topGoods = Goods::tops();
     $newJobs = Jobs::getNews();
@@ -62,6 +92,7 @@ class IndexController extends T {
     //$newExhibitions = Exhibitions::getNews();
     $topExhibitions = Exhibition::getTops();
     $newProducers = Producer::getNews();
+    $zhanhuis = Zhanhui::getNews();
     $topProducers = Producer::getTops();
     $this->pageTitle = zmf::config('sitename') . ' - ' . zmf::config('shortTitle');
     $data = array(
@@ -80,7 +111,7 @@ class IndexController extends T {
         'newJobs' => $newJobs,
         'newProducers' => $newProducers,
         'topProducers' => $topProducers,
-            //'seconds' => $seconds
+        'zhanhuis' => $zhanhuis
     );
     $this->render('index', $data);
   }

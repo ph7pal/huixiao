@@ -29,7 +29,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/upload
        toolbar: [
            'bold italic underline strikethrough ',
             'link unlink | image',
-        ],    
+        ],
+       <?php }elseif($mini=='yes'){?>
+       toolbar: [
+           'bold italic underline strikethrough ',
+            'link unlink',
+        ],
        <?php }else{?>
         toolbar: [
            'bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',

@@ -292,3 +292,127 @@ CREATE TABLE `pre_website` (
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+alter table pre_agent add medal int(10) not null default 0;
+alter table pre_agent add medal_logo char(16) not null;
+alter table pre_agent add medal_title char(16) not null;
+
+alter table pre_dealer add medal int(10) not null default 0;
+alter table pre_dealer add medal_logo char(16) not null;
+alter table pre_dealer add medal_title char(16) not null;
+
+alter table pre_exhibition add medal int(10) not null default 0;
+alter table pre_exhibition add medal_logo char(16) not null;
+alter table pre_exhibition add medal_title char(16) not null;
+
+alter table pre_lecturer add medal int(10) not null default 0;
+alter table pre_lecturer add medal_logo char(16) not null;
+alter table pre_lecturer add medal_title char(16) not null;
+
+alter table pre_magazine add medal int(10) not null default 0;
+alter table pre_magazine add medal_logo char(16) not null;
+alter table pre_magazine add medal_title char(16) not null;
+
+alter table pre_personal add medal int(10) not null default 0;
+alter table pre_personal add medal_logo char(16) not null;
+alter table pre_personal add medal_title char(16) not null;
+
+alter table pre_producer add medal int(10) not null default 0;
+alter table pre_producer add medal_logo char(16) not null;
+alter table pre_producer add medal_title char(16) not null;
+
+alter table pre_servicer add medal int(10) not null default 0;
+alter table pre_servicer add medal_logo char(16) not null;
+alter table pre_servicer add medal_title char(16) not null;
+
+alter table pre_team add medal int(10) not null default 0;
+alter table pre_team add medal_logo char(16) not null;
+alter table pre_team add medal_title char(16) not null;
+
+
+alter table pre_website add medal int(10) not null default 0;
+alter table pre_website add medal_logo char(16) not null;
+alter table pre_website add medal_title char(16) not null;
+
+DROP TABLE IF EXISTS   `pre_medal`;
+CREATE TABLE `pre_medal` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL,  
+  `logo` char(16) NOT NULL,  
+  `cTime` int(11) NOT NULL,    
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE `pre_zhanhui` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL COMMENT '展会标题',
+  `zhuti` varchar(255) NOT NULL COMMENT '展会主题',
+  `liangdian` varchar(255) NOT NULL COMMENT '展会亮点',
+  `localarea` int(10) unsigned NOT NULL default '0' COMMENT '所在区域',
+  `didian` varchar(255) NOT NULL default '' COMMENT '展会地点',
+  `start_time` int(10) unsigned NOT NULL default '0' COMMENT '展会时间',
+  `expired_time` int(10) unsigned NOT NULL default '0' COMMENT '报名结束时间',
+  `attachid` int(10) unsigned NOT NULL default '0' COMMENT '封面图片',
+  `description` varchar(255) NOT NULL COMMENT '活动简介',
+  `content` text NOT NULL COMMENT '展会详情',  
+  `hits` int(10) unsigned NOT NULL default '0' COMMENT '查看次数',
+  `order` int(10) unsigned NOT NULL default '0' ,
+  `status` tinyint(1) NOT NULL,
+  `cTime` int(10) unsigned NOT NULL default '0' COMMENT '创建时间',
+  `uid` int(11) NOT NULL COMMENT '发布者',
+  `canyu` int(11) NOT NULL COMMENT '参与数',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS   `pre_score`;
+CREATE TABLE `pre_score` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `belongid` int(11) NOT NULL,
+
+  `classify` char(16) NOT NULL COMMENT '评分分类',
+
+  `score` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score1` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score2` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score3` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score4` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score5` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score6` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score7` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score8` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  `score9` char(5) NOT NULL DEFAULT 0 COMMENT '评分项', 
+  
+
+  `cTime` int(11) NOT NULL,  
+  `ip` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+alter table pre_producer add score char(5) not null default 0;
+alter table pre_producer add scorer int(10) not null default 0;
+alter table pre_producer add lecturers int(10) not null default 0;
+alter table pre_producer add goods int(10) not null default 0;
+
+
+DROP TABLE IF EXISTS   `pre_message`;
+CREATE TABLE `pre_message` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) NOT NULL,
+  `localarea` int(11) NOT NULL,
+  `belongid` int(11) NOT NULL,
+  `classify` char(16) NOT NULL COMMENT '留言分类',
+
+  `nickname` varchar(255) NOT NULL DEFAULT 0 COMMENT '姓名', 
+  `number` varchar(255) NOT NULL DEFAULT 0 COMMENT '电话', 
+  `content` varchar(255) NOT NULL DEFAULT 0 COMMENT '留言内容', 
+  
+
+  `cTime` int(11) NOT NULL,  
+  `ip` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

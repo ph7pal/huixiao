@@ -29,7 +29,7 @@ i { font-style:normal;}
 .hoscomm_wrap dd.sel_dd{ z-index:3;}
 
 .hoscomm_wrap dd label { color:#ccc; position:absolute; top:0;_top:2px; left:5px; height:29px; line-height:29px; cursor:text;}
-.hoscomm_wrap  span{ margin-top:8px; margin-left:10px; display:inline-block;}
+.hoscomm_wrap  span{ margin-top:4px; display:inline-block;}
 .star_comm ul { width:120px; height:24px; float:left; background:url(../Images/star_list_big.jpg) 0 0 no-repeat; margin-top:3px;}
 .star_comm ul.star1 { background-position:0 -35px;}
 .star_comm ul.star2 { background-position:0 -70px;}

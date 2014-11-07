@@ -10,10 +10,15 @@
  <?php echo $form->errorSummary($model); ?>
  <?php echo $form->hiddenField($model,'id',array('value'=>$info['id'])); ?>   
  <div class="form-group">
-    <?php echo $form->labelEx($model,'title'); ?>
-    <?php echo $form->textField($model,'title',array('class'=>'form-control','value'=>$info['title'])); ?>
-     <p class="help-block"><?php echo $form->error($model,'title'); ?></p>
-</div>
+      <?php echo $form->labelEx($model,'title'); ?>
+      <?php echo $form->textField($model,'title',array('class'=>'form-control','value'=>$info['title'])); ?>
+       <p class="help-block"><?php echo $form->error($model,'title'); ?></p>
+  </div>
+  <div class="form-group">
+      <?php echo $form->labelEx($model,'name'); ?>
+      <?php echo $form->textField($model,'name',array('class'=>'form-control','value'=>$info['name'])); ?>
+       <p class="help-block"><?php echo $form->error($model,'name'); ?></p>
+  </div>
 
     <div class="form-group">
     <?php echo $form->labelEx($model,'position'); ?>

@@ -5,39 +5,98 @@ class ExhibitionController extends T {
   public $layout = 'zhanhui';
 
   public function actionIndex() {
-    $uid=zmf::filterInput($_GET['id']);
-    $colid=zmf::filterInput($_GET['colid']);
-    if(!$uid){
+    $area = zmf::filterInput($_GET['area']);
+    $credit = zmf::filterInput($_GET['credit']);
+    $_where='';
+    if(is_numeric($area) && $area>0){
+      $_where.=' AND localarea='.$area;
+    }
+    if(is_numeric($credit) && $credit>0){
+      $_where.=' AND medal='.$credit;
+    }
+    $_sql = "SELECT * FROM {{exhibition}} WHERE status=".Posts::STATUS_PASSED.$_where;
+    Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    foreach ($lists as $key => $list) {
+      $zhanhui = Zhanhui::getUsers($list['uid']);
+      foreach ($zhanhui as $_key => $_list) {
+        if ($_list['start_time'] < time()) {
+          Zhanhui::model()->updateByPk($_list['id'], array('status' => Posts::STATUS_DELED));
+        }
+        $faceurl = zmf::noImg('url');
+        if ($_list['attachid'] > 0) {
+          $attachinfo = Attachments::getOne($_list['attachid']);
+          if ($attachinfo) {
+            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '200') . $attachinfo['filePath'];
+          }
+        }
+        $_list['faceurl'] = $faceurl;
+        $zhanhui[$_key] = $_list;
+      }
+      $list['zhanhuis'] = $zhanhui;
+      $lists[$key] = $list;
+    }
+    $areas = Area::listArea();
+    $data['posts'] = $lists;
+    $data['areas'] = $areas;
+    $data['pages'] = $pages;
+    $this->render('index', $data);
+  }
+
+  public function actionView() {
+    $keyid = zmf::filterInput($_GET['id']);
+    $colid = zmf::filterInput($_GET['colid']);
+    if (!$keyid) {
       $this->message(0, '您要查看的页面不存在，请核实');
     }
-    $userCredit = UserCredit::findOne($uid);
-    if(!$userCredit || $userCredit['classify']!='exhibition'){
+    $info = Exhibition::model()->findByPk($keyid);
+    if (!$info) {
       $this->message(0, '您要查看的页面不存在，请核实');
     }
-    $configs = UserCredit::model()->findAllByAttributes(array('classify' => 'exhibition', 'uid' => $uid));
-    $userCredit = CHtml::listData($configs, 'name', 'value');
-    $columns = Columns::userColumns($uid,'*');
-    $selected=array();
-    if(!empty($columns)){
-      if(!$colid){
-        $selected=$columns;
-      }else{
-        foreach($columns as $col){
-          if($col['id']==$colid){
-            $selected[]=$col;
+//    $uid = $info['uid'];
+//    $userCredit = UserCredit::findOne($uid);
+//    if (!$userCredit || $userCredit['classify'] != 'exhibition') {
+//      $this->message(0, '您要查看的页面不存在，请核实');
+//    }
+    $columns = Columns::userColumns($uid, '*');
+    $selected = array();
+    if (!empty($columns)) {
+      if (!$colid) {
+        $selected = $columns;
+      } else {
+        foreach ($columns as $col) {
+          if ($col['id'] == $colid) {
+            $selected[] = $col;
             break;
           }
         }
       }
     }
-    $data=array(
-        'creditInfo'=>$userCredit,
-        'uid'=>$uid,
-        'columns'=>$columns,
-        'selected'=>$selected,
-        'colid'=>$colid
+    $_sql = "SELECT * FROM {{zhanhui}} WHERE status=" . Posts::STATUS_PASSED . " AND uid=" . $info['uid'] . " ORDER BY cTime DESC";
+    $zhanhuis = Yii::app()->db->createCommand($_sql)->queryAll();
+    if (!empty($zhanhuis)) {
+      foreach ($zhanhuis as $key => $good) {
+        $faceurl = zmf::noImg('url');
+        if ($good['faceimg'] > 0) {
+          $attachinfo = Attachments::getOne($good['faceimg']);
+          if ($attachinfo) {
+            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+          }
+        }
+        $good['faceurl'] = $faceurl;
+        $zhanhuis[$key] = $good;
+      }
+    }
+
+
+    $data = array(
+        'info' => $info,
+        'zhanhuis' => $zhanhuis,
+        'uid' => $uid,
+        'columns' => $columns,
+        'selected' => $selected,
+        'colid' => $colid
     );
-    $this->render('index',$data);
+    $this->render('view', $data);
   }
 
 }

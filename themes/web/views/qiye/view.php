@@ -1,7 +1,6 @@
 <div class="w_960 content">
   <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('信用厂家',array('qiye/index'));?>&gt; <?php echo $info['companyname'];?></span></div>
   <div class="my_shop skin_black">
-
       <div class="shop_header">
           <div class="my_banner">
               <img style="width: 960px; height: 150px;" src="<?php echo Yii::app()->theme->baseUrl;?>/images/mall_banner1.png" alt="" />
@@ -14,12 +13,13 @@
           <div class="shop_nav">
               <ul class="clearfix">
                   <li><?php echo CHtml::link('首页<s class="s"></s>',array('qiye/view','id'=>$info['id']));?></li>
+                  <li><?php echo CHtml::link('产品列表<s class="s"></s>',array('lecturer/index','belongid'=>$info['id']));?></li>
+                  <li><?php echo CHtml::link('优秀讲师<s class="s"></s>',array('qiye/view','id'=>$info['id'],'type'=>'js'));?></li>
                   <?php if(!empty($columns)){?>
 			    <?php foreach($columns as $col){?>
-			    <li <?php if($colid==$col['id']){?>class="select"<?php }?>><?php echo CHtml::link($col['title'].'<s class="s"></s>',array('qiye/view','id'=>$info['id'],'colid'=>$col['id']));?></li>
+			    <li <?php if($colid==$col['id']){?>class="select"<?php }?>><?php echo CHtml::link($col['title'].'<s class="s"></s>',array('posts/index','uid'=>$info['uid'],'colid'=>$col['id']));?></li>
 			    <?php }?>
-			    <?php }?>
-			    <li><?php echo CHtml::link('优秀讲师<s class="s"></s>',array('qiye/view','id'=>$info['id'],'type'=>'js'));?></li>
+			    <?php }?>			    
               </ul>
           </div>       
       </div>
@@ -40,12 +40,13 @@
                           </div>
                           <div class="bd">
                               <ul class="list_content have_po clearfix" id="Ul1">
-                                  <li class="item"><a href="zxgsIndex.html" class="link" target="_blank">
-                                      <img src="UpFile/singlefile/e09de4f7-f42d-41c5-ab6d-e3865f649d4c.jpg" alt="" /><span class="title">招商江湾城装修效果图</span> </a>
-                                      <p>
-                                          <em>风格：</em>中式
-                                      </p>
-                                  </li>                                  
+                                <?php if(!empty($goods)){?>
+                                <?php foreach($goods as $good){?>
+                                <li class="item">
+                                   <?php echo CHtml::link(CHtml::image($good['faceurl'],CHtml::encode($good['title'])).'<span class="title clearfix">'.$good['title'].'</span>',array('goods/view','id'=>$good['id']),array('target'=>'_blank')); ?>
+                                  </li>    
+                                <?php }?>
+                                <?php }?>                                                                
                               </ul>
                           </div>
                       </div>
@@ -56,12 +57,16 @@
                           </div>
                           <div class="bd">
                               <ul class="designer clearfix">
-                                  <li class="item"><a href="/shejishi/sjs_229.html" target="_blank">
-                                      <img src="UpFile/singlefile/c10c962c-c8d6-497b-abd5-9a79831a683d.jpg" alt="唐春" /><span class="name">唐春</span></a></li>                                  
+                                <?php if(!empty($lecturers)){?>
+                                <?php foreach($lecturers as $lecturer){?>
+                                <li class="item">
+                                  <?php echo CHtml::link(zmf::avatar($lecturer['uid'],'big').'<span class="name">'.$lecturer['truename'].'</span>',array('lecturer/view','id'=>$lecturer['id']),array('target'=>'_blank'));?>
+                                <?php }?>
+                                <?php }?>           
                               </ul>
                           </div>
                           <div class="ft">
-                              <a href="/gongsi/sjs_148.html">更多>></a>
+                              <?php echo CHtml::link('更多',array('lecturer/index','belongid'=>$info['id']));?>
                           </div>
                           <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
                           <span class="rc_br"></span>
@@ -125,10 +130,10 @@
                           该公司已通过实名认证<s class="i_rz" title="认证">认证</s>
                       </p>
                       <p class="float">
-                          <span class="b">公司产品：</span><span class="c red">5</span>
+                          <span class="b">公司产品：</span><span class="c red"><?php echo $info['goods'];?></span>
                       </p>
                       <p class="float">
-                          <span class="b">优秀讲师：</span><span class="c red">7</span>
+                          <span class="b">优秀讲师：</span><span class="c red"><?php echo $info['lecturers'];?></span>
                       </p>
                       <!--网友评价 开始-->
                        <p class="rz" style="height:1px"></p>
@@ -137,13 +142,16 @@
                            <div style="width: 200px; padding: 0px;">
                               <dl class="hoscomm_dl clearfix" style="padding: 0px; margin: 0px; width: 200px; height: 20px; line-height: 20px;">
                                   <dt style="margin-left: 5px; float: left; color: #888;">总&nbsp;评&nbsp;价：</dt>
-                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction">4.6</span> </dd>
+                                  <?php if($info['scorer']>3){?>
+                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction"><?php echo $info['score'];?></span> </dd>
+                                  <?php }else{?>
+                                  <span>评分人数太少</span>
+                                  <?php }?>
                               </dl>
                           </div>
                           <div>
                               <div class="hoscomm_btn " style="left: 20px; top:20px;">
-
-                                  <p><a target="_blank" href="pinglun.html" class="btn_write_comm"></a></p>
+                                  <p><?php echo CHtml::link('',array('qiye/score','type'=>'qiye','id'=>$info['id']),array('class'=>'btn_write_comm'));?></p>
                               </div>
                           </div>
                       </div>
