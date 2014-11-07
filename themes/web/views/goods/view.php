@@ -34,7 +34,7 @@
                         <!--产品说明 开始-->
                         <div class="proTBg">
                             <h3>产品说明</h3>
-                            <p><?php echo $info['desc'];?></p>
+                            <p><?php echo zmf::text($info['id'], $info['desc'],false);?></p>
                         </div>
                         <!--产品说明 结束-->
                         <?php }?>
@@ -107,7 +107,9 @@
                                   <?php }else{?>
                                   <?php if(!empty($info->messages)){$messages=$info->messages;?>  
                                    <?php foreach($messages as $message){$this->renderPartial('//message/_view',array('data'=>$message));}?> 
-                                  <?php }?>  
+                                  <?php }else{?>
+                                    <h3>暂无留言。</h3>
+                                  <?php }?>
                                   <?php }?>
                                 </div>
                             </div>

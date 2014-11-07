@@ -486,7 +486,9 @@ class UserController extends T {
       $_POST['Goods']['title'] = zmf::filterInput($_POST['Goods']['title'], 't', 1);
       $_POST['Goods']['piwen'] = zmf::filterInput($_POST['Goods']['piwen'], 't', 1);
       $_POST['Goods']['gongxiao'] = zmf::filterInput($_POST['Goods']['gongxiao'], 't', 1);
-      $_POST['Goods']['desc'] = zmf::filterInput($_POST['Goods']['desc'], 't');
+      $desc=zmf::filterInput($_POST['Goods']['desc'], 't');      
+      $desc=zmf::filterContent($desc, $postsImgs);      
+      $_POST['Goods']['desc'] = $desc;
       $_POST['Goods']['desc2'] = zmf::filterInput($_POST['Goods']['desc2'], 't');
       $_POST['Goods']['desc3'] = zmf::filterInput($_POST['Goods']['desc3'], 't');
       $_POST['Goods']['desc4'] = zmf::filterInput($_POST['Goods']['desc4'], 't');
@@ -507,7 +509,14 @@ class UserController extends T {
           $ids = join(',', $arr_attachids);
           if ($ids != '') {
             Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$model->id AND uid={$uid} AND classify='goods'");
-            Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED), "id IN($ids)");
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED,'logid'=>$model->id), "id IN($ids) AND uid={$uid} AND classify='goods'");
+          }
+        }
+        if (!empty($postsImgs)) {
+          $ids = join(',', $postsImgs);
+          if ($ids != '') {
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$model->id AND uid={$uid} AND classify='goods'");
+            Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED,'logid'=>$model->id), "id IN($ids) AND uid={$uid} AND classify='goods'");
           }
         }
         $this->redirect(array('user/list', 'table' => 'goods'));

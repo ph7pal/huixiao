@@ -1,5 +1,5 @@
 <div class="w_960 content b_search big_mod clearfix">
-    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <a href="#">装修案例 </a>&gt; 栏目首页</span></div>
+    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('产品列表',array('goods/index'));?>&gt; 产品展示</span></div>
     <!--筛选条件开始-->
     <div class="my_shop ">
         <div class="blank10"></div>

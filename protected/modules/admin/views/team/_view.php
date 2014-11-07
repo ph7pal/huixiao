@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->companyowner); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('officurl')); ?>:</b>
 	<?php echo CHtml::encode($data->officurl); ?>
 	<br />
@@ -55,21 +54,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
-	<?php echo CHtml::encode($data->hits); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('top')); ?>:</b>
-	<?php echo CHtml::encode($data->top); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	*/ ?>
 
 </div>

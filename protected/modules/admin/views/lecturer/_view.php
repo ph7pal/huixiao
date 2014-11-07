@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->belongCompany); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('belongTeam')); ?>:</b>
 	<?php echo CHtml::encode($data->belongTeam); ?>
 	<br />
@@ -51,7 +50,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -65,7 +64,5 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
-
-	*/ ?>
 
 </div>

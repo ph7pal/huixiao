@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->address); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
@@ -59,7 +58,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -73,7 +72,5 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
-
-	*/ ?>
 
 </div>

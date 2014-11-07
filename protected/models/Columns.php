@@ -101,7 +101,7 @@ class Columns extends CActiveRecord {
         return parent::model($className);
     }
 
-    public function allCols($type = 1, $second = 0, $col0 = true, $system = true) {
+    public static function allCols($type = 1, $second = 0, $col0 = true, $system = true) {
         //$type 1:读取所有一级栏目；2：某一级栏目的所有子栏目；3：某文章的栏目；4：不区分
         if ($system) {
             $_sys = 'system=1';
@@ -149,7 +149,7 @@ class Columns extends CActiveRecord {
         return $cols;
     }
 
-    public function getColsByPosition($po, $second = false, $limit = 10, $system = true) {
+    public static function getColsByPosition($po, $second = false, $limit = 10, $system = true) {
         if (!$po) {
             return false;
         }
@@ -200,7 +200,7 @@ class Columns extends CActiveRecord {
         exit();
     }
 
-    public function getAllByOne($keyid, $system = true) {
+    public static function getAllByOne($keyid, $system = true) {
         if (!$keyid) {
             return '';
         }
@@ -224,7 +224,7 @@ class Columns extends CActiveRecord {
         }
     }
 
-    public function getOne($keyid, $return = '') {
+    public static function getOne($keyid, $return = '') {
         if (!$keyid) {
             return false;
         }
@@ -240,7 +240,7 @@ class Columns extends CActiveRecord {
      * 根据指定栏目取出它可能的下级栏目
      * @param type $keyid
      */
-    public function getColIds($keyid,$idstr=true){
+    public static function getColIds($keyid,$idstr=true){
         if(!$keyid){
             return false;
         }
@@ -264,7 +264,7 @@ class Columns extends CActiveRecord {
         return $arr;
     }
 
-    public function userColumns($uid = '',$field='id,title') {
+    public static function userColumns($uid = '',$field='id,title') {
         if (Yii::app()->user->isGuest && !$uid) {
             return false;
         } elseif ($uid == '') {
@@ -289,7 +289,7 @@ class Columns extends CActiveRecord {
         return $items;
     }
 
-    public function checkWritable($colid, $uid, $return = false) {
+    public static function checkWritable($colid, $uid, $return = false) {
         if (!$colid) {
             if ($return) {
                 return false;
@@ -324,13 +324,13 @@ class Columns extends CActiveRecord {
         return true;
     }
 
-    public function indexPageCols() {
+    public static function indexPageCols() {
         $cols = Columns::allCols(4);
         $cols['ads'] = '广告展示';
         $cols['newcredit'] = '最新认证';
         return $cols;
     }
-    public function indexColumns($arr){
+    public static function indexColumns($arr){
         if(empty($arr)){
             return false;
         }

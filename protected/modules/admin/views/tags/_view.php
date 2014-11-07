@@ -21,16 +21,9 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('posts')); ?>:</b>
-	<?php echo CHtml::encode($data->posts); ?>
-	<br />
 
 </div>
 <hr/>

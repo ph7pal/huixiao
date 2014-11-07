@@ -24,29 +24,8 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('piwen')); ?>:</b>
 	<?php echo CHtml::encode($data->piwen); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gongxiao')); ?>:</b>
-	<?php echo CHtml::encode($data->gongxiao); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('desc')); ?>:</b>
-	<?php echo CHtml::encode($data->desc); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('desc2')); ?>:</b>
-	<?php echo CHtml::encode($data->desc2); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('desc3')); ?>:</b>
-	<?php echo CHtml::encode($data->desc3); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('desc4')); ?>:</b>
-	<?php echo CHtml::encode($data->desc4); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('colid')); ?>:</b>
+        
+        <b><?php echo CHtml::encode($data->getAttributeLabel('colid')); ?>:</b>
 	<?php echo CHtml::encode($data->colid); ?>
 	<br />
 
@@ -67,21 +46,27 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
-	<?php echo CHtml::encode($data->hits); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('gongxiao')); ?>:</b>
+	<?php echo CHtml::encode($data->gongxiao); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('top')); ?>:</b>
-	<?php echo CHtml::encode($data->top); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('desc')); ?>:</b>
+	<?php echo zmf::text($data->id,$data->desc,false,124); ?>
+	<br />
+        
+	<b><?php echo CHtml::encode($data->getAttributeLabel('desc2')); ?>:</b>
+	<?php echo CHtml::encode($data->desc2); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('desc3')); ?>:</b>
+	<?php echo CHtml::encode($data->desc3); ?>
 	<br />
 
-	*/ ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('desc4')); ?>:</b>
+	<?php echo CHtml::encode($data->desc4); ?>
+	<br />	
 
 </div>

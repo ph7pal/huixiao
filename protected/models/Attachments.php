@@ -18,7 +18,7 @@ class Attachments extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uid, logid, filePath,classify,cTime,status', 'required'),
+			array('uid, filePath,classify,cTime,status', 'required'),
 			array('width, height, covered, status', 'numerical', 'integerOnly'=>true),
 			array('uid, logid, hits, cTime', 'length', 'max'=>11),
 			array('filePath, fileDesc, classify', 'length', 'max'=>255),

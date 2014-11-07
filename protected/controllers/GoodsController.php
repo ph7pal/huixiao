@@ -19,9 +19,9 @@ class GoodsController extends T {
     if (!empty($attaches)) {
       foreach ($attaches as $key => $attachinfo) {
         if ($key == 0) {
-          $faceimg = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '600') . $attachinfo['filePath'];
+          $faceimg = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '600') .'/'. $attachinfo['filePath'];
         }
-        $faceurls[] = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '600') . $attachinfo['filePath'];
+        $faceurls[] = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '600') .'/'. $attachinfo['filePath'];
       }
     }
     $tagids=$likes=array();
@@ -87,41 +87,6 @@ class GoodsController extends T {
   }
 
   /**
-   * Updates a particular model.
-   * If update is successful, the browser will be redirected to the 'view' page.
-   * @param integer $id the ID of the model to be updated
-   */
-  public function actionUpdate($id) {
-    $model = $this->loadModel($id);
-
-    // Uncomment the following line if AJAX validation is needed
-    // $this->performAjaxValidation($model);
-
-    if (isset($_POST['Goods'])) {
-      $model->attributes = $_POST['Goods'];
-      if ($model->save())
-        $this->redirect(array('view', 'id' => $model->id));
-    }
-
-    $this->render('update', array(
-        'model' => $model,
-    ));
-  }
-
-  /**
-   * Deletes a particular model.
-   * If deletion is successful, the browser will be redirected to the 'admin' page.
-   * @param integer $id the ID of the model to be deleted
-   */
-  public function actionDelete($id) {
-    $this->loadModel($id)->delete();
-
-    // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-    if (!isset($_GET['ajax']))
-      $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-  }
-
-  /**
    * Lists all models.
    */
   public function actionIndex() {
@@ -145,7 +110,7 @@ class GoodsController extends T {
         if ($goods['faceimg'] > 0) {
           $attachinfo = Attachments::getOne($goods['faceimg']);
           if ($attachinfo) {
-            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '200') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '200') .'/'. $attachinfo['filePath'];
           }
         }
         $goods['faceurl'] = $faceurl;
@@ -158,7 +123,7 @@ class GoodsController extends T {
         if ($top['faceimg'] > 0) {
           $attachinfo = Attachments::getOne($top['faceimg']);
           if ($attachinfo) {
-            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '124') .'/'. $attachinfo['filePath'];
           }
         }
         $top['faceurl'] = $faceurl;

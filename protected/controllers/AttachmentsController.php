@@ -11,17 +11,9 @@ class AttachmentsController extends T {
   public function actionUpload() {
     $uptype = zmf::filterInput($_GET['type'], 't', 1);
     $classify = zmf::filterInput($_GET['classify'], 't', 1);
+    $logid = zmf::filterInput($_GET['logid']);
     if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
-    }
-    $logid = zmf::filterInput($_GET['id']);
-    if (!isset($logid) OR empty($logid)) {
-      if (!in_array($uptype,array('logo','goods','zhanhui'))) {
-        $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
-      }
-    }
-    if(!$logid){
-      $logid=0;
     }
     if ($uptype == 'credit') {
       if (!$classify) {
@@ -65,23 +57,14 @@ class AttachmentsController extends T {
     if ($sizeinfo['0'] < zmf::config('imgMinWidth') OR $sizeinfo[1] < zmf::config('imgMinHeight')) {
       $this->jsonOutPut(0, "要求上传的图片尺寸，宽不能不小于" . zmf::config('imgMinWidth') . "px，高不能小于" . zmf::config('imgMinHeight') . "px.");
     }
-    $dirs = zmf::uploadDirs($logid, 'app', $uptype);
-    if($logid>0){
-      $extra='';
-    }else{
-      $extra=date('Y-m',time()).'/'.date('d',time()).'/';
-    }
+    $ctime=time();
+    $dirs = zmf::uploadDirs($ctime, 'app', $uptype);
     foreach ($dirs as $k=>$dir) {
-      $_rdir=$dir . '/'.$extra;
-      zmf::createUploadDir($_rdir);
-      $dirs[$k]=$_rdir;
+      zmf::createUploadDir($dir);
     }
-    if($logid>0){
-      $fileName = uniqid() . '.' . $ext;
-    }else{
-      $fileName = uniqid() . '.' . $ext;
-    }    
-    $origin = $dirs['origin'];
+    
+    $fileName = uniqid() . '.' . $ext;
+    $origin = $dirs['origin'].'/';
     unset($dirs['origin']);
     if (move_uploaded_file($_FILES["filedata"]["tmp_name"], $origin . $fileName)) {
       $data = array();
@@ -97,12 +80,15 @@ class AttachmentsController extends T {
       }
       $data['uid'] = Yii::app()->user->id;
       $data['logid'] = $logid;
-      $data['filePath'] = $extra.$fileName;
+      $data['filePath'] = $fileName;
       $data['fileDesc'] = $fileDesc;
       $data['classify'] = $uptype;
       $data['covered'] = '0';
       $data['cTime'] = time();
       $data['status'] = $status;
+      $data['width'] = $sizeinfo[0];
+      $data['height'] = $sizeinfo[1];
+      $data['fileSize'] = $size;
       $model->attributes = $data;
       if ($model->validate()) {
         if ($model->save()) {
@@ -120,20 +106,17 @@ class AttachmentsController extends T {
                 $image->resize($dk, $dk)->quality($quality);
               }
             }
-            $image->save($_dir . $fileName);
+            $image->save($_dir .'/'. $fileName);
           }
           if (in_array($uptype,array('posts','zhanhui'))) {
             $imgsize = 600;
           } else {
             $imgsize = 124;
           }
-          $returnimg = zmf::uploadDirs($logid, 'site', $uptype, $imgsize) . '/' . $extra.$fileName;
-          //zmf::delCache("attachTotal{$logid}");
-          //UserController::recordAction($model->id,'uploadimg','client');                                         
+          $returnimg = zmf::uploadDirs($ctime, 'site', $uptype, $imgsize) . '/' .$fileName;                                       
           $outPutData = array(
               'status' => 1,
               'attachid' => $model->id,
-              //'attachid' => tools::jiaMi($model->id),
               'imgsrc' => $returnimg
           );
           $json = CJSON::encode($outPutData);

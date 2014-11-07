@@ -29,13 +29,8 @@
 	<?php echo CHtml::encode($data->companyname); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('jobname')); ?>:</b>
-	<?php echo CHtml::encode($data->jobname); ?>
-	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('officurl')); ?>:</b>
-	<?php echo CHtml::encode($data->officurl); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('officeurl')); ?>:</b>
+	<?php echo CHtml::encode($data->officeurl); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contactname')); ?>:</b>
@@ -55,21 +50,6 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
-	<?php echo CHtml::encode($data->hits); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('top')); ?>:</b>
-	<?php echo CHtml::encode($data->top); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	*/ ?>
-
 </div>
