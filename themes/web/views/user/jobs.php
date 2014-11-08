@@ -3,8 +3,10 @@
 <table class="table table-hover table-condensed">
 <?php foreach ($posts as $row): ?> 
     <tr <?php tools::exStatusToClass($row['status']);?>>        
-        <td>
-            <?php echo $row['title']; ?>
+        <td style="width:70%">
+            <?php echo $row['title']; ?>            
+        </td>
+        <td style="width:30%" class="text-right">
             <?php echo CHtml::link('浏览', array('jobs/view', 'id' => $row['id']),array('target'=>'_blank')); ?>
             <?php echo CHtml::link('编辑', array('user/jobs', 'id' => $row['id'])); ?>
             <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>

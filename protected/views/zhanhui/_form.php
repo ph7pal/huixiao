@@ -35,7 +35,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'localarea'); ?>
-		<?php //echo $form->textField($model,'localarea',array('size'=>10,'maxlength'=>10,'class'=>'form-control')); ?><?php $this->renderPartial('//common/excity',array('info'=>$model->localarea));?>
+		<?php echo $form->hiddenField($model,'localarea',array('size'=>10,'maxlength'=>10,'class'=>'form-control')); ?><?php $this->renderPartial('//common/excity',array('info'=>$model->localarea));?>
 		<?php echo $form->error($model,'localarea'); ?>
 	</div>
 
@@ -65,7 +65,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'content'); ?>
-        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$info['content'],'keyid'=>$info['id'],'type'=>'zhanhui','simple'=>'yes'));?> 
+        <?php $this->renderPartial('//common/editor',array('model'=>$model,'content'=>$model->content,'keyid'=>$model->id,'type'=>'zhanhui','simple'=>'yes'));?> 
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 

@@ -11,7 +11,7 @@
                         <table class="table_x" width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td>
-                                    <em>所在区域：</em>渝北区
+                                    <em>所在区域：</em><?php $selected=  Area::getWholeOne($info['localarea']);echo $selected;?>
                                 </td>
                                 <td>
                                     <em>活动时间：</em><span class="time_1"><?php echo date('Y年m月d日',$info['start_time']);?></span>
@@ -108,7 +108,7 @@ array('success' => "js:function(result){result = eval('(' + result + ')');if (re
                 <a href="#" class="top">返回顶部</a>展会详情
             </div>
             <div class="bd hd_xiangqing">
-              <p><?php echo $info['content'];?></p>
+              <p><?php echo zmf::text($info['id'],$info['content'],false);?></p>
             </div>
         </div>    
     </div>

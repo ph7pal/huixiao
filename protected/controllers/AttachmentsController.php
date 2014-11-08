@@ -12,6 +12,7 @@ class AttachmentsController extends T {
     $uptype = zmf::filterInput($_GET['type'], 't', 1);
     $classify = zmf::filterInput($_GET['classify'], 't', 1);
     $logid = zmf::filterInput($_GET['logid']);
+    $reImgsize=zmf::filterInput($_GET['imgsize']);//返回图片的尺寸
     if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
     }
@@ -108,11 +109,7 @@ class AttachmentsController extends T {
             }
             $image->save($_dir .'/'. $fileName);
           }
-          if (in_array($uptype,array('posts','zhanhui'))) {
-            $imgsize = 600;
-          } else {
-            $imgsize = 124;
-          }
+          $imgsize = $reImgsize>0 ? $reImgsize : 600;
           $returnimg = zmf::uploadDirs($ctime, 'site', $uptype, $imgsize) . '/' .$fileName;                                       
           $outPutData = array(
               'status' => 1,

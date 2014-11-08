@@ -20,6 +20,7 @@ class Goods extends CActiveRecord {
         array('uid, faceimg, colid, colid2, colid3, colid4, colid5, cTime, hits, top, status', 'numerical', 'integerOnly' => true),
         array('title', 'length', 'max' => 200),
         array('piwen, gongxiao', 'length', 'max' => 255),
+        array('desc2, desc3, desc4', 'safe'),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
         array('id, uid, faceimg, title, piwen, gongxiao, desc, desc2, desc3, desc4, colid, colid2, colid3, colid4, colid5, cTime, hits, top, status', 'safe', 'on' => 'search'),

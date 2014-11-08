@@ -2,22 +2,14 @@
 <h3><?php echo $this->listTableTitle;?></h3>
 <table class="table table-hover table-condensed">
 <?php if(!empty($posts)){foreach ($posts as $row): ?> 
-
-
-
-
-
-
     <tr <?php tools::exStatusToClass($row['status']);?>>
-        <td>
-            <div class="bs-callout bs-callout-info">
-                <p>
-                    <?php echo date('y-m-d H:i:s',$row['cTime']);?>
-                    <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>
-                </p>
-                <p><?php echo $row['title']; ?></p>
-                
-            </div>
+        <td style="width:70%;">
+            <?php echo CHtml::link($row['title'], array('goods/view', 'id' => $row['id']),array('target'=>'_blank')); ?>
+        </td>
+        <td style="width:30%;" class="text-right">
+            <?php echo CHtml::link('查看留言', array('goods/view', 'id' => $row['id']),array('target'=>'_blank')); ?>
+            <?php echo CHtml::link('编辑', array('user/goods', 'id' => $row['id'])); ?>
+            <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>
         </td>
     </tr>
 <?php endforeach; }?>
