@@ -72,42 +72,49 @@
                           <span class="rc_br"></span>
                       </div>
                       <div class="grid_02 clearfix">
+                        <?php if(!empty($columns)){foreach($columns as $tmpkey=>$listcol){?>
+                        <?php if($tmpkey%2==0){?>
                           <div class="col_main">
                               <div class="main_wrap">
                                   <div class="module_b marTop10">
                                       <div class="hd">
-                                          本月活动档期
+                                          <?php echo $listcol['title'];?>
                                       </div>
                                       <div class="bd">
                                           <ul class="news_list">
-                                              <li><a href="#" target="_blank">江北区时代中心复式260㎡半包招标</a></li>
+                                            <?php foreach($listcol['posts'] as $_post){?>
+                                            <li><?php echo CHtml::link($_post['title'],array('posts/show','id'=>$_post['id']),array('target'=>'_blank'));?></li><?php }?>
                                           </ul>
                                       </div>
                                       <div class="ft">
-                                          <a href="#">更多>></a>
+                                          <?php echo CHtml::link('更多>>',array('posts/index','uid'=>$info['uid'],'colid'=>$listcol['id']));?>
                                       </div>
                                       <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
                                       <span class="rc_br"></span>
                                   </div>
                               </div>
                           </div>
-                          <div class="col_sub">
+                        <?php }else{?>
+                        <div class="col_sub">
                               <div class="module_b marTop10">
                                   <div class="hd">
-                                      公司参展资讯
+                                      <?php echo $listcol['title'];?>
                                   </div>
                                   <div class="bd">
                                       <ul class="news_list">
-                                          <li><a href="#" target="_blank">金科十年城米少更要巧装修</a></li>
+                                          <?php foreach($listcol['posts'] as $_post){?>
+                                            <li><?php echo CHtml::link($_post['title'],array('posts/show','id'=>$_post['id']),array('target'=>'_blank'));?></li><?php }?>
                                       </ul>
                                   </div>
                                   <div class="ft">
-                                      <a href="#">更多>></a>
+                                      <?php echo CHtml::link('更多>>',array('posts/index','uid'=>$info['uid'],'colid'=>$listcol['id']));?>
                                   </div>
                                   <span class="rc_tl"></span><span class="rc_tr"></span><span class="rc_bl"></span>
                                   <span class="rc_br"></span>
                               </div>
                           </div>
+                        <?php }?>
+                        <?php }}?>                          
                       </div>
                   </div>
               </div>
@@ -157,18 +164,17 @@
                       </div>
                       <!--网友评价 结束-->
                   </div>
-                  
+                  <?php if(!empty($jobs)){?>
                   <div class="module_a marTop10">
-                      <div class="hd">
-                          公司招聘<s class="s left"></s><s class="s right"></s><a href="/gongsi/news_148.html"
-                              class="more">更多&gt;&gt;</a>
-                      </div>
+                      <div class="hd">公司招聘<s class="s left"></s><s class="s right"></s><?php echo CHtml::link('更多>>',array('jobs/index','uid'=>$info['uid']),array('target'=>'_blank','class'=>'more'));?></div>
                       <div class="bd">
                           <ul class="news">
-                              <li><a href="/gongsi/news_148_742.html">长嘉汇联排别墅装修效果图</a></li>                              
+                            <?php foreach($jobs as $job){?>
+                            <li><?php echo CHtml::link($job['title'],array('jobs/view','id'=>$job['id']),array('target'=>'_blank'));?></li><?php }?>
                           </ul>
                       </div>
-                  </div>                  
+                  </div>
+                  <?php }?>
               </div>
           </div>
       </div>

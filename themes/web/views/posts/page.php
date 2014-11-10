@@ -46,7 +46,7 @@
                             <span class="prev">
                                 上一篇：
                                 <?php if(!empty($preInfo)){?>
-                                <?php echo CHtml::link($preInfo['title'],array('posts/show','id'=>$preInfo['id']));?>
+                                <?php echo CHtml::link(zmf::subStr($preInfo['title']),array('posts/show','id'=>$preInfo['id']),array('title'=>$preInfo['title']));?>
                                 <?php }else{?>
                                 没有了
                                 <?php }?>     
@@ -54,7 +54,7 @@
                             <span class="next">
                               下一篇：
                                 <?php if(!empty($nextInfo)){?>
-                                <?php echo CHtml::link($nextInfo['title'],array('posts/show','id'=>$nextInfo['id']));?>
+                                <?php echo CHtml::link(zmf::subStr($nextInfo['title']),array('posts/show','id'=>$nextInfo['id']),array('title'=>$preInfo['title']));?>
                                 <?php }else{?>
                                 没有了
                                 <?php }?>
@@ -68,12 +68,19 @@
                     <div class="hd">
                     </div>
                     <div class="bd">
-                        <div class="comment_list">
-                            <?php if($page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
-                        </div>
                         <!--发表评论 开始-->
                         <div class="comment_form">
-                            <strong>发表评论</strong>                            
+                          <style>
+                            .comment_list_z{
+                              margin:5px 0;
+                              padding: 0 0 5px;
+                              line-height: 14px;
+                              border-bottom: 1px solid #efefef;
+                            }
+                          </style>                            
+                            <div class="comment_list">
+                            <?php if($page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
+                            </div>
                         </div>
                         <!--发表评论 结束-->
                     </div>
@@ -97,23 +104,23 @@
                     </div>
                 </div>
             </div-->
+            <?php if(!empty($likes)){?>
             <!--阅读排行榜 开始-->
-            <div class="module_05" id="TabAdS01">
+            <div class="module_05" id="TabAdS01">              
                 <div class="hd"><?php echo $info['title'];?><div class="tab"></div></div>
                 <!--阅读排行内容开始-->
                 <div class="bd paixuList">
                     <!--数据循环开始，一共10条数据-->
-                    <ul class="tab-cont">
-                      <?php if(!empty($likes)){?>
+                    <ul class="tab-cont">                      
                       <?php foreach($likes as $key=>$like){?>
                         <li class="item"><s class="s s_red"><?php echo ($key+1);?></s><?php echo CHtml::link($like['title'],array('posts/show','id'=>$like['id']));?></li>
-                      <?php }?>
-                      <?php }?>
+                      <?php }?>                      
                     </ul>
                     <!--数据循环结束，一共10条数据-->
                 </div>
-                <!--阅读排行内容结束-->
             </div>
+            <!--阅读排行内容结束-->
+            <?php }?>
         </div>
         <!--左侧排行榜显示部分结束-->
     </div>

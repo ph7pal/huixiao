@@ -9,7 +9,7 @@ class IndexController extends H {
         $commentsNum = Comments::model()->count('status=' . $status);
         $attachsNum = Attachments::model()->count('status=' . $status);
         $infoNum = Questions::model()->count('status=' . $status); 
-        $creditNum = UserInfo::model()->count('classify="addCredit" AND `name`="creditstatus" AND `value`=' . $status);
+        $creditNum = UserCredit::model()->count('status=' . $status);
         $arr = array(
             'posts' => $posts,
             'infoNum' => $infoNum,            
@@ -17,10 +17,6 @@ class IndexController extends H {
             'attachsNum' => $attachsNum,
             'creditNum'=>$creditNum,
         );
-
-
-
-
         $arr['serverSoft'] = $_SERVER['SERVER_SOFTWARE'];
         $arr['serverOS'] = PHP_OS;
         $arr['PHPVersion'] = PHP_VERSION;

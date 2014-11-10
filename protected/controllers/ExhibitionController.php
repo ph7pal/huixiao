@@ -70,6 +70,11 @@ class ExhibitionController extends T {
           }
         }
       }
+      foreach ($columns as $key => $col) {
+        $_colitems = Posts::allPosts(array('colid' => $col['id'], 'top' => 0, 'fields' => 'id,title,attachid,cTime', 'order' => 'hits'), 10, $uid);
+        $col['posts'] = $_colitems;
+        $columns[$key] = $col;
+      }
     }
     $_sql = "SELECT * FROM {{zhanhui}} WHERE status=" . Posts::STATUS_PASSED . " AND uid=" . $info['uid'] . " ORDER BY cTime DESC";
     $zhanhuis = Yii::app()->db->createCommand($_sql)->queryAll();
@@ -86,10 +91,11 @@ class ExhibitionController extends T {
         $zhanhuis[$key] = $good;
       }
     }
-
-
+    $_sql = "SELECT id,title FROM {{jobs}} WHERE uid={$info['uid']} AND status=".Posts::STATUS_PASSED." ORDER BY cTime DESC LIMIT 10";
+    $jobs = Yii::app()->db->createCommand($_sql)->queryAll();
     $data = array(
         'info' => $info,
+        'jobs' => $jobs,
         'zhanhuis' => $zhanhuis,
         'uid' => $uid,
         'columns' => $columns,

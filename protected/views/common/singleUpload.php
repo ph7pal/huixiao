@@ -12,7 +12,7 @@
 }
 ?>
 <script>
-    var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type));?>";  	
+    var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'imgsize'=>124));?>";  	
     $(document).ready(
     function(){    	
         singleUploadify('<?php echo CHtml::activeId($model,$fieldName);?>_upload','<?php echo CHtml::activeId($model,$fieldName);?>',<?php echo isset($num)?$num:1;?>);

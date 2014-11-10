@@ -1,3 +1,4 @@
+<strong>发表评论</strong>
 <div class="form">
 <?php 
 if(!Yii::app()->user->isGuest){
@@ -26,9 +27,11 @@ $form=$this->beginWidget('CActiveForm', array(
 </div>
 <?php }?>
 
-<div class="">
+<div style="width: 100%; overflow: hidden;">
 <?php echo $form->labelEx($model,'content'); ?>
-<?php echo $form->textArea($model,'content',array('class'=>"form-control",'rows'=>5)); ?>
+  <div style="margin-right: 10px; *height: 1%;">
+    <?php echo $form->textArea($model,'content',array('style'=>"width: 100%; padding: 3px; border: 1px solid #ccc; height: 120px;",'rows'=>5)); ?>
+  </div>
 <?php echo $form->error($model,'content'); ?>           
 </div>
 
@@ -49,7 +52,7 @@ $form=$this->beginWidget('CActiveForm', array(
                 window.location.reload();
                 }
             }",
-        ),array('class'=>'btn btn-primary')); ?>
+        ),array('class'=>'btn btn-primary send_menu')); ?>
     </p>
 </div> 
 <?php $this->endWidget(); }else{?>

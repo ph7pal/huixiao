@@ -257,21 +257,24 @@ class UsersController extends H {
         }else{
           $blocked=true;
         }
-        $configs = UserCredit::model()->findAllByAttributes(array('classify' => $type, 'uid' => $uid));
-        $_c = CHtml::listData($configs, 'name', 'value');
-        $reason = zmf::userConfig($uid, 'creditreason');
-        $status = zmf::userConfig($uid, 'creditstatus');
+        if (!UserCredit::checkType($type)) {
+            $this->message(0, '不允许的认证类型，请核实');
+        } else {
+            $realModel = UserCredit::loadModel($type);
+        }
+        $info=$realModel->find('uid='.$uid);
+        $_addedType = UserCredit::findOne($uid);
         $creditlogo=zmf::userConfig($uid,'creditlogo');
         $uinfo = Users::getUserInfo($uid);
         $data = array(
             'type' => $type,
             'blocked' => $blocked,
-            'info' => $_c,
+            'info' => $info,
             'uid' => $uid,
             'imgSize' => 600,
             'fromAdmin' => 'yes',
-            'status' => $status,
-            'reason' => $reason,
+            'status' => $_addedType['status'],
+            'reason' => $_addedType['desc'],
             'groupid' => $uinfo['groupid'],
             'creditlogo'=>$creditlogo,
         );
@@ -324,20 +327,17 @@ class UsersController extends H {
             if(!$creditlogo){
                 $this->jsonOutPut(0, '请选择认证图标');
             }
-            UserInfo::addAttr($touid, 'addCredit', 'lock', 'yes');
-            //UserInfo::addAttr($touid, 'userCredit', 'userCredit', $type);
-            UserInfo::addAttr($touid, 'userCredit', 'creditlogo', $creditlogo);
             $relarr['medal']=$creditlogo;
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
-            $realModel->updateAll(array('status'=>$atype), 'uid=:uid',array(':uid'=>$touid));
+            $realModel->updateAll(array('status'=>$atype,'medal'=>$creditlogo), 'uid=:uid',array(':uid'=>$touid));
         } else {
-            UserInfo::addAttr($touid, 'addCredit', 'lock', 'no');
             $realModel->updateAll(array('status'=>$atype), 'uid=:uid',array(':uid'=>$touid));
         }
         $relarr['status']=$atype;
-        UserInfo::addAttr($touid, 'addCredit', 'creditreason', $reason);
-        UserInfo::addAttr($touid, 'addCredit', 'creditstatus', $atype);
         CreditRelation::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
+        $relarr['lastupdate']=time();
+        $relarr['desc']=$reason;
+        UserCredit::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
         zmf::delUserConfig($touid);
         $this->jsonOutPut(1, '操作成功');
     }
@@ -345,13 +345,13 @@ class UsersController extends H {
      * 删除用户为keyid的认证信息
      */
     public function actionDelcredit(){
-      $this->checkPower('delcredit');
-      $keyid=zmf::filterInput($_GET['id']);
-      UserCredit::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
-      CreditRelation::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
-      UserInfo::model()->deleteAll('uid=:uid AND (classify="addCredit" OR classify="userCredit")',array(':uid'=>$keyid));
-      UserAction::record('delcredit', $keyid);
-      $this->message(1, '已成功删除');
+//      $this->checkPower('delcredit');
+//      $keyid=zmf::filterInput($_GET['id']);
+//      UserCredit::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
+//      CreditRelation::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
+//      UserInfo::model()->deleteAll('uid=:uid AND (classify="addCredit" OR classify="userCredit")',array(':uid'=>$keyid));
+//      UserAction::record('delcredit', $keyid);
+//      $this->message(1, '已成功删除');
     }
 
 }

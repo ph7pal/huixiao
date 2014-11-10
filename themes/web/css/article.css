@@ -94,7 +94,7 @@
 .comment_m .hd { position:relative; padding-left:8px; height:27px; color:#333; font:bold 14px/27px simsun; background-position:0 -302px; background-repeat:repeat-x; border-bottom:1px solid #d0d0d0;}
 .comment_m .hd .right { position:absolute; right:8px; top:5px; font:normal 12px/18px Arial; color:#666;}
 .comment_m .hd .right em { color:#d00;}
-.comment_list { padding:10px 25px;}
+.comment_list { padding:10px 0px;}
 .comment_list_z { padding:0;}
 .comment_list .c_list { padding:15px 8px; border-bottom:1px dotted #c3d7f7; position:relative; *zoom:1;}
 .comment_list_z .c_list { padding:8px 8px; border-bottom:1px dotted #cdcdcd;}

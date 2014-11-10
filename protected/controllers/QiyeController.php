@@ -17,8 +17,8 @@ class QiyeController extends T {
           $list['localname'] = '';
         }
         $list['faceurl'] = $faceurl;
-        $_goods=  Goods::users($list['uid']);
-        $list['goodsLists']=$_goods;
+        $_goods = Goods::users($list['uid']);
+        $list['goodsLists'] = $_goods;
         $lists[$key] = $list;
       }
     }
@@ -43,9 +43,7 @@ class QiyeController extends T {
     if (!$userCredit || $userCredit['classify'] != 'producer') {
       //$this->message(0, '您要查看的页面不存在，请核实');
     }
-    $configs = UserCredit::model()->findAllByAttributes(array('classify' => 'producer', 'uid' => $uid));
-    $userCredit = CHtml::listData($configs, 'name', 'value');
-    $columns = Columns::userColumns($uid, '*');
+    $columns = Columns::userColumns($uid);
     $selected = array();
     if (!empty($columns)) {
       if (!$colid && !$type) {
@@ -54,9 +52,13 @@ class QiyeController extends T {
         foreach ($columns as $col) {
           if ($col['id'] == $colid) {
             $selected[] = $col;
-            break;
           }
         }
+      }
+      foreach ($columns as $key => $col) {
+        $_colitems = Posts::allPosts(array('colid' => $col['id'], 'top' => 0, 'fields' => 'id,title,attachid,cTime', 'order' => 'hits'), 10, $uid);
+        $col['posts'] = $_colitems;
+        $columns[$key] = $col;
       }
     }
     $_sql = "SELECT * FROM {{goods}} WHERE status=" . Posts::STATUS_PASSED . " AND uid=" . $info['uid'] . " ORDER BY hits DESC LIMIT 30";
@@ -83,13 +85,13 @@ class QiyeController extends T {
         $lecturers[$key] = $lecturer;
       }
     }
-
-
+    $_sql = "SELECT id,title FROM {{jobs}} WHERE uid={$uid} AND status=".Posts::STATUS_PASSED." ORDER BY cTime DESC LIMIT 10";
+    $jobs = Yii::app()->db->createCommand($_sql)->queryAll();
     $data = array(
         'info' => $info,
         'goods' => $goods,
+        'jobs' => $jobs,
         'lecturers' => $lecturers,
-        'creditInfo' => $userCredit,
         'uid' => $uid,
         'type' => $type,
         'columns' => $columns,
@@ -100,37 +102,37 @@ class QiyeController extends T {
   }
 
   public function actionScore($id) {
-    $classify=zmf::filterInput($_GET['type'],'t',1);
-    if(!$classify || !in_array($classify, array('qiye','team','lecturer'))){
-      throw new CHttpException(404,'不存在的分类');
+    $classify = zmf::filterInput($_GET['type'], 't', 1);
+    if (!$classify || !in_array($classify, array('qiye', 'team', 'lecturer'))) {
+      throw new CHttpException(404, '不存在的分类');
     }
-    if($classify=='qiye'){
-      $info=  Producer::model()->findByPk($id);
+    if ($classify == 'qiye') {
+      $info = Producer::model()->findByPk($id);
     }
-    if(!$info){
-      throw new CHttpException(404,'您所访问的页面不存在');
+    if (!$info) {
+      throw new CHttpException(404, '您所访问的页面不存在');
     }
-    
+
     $model = new Score;
-    if (isset($_POST['Score'])) {     
-      if(Yii::app()->user->isGuest){
-        throw new CHttpException(403,'请先登录');
-      }else{
-        $uid=Yii::app()->user->id;
+    if (isset($_POST['Score'])) {
+      if (Yii::app()->user->isGuest) {
+        throw new CHttpException(403, '请先登录');
+      } else {
+        $uid = Yii::app()->user->id;
       }
-      $_POST['Score']['belongid']=$id;
-      $_POST['Score']['uid']=$uid;
-      $_POST['Score']['cTime']=time();
-      $_POST['Score']['ip']=  ip2long(Yii::app()->request->userHostAddress);
-      $_POST['Score']['classify']=$classify;
+      $_POST['Score']['belongid'] = $id;
+      $_POST['Score']['uid'] = $uid;
+      $_POST['Score']['cTime'] = time();
+      $_POST['Score']['ip'] = ip2long(Yii::app()->request->userHostAddress);
+      $_POST['Score']['classify'] = $classify;
       $model->attributes = $_POST['Score'];
       if ($model->save()) {
-        $this->redirect(array('qiye/view','id'=>$id));
+        $this->redirect(array('qiye/view', 'id' => $id));
       }
     }
-    $model->classify=$classify;
-    $title=$info['companyname'];
-    $this->render('score', array('model' => $model,'info'=>$info,'title'=>$title));
+    $model->classify = $classify;
+    $title = $info['companyname'];
+    $this->render('score', array('model' => $model, 'info' => $info, 'title' => $title));
   }
 
 }

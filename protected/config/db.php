@@ -4,7 +4,7 @@ return array(
     'connectionString' => 'mysql:host=localhost;dbname=huixiao',
     'emulatePrepare' => true,
     'username' => 'root',
-    'password' => '123456',
+    'password' => '056911',
     'charset' => 'utf8',
     'tablePrefix' => 'pre_',
 );

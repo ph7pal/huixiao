@@ -128,38 +128,21 @@ class UserCredit extends CActiveRecord {
   }
 
   public static function listQiye() {
-    $uids = Users::getExhibition('producer', 0);
-    if (!empty($uids)) {
-      $uids = array_keys(CHtml::listData($uids, 'uid', ''));
-      $ids = join(',', $uids);
-      if ($ids != '') {
-        $sql = "SELECT uid,`value` FROM {{user_credit}} WHERE `name`='companyname' AND classify='producer' AND uid IN($ids) ";
+        $sql = "SELECT id,companyname FROM {{producer}} WHERE status=".Posts::STATUS_PASSED;
         $users = Yii::app()->db->createCommand($sql)->queryAll();
-        $arr = CHtml::listData($users, 'uid', 'value');
+        $arr = CHtml::listData($users, 'id', companyname);
         return $arr;
-      }
-    }
-    return array();
   }
 
-  public static function listTeam() {
-    $sql1 = "SELECT uid FROM {{credit_relation}} WHERE classify='marketing_team' AND status=1 ORDER BY `order`";
-    $uids = Yii::app()->db->createCommand($sql1)->queryAll();
-    if (!empty($uids)) {
-      $uids = array_keys(CHtml::listData($uids, 'uid', ''));
-      $ids = join(',', $uids);
-      if ($ids != '') {
-        $sql = "SELECT uid,`value` FROM {{user_credit}} WHERE `name`='teamname' AND classify='marketing_team' AND uid IN($ids) ";
+  public static function listTeam() {    
+        $sql = "SELECT id,teamname FROM {{team}} WHERE status=".Posts::STATUS_PASSED;
         $users = Yii::app()->db->createCommand($sql)->queryAll();
-        $arr = CHtml::listData($users, 'uid', 'value');
+        $arr = CHtml::listData($users, 'id', 'teamname');
         return $arr;
-      }
-    }
-    return array();
   }
 
   public static function checkType($type) {
-    if (!$type || !in_array($type, array('agent', 'dealer', 'exhibition', 'lecturer', 'trade_magazine', 'producer', 'pro_service', 'marketing_team', 'trade_website'))) {
+    if (!$type || !in_array($type, array('agent', 'dealer', 'exhibition', 'lecturer', 'trade_magazine', 'producer', 'pro_service', 'marketing_team', 'trade_website','personal'))) {
       return false;
     }
     return TRUE;
@@ -187,6 +170,8 @@ class UserCredit extends CActiveRecord {
       return new Team;
     } elseif ($type == 'trade_website') {
       return new Website;
+    } elseif ($type == 'personal') {
+      return new Personal;    
     } elseif ($type == '') {
       
     }

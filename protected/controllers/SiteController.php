@@ -64,9 +64,11 @@ class SiteController extends T {
       Yii::app()->end();
     }
     if (isset($_POST['Users'])) {
+      
       $username = zmf::filterInput($_POST['Users']['username'], 't', 1);
       $truename = zmf::filterInput($_POST['Users']['truename'], 't', 1);
       $creditType = zmf::filterInput($_POST['credit'], 't', 1);
+      $localarea=zmf::filterInput($_POST['cityid'][0]);
       $ip = Yii::app()->request->userHostAddress;
       $hash = tools::randMykeys(6);
       $inputData = array(
@@ -91,9 +93,8 @@ class SiteController extends T {
           $creditType = ($creditType != '') ? $creditType : 'personal';
           $data = array(
               'uid' => $model->id,
-              'name' => 'cTime',
-              'value' => time(),
-              'classify' => $creditType
+              'classify' => $creditType,
+              'localarea'=>$localarea
           );
           $modelUC = new UserCredit;
           $modelUC->attributes = $data;

@@ -3,7 +3,7 @@
 <div id="fileSuccess" style="clear:both;"></div>
 <input type="hidden" id="file_upload_input"/>   
 <script>
-    var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'classify'=>$classify));?>";  	
+    var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'classify'=>$classify,'imgsize'=>124));?>";  	
     $(document).ready(
     function(){    	
         singleUploadify('noModelUpload','noModelUpload_input',<?php echo isset($num)?$num:1;?>);

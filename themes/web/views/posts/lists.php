@@ -44,11 +44,10 @@
                 </div>
                 <div class="bd">
                     <ul id="list_nav">                        
-                      <li><s class="s"></s><a href="#" style="font-size: 14px;">精英访谈</a></li>
-                      <li><s class="s"></s><a href="#">记者观察</a></li>
-                      <li><s class="s"></s><a href="#">企业动态</a></li>
-                      <li><s class="s"></s><a href="#">家居卖场</a></li>
-                      <li><s class="s"></s><a href="#">行业动态</a></li>                            
+                      <li><s class="s"></s><?php echo CHtml::link('生成厂家',array('qiye/index'),array('target'=>'_blank'));?></li>
+                      <li><s class="s"></s><?php echo CHtml::link('展会公司',array('exhibition/index'),array('target'=>'_blank'));?></li>
+                      <li><s class="s"></s><?php echo CHtml::link('会销产品',array('goods/index'),array('target'=>'_blank'));?></li>
+                      <li><s class="s"></s><?php echo CHtml::link('展会信息',array('zhanhui/index'),array('target'=>'_blank'));?></li>                         
                     </ul>
                 </div>
 
@@ -56,10 +55,12 @@
         </div>
         <!--最新加入公司 开始-->
         <div class="newn_css09">
-            <h3><span><a href="h#" target="_blank">更多>></a></span>最新加入公司</h3>
+            <h3><span><?php echo CHtml::link('更多>>',array('qiye/index'),array('target'=>'_blank'));?></span>最新加入公司</h3>
             <ul>
                 <!--最新加入公司数据循环，一共8条数据 开始-->
-                <li>·<a href="#" target="_blank" title="北京百德汇科技有限公司">北京百德汇科技有限公司</a></li>
+                <?php if(!empty($newProducers)){foreach ($newProducers as $pro){?>
+                <li>·<?php echo CHtml::link($pro['companyname'],array('qiye/view','id'=>$pro['id']),array('target'=>'_blank'));?></li>
+                <?php }}?>
                 <!--最新加入公司数据循环，一共8条数据结束-->
             </ul>
             <div style="clear: both;"></div>
@@ -67,22 +68,22 @@
         <!--最新加入公司 结束-->
         <!--最新加入产品 开始-->
         <div class="newn_css09">
-            <h3><span><a href="#" target="_blank">更多>></a></span>最新加入产品</h3>
+            <h3><span><?php echo CHtml::link('更多>>',array('goods/index'),array('target'=>'_blank'));?></span>最新加入产品</h3>
             <ul>
-                <!--最新加入公司数据循环，一共8条数据 开始-->
-                <li>·<a href="#" target="_blank" title="“养生之王”--破壁灵芝孢子粉">“养生之王”--破壁灵芝孢子粉</a></li>
-                <!--最新加入公司数据循环，一共8条数据结束-->
+                <?php if(!empty($topGoods)){foreach ($topGoods as $goods){?>
+                <li>·<?php echo CHtml::link($goods['title'],array('goods/view','id'=>$goods['id']),array('target'=>'_blank'));?></li>
+                <?php }}?>
             </ul>
             <div style="clear: both;"></div>
         </div>
         <!--最新加入产品 结束-->
         <!--最新展会信息 开始-->
         <div class="newn_css09">
-            <h3><span><a href="#" target="_blank">更多>></a></span>最新展会信息</h3>
+            <h3><span><?php echo CHtml::link('更多>>',array('zhanhui/index'),array('target'=>'_blank'));?></span>最新展会信息</h3>
             <ul>
-                <!--最新加入公司数据循环，一共8条数据 开始-->
-                <li>·<a href="#" target="_blank" title="2015年第18届居家环境健康展空气净化、净水设备展览会">2015年第18届居家环境健康展空气净化、净水设备展览会</a></li>
-                <!--最新加入公司数据循环，一共8条数据结束-->
+                <?php if(!empty($zhanhuis)){foreach ($zhanhuis as $zhanhui){?>
+                <li>·<?php echo CHtml::link($zhanhui['title'],array('zhanhui/view','id'=>$zhanhui['id']),array('target'=>'_blank'));?></li>
+                <?php }}?>
             </ul>
             <div style="clear: both;"></div>
         </div>

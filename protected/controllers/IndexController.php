@@ -55,7 +55,7 @@ class IndexController extends T {
         if($tupian['attachid']>0){
           $attachinfo=  Attachments::getOne($tupian['attachid']);
           if($attachinfo){
-            $faceurl = zmf::uploadDirs($attachinfo['logid'], 'site', $attachinfo['classify'], 'origin') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
           }
         }
         $tupian['faceurl'] = $faceurl;
@@ -63,6 +63,38 @@ class IndexController extends T {
       }
     }
     $colinfos['tupianxinwen']['posts']=$tupians;
+    //给黑名单前两个添加图片
+    $heimindans=$colinfos['heimingdan']['posts'];
+    if(!empty($heimindans)){
+      foreach($heimindans as $key=>$heimindan){        
+        $faceurl=zmf::noImg('url');
+        if($heimindan['attachid']>0 && $key<2){
+          $attachinfo=  Attachments::getOne($heimindan['attachid']);
+          if($attachinfo){
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
+          }
+        }
+        $heimindan['faceurl'] = $faceurl;
+        $heimindans[$key] = $heimindan;
+      }
+    }
+    $colinfos['heimingdan']['posts']=$heimindans;
+     //给骗局前两个添加图片
+    $pianjus=$colinfos['huixiaopianju']['posts'];
+    if(!empty($pianjus)){
+      foreach($pianjus as $key=>$pianju){        
+        $faceurl=zmf::noImg('url');
+        if($pianju['attachid']>0 && $key<2){
+          $attachinfo=  Attachments::getOne($pianju['attachid']);
+          if($attachinfo){
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
+          }
+        }
+        $pianju['faceurl'] = $faceurl;
+        $pianjus[$key] = $pianju;
+      }
+    }
+    $colinfos['huixiaopianju']['posts']=$pianjus;
     $colinfos['topheimingdan']['posts']=array();
     //获取黑名单最热
     $_colinfo=$colinfos['heimingdan']['colinfo'];

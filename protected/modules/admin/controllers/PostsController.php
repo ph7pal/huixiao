@@ -17,7 +17,6 @@ class PostsController extends H {
                     'status' => 0,
                     'uid' => $uid,
                     'cTime' => time(),
-                    'title'=>'未编辑',
                 );
                 $model->save(false);
                 $keyid = $model->id;

@@ -157,6 +157,7 @@ class GroupPowers extends CActiveRecord {
             'user_ads'=>'用户新增展示',
             'user_goods'=>'用户新增产品',
             'user_jobs'=>'用户发布招聘信息',
+            'user_zhanhui'=>'用户发布展会信息',
             'user_addquestion'=>'用户在线提问',
             'user_stat' => '用户查看统计',
             'user_credit' => '用户认证',

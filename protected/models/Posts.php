@@ -143,11 +143,11 @@ class Posts extends CActiveRecord {
             $colid = $params;
             $_pre=$colid;
         }
-        $cachekey="allPosts-".$_pre.'-'.$limit.'-'.$uid;
-        $items=zmf::getFCache($cachekey);
-        if($items){
-            return $items;
-        }
+//        $cachekey="allPosts-".$_pre.'-'.$limit.'-'.$uid;
+//        $items=zmf::getFCache($cachekey);
+//        if($items){
+//            return $items;
+//        }
         $colstr = Columns::getColIds($colid);
         if (!$colstr) {
             return false;

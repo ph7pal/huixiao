@@ -30,11 +30,11 @@ class PostsController extends T {
       $data['coms'] = $coms;
       $data['pages'] = $pages;
     } else {
-      if ($colinfo['classify'] != 'thumb') {
+//      if ($colinfo['classify'] != 'thumb') {
         $render = 'lists';
-      } else {
-        $render = $colinfo['classify'];
-      }
+//      } else {
+//        $render = $colinfo['classify'];
+//      }
       $colstr = Columns::getColIds($keyid);
       $where='';
       if ($colstr) {
@@ -49,12 +49,18 @@ class PostsController extends T {
         $arr = explode(',', $colinfo['post_fields']);
         $fieldsArr = array_filter($arr);
       }
-      $tags = Tags::allTags();
+      //$tags = Tags::allTags();
+      $newProducers = Producer::getNews();
+      $topGoods = Goods::tops();
+      $zhanhuis = Zhanhui::getNews();
       $data['posts'] = $lists;
       $data['pages'] = $pages;
       $data['fieldsArr'] = $fieldsArr;
-      $data['tags'] = $tags;
+      //$data['tags'] = $tags;
       $data['selectedTags'] = $selectedTags;
+      $data['newProducers'] = $newProducers;
+      $data['topGoods'] = $topGoods;
+      $data['zhanhuis'] = $zhanhuis;
     }
     $this->pageTitle = $colinfo['title'] . ' - ' . zmf::config('sitename');
     $this->render($render, $data);

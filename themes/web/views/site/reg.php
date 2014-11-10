@@ -15,20 +15,6 @@
         <?php echo $form->errorSummary($model); ?>  
               <div class="control-group">
                   <div class="clearfix">
-                      <label class="control-label" for="inputWarning"><span class="red-mark">*</span>注册类型：</label>
-                      <div class="controls ui-form-item">
-                          <select name="credit" id='credit'>
-                            <option value=''>--请选择--</option>
-                            <?php foreach(tools::userCredits() as $list){?>
-                            <option value="<?php echo $list['type'];?>"><?php echo $list['title'];?></option>
-                            <?php }?>
-                          </select>
-                          <span class="help-inline lin9"></span>
-                      </div>
-                  </div>
-              </div>
-              <div class="control-group">
-                  <div class="clearfix">
                       <label class="control-label" for="inputWarning"><span class="red-mark">*</span>登录昵称：</label>
                       <div class="controls ui-form-item " type="tel" data-index="0">
                           <?php echo $form->textField($model,'username',array('class'=>'error','placeholder'=>'用于登录')); ?>
@@ -52,7 +38,6 @@
                       <span class="help-inline lin9"><?php echo $form->error($model,'password'); ?></span>
                   </div>
               </div>
-
               <div class="control-group clearfix">
                   <label class="control-label" for="inputWarning"><span class="red-mark">*</span>电子邮箱：</label>
                   <div class="controls ui-form-item" required="" ajaxurl="/register/ChkUn-type-1.html" min="4" max="16" data-index="3">
@@ -60,6 +45,30 @@
                       <span class="help-inline lin9"><?php echo $form->error($model,'email'); ?></span>
                   </div>
               </div>
+              <div class="control-group">
+                  <div class="clearfix">
+                      <label class="control-label" for="inputWarning"><span class="red-mark">*</span>注册类型：</label>
+                      <div class="controls ui-form-item">
+                          <select name="credit" id='credit'>
+                            <option value=''>--请选择--</option>
+                            <?php foreach(tools::userCredits() as $list){?>
+                            <option value="<?php echo $list['type'];?>"><?php echo $list['title'];?></option>
+                            <?php }?>
+                          </select>
+                          <span class="help-inline lin9"></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="control-group">
+                  <div class="clearfix">
+                      <label class="control-label" for="inputWarning">所在区域：</label>
+                      <div class="controls ui-form-item">
+                          <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
+                          <span class="help-inline lin9"></span>
+                      </div>
+                  </div>
+              </div>
+        
 
               <div class="control-group clearfix">
                     <p class="sub-btn">

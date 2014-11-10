@@ -26,13 +26,6 @@
     <?php echo $form->textField($model,'title',array('class'=>'form-control','value'=>$info['title'])); ?>
      <p class="help-block"><?php echo $form->error($model,'title'); ?></p>
     </div>    
-    <script>
-        var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'coverimg'));?>";  	
-        $(document).ready(
-        function(){    	
-            singleUploadify('<?php echo CHtml::activeId($model,"attachid");?>_upload','<?php echo CHtml::activeId($model,"attachid");?>',1);
-        });  
-    </script>
     <div class="form-group">
     <?php echo $form->labelEx($model,'attachid'); ?>
     <?php $this->renderPartial('//common/singleUpload',array('keyid'=>$info['id'],'attachid'=>$info['attachid'],'type'=>'posts','model'=>$model,'fieldName'=>'attachid'));?>

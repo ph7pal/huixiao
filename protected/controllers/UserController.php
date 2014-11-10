@@ -111,8 +111,9 @@ class UserController extends T {
                         $nolimit+=1;
                     } else {
                         //$info = '您还不是商家，欲使用所有功能请联系：' . zmf::config('phone') . '或者' . zmf::config('email');
-                        $_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
-                        if ($_creditstatus != Posts::STATUS_PASSED) {
+                        //$_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
+                        $_addedType = UserCredit::findOne($this->uid);
+                        if ($_addedType['status'] != Posts::STATUS_PASSED) {
                             if ($this->validateEmail != '') {
                                 $info = '认证之前请先激活您的邮箱，' . CHtml::link('点此激活邮箱', 'javascript:;', array('class' => 'btn btn-danger btn-xs validate'));
                             } else {
@@ -126,8 +127,9 @@ class UserController extends T {
                 }
             }
         } else {
-            $_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
-            if ($_creditstatus != Posts::STATUS_PASSED) {
+            //$_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
+            $_addedType = UserCredit::findOne($this->uid);
+            if ($_addedType['status'] != Posts::STATUS_PASSED) {
                 $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
                 $this->noticeInfo = $info;
             }
@@ -468,7 +470,7 @@ class UserController extends T {
     }
 
     public function actionGoods($id = '') {
-        //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));    
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));    
         if (!$id) {
             $model = new Goods;
         } else {
@@ -559,7 +561,7 @@ class UserController extends T {
     }
 
     public function actionJobs($id = '') {
-        //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
         $uid = Yii::app()->user->id;
         if ($id) {
             $model = Jobs::model()->findByPk($id);
@@ -602,7 +604,7 @@ class UserController extends T {
     }
 
     public function actionZhanhui($id = '') {
-        //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_zhanhui', 'url' => $this->homeUrl));   
         $uid = Yii::app()->user->id;
         if ($id) {
             $model = Zhanhui::model()->findByPk($id);
@@ -740,10 +742,10 @@ class UserController extends T {
 
     public function actionCredit() {
         $this->checkUser();
-        //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $_addedType = UserCredit::findOne($this->uid);
-        if ($_addedType) {
+        if ($_addedType && $_addedType['status']!=0) {
             $blocked = true;
         } else {
             $blocked = false;

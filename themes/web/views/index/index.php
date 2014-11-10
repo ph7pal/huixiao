@@ -101,19 +101,18 @@
             <div class="main_wrap">
               <div class="c_news">
                 <ul>
-                   <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                   <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts']; $hei_limit10=  array_slice($itemPosts, 7, 12);if(!empty($hei_limit10)){foreach($hei_limit10 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
             </div>
           </div>
           <div class="col_sub">
             <div class="l_news">
-              <!--ul class="img_list clearfix">
-                <li><a href="#">
-                    <img src="#" alt="" width="118" height="89" /><span class="title">如何收纳物品释放卫生间空间</span></a></li>                
-              </ul-->
-              <ul class="txt_list">
-                <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>              </ul>
+              <?php $hei_imgs=  array_slice($itemPosts, 0, 2);?>
+              <ul class="img_list clearfix">
+                <?php if(!empty($hei_imgs)){foreach($hei_imgs as $one){echo '<li>'.CHtml::link('<img src="'.$one['faceurl'].'" alt="'.$one['title'].'" width="118" height="89" /><span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
+              <ul class="txt_list"><?php $hei_limit5=  array_slice($itemPosts, 2, 5);if(!empty($hei_limit5)){foreach($hei_limit5 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?></ul>
             </div>
           </div>
           <div class="col_extra">
@@ -145,19 +144,18 @@
             <div class="main_wrap">
               <div class="c_news">
                 <ul>
-                  <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];$pianju_limit10=  array_slice($itemPosts, 7, 12);if(!empty($pianju_limit10)){foreach($pianju_limit10 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
             </div>
           </div>
           <div class="col_sub">
             <div class="l_news">
-              <!--ul class="img_list clearfix">
-                <li><a href="#">
-                    <img src="#" alt="" width="118" height="89" /><span class="title"></span></a></li>
-              </ul-->
+              <ul class="img_list clearfix">
+                <?php $pianju_limit2=  array_slice($itemPosts, 0, 2);if(!empty($pianju_limit2)){foreach($pianju_limit2 as $one){echo '<li>'.CHtml::link('<img src="'.$one['faceurl'].'" alt="'.$one['title'].'" width="118" height="89" /><span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+              </ul>
               <ul class="txt_list">
-                <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                <?php $pianju_limit5=  array_slice($itemPosts, 2, 5);if(!empty($pianju_limit5)){foreach($pianju_limit5 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
               </ul>
             </div>
           </div>
