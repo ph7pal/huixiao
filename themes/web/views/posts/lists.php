@@ -44,7 +44,7 @@
                 </div>
                 <div class="bd">
                     <ul id="list_nav">                        
-                      <li><s class="s"></s><?php echo CHtml::link('生成厂家',array('qiye/index'),array('target'=>'_blank'));?></li>
+                      <li><s class="s"></s><?php echo CHtml::link('生产厂家',array('qiye/index'),array('target'=>'_blank'));?></li>
                       <li><s class="s"></s><?php echo CHtml::link('展会公司',array('exhibition/index'),array('target'=>'_blank'));?></li>
                       <li><s class="s"></s><?php echo CHtml::link('会销产品',array('goods/index'),array('target'=>'_blank'));?></li>
                       <li><s class="s"></s><?php echo CHtml::link('展会信息',array('zhanhui/index'),array('target'=>'_blank'));?></li>                         

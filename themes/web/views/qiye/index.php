@@ -1,5 +1,5 @@
 <div class="w_960 content">
-  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <a href="#">装修公司 </a>&gt; 栏目首页</span></div>
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('生产厂家',array('qiye/index'));?>&gt; 厂家列表</span></div>
 
 
   <!--条件筛选开始-->
@@ -10,15 +10,17 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>所在区域：</dt>
-                          <dd><a href="#" class="select fl">不限</a>
+                          <dd><!--a href="#" class="select fl">不限</a--><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
                               <div class="txt">
-                                  <a href="#">北京</a>
+                                  <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
+                                      <?php echo CHtml::link($localname,array('qiye/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                    <?php }}?>  
                               </div>
                               <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
-                                  <img src="Images/search_more.jpg" /><!--向下箭头-->
+                                  <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->
                               </div>
                               <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
-                                  <img src="Images/search_less.jpg" /><!--向上箭头-->
+                                  <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_less.jpg" /><!--向上箭头-->
                               </div>
                           </dd>
                       </dl>

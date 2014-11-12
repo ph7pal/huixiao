@@ -5,7 +5,16 @@ class QiyeController extends T {
   //public $layout = 'qiye';
 
   public function actionIndex() {
-    $_sql = "SELECT * FROM {{producer}}";
+    $localarea=zmf::filterInput($_GET['localarea']);
+    
+    $_where='';
+    if(is_numeric($localarea) && $localarea>0){
+      $localids=  Area::getChildren($localarea);
+      $localStr=join(',',$localids);
+      $_where.=' AND localarea IN('.$localStr.')';
+    }
+    
+    $_sql = "SELECT * FROM {{producer}} WHERE status=".Posts::STATUS_PASSED." {$_where}";
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
     if (!empty($lists)) {
       foreach ($lists as $key => $list) {
@@ -22,8 +31,11 @@ class QiyeController extends T {
         $lists[$key] = $list;
       }
     }
+    $areas=Area::listArea();
     $data['posts'] = $lists;
     $data['pages'] = $pages;
+    $data['areas'] = $areas;
+    $data['localarea'] = $localarea;
     $this->render('index', $data);
   }
 

@@ -16,12 +16,18 @@
             <div style="height: 300px; overflow: hidden">
                 <div class="slideIMG">
                     <div id="feature_list" style="width: 550px">
+                      <?php if(!empty($flashImgs)){?>
                         <ul id="tabs">
-                            <li><a href="javascript:;">1</a> </li>
+                          <?php foreach($flashImgs as $key=>$tmp){?>
+                            <li><a href="javascript:;"><?php echo ($key+1);?></a></li>
+                          <?php }?>  
                         </ul>
                         <ul id="output">
-                            <li><a href="#" target="_blank"><img src="https://passport.58.com/pic2/ui6/my/images/login_sj.jpg" alt="大型公益验房活动第二季正式开启" /></a></li>                            
+                          <?php foreach($flashImgs as $key=>$tmp){?>
+                            <li><a href="javascript:;"><img src="<?php echo $tmp;?>" width="550" height="300" /></a></li>
+                          <?php }?>                           
                         </ul>
+                      <?php }?>
                     </div>
                 </div>
             </div>

@@ -206,15 +206,15 @@ class Users extends CActiveRecord {
     );
     $bar['user_goods'] = array(
         'url' => CHtml::link('产品', array('user/list', 'table' => 'goods'), array('class' => 'list_btn ' . ($_GET['table'] == 'goods' ? 'current' : ''))),
-        'power' => 'user_addquestion'
+        'power' => 'user_goods'
     );
     $bar['user_jobs'] = array(
         'url' => CHtml::link('招聘', array('user/list', 'table' => 'jobs'), array('class' => 'list_btn ' . ($_GET['table'] == 'jobs' ? 'current' : ''))),
-        'power' => 'user_addquestion'
+        'power' => 'user_jobs'
     );
     $bar['user_zhanhui'] = array(
         'url' => CHtml::link('展会', array('user/list', 'table' => 'zhanhui'), array('class' => 'list_btn ' . ($_GET['table'] == 'zhanhui' ? 'current' : ''))),
-        'power' => 'user_addquestion'
+        'power' => 'user_zhanhui'
     );
     $columns = Columns::userColumns($uid);
     if (!empty($columns)) {

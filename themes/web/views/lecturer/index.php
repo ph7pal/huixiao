@@ -11,9 +11,12 @@
                               <dt><s class="s"></s>所在区域：</dt>
 
                               <dd>
-                                  <a href="#" class="select fl">不限</a>
+                                  <!--a href="#" class="select fl">不限</a-->
+                                  <?php echo CHtml::link('不限',array('lecturer/index'),array('class'=>'fl'));?>
                                   <div class="txt">
-                                      <a href="#">北京</a>
+                                    <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
+                                      <?php echo CHtml::link($localname,array('lecturer/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                    <?php }}?>  
                                   </div>
                                   <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
                                       <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->

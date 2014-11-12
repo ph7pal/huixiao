@@ -42,8 +42,15 @@ class SiteController extends T {
         $this->redirect(Yii::app()->createUrl('user/index'));
       }
     }
+    $topads=Ads::getAllByPo('logpage','flash',NULL);
+    $flashImgs=array();
+    if(!empty($topads)){
+      foreach($topads as $img){
+        $flashImgs[]=zmf::uploadDirs($img['cTime'], 'site', $img['classify'], 'origin').'/'.$img['filePath'];
+      }
+    }
     $this->_noColButOther = 'login';
-    $this->render('login', array('model' => $model));
+    $this->render('login', array('model' => $model,'flashImgs'=>$flashImgs));
   }
 
   public function actionLogout() {

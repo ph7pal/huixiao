@@ -21,10 +21,12 @@ class LecturerController extends T {
     }
     $_where='';
     if(is_numeric($localarea) && $localarea>0){
-      $_where.=' AND localarea='.$localarea;
+      $localids=  Area::getChildren($localarea);
+      $localStr=join(',',$localids);
+      $_where.=' AND localarea IN('.$localStr.')';
     }
     if($medal){
-      $_where.=" AND medal='".$localarea."'";
+      $_where.=" AND medal='".$medal."'";
     }    
     if($belongid){
       $_where.=" AND belongCompany='".$belongid."'";
@@ -44,10 +46,13 @@ class LecturerController extends T {
         $top['truename']=Users::getUserInfo($top['uid'],'truename');
         $tops[$key]=$top;
       }
-    }    
+    }
+    $areas=Area::listArea();
     $data['posts'] = $lists;
     $data['pages'] = $pages;
     $data['tops'] = $tops;
+    $data['areas'] = $areas;
+    $data['localarea'] = $localarea;
     $this->render('index', $data);
   }
   

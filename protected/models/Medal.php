@@ -28,10 +28,10 @@ class Medal extends CActiveRecord {
         array('title, logo, cTime', 'required'),
         array('cTime', 'numerical', 'integerOnly' => true),
         array('title', 'length', 'max' => 255),
-        array('logo', 'length', 'max' => 16),
+        array('logo,classify', 'length', 'max' => 16),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, title, logo, cTime', 'safe', 'on' => 'search'),
+        array('id, title, logo, cTime,classify', 'safe', 'on' => 'search'),
     );
   }
 
@@ -51,9 +51,10 @@ class Medal extends CActiveRecord {
   public function attributeLabels() {
     return array(
         'id' => 'ID',
-        'title' => 'Title',
-        'logo' => 'Logo',
+        'title' => '徽章名称',
+        'logo' => '图标名称',
         'cTime' => 'C Time',
+        'classify' => '分类',
     );
   }
 
@@ -78,6 +79,7 @@ class Medal extends CActiveRecord {
     $criteria->compare('title', $this->title, true);
     $criteria->compare('logo', $this->logo, true);
     $criteria->compare('cTime', $this->cTime);
+    $criteria->compare('classify', $this->classify);
 
     return new CActiveDataProvider($this, array(
         'criteria' => $criteria,
