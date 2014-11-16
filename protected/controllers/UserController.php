@@ -562,7 +562,15 @@ class UserController extends T {
 
     public function actionJobs($id = '') {
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
-        $uid = Yii::app()->user->id;
+        $uid = $this->uid;
+        $userCredit = UserCredit::findOne($uid);
+        if(!$userCredit){
+          $this->message(0, '请先认证');
+        }elseif($userCredit['status']!=Posts::STATUS_PASSED){
+          $this->message(0, '非常抱歉，您的认证信息暂未通过审核');
+        }elseif(!in_array($userCredit['classify'],array('producer','marketing_team','exhibition'))){
+          $this->message(0, '您的认证资料不允许发布招聘信息');
+        }
         if ($id) {
             $model = Jobs::model()->findByPk($id);
             if ($model === null) {
@@ -594,7 +602,20 @@ class UserController extends T {
                 $this->redirect(array('user/list', 'table' => 'jobs'));
         }
         if ($model->isNewRecord) {
-            $this->listTableTitle = '新增招聘信息';
+            $this->listTableTitle = '新增招聘信息';            
+            $realModel = UserCredit::loadModel($userCredit['classify']);
+            $creditInfo=$realModel->find('uid='.$this->uid);
+            $model->gs_title=$creditInfo['companyname'];
+            $model->gs_miaoshu=$creditInfo['description'];
+            $model->gs_didian=$model->gz_didian=$creditInfo['address'];
+            if($userCredit['classify']=='producer'){
+              $model->gs_zhuye=$creditInfo['companyurl'];
+            }else{
+              $model->gs_zhuye=$creditInfo['officeurl'];
+            } 
+            $model->gz_contactor=$creditInfo['contactname'];
+            $model->gz_contact=$creditInfo['contactmobile'];
+            
         } else {
             $this->listTableTitle = '更新招聘信息';
         }

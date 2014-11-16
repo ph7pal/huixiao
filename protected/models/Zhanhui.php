@@ -38,7 +38,7 @@ class Zhanhui extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-          array('title, content, status, uid, didian,localarea,start_time, expired_time', 'required'),
+          array('title, attachid,content, uid,localarea,start_time, expired_time', 'required'),
           array('status, uid, canyu', 'numerical', 'integerOnly' => true),
           array('title, zhuti, liangdian, didian, description', 'length', 'max' => 255),
           array('localarea, start_time, expired_time, attachid, hits, order, cTime', 'length', 'max' => 10),

@@ -28,14 +28,20 @@
     <?php }else{?>
      
     <?php }?>
-     
-<?php }elseif(Yii::app()->getController()->id!='index'){?>
-    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
+<?php }elseif(Yii::app()->getController()->id=='posts'){?>
+     <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
+     <?php }elseif(Yii::app()->getController()->getAction()->id=='show'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
+     <?php }?>
+<?php }elseif(Yii::app()->getController()->id=='goods'){?>
+     <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpinList.css" rel="stylesheet" type="text/css" />
+     <?php }elseif(Yii::app()->getController()->getAction()->id=='view'){?>
+     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/chanpin.css" rel="stylesheet" type="text/css" />
+     <?php }?>
+<?php }elseif(Yii::app()->getController()->id=='jobs'){?>
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/Job.css" rel="stylesheet" type="text/css" />
- 
 <?php }else{?>
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/index.css" rel="stylesheet" type="text/css" />
 <?php }?>    
@@ -86,16 +92,23 @@
       <div class="channelNav">
         <div class="w_960 channelNavBd">
           <ul>
-            <li <?php if(!$this->currentCol){?>class="current"<?php }?>><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
-            <?php 
-            $topcols=Columns::getColsByPosition('top',true);
-            if(!empty($topcols)){
-            foreach($topcols as $_t){
-            ?>          
-            <li <?php if(in_array($_t['first']['id'],$this->currentCol)){echo 'class="current"';}?>>
-              <?php echo CHtml::link($_t['first']['title'],array('posts/index','colid'=>$_t['first']['id']));?>           
+            <li><a href="<?php echo zmf::config('baseurl');?>">首页</a></li>
+            <!--//信用黑名单 信用企业  招商资讯 会销产品 展会档期   行业资讯  优秀讲师 人才招聘-->
+            <?php $topcols=Columns::topbarCols();?>          
+            <li <?php if(in_array($topcols['heimingdan']['id'],$this->currentCol)){echo 'class="current"';}?>>
+              <?php echo CHtml::link($topcols['heimingdan']['title'],$topcols['heimingdan']['url']);?>           
             </li>
-            <?php }}?>            
+            <li><?php echo CHtml::link($topcols['qiye']['title'],$topcols['qiye']['url']);?></li>
+            <li <?php if(in_array($topcols['zhaoshang']['id'],$this->currentCol)){echo 'class="current"';}?>>
+              <?php echo CHtml::link($topcols['zhaoshang']['title'],$topcols['zhaoshang']['url']);?>           
+            </li>
+            <li><?php echo CHtml::link($topcols['goods']['title'],$topcols['goods']['url']);?></li>
+            <li><?php echo CHtml::link($topcols['zhanhui']['title'],$topcols['zhanhui']['url']);?></li>
+            <li <?php if(in_array($topcols['hangyezixun']['id'],$this->currentCol)){echo 'class="current"';}?>>
+              <?php echo CHtml::link($topcols['hangyezixun']['title'],$topcols['hangyezixun']['url']);?>
+            </li>            
+            <li><?php echo CHtml::link($topcols['jiangshi']['title'],$topcols['jiangshi']['url']);?></li>
+            <li><?php echo CHtml::link($topcols['jobs']['title'],$topcols['jobs']['url']);?></li>
           </ul>
         </div>
       </div>

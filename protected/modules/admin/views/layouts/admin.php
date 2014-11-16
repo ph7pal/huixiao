@@ -42,6 +42,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                 'ads' => '展示',
                 'link' => '友链',
                 'users' => '用户',
+                'user_group' => '用户组',
                 'columns' => '栏目',
                 'questions' => '客服',
               );
@@ -157,7 +158,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
         });
       </script>
         <?php $this->renderPartial('/common/footer');?>    
-        Copyright&copy;newsoul.cn
+        Copyright&copy;<?php echo zmf::config('domain');?>
     </div>
 </body>
 </html>

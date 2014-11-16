@@ -359,5 +359,37 @@ class Columns extends CActiveRecord {
         }
         return $real;
     }
+    
+    public static function topbarCols(){       
+      $sql="SELECT id,title,name FROM {{columns}} WHERE `name`='heimingdan' OR `name`='zhaoshang' OR `name`='hangyezixun'";
+      $items=Yii::app()->db->createCommand($sql)->queryAll();
+      foreach($items as $it){
+         $_key=$it['name'];
+         $it['url']=Yii::app()->createUrl('posts/index',array('colid'=>$it['id']));
+         $real[$_key]=$it;
+       }
+       $real['qiye']=array(
+           'title'=>'信用企业',
+           'url'=>Yii::app()->createUrl('qiye/index')
+       );
+       $real['goods']=array(
+           'title'=>'会销产品',
+           'url'=>Yii::app()->createUrl('goods/index')
+       );
+       $real['zhanhui']=array(
+           'title'=>'展会档期',
+           'url'=>Yii::app()->createUrl('zhanhui/index')
+       );
+       $real['jiangshi']=array(
+           'title'=>'优秀讲师',
+           'url'=>Yii::app()->createUrl('lecturer/index')
+       );
+       $real['jobs']=array(
+           'title'=>'人才招聘',
+           'url'=>Yii::app()->createUrl('jobs/index')
+       );
+       return $real;
+       
+    }
 
 }

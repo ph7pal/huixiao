@@ -20,9 +20,10 @@ if($_imgSize>200){
     <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
 </p>
 <p><label>企业全称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
+<p><label>企业地址<span class="required">*</span>：</label><input class="form-control  bitian" name="address" id="address" type="text" value="<?php echo $info['address']; ?>" <?php echo $disabled;?>/></p>
 <p><label>团队名称<span class="required">*</span>：</label><input class="form-control bitian" name="teamname" id="teamname" type="text" value="<?php echo $info['teamname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>负责人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
-<p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="officurl" id="officurl" type="text" value="<?php echo $info['officurl']; ?>" <?php echo $disabled;?>/></p>
+<p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="officeurl" id="officeurl" type="text" value="<?php echo $info['officeurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
 <p><label>主打产品<span class="required">*</span>：</label><input class="form-control bitian" name="mainproduct" id="mainproduct" type="text" value="<?php echo $info['mainproduct']; ?>" <?php echo $disabled;?>/></p>

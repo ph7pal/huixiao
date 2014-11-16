@@ -26,7 +26,7 @@
                   <div class="clearfix">
                       <label class="control-label" for="inputWarning"><span class="red-mark">*</span>真实姓名：</label>
                       <div class="controls ui-form-item " type="tel" data-index="0">
-                          <?php echo $form->textField($model,'truename',array('class'=>'error','placeholder'=>'用于显示')); ?>
+                          <?php echo $form->textField($model,'truename',array('class'=>'error','placeholder'=>'用于显示')); ?><span style="color:red;margin-left: 10px;">企业请填写公司全称。</span>
                           <span class="help-inline lin9"><?php echo $form->error($model,'truename'); ?></span>
                       </div>
                   </div>

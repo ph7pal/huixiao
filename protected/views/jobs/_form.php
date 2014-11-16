@@ -65,7 +65,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_jingyan'); ?>
-		<?php echo $form->textField($model,'gz_jingyan',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+      <?php echo $form->dropDownList($model,'gz_jingyan',  Jobs::jingyan(),array('class'=>'form-control','options' => array($model['gz_jingyan']=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'gz_jingyan'); ?>
 	</div>
 
@@ -77,19 +77,19 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_zdxueli'); ?>
-		<?php echo $form->textField($model,'gz_zdxueli',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+      <?php echo $form->dropDownList($model,'gz_zdxueli',  Jobs::xueli(),array('class'=>'form-control','options' => array($model['gz_zdxueli']=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'gz_zdxueli'); ?>
 	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_gljy'); ?>
-		<?php echo $form->textField($model,'gz_gljy',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+      <?php echo $form->dropDownList($model,'gz_gljy',  Jobs::jingyan(),array('class'=>'form-control','options' => array($model['gz_gljy']=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'gz_gljy'); ?>
 	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_xinzi'); ?>
-		<?php echo $form->textField($model,'gz_xinzi',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+      <?php echo $form->dropDownList($model,'gz_xinzi',  Jobs::money(),array('class'=>'form-control','options' => array($model['gz_xinzi']=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'gz_xinzi'); ?>
 	</div>
 

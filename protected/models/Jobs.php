@@ -163,5 +163,57 @@ class Jobs extends CActiveRecord {
     $items = Yii::app()->db->createCommand($sql)->queryAll();
     return $items;
   }
+  
+  public static function xueli($type=''){
+    $arr=array(
+        'gz'=>'高中',
+        'jx'=>'技校',
+        'zz'=>'中专',
+        'dz'=>'大专',
+        'bk'=>'本科',
+        'ss'=>'硕士',
+        'bs'=>'博士',
+    );
+    if($type){
+      return $arr[$type];
+    }
+    return $arr;
+  }
+  
+  public static function jingyan($type=''){
+    $arr=array(
+        '0'=>'不限',
+        '1'=>'1年以下',
+        '12'=>'1-2年',
+        '35'=>'3-5年',
+        '67'=>'6-7年',
+        '810'=>'8-10年',
+        '10'=>'10年以上',
+    );
+    if($type){
+      return $arr[$type];
+    }
+    return $arr;
+  }
+  
+  public static function money($type=''){
+    $arr=array(
+        '1'=>'面议',
+        '1000'=>'1000以内',
+        '2000'=>'1000-2000',
+        '3000'=>'2000-3000',
+        '4000'=>'3000-4000',
+        '5000'=>'4000-5000',
+        '8000'=>'5000-8000',
+        '12000'=>'8000-12000',
+        '20000'=>'12000-20000',
+        '25000'=>'20000-25000',
+        '250000'=>'25000以上',
+    );
+    if($type){
+      return $arr[$type];
+    }
+    return $arr;
+  }
 
 }

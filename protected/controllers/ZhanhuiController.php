@@ -34,12 +34,14 @@ class ZhanhuiController extends T {
   public function actionIndex() {
     $type = zmf::filterInput($_GET['type'], 't', 1);
     if ($type == 'on' || !$type) {
-      $status = Posts::STATUS_PASSED;
       $type = 'on';
-    } else {
-      $status = Posts::STATUS_DELED;
     }
-    $_sql = "SELECT * FROM {{zhanhui}} WHERE status={$status}";
+    $status = Posts::STATUS_PASSED;
+    if($type=='on'){
+      $_sql = "SELECT * FROM {{zhanhui}} WHERE expired_time>".time()." AND status={$status}";
+    }else{
+      $_sql = "SELECT * FROM {{zhanhui}} WHERE expired_time<=".time()." AND status={$status}";
+    }    
     Posts::getAll(array('sql' => $_sql), $pages, $lists);    
     foreach ($lists as $key => $list) {
       if ($list['start_time'] < time()) {
@@ -50,7 +52,7 @@ class ZhanhuiController extends T {
       if ($list['attachid'] > 0) {
         $attachinfo = Attachments::getOne($list['attachid']);
         if ($attachinfo) {
-          $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '200') . $attachinfo['filePath'];
+          $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '200') . '/'.$attachinfo['filePath'];
         }
       }
       $list['faceurl'] = $faceurl;
@@ -74,8 +76,16 @@ class ZhanhuiController extends T {
     $userCredit = UserCredit::findOne($uid);
     if(!$userCredit){
       $this->jsonOutPut(0, '非常抱歉，您需要填写认证信息才可以报名哦');
-    }elseif($userCredit['status']==Posts::STATUS_PASSED){
+    }elseif($userCredit['status']!=Posts::STATUS_PASSED){
       $this->jsonOutPut(0, '非常抱歉，您的认证信息暂未通过审核');
+    }
+    $info=  Zhanhui::model()->findByPk($id);
+    if(!$info){
+      $this->jsonOutPut(0, '非常抱歉，您所查看的页面不存在');
+    }elseif($info['status']!=Posts::STATUS_PASSED){
+      $this->jsonOutPut(0, '非常抱歉，该内容未通过审核');
+    }elseif($info['expired_time']<time()){
+      $this->jsonOutPut(0, '非常抱歉，该展会已结束报名');
     }
     $attr=array(
         'logid'=>$id,
@@ -84,10 +94,12 @@ class ZhanhuiController extends T {
     $info=  ZhanhuiRelation::model()->findByAttributes($attr);
     if(!$info){
       $attr['cTime']=time();
-      $attr['ip']=  ip2long(Yii::app()->request->userHostAddress);
+      $ip = Yii::app()->request->userHostAddress;
+      $attr['ip']=  ip2long($ip);
       $model=new ZhanhuiRelation;
       $model->attributes=$attr;
       if($model->save()){
+        Zhanhui::model()->updateCounters(array('canyu' => 1), ':id=id', array(':id' => $id));
         $this->jsonOutPut(1, '恭喜您，报名成功');
       }else{
         $this->jsonOutPut(0, '非常抱歉，报名失败');

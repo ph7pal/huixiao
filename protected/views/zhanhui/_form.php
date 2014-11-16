@@ -16,11 +16,12 @@
 		<?php echo $form->error($model,'title'); ?>
 	</div>
     <div class="form-group">
-		<?php //echo $form->labelEx($model,'attachid'); ?>
-		<?php //$this->renderPartial('//common/singleUpload',array('keyid'=>$info['id'],'attachid'=>$info['attachid'],'type'=>'zhanhui','model'=>$model,'fieldName'=>'attachid'));?>
-		<?php //echo $form->error($model,'attachid'); ?>
+		<?php echo $form->labelEx($model,'attachid'); ?>
+		<?php $this->renderPartial('//common/singleUpload',array('attachid'=>$model['attachid'],'type'=>'zhanhui','model'=>$model,'fieldName'=>'attachid'));?>
+      <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control')); ?>  
+		<?php echo $form->error($model,'attachid'); ?>
 	</div>
-
+    <div class="clearfix"></div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'zhuti'); ?>
 		<?php echo $form->textArea($model,'zhuti',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
