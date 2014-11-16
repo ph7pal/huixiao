@@ -162,6 +162,15 @@ class Users extends CActiveRecord {
       } elseif ($table == 'questions') {
         $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'questions')) . '">列表</a></li>';
         $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/addquestions') . '">新增</a></li>';
+        } elseif ($table == 'goods') {
+        $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'goods')) . '">列表</a></li>';
+        $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/goods') . '">新增</a></li>';
+        } elseif ($table == 'jobs') {
+        $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'jobs')) . '">列表</a></li>';
+        $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/jobs') . '">新增</a></li>';
+        } elseif ($table == 'zhanhui') {
+        $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('table' => 'zhanhui')) . '">列表</a></li>';
+        $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/zhanhui') . '">新增</a></li>';
       } else {
         $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/list', array('colid' => $colid)) . '">列表</a></li>';
         $longstr.='<li><a class="list_btn" href="' . Yii::app()->createUrl('user/add', array('colid' => $colid)) . '">新增</a></li>';
