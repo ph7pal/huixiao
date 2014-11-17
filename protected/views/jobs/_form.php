@@ -107,7 +107,8 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_fuli'); ?>
-		<?php echo $form->textField($model,'gz_fuli',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo CHtml::checkBoxList('fulis',array(),Fuli::getAll(),array('class'=>'form-control')); ?>
+		<?php //echo $form->textField($model,'gz_fuli',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gz_fuli'); ?>
 	</div>
 

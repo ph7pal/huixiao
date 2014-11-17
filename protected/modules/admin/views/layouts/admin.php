@@ -83,6 +83,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
             <li><?php echo CHtml::link('产品分类',array('all/list','table'=>'tags'));?></li>
             <li class="divider"></li>
             <li><?php echo CHtml::link('用户徽章',array('medal/index'));?></li>
+            <li><?php echo CHtml::link('工作福利',array('fuli/index'));?></li>
             <li class="divider"></li>
             <?php 
             $arr = array(

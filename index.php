@@ -4,5 +4,6 @@ error_reporting(E_ERROR);
 $yii=dirname(__FILE__).'/../framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
 defined('YII_DEBUG') or define('YII_DEBUG',true);
+error_reporting(E_ERROR);
 require_once($yii);
 Yii::createWebApplication($config)->run();

@@ -782,14 +782,16 @@ class UserController extends T {
             unset($_POST['type']);
             unset($_POST['btn']);
             $configs = $_POST;
-            $tmparr = array_reverse(array_filter($configs['cityid']));
-            unset($configs['cityid']);
+            if(!empty($configs['cityid'])){
+            	$tmparr = array_reverse(array_filter($configs['cityid']));            
+	            unset($configs['cityid']);
+	            $cityid = $tmparr[0];
+	            $configs['localarea'] = $cityid;
+            } 
             $configs['cTime'] = time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
             CreditRelation::model()->deleteAll('uid=' . $this->uid);
-            $realModel->deleteAll('uid=' . $this->uid);
-            $cityid = $tmparr[0];
-            $configs['localarea'] = $cityid;
+            $realModel->deleteAll('uid=' . $this->uid);            
             $configs['uid'] = $this->uid;
             $configs['status'] = Posts::STATUS_STAYCHECK;
             $realModel->attributes = $configs;

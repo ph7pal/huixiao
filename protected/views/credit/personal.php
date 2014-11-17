@@ -2,6 +2,10 @@
 <?php $typeinfo=tools::userCredits($type);?>
 <input class="form-control" name="type" id="type" type="hidden" value="<?php echo $type;?>"/>
 <p><label>认证类型：</label><input class="form-control" value="<?php echo $typeinfo['title']; ?>" disabled/></p>
+<p><label>所在地域<span class="required">*</span>：</label>
+    <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
+    <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
+</p>
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>"/></p>
 <p><label>联系人手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>"/></p>
 <p><label>有效邮箱<span class="required">*</span>：</label><input class="form-control bitian" name="useremail" id="useremail" type="text" value="<?php echo $info['useremail']; ?>"/></p>
