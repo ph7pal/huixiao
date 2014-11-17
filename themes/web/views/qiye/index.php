@@ -1,5 +1,5 @@
 <div class="w_960 content">
-  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('生产厂家',array('qiye/index'));?>&gt; 厂家列表</span></div>
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('信用企业',array('qiye/index'));?>&gt; 信用企业</span></div>
 
 
   <!--条件筛选开始-->
@@ -28,10 +28,12 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>主营产品：</dt>
-                          <dd style="float: left;"><a href="#" class="select fl">不限</a>
-                              <div class="txt">
-                                  <a href="#">保健品</a>
-                              </div>
+                          <dd style="float: left;"><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
+                                  <div class="txt">
+                                    <?php if(!empty($tags)){foreach($tags as $tid=>$tag){?>
+                                      <?php echo CHtml::link($tag,array('qiye/index','tagid'=>$tid),array('class'=>($tagid==$tid) ? 'select' : ''));?>
+                                    <?php }}?>
+                                  </div>
 
                           </dd>
                       </dl>
@@ -40,12 +42,13 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>信用等级：</dt>
-                          <dd><a href="#" class="select fl">不限</a>
-                              <div class="txt">
-                                  <a href="#">A</a><a href="#">AA</a><a href="#">AAA</a>
-                              </div>
-
-                          </dd>
+                          <dd><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
+                                  <div class="txt">
+                                    <?php if(!empty($medals)){foreach($medals as $mid=>$medal){?>
+                                      <?php echo CHtml::link($medal,array('qiye/index','medal'=>$mid),array('class'=>($medalid==$mid) ? 'select' : ''));?>
+                                    <?php }}?>
+                                  </div>
+                              </dd>
                       </dl>
                   </li>
 
@@ -68,7 +71,5 @@
       <!--分页按钮结束-->
       <!--广告-->
       <div class="banner">
-          <a href="#" target="_blank">
-              <img alt="" src="Images/zxgsBanner.jpg" /></a>
       </div>
   </div>

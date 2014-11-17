@@ -13,9 +13,9 @@
         </div>
         <!--条件筛选 开始-->
         <div class="screening" id="screening">
-            <!--div class="bd" id="bd">
+            <div class="bd" id="bd">
                 <ul>
-                    <li class="item">
+                    <!--li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>职位类别：</dt>
                             <dd><a href="#" class="select fl">不限</a>
@@ -24,13 +24,15 @@
                                 </div>
                             </dd>
                         </dl>
-                    </li>
+                    </li-->
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>工作地区：</dt>
-                            <dd><a href="#" class="select fl">不限</a>
+                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
                                 <div class="txt">
-                                    <a href="#">北京</a>
+                                  <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
+                                      <?php echo CHtml::link($localname,array('jobs/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                    <?php }}?>
                                 </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
                                     <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" />
@@ -43,10 +45,12 @@
                     </li>
                     <li class="item">
                         <dl class="clearfix">
-                            <dt><s class="s"></s>招商区域：</dt>
-                            <dd><a href="#" class="select fl">不限</a>
+                            <dt><s class="s"></s>工作福利：</dt>
+                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
                                 <div class="txt">
-                                    <a href="#" class="">五险一金</a>                                            
+                                    <?php if(!empty($fulis)){foreach($fulis as $fid=>$fuli){?>
+                                      <?php echo CHtml::link($fuli,array('jobs/index','fuli'=>$fid),array('class'=>($fuliid==$fid) ? 'select' : ''));?>
+                                    <?php }}?>                                         
                                 </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
                                     <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" />
@@ -57,14 +61,13 @@
                             </dd>
                         </dl>
                     </li>
-
                 </ul>
-            </div-->
+            </div>
         </div>
       <!--条件筛选 结束-->
-        <!--div class="currentsearch_new  clr">
-            <span class="m_right20 f_left">共<em>4509</em>个职位满足条件</span><span class="f_left">当前筛选结果： 销售业务</span>
-        </div-->
+        <div class="currentsearch_new  clr">
+            <span class="m_right20 f_left"></span><span class="f_left"></span>
+        </div>
         <!--主要内容部分开始-->
         <div class="main2">
             <form name="frmMain" style="margin: 0px;">

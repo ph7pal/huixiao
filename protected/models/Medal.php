@@ -25,10 +25,11 @@ class Medal extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('title, logo, cTime', 'required'),
+        array('title, logo, classify', 'required'),
         array('cTime', 'numerical', 'integerOnly' => true),
         array('title', 'length', 'max' => 255),
         array('logo,classify', 'length', 'max' => 16),
+        array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
         array('id, title, logo, cTime,classify', 'safe', 'on' => 'search'),
@@ -94,6 +95,32 @@ class Medal extends CActiveRecord {
    */
   public static function model($className = __CLASS__) {
     return parent::model($className);
+  }
+
+  public static function exClassify() {
+    $arr=array(
+        'lecturer'=>'讲师',
+        'qiye'=>'企业',
+        'zhanhui'=>'展会公司',
+    );
+    if($type!=''){
+      return $arr[$type];
+    }
+    return $arr;
+  }
+
+  public static function getAll($classify = '', $listData = true) {
+    if ($classify) {
+      $items = Medal::model()->findAll('classify=:class', array(':class' => $classify));
+    } else {
+      $items = Medal::model()->findAll();
+    }
+    if ($listData) {
+      $arr = CHtml::listData($items, 'id', 'title');
+      return $arr;
+    } else {
+      return $items;
+    }
   }
 
 }

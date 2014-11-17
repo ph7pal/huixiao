@@ -1,1 +1,1 @@
-<?php $this->renderPartial('//jobs/_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('//jobs/_form', array('model'=>$model,'selectedFulis'=>$selectedFulis)); ?>

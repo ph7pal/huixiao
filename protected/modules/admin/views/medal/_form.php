@@ -30,9 +30,9 @@
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'cTime'); ?>
-		<?php echo $form->textField($model,'cTime',array('class'=>'form-control')); ?>
-		<?php echo $form->error($model,'cTime'); ?>
+		<?php echo $form->labelEx($model,'classify'); ?>
+        <?php echo $form->dropDownList($model,'classify',Medal::exClassify(),array('class'=>'form-control','options' => array($model['classify']=>array('selected'=>true)))); ?>
+		<?php echo $form->error($model,'classify'); ?>
 	</div>
 
 	<div class="form-group">

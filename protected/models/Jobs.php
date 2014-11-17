@@ -64,6 +64,7 @@ class Jobs extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'fulis'=>array(self::HAS_MANY,'FuliRelation','jobid')
     );
   }
 
@@ -174,7 +175,7 @@ class Jobs extends CActiveRecord {
         'ss'=>'硕士',
         'bs'=>'博士',
     );
-    if($type){
+    if($type!=''){
       return $arr[$type];
     }
     return $arr;
@@ -190,7 +191,7 @@ class Jobs extends CActiveRecord {
         '810'=>'8-10年',
         '10'=>'10年以上',
     );
-    if($type){
+    if($type!=''){
       return $arr[$type];
     }
     return $arr;
@@ -210,7 +211,7 @@ class Jobs extends CActiveRecord {
         '25000'=>'20000-25000',
         '250000'=>'25000以上',
     );
-    if($type){
+    if($type!=''){
       return $arr[$type];
     }
     return $arr;

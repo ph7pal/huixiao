@@ -17,10 +17,10 @@
                                 <?php }?>
                               </div>
                               <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
-                                  <img src="Images/search_more.jpg" /><!--向下箭头-->
+                                  <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->
                               </div>
                               <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
-                                  <img src="Images/search_less.jpg" /><!--向上箭头-->
+                                  <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_less.jpg" /><!--向上箭头-->
                               </div>
                           </dd>
                       </dl>
@@ -28,11 +28,13 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>信用等级：</dt>
-                          <dd><a href="#" class="select fl">不限</a>
-                              <div class="txt">
-                                  <a href="#">A</a><a href="#">AA</a><a href="#">AAA</a>
-                              </div>
-                          </dd>
+                          <dd><?php echo CHtml::link('不限',array('exhibition/index'),array('class'=>'fl'));?>
+                                  <div class="txt">
+                                    <?php if(!empty($medals)){foreach($medals as $mid=>$medal){?>
+                                      <?php echo CHtml::link($medal,array('exhibition/index','medal'=>$mid),array('class'=>($medalid==$mid) ? 'select' : ''));?>
+                                    <?php }}?>
+                                  </div>
+                              </dd>
                       </dl>
                   </li>
               </ul>
@@ -52,8 +54,5 @@
       </div>
       <!--分页按钮结束-->
       <!--广告-->
-      <div class="banner">
-          <a href="#" target="_blank">
-              <img alt="" src="Images/zxgsBanner.jpg" /></a>
-      </div>
+      <div class="banner"></div>
   </div>

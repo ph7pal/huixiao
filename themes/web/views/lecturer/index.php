@@ -30,9 +30,11 @@
                       <li class="item">
                           <dl class="clearfix">
                               <dt><s class="s"></s>认证级别：</dt>
-                              <dd><a href="#" class="select fl">不限</a>
+                              <dd><?php echo CHtml::link('不限',array('lecturer/index'),array('class'=>'fl'));?>
                                   <div class="txt">
-                                      <a href="#">金牌讲师</a><a href="#">银牌讲师</a><a href="#">铜牌讲师</a>
+                                    <?php if(!empty($medals)){foreach($medals as $mid=>$medal){?>
+                                      <?php echo CHtml::link($medal,array('lecturer/index','medal'=>$mid),array('class'=>($medalid==$mid) ? 'select' : ''));?>
+                                    <?php }}?>
                                   </div>
                               </dd>
                           </dl>

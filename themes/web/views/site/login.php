@@ -89,14 +89,10 @@
                             <td>
                                 <span class="butt" style="line-height: 34px;">
                                   <input type="submit" name="btnSubmit" value="登录" class="btns" id="btnSubmit" />
-                                </span>
+                                </span><?php echo CHtml::link('没有账号？免费注册',array('site/reg'));?>
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div class="link-login">
-                    <?php echo CHtml::link('没有账号？免费注册',array('site/reg'),array('class'=>'reglink'));?>
-                    <div style="height: 30px;"></div>
                 </div>
             </div>
             <!--scrool bg-->

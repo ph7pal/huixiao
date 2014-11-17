@@ -14,49 +14,22 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'title',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
-	<div class="row">
+	<div class="form-group">
 		<?php echo $form->labelEx($model,'classify'); ?>
-		<?php echo $form->textField($model,'classify',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textField($model,'classify',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'classify'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'order'); ?>
-		<?php echo $form->textField($model,'order',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'order'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'hits'); ?>
-		<?php echo $form->textField($model,'hits',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'hits'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'cTime'); ?>
-		<?php echo $form->textField($model,'cTime',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'cTime'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-group">
+		<?php echo CHtml::submitButton($model->isNewRecord ? '新增' : '保存',array('class'=>'btn btn-primary')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -26,7 +26,7 @@ class ExhibitionController extends T {
         if ($_list['attachid'] > 0) {
           $attachinfo = Attachments::getOne($_list['attachid']);
           if ($attachinfo) {
-            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '200') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '200') .'/'. $attachinfo['filePath'];
           }
         }
         $_list['faceurl'] = $faceurl;
@@ -36,9 +36,12 @@ class ExhibitionController extends T {
       $lists[$key] = $list;
     }
     $areas = Area::listArea();
+    $medals=Medal::getAll('qiye');
     $data['posts'] = $lists;
     $data['areas'] = $areas;
     $data['pages'] = $pages;
+    $data['medals'] = $medals;
+    $data['medalid'] = $medal;
     $this->render('index', $data);
   }
 

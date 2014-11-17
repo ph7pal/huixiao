@@ -46,19 +46,19 @@
                         <table class="terminalpage-table table-margin" cellpadding="0" cellspacing="0" border="0">
                             <tr>
                                 <td class="color-gray" width="75" valign="top">工作经验：</td>
-                                <td valign="top" width="175"><?php echo $info['gz_jingyan'];?></td>
+                                <td valign="top" width="175"><?php echo Jobs::jingyan($info['gz_jingyan']);?></td>
                                 <td valign="top" class="color-gray" width="75">工作性质：</td>
                                 <td valign="top" width="175"><?php echo $info['gz_xingzhi'];?></td>
                             </tr>
                             <tr>
                                 <td class="color-gray" valign="top">最低学历：</td>
-                                <td valign="top"><?php echo $info['gz_zdxueli'];?></td>
+                                <td valign="top"><?php echo Jobs::xueli($info['gz_zdxueli']);?></td>
                                 <td class="color-gray" valign="top">管理经验：</td>
-                                <td valign="top"><?php echo $info['gz_gljy'];?></td>
+                                <td valign="top"><?php echo Jobs::jingyan($info['gz_gljy']);?></td>
                             </tr>
                             <tr>
                                 <td class="color-gray" valign="top">职位月薪：</td>
-                                <td valign="top"><?php echo $info['gz_xinzi'];?></td>
+                                <td valign="top"><?php echo Jobs::money($info['gz_xinzi']);?></td>
                                 <td class="color-gray" valign="top">招聘人数：</td>
                                 <td valign="top"><?php echo $info['gz_renshu'];?></td>
                             </tr>
@@ -74,7 +74,7 @@
                                 <td class="color-gray" valign="top" style="line-height: 40px;">职位亮点：</td>
                                 <td valign="top" colspan="3">
                                   <div class="welfare-tab-box" style="width: 400px;">
-                                    <span><?php echo $info['gz_fuli'];?></span>
+                                    <span><?php if(!empty($info->fulis)){foreach($info->fulis as $fuli){echo $fuli->info->title.'&nbsp;&nbsp;';}}?></span>
                                   </div>
                                 </td>
                             </tr>

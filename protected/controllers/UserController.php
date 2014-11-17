@@ -584,6 +584,8 @@ class UserController extends T {
         if (isset($_POST['Jobs'])) {
             Yii::app()->session['checkHasBadword'] = 'no';
             $items = $_POST['Jobs'];
+            $fulis=$_POST['fulis'];
+            $items['gz_fuli']=$fulis[0];
             foreach ($items as $key => $item) {
                 $items[$key] = zmf::filterInput($item, 't', 1);
             }
@@ -598,9 +600,28 @@ class UserController extends T {
             $_POST['Jobs']['status'] = $status;
             $_POST['Jobs']['cTime'] = time();
             $model->attributes = $_POST['Jobs'];
-            if ($model->save())
-                $this->redirect(array('user/list', 'table' => 'jobs'));
+            if ($model->save()){
+              if (!$model->isNewRecord) {
+                FuliRelation::model()->deleteAll('jobid=:jobid',array(':jobid'=>$model->id));
+              }
+              if(!empty($fulis)){
+                $fulis=  array_unique(array_filter($fulis));
+                if(!empty($fulis)){
+                  foreach($fulis as $fid){
+                    $_attr=array(
+                        'jobid'=>$model->id,
+                        'fuliid'=>$fid
+                    );
+                    $_model=new FuliRelation;
+                    $_model->attributes=$_attr;
+                    $_model->save();
+                  }
+                }
+              }
+              $this->redirect(array('user/list', 'table' => 'jobs'));
+            }                
         }
+        $selectedFulis=array();
         if ($model->isNewRecord) {
             $this->listTableTitle = '新增招聘信息';            
             $realModel = UserCredit::loadModel($userCredit['classify']);
@@ -617,10 +638,14 @@ class UserController extends T {
             $model->gz_contact=$creditInfo['contactmobile'];
             
         } else {
-            $this->listTableTitle = '更新招聘信息';
+          if(!empty($model->fulis)){
+            $selectedFulis=array_keys(CHtml::listData($model->fulis,'fuliid',''));
+          }
+          $this->listTableTitle = '更新招聘信息';
         }
         $this->render('//jobs/create', array(
           'model' => $model,
+          'selectedFulis'=>$selectedFulis
         ));
     }
 

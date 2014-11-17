@@ -417,8 +417,8 @@ CREATE TABLE `pre_message` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-DROP TABLE IF EXISTS `pre_columns`;
-CREATE TABLE `pre_columns` (
+DROP TABLE IF EXISTS `pre_fuli`;
+CREATE TABLE `pre_fuli` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(100) NOT NULL COMMENT '福利标题',
   `classify` char(32) NOT NULL COMMENT '福利分类',

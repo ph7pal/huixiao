@@ -5,15 +5,14 @@ class QiyeController extends T {
   //public $layout = 'qiye';
 
   public function actionIndex() {
-    $localarea=zmf::filterInput($_GET['localarea']);
-    
+    $localarea=zmf::filterInput($_GET['localarea']);    
+    $tagid=zmf::filterInput($_GET['tagid']);    
     $_where='';
     if(is_numeric($localarea) && $localarea>0){
       $localids=  Area::getChildren($localarea);
       $localStr=join(',',$localids);
       $_where.=' AND localarea IN('.$localStr.')';
-    }
-    
+    }    
     $_sql = "SELECT * FROM {{producer}} WHERE status=".Posts::STATUS_PASSED." {$_where}";
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
     if (!empty($lists)) {
@@ -32,10 +31,16 @@ class QiyeController extends T {
       }
     }
     $areas=Area::listArea();
+    $medals=Medal::getAll('qiye');
+    $tags=Tags::allTags();
     $data['posts'] = $lists;
     $data['pages'] = $pages;
     $data['areas'] = $areas;
     $data['localarea'] = $localarea;
+    $data['medals'] = $medals;
+    $data['medalid'] = $medal;
+    $data['tags'] = $tags;
+    $data['tagid'] = $tagid;
     $this->render('index', $data);
   }
 

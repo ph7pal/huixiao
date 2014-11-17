@@ -32,14 +32,22 @@ class JobsController extends T {
   public function actionIndex() {
     //$order=zmf::filterInput($_GET['order'],'t',1);
     $uid=zmf::filterInput($_GET['uid']);
+    $localarea=zmf::filterInput($_GET['localarea']);
+    $fuliid=zmf::filterInput($_GET['fuli']);
     $_where='';
     if(is_numeric($uid) && $uid>0){
       $_where.=' AND uid='.$uid;
     }
     $_sql = "SELECT * FROM {{jobs}} WHERE status=".Posts::STATUS_PASSED.$_where.' ORDER BY cTime DESC';
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    $areas=Area::listArea();
+    $fulis=Fuli::getAll();
     $data['posts'] = $lists;
     $data['pages'] = $pages;
+    $data['areas'] = $areas;
+    $data['localarea'] = $localarea;
+    $data['fulis'] = $fulis;
+    $data['fuliid'] = $fuliid;
     $this->render('index', $data);
   }
 

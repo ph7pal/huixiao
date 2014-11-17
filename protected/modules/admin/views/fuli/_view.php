@@ -33,5 +33,5 @@
 	<?php echo CHtml::encode($data->cTime); ?>
 	<br />
 
-
+<hr/>
 </div>

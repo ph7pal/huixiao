@@ -48,11 +48,14 @@ class LecturerController extends T {
       }
     }
     $areas=Area::listArea();
+    $medals=Medal::getAll('lecturer');
     $data['posts'] = $lists;
     $data['pages'] = $pages;
     $data['tops'] = $tops;
     $data['areas'] = $areas;
     $data['localarea'] = $localarea;
+    $data['medals'] = $medals;
+    $data['medalid'] = $medal;
     $this->render('index', $data);
   }
   

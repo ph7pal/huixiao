@@ -19,7 +19,7 @@
             <table class="search-result-infotab">
                 <tr>
                     <td class="tabCol1">
-                      <span>地点：<?php echo $data['gz_didian'];?></span><span>公司性质：<?php echo $data['gs_xingzhi'];?></span><span>公司规模：<?php echo $data['gs_guimo'];?></span><span>学历：<?php echo $data['gz_zdxueli'];?></span><span>职位月薪：<?php echo $data['gz_xinzi'];?></span><p>岗位职责：<?php echo zmf::subStr($data['gz_miaoshu'],150);?></p>
+                      <span>地点：<?php echo $data['gz_didian'];?></span><span>公司性质：<?php echo $data['gs_xingzhi'];?></span><span>公司规模：<?php echo $data['gs_guimo'];?></span><span>学历：<?php echo Jobs::xueli($data['gz_zdxueli']);?></span><span>职位月薪：<?php echo Jobs::money($data['gz_xinzi']);?></span><p>岗位职责：<?php echo zmf::subStr($data['gz_miaoshu'],150);?></p>
                     </td>
                     <td class="tabCol2">
                       <?php echo CHtml::link('查看详情',array('jobs/view','id'=>$data['id']),array('target'=>'_blank'));?>                      
