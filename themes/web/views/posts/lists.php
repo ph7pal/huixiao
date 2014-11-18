@@ -1,6 +1,6 @@
 <div class="w_960 content">
 <div class="position">
-    <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <a href="#">新闻列表 </a>&gt; 聚信美第二届实惠要逆天</span>
+    <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link($colinfo['title'],array('posts/index','colid'=>$colinfo['id']));?>&gt; <?php echo '与【'.$colinfo['title'].'】相关的文章';?></span>
 </div>
 <!--主要内容 开始-->
 <div class="newn_css clearfix">
@@ -43,11 +43,29 @@
                     栏目导航
                 </div>
                 <div class="bd">
-                    <ul id="list_nav">                        
-                      <li><s class="s"></s><?php echo CHtml::link('生产厂家',array('qiye/index'),array('target'=>'_blank'));?></li>
-                      <li><s class="s"></s><?php echo CHtml::link('展会公司',array('exhibition/index'),array('target'=>'_blank'));?></li>
-                      <li><s class="s"></s><?php echo CHtml::link('会销产品',array('goods/index'),array('target'=>'_blank'));?></li>
-                      <li><s class="s"></s><?php echo CHtml::link('展会信息',array('zhanhui/index'),array('target'=>'_blank'));?></li>                         
+                    <ul id="list_nav">
+                      <li class="item"><s class="s1"></s><s class="s2"></s>                          
+                          <?php echo CHtml::link('黑名单曝光',array('posts/index','colid'=>$allCols['heimingdan']['id']),array('class'=>'parent'));?>
+                      </li>
+                      <li class="item"><s class="s1"></s><s class="s2"></s>
+                          <?php echo CHtml::link('会销骗局',array('posts/index','colid'=>$allCols['huixiaopianju']['id']),array('class'=>'parent'));?>
+                      </li>
+                      <li class="item "><s class="s1"></s><s class="s2"></s><?php echo CHtml::link('会销资讯',array('posts/index','colid'=>$allCols['huixiaozixun']['id']),array('class'=>'parent'));?>
+                          <ul>
+                              <li><s class="s"></s><?php echo CHtml::link('会销资讯',array('posts/index','colid'=>$allCols['huixiaozixun']['id']),array('class'=>''));?></li>
+                              <li><s class="s"></s><?php echo CHtml::link('新闻资讯',array('posts/index','colid'=>$allCols['xinwenzixun']['id']),array('class'=>''));?></li>
+                              <li><s class="s"></s><?php echo CHtml::link('政府法规',array('posts/index','colid'=>$allCols['zhengfufagui']['id']),array('class'=>''));?></li>
+                          </ul>
+                      </li>
+                      <li class="item "><s class="s1"></s><s class="s2"></s><?php echo CHtml::link('行业资讯',array('posts/index','colid'=>$allCols['hangyezixun']['id']),array('class'=>'parent'));?>
+                          <ul>
+                              <li><s class="s"></s><?php echo CHtml::link('招商资讯',array('posts/index','colid'=>$allCols['zhaoshang']['id']),array('class'=>''));?></li>
+                              <li><s class="s"></s><?php echo CHtml::link('展会资讯',array('posts/index','colid'=>$allCols['zhanhuizixun']['id']),array('class'=>''));?></li>
+                          </ul>
+                      </li>
+                      <li class="item"><s class="s1"></s><s class="s2"></s>
+                          <?php echo CHtml::link('营销模式',array('posts/index','colid'=>$allCols['yingxiaomoshi']['id']),array('class'=>'parent'));?>
+                      </li>                  
                     </ul>
                 </div>
 

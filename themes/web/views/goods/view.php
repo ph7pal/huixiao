@@ -142,14 +142,16 @@
                 <?php }?>
                 <?php }?>
                 <!--广告图片 开始-->                
-                <!--广告图片 结束-->
+                <?php if(!empty($newProducers)){?>
                 <div class="subRNews">
-                    <h3><span style="float: right; font-weight: normal"><a href="/company/">更多&gt;&gt;</a></span>最新加入公司</h3>
+                    <h3><span style="float: right; font-weight: normal"><?php echo CHtml::link('更多&gt;&gt;',array('qiye/index'),array('target'=>'_blank'));?></span>最新加入公司</h3>
                     <ul>
-                        <li>·<a href="/company/18341" title="深圳市龙电安防产品有限公司" target="_blank">深圳市龙电安防产品有限公司</a><span style="margin-left: 10px;"></span></li>
+                      <?php foreach($newProducers as $np){?>
+                        <li>·<?php echo CHtml::link($np['companyname'],array('qiye/view','id'=>$np['id']),array('target'=>'_blank'));?><span style="margin-left: 10px;"></span></li>
+                      <?php }?>
                     </ul>
                 </div>
-
+                <?php }?>
             </div>
             <div style="clear: both"></div>
         </div>

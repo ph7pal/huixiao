@@ -391,5 +391,16 @@ class Columns extends CActiveRecord {
        return $real;
        
     }
+    
+    public static function listAll(){
+      $sql="SELECT id,title,name FROM {{columns}}";
+      $items=Yii::app()->db->createCommand($sql)->queryAll();
+      $real=array();
+      foreach($items as $it){
+         $_key=$it['name'];
+         $real[$_key]=$it;
+       }
+       return $real;
+    }
 
 }

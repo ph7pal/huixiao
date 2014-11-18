@@ -98,17 +98,17 @@
             <li <?php if(in_array($topcols['heimingdan']['id'],$this->currentCol)){echo 'class="current"';}?>>
               <?php echo CHtml::link($topcols['heimingdan']['title'],$topcols['heimingdan']['url']);?>           
             </li>
-            <li><?php echo CHtml::link($topcols['qiye']['title'],$topcols['qiye']['url']);?></li>
+            <li <?php if(Yii::app()->getController()->id=='qiye'){?>class="current"<?php }?>><?php echo CHtml::link($topcols['qiye']['title'],$topcols['qiye']['url']);?></li>
             <li <?php if(in_array($topcols['zhaoshang']['id'],$this->currentCol)){echo 'class="current"';}?>>
               <?php echo CHtml::link($topcols['zhaoshang']['title'],$topcols['zhaoshang']['url']);?>           
             </li>
-            <li><?php echo CHtml::link($topcols['goods']['title'],$topcols['goods']['url']);?></li>
-            <li><?php echo CHtml::link($topcols['zhanhui']['title'],$topcols['zhanhui']['url']);?></li>
+            <li <?php if(Yii::app()->getController()->id=='goods'){?>class="current"<?php }?>><?php echo CHtml::link($topcols['goods']['title'],$topcols['goods']['url']);?></li>
+            <li <?php if(Yii::app()->getController()->id=='zhanhui'){?>class="current"<?php }?>><?php echo CHtml::link($topcols['zhanhui']['title'],$topcols['zhanhui']['url']);?></li>
             <li <?php if(in_array($topcols['hangyezixun']['id'],$this->currentCol)){echo 'class="current"';}?>>
               <?php echo CHtml::link($topcols['hangyezixun']['title'],$topcols['hangyezixun']['url']);?>
             </li>            
-            <li><?php echo CHtml::link($topcols['jiangshi']['title'],$topcols['jiangshi']['url']);?></li>
-            <li><?php echo CHtml::link($topcols['jobs']['title'],$topcols['jobs']['url']);?></li>
+            <li <?php if(Yii::app()->getController()->id=='lecturer'){?>class="current"<?php }?>><?php echo CHtml::link($topcols['jiangshi']['title'],$topcols['jiangshi']['url']);?></li>
+            <li <?php if(Yii::app()->getController()->id=='jobs'){?>class="current"<?php }?>><?php echo CHtml::link($topcols['jobs']['title'],$topcols['jobs']['url']);?></li>
           </ul>
         </div>
       </div>

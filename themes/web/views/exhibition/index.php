@@ -10,10 +10,10 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>所在区域：</dt>
-                          <dd><?php echo CHtml::link('不限',array('exhibition/index'),array('class'=>(!$_GET['area']) ? 'select fl':'fl'));?>
+                          <dd><?php echo CHtml::link('不限',array('exhibition/index'),array('class'=>(!$localarea) ? 'select fl':'fl'));?>
                               <div class="txt">
                                 <?php foreach($areas as $localid=>$areaname){?>
-                                  <?php echo CHtml::link($areaname,array('exhibition/index','area'=>$localid),array('class'=>($_GET['area']==$localid)?'select':''));?>
+                                  <?php echo CHtml::link($areaname,array('exhibition/index','localarea'=>$localid),array('class'=>($localarea==$localid)?'select':''));?>
                                 <?php }?>
                               </div>
                               <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">

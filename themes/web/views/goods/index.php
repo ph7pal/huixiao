@@ -13,15 +13,39 @@
                 <ul>
                     <li class="item">
                         <dl class="clearfix">
-                            <dt><s class="s"></s>产品筛选：</dt>
+                            <dt><s class="s"></s>功能种类：</dt>
                             <dd style="float: left;">
-                              <?php echo CHtml::link('不限',array('goods/index'),array('class'=>'select fl'));?>      
+                              <?php echo CHtml::link('不限',array('goods/index'),array('class'=>empty($selectedTags) ? 'select fl' : 'fl'));?>     
                                 <div class="txt">
 <?php if(!empty($tags)){?>                  
   <?php foreach($tags as $tagid=>$tagtitle){?>
-  <?php echo CHtml::link($tagtitle,array('goods/index','tagid'=>$tagid));?>      
+  <?php echo CHtml::link($tagtitle,array('goods/index','tagid'=>$tagid),array('class'=>(in_array($tagid,$selectedTags))?'select':''));?>      
   <?php }?>
 <?php }?>
+                                </div>
+                                <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
+                                    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->
+                                </div>
+                                <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
+                                    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_less.jpg" /><!--向上箭头-->
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="item">
+                        <dl class="clearfix">
+                            <dt><s class="s"></s>招商区域：</dt>
+                            <dd><?php echo CHtml::link('不限',array('goods/index'),array('class'=>(!$localarea) ? 'select fl':'fl'));?>
+                              <div class="txt">
+                                <?php foreach($areas as $localid=>$areaname){?>
+                                  <?php echo CHtml::link($areaname,array('goods/index','localarea'=>$localid),array('class'=>($localarea==$localid)?'select':''));?>
+                                <?php }?>
+                              </div>
+                                <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
+                                    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->
+                                </div>
+                                <div style="display: none;" onclick="lessExpandValue(this)" class="s-option">
+                                    <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_less.jpg" /><!--向上箭头-->
                                 </div>
                             </dd>
                         </dl>

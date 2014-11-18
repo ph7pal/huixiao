@@ -22,14 +22,27 @@ class MobileController extends T {
             $this->namapre = '您的主页';
         }
         $userCredit = UserCredit::findOne($uid);
-        if($userCredit['classify']=='producer'){
-          $this->redirect(array('qiye/index','id'=>$uid));
-        }elseif($userCredit['classify']=='marketing_team'){
-          $this->redirect(array('team/index','id'=>$uid));
-        }elseif($userCredit['classify']=='lecturer'){
-          $this->redirect(array('lecturer/index','id'=>$uid));
-        }elseif($userCredit['classify']=='exhibition'){
-          $this->redirect(array('exhibition/index','id'=>$uid));
+        if(!$userCredit){
+          $this->message(0, '该用户暂不能访问');
+        }elseif($userCredit['status']!=Posts::STATUS_PASSED){
+          $this->message(0, '该用户暂不能访问');
+        }elseif (!UserCredit::checkType($userCredit['classify'])) {
+          $this->message(0, '不允许的认证类型，请核实');
+        }else{
+          $realModel = UserCredit::loadModel($userCredit['classify']);
+          $creditInfo=$realModel->find('uid=:uid',array(':uid'=>$uid));
+          if(!$creditInfo){
+            $this->message(0, '该用户暂不能访问');
+          }
+          if($userCredit['classify']=='producer'){
+            $this->redirect(array('qiye/view','id'=>$creditInfo['id']));
+          //}elseif($userCredit['classify']=='marketing_team'){
+          //  $this->redirect(array('team/view','id'=>$uid));
+          }elseif($userCredit['classify']=='lecturer'){
+            $this->redirect(array('lecturer/view','id'=>$creditInfo['id']));
+          }elseif($userCredit['classify']=='exhibition'){
+            $this->redirect(array('exhibition/view','id'=>$creditInfo['id']));
+          }
         }
         $_close = zmf::userConfig($uid, 'closeSite');
         if (!$_close) {

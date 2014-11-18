@@ -53,6 +53,9 @@ class PostsController extends T {
       $newProducers = Producer::getNews();
       $topGoods = Goods::tops();
       $zhanhuis = Zhanhui::getNews();
+      $allCols=  Columns::listAll();
+      $data['colinfo'] = $colinfo;
+      $data['allCols'] = $allCols;
       $data['posts'] = $lists;
       $data['pages'] = $pages;
       $data['fieldsArr'] = $fieldsArr;

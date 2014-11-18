@@ -40,7 +40,9 @@ class GoodsController extends T {
           $likes[$key]['items']=$_items;
         }
       }
-    }    
+    }
+    //最新企业
+    $newProducers = Producer::getNews();
     //留言初始化
     $model=new Message;
     $uid=Yii::app()->user->id;
@@ -82,7 +84,8 @@ class GoodsController extends T {
         'faceimg' => $faceimg,
         'faceurls' => $faceurls,
         'model'=>$model,
-        'contact'=>$contact
+        'contact'=>$contact,
+        'newProducers'=>$newProducers,
     ));
   }
 
@@ -92,11 +95,14 @@ class GoodsController extends T {
   public function actionIndex() {
     $uid = zmf::filterInput($_GET['uid']);
     $tagid = zmf::filterInput($_GET['tagid']);
+    $localarea=zmf::filterInput($_GET['localarea']);
     $_where='';
     if(is_numeric($uid) && $uid>0){
       $_where.=' AND uid='.$uid;
     }
+    $selectedTags=array();
     if(is_numeric($tagid) && $tagid>0){
+      $selectedTags[]=$tagid;
       $_where.=" AND (colid={$tagid} OR colid2={$tagid} OR colid3={$tagid} OR colid4={$tagid} OR colid5={$tagid})";
     }    
     $_sql = "SELECT * FROM {{goods}} WHERE status=".Posts::STATUS_PASSED.$_where." ORDER BY cTime DESC";
@@ -130,6 +136,9 @@ class GoodsController extends T {
         $tops[$key] = $top;
       }
     }
+    $areas=Area::listArea();
+    $data['areas'] = $areas;
+    $data['localarea'] = $localarea;
     $data['posts'] = $lists;
     $data['tops'] = $tops;
     $data['pages'] = $pages;
