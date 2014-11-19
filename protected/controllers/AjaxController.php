@@ -220,7 +220,7 @@ class AjaxController extends T {
   }
 
   public function actionDelCredit() {
-    //$this->checkPower(array('uid' => $this->uid, 'type' => 'user_delcredit', 'url' => $this->homeUrl));
+    $this->checkPower(array('uid' => $this->uid, 'type' => 'user_delcredit', 'url' => $this->homeUrl));
     $uid = Yii::app()->user->id;
     $succ = 0;
     if (UserInfo::model()->deleteAll('uid=:uid AND classify="addCredit"', array(':uid' => $uid))) {

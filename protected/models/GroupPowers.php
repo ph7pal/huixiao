@@ -161,6 +161,7 @@ class GroupPowers extends CActiveRecord {
             'user_addquestion'=>'用户在线提问',
             'user_stat' => '用户查看统计',
             'user_credit' => '用户认证',
+            'user_delcredit' => '用户删除认证',
             'user_addupload' => '用户上传',
             'user_delupload' => '用户删除已上传',
             'user_homepage' => '用户个人主页',

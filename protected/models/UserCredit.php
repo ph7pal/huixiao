@@ -32,7 +32,7 @@ class UserCredit extends CActiveRecord {
     // will receive user inputs.
     return array(
         array('uid, localarea,classify', 'required'),
-        array('localarea, cTime, lastupdate, status, ip', 'numerical', 'integerOnly' => true),
+        array('localarea, cTime, lastupdate, status', 'numerical', 'integerOnly' => true),
         array('uid', 'length', 'max' => 11),
         array('title, desc', 'length', 'max' => 255),
         array('classify', 'length', 'max' => 16),
