@@ -16,15 +16,17 @@ class Comments extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('content, status,ip, cTime', 'required'),
-            array('status', 'numerical', 'integerOnly' => true),
-            array('logid, uid, cTime', 'length', 'max' => 10),
-            array('nickname', 'length', 'max' => 60),
-            array('email', 'length', 'max' => 50),            
-            array('ip,classify', 'length', 'max' => 16),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, logid, uid, nickname, email, content, status,ip, cTime,classify', 'safe', 'on' => 'search'),
+          array('content, status,ip, cTime', 'required'),
+          array('status', 'numerical', 'integerOnly' => true),
+          array('logid, uid, cTime', 'length', 'max' => 10),
+          array('nickname', 'length', 'max' => 60),
+          array('email', 'length', 'max' => 50),
+          array('ip,classify', 'length', 'max' => 16),
+          array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+          array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
+          // The following rule is used by search().
+          // @todo Please remove those attributes that should not be searched.
+          array('id, logid, uid, nickname, email, content, status,ip, cTime,classify', 'safe', 'on' => 'search'),
         );
     }
 
@@ -43,16 +45,16 @@ class Comments extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'logid' => 'Logid',
-            'uid' => 'Uid',
-            'nickname' => '昵称',
-            'email' => '邮箱',
-            'content' => '内容',
-            'status' => 'Status',
-            'ip' => 'Client Ip',
-            'cTime' => 'C Time',
-            'classify' => 'Classify',
+          'id' => 'ID',
+          'logid' => 'Logid',
+          'uid' => 'Uid',
+          'nickname' => '昵称',
+          'email' => '邮箱',
+          'content' => '内容',
+          'status' => 'Status',
+          'ip' => 'Client Ip',
+          'cTime' => 'C Time',
+          'classify' => 'Classify',
         );
     }
 
@@ -73,7 +75,7 @@ class Comments extends CActiveRecord {
         $criteria->compare('classify', $this->classify, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+          'criteria' => $criteria,
         ));
     }
 

@@ -34,16 +34,18 @@ class Questions extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('classify, answer_status, status', 'numerical', 'integerOnly' => true),
-            array('uid, cTime', 'length', 'max' => 10),
-            array('username, contact', 'length', 'max' => 100),
-            array('truename', 'length', 'max' => 50),
-            array('email', 'length', 'max' => 60),
-            array('telephone', 'length', 'max' => 20),
-            array('content, answer_content', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, uid, classify, username, truename, email, telephone, content, contact, answer_status, answer_content, status, cTime', 'safe', 'on' => 'search'),
+          array('classify, answer_status, status', 'numerical', 'integerOnly' => true),
+          array('uid, cTime', 'length', 'max' => 10),
+          array('username, contact', 'length', 'max' => 100),
+          array('truename', 'length', 'max' => 50),
+          array('email', 'length', 'max' => 60),
+          array('telephone', 'length', 'max' => 20),
+          array('content, answer_content', 'safe'),
+          array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+          array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
+          // The following rule is used by search().
+          // @todo Please remove those attributes that should not be searched.
+          array('id, uid, classify, username, truename, email, telephone, content, contact, answer_status, answer_content, status, cTime', 'safe', 'on' => 'search'),
         );
     }
 
@@ -62,19 +64,19 @@ class Questions extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'uid' => 'Uid',
-            'classify' => 'Classify',
-            'username' => '昵称',
-            'truename' => '姓名',
-            'email' => '邮箱',
-            'telephone' => '电话',
-            'content' => '内容',
-            'contact' => '联系方式',
-            'answer_status' => '回复状态',
-            'answer_content' => '回复内容',
-            'status' => 'Status',
-            'cTime' => 'C Time',
+          'id' => 'ID',
+          'uid' => 'Uid',
+          'classify' => 'Classify',
+          'username' => '昵称',
+          'truename' => '姓名',
+          'email' => '邮箱',
+          'telephone' => '电话',
+          'content' => '内容',
+          'contact' => '联系方式',
+          'answer_status' => '回复状态',
+          'answer_content' => '回复内容',
+          'status' => 'Status',
+          'cTime' => 'C Time',
         );
     }
 
@@ -110,7 +112,7 @@ class Questions extends CActiveRecord {
         $criteria->compare('cTime', $this->cTime, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+          'criteria' => $criteria,
         ));
     }
 

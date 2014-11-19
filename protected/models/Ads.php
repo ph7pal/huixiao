@@ -21,6 +21,8 @@ class Ads extends CActiveRecord {
             array('width, height, hits, start_time, expired_time, order, cTime , uid', 'length', 'max' => 10),
             array('position', 'length', 'max' => 40),
             array('classify', 'length', 'max' => 16),
+            array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+            array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, title, url, attachid, width, height, description, hits, start_time, expired_time, position, order, status, cTime,classify ,uid , system,code', 'safe', 'on' => 'search'),

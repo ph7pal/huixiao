@@ -8,6 +8,18 @@ class zmf {
         echo '</pre>';
     }
 
+    public static function db() {
+        return Yii::app()->db;
+    }
+
+    public static function uid() {
+        return Yii::app()->user->id;
+    }
+
+    public static function guest() {
+        return Yii::app()->user->isGuest;
+    }
+
     public static function config($type) {
         if ($type == 'authcode') {
             return 'b93154b988e33fdf0d144fde73028b77';
@@ -1073,6 +1085,30 @@ class zmf {
             date_default_timezone_set('Etc/GMT-8');
         }
         return date($format, $time);
+    }
+
+    public static function setCookie($key, $value, $expire = 3600) {
+        header("P3P: CP=CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR");
+        $ck = new CHttpCookie($key, $value);
+        if (!$value) {
+            $ck->expire = zmf::now() - 3600;
+        } else {
+            $ck->expire = zmf::now() + $expire;
+        }
+        if (zmf::config('cookieDomain') != '') {
+            $ck->domain = zmf::config('cookieDomain');
+        }
+        Yii::app()->request->cookies[$key] = $ck;
+    }
+
+    public static function getCookie($key) {
+        $value = isset(Yii::app()->request->cookies[$key]) ? Yii::app()->request->cookies[$key]->value : '';
+        return $value;
+    }
+
+    public static function delCookie($key) {
+        $cookie = Yii::app()->request->getCookies();
+        unset($cookie[$key]);
     }
 
 }

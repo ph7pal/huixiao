@@ -48,6 +48,7 @@ class EmailController extends T {
                 $return = $this->mail($userinfo['email'], $subject, $message);
                 if ($return) {
                     UserInfo::addAttr($uid, 'emailcode', 'code', $valicode);
+                    zmf::setCookie('sendEmailTime', time(),600);
                     $this->jsonOutPut(1, '邮件已发送');
                 } else {
                     $this->jsonOutPut(0, '邮件发送失败');

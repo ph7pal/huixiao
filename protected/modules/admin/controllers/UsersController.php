@@ -12,9 +12,9 @@ class UsersController extends H {
         $pager->applyLimit($criteria);
         $items = UserGroup::model()->findAll($criteria);
         $data = array(
-            'table' => 'usergroup',
-            'pages' => $pager,
-            'posts' => $items
+          'table' => 'usergroup',
+          'pages' => $pager,
+          'posts' => $items
         );
 
         $this->render('group', $data);
@@ -33,8 +33,8 @@ class UsersController extends H {
             $_info = $model->findByAttributes(array('status' => 0));
             if (!$_info) {
                 $model->attributes = array(
-                    'status' => 0,
-                    'cTime' => time()
+                  'status' => 0,
+                  'cTime' => time()
                 );
                 $model->save(false);
                 $keyid = $model->id;
@@ -78,9 +78,9 @@ class UsersController extends H {
         }
         $groups = UserGroup::getGroups(true);
         $data = array(
-            'info' => $info,
-            'model' => $model,
-            'groups' => $groups
+          'info' => $info,
+          'model' => $model,
+          'groups' => $groups
         );
         $this->render('addUser', $data);
     }
@@ -98,8 +98,8 @@ class UsersController extends H {
             $_info = $model->findByAttributes(array('status' => 0));
             if (!$_info) {
                 $model->attributes = array(
-                    'status' => 0,
-                    'cTime' => time()
+                  'status' => 0,
+                  'cTime' => time()
                 );
                 $model->save(false);
                 $keyid = $model->id;
@@ -131,12 +131,12 @@ class UsersController extends H {
         if (isset($_POST['UserGroup'])) {
             $thekeyid = zmf::filterInput($_POST['UserGroup']['id']);
             $intoData = array(
-                'title' => zmf::filterInput($_POST['UserGroup']['title'], 't', 1),
-                'powers' => 'zmf',
-                'status' => 1,
-                'posts_perh' => zmf::filterInput($_POST['UserGroup']['posts_perh']),
-                'comments_perh' => zmf::filterInput($_POST['UserGroup']['comments_perh']),
-                'attach_perh' => zmf::filterInput($_POST['UserGroup']['attach_perh']),
+              'title' => zmf::filterInput($_POST['UserGroup']['title'], 't', 1),
+              'powers' => 'zmf',
+              'status' => 1,
+              'posts_perh' => zmf::filterInput($_POST['UserGroup']['posts_perh']),
+              'comments_perh' => zmf::filterInput($_POST['UserGroup']['comments_perh']),
+              'attach_perh' => zmf::filterInput($_POST['UserGroup']['attach_perh']),
             );
             $powers = $_POST['powers'];
             $model->attributes = $intoData;
@@ -146,8 +146,8 @@ class UsersController extends H {
                         GroupPowers::model()->deleteAll("gid=$thekeyid");
                         foreach ($powers as $p) {
                             $_data = array(
-                                'gid' => $thekeyid,
-                                'powers' => $p
+                              'gid' => $thekeyid,
+                              'powers' => $p
                             );
                             $modelGP = new GroupPowers();
                             $modelGP->attributes = $_data;
@@ -164,8 +164,8 @@ class UsersController extends H {
                         GroupPowers::model()->deleteAll("gid=$thekeyid");
                         foreach ($powers as $p) {
                             $_data = array(
-                                'gid' => $thekeyid,
-                                'powers' => $p
+                              'gid' => $thekeyid,
+                              'powers' => $p
                             );
                             $modelGP = new GroupPowers();
                             $modelGP->attributes = $_data;
@@ -180,16 +180,16 @@ class UsersController extends H {
         }
         $mine = UserGroup::getPowers($info['id']);
         $data = array(
-            'info' => $info,
-            'mine' => $mine,
-            'model' => $model
+          'info' => $info,
+          'mine' => $mine,
+          'model' => $model
         );
         $this->render('addGroup', $data);
     }
 
     public function actionRecords() {
         $criteria = new CDbCriteria(
-                array('order' => 'id desc')
+            array('order' => 'id desc')
         );
         $count = UserAction::model()->count($criteria);
         $pager = new CPagination($count);
@@ -197,8 +197,8 @@ class UsersController extends H {
         $pager->applyLimit($criteria);
         $items = UserAction::model()->findAll($criteria);
         $data = array(
-            'pages' => $pager,
-            'posts' => $items
+          'pages' => $pager,
+          'posts' => $items
         );
 
         $this->render('records', $data);
@@ -238,8 +238,8 @@ class UsersController extends H {
 
 
         $data = array(
-            'model' => $model,
-            'info' => $info,
+          'model' => $model,
+          'info' => $info,
         );
         $this->render('update', $data);
     }
@@ -252,48 +252,48 @@ class UsersController extends H {
         if (!$uid || !$type) {
             $this->message(0, '数据不全');
         }
-        if($action=='update'){
-          $blocked=false;
-        }else{
-          $blocked=true;
+        if ($action == 'update') {
+            $blocked = false;
+        } else {
+            $blocked = true;
         }
         if (!UserCredit::checkType($type)) {
             $this->message(0, '不允许的认证类型，请核实');
         } else {
             $realModel = UserCredit::loadModel($type);
         }
-        $info=$realModel->find('uid='.$uid);
+        $info = $realModel->find('uid=' . $uid);
         $_addedType = UserCredit::findOne($uid);
-        $creditlogo=zmf::userConfig($uid,'creditlogo');
+        $creditlogo = zmf::userConfig($uid, 'creditlogo');
         $uinfo = Users::getUserInfo($uid);
         $data = array(
-            'type' => $type,
-            'blocked' => $blocked,
-            'info' => $info,
-            'uid' => $uid,
-            'imgSize' => 600,
-            'fromAdmin' => 'yes',
-            'status' => $_addedType['status'],
-            'reason' => $_addedType['desc'],
-            'groupid' => $uinfo['groupid'],
-            'creditlogo'=>$creditlogo,
+          'type' => $type,
+          'blocked' => $blocked,
+          'info' => $info,
+          'uid' => $uid,
+          'imgSize' => 600,
+          'fromAdmin' => 'yes',
+          'status' => $_addedType['status'],
+          'reason' => $_addedType['desc'],
+          'groupid' => $uinfo['groupid'],
+          'creditlogo' => $creditlogo,
         );
         $this->render('//credit/' . $type, $data);
     }
-    
-    public function actionUpdateCredit($id){
-      $this->checkPower('updatecredit');
-      $model = CreditRelation::model()->findByPk($id);
-      if ($model === null)
-      throw new CHttpException(404, 'The requested page does not exist.');
-      if (isset($_POST['CreditRelation'])) {
-        $model->attributes = $_POST['CreditRelation'];
-        if ($model->save())
-          $this->redirect(array('all/list', 'table' => 'credit','classify'=>$model->classify));
-      }
-      $this->render('updateCredit', array(
+
+    public function actionUpdateCredit($id) {
+        $this->checkPower('updatecredit');
+        $model = CreditRelation::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        if (isset($_POST['CreditRelation'])) {
+            $model->attributes = $_POST['CreditRelation'];
+            if ($model->save())
+                $this->redirect(array('all/list', 'table' => 'credit', 'classify' => $model->classify));
+        }
+        $this->render('updateCredit', array(
           'model' => $model,
-      ));
+        ));
     }
 
     public function actionDocredit() {
@@ -308,7 +308,7 @@ class UsersController extends H {
         $atype = zmf::filterInput($_POST['yesorno']);
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $groupid = zmf::filterInput($_POST['groupid']);
-        $creditlogo=zmf::filterInput($_POST['creditlogo'],'t',1);
+        $creditlogo = zmf::filterInput($_POST['creditlogo'], 't', 1);
         if (!$atype) {
             $this->jsonOutPut(0, '请选择');
         }
@@ -321,37 +321,51 @@ class UsersController extends H {
         if (!$touid) {
             $this->jsonOutPut(0, '缺少用户字段');
         }
-        $relarr=array();
-        $realModel=  UserCredit::loadModel($type);
+        $relarr = array();
+        $realModel = UserCredit::loadModel($type);
         if ($atype == 1) {
-            if(!$creditlogo){
+            if (!$creditlogo) {
                 $this->jsonOutPut(0, '请选择认证图标');
             }
-            $relarr['medal']=$creditlogo;
+            $relarr['medal'] = $creditlogo;
+            $creditlogoInfo=  Medal::model()->find('logo=:logo', array(':logo'=>$creditlogo));
             Users::model()->updateByPk($touid, array('groupid' => $groupid));
-            $realModel->updateAll(array('status'=>$atype,'medal'=>$creditlogo), 'uid=:uid',array(':uid'=>$touid));
+            $realModel->updateAll(array('status' => $atype, 'medal' => $creditlogo,'medal_logo'=>$creditlogo,'medal_title'=>$creditlogoInfo['title']), 'uid=:uid', array(':uid' => $touid));
         } else {
-            $realModel->updateAll(array('status'=>$atype), 'uid=:uid',array(':uid'=>$touid));
+            $realModel->updateAll(array('status' => $atype), 'uid=:uid', array(':uid' => $touid));
         }
-        $relarr['status']=$atype;
-        CreditRelation::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
-        $relarr['lastupdate']=time();
-        $relarr['desc']=$reason;
-        UserCredit::model()->updateAll($relarr, 'uid=:uid',array(':uid'=>$touid));
+        $relarr['status'] = $atype;
+        CreditRelation::model()->updateAll($relarr, 'uid=:uid', array(':uid' => $touid));
+        $relarr['lastupdate'] = time();
+        $relarr['desc'] = $reason;
+        UserCredit::model()->updateAll($relarr, 'uid=:uid', array(':uid' => $touid));
         zmf::delUserConfig($touid);
         $this->jsonOutPut(1, '操作成功');
     }
+
     /**
      * 删除用户为keyid的认证信息
      */
-    public function actionDelcredit(){
-//      $this->checkPower('delcredit');
-//      $keyid=zmf::filterInput($_GET['id']);
-//      UserCredit::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
-//      CreditRelation::model()->deleteAll('uid=:uid',array(':uid'=>$keyid));
-//      UserInfo::model()->deleteAll('uid=:uid AND (classify="addCredit" OR classify="userCredit")',array(':uid'=>$keyid));
-//      UserAction::record('delcredit', $keyid);
-//      $this->message(1, '已成功删除');
+    public function actionDelcredit() {
+        $this->checkPower('delcredit');
+        $uid = zmf::filterInput($_GET['id']);
+        if (!$uid) {
+            $this->message(0, '用户不存在');
+        }
+        $creditInfo = UserCredit::findOne($uid);
+        if (!$creditInfo) {
+            $this->message(0, '未检测到该用户的认证信息');
+        } elseif (!UserCredit::checkType($creditInfo['classify'])) {
+            $this->message(0, '不允许的认证类型，请核实');
+        } else {
+            $realModel = UserCredit::loadModel($creditInfo['classify']);
+        }
+        $realModel->deleteAll('uid=:uid', array(':uid' => $uid));
+        UserCredit::model()->deleteAll('uid=:uid', array(':uid' => $uid));
+        CreditRelation::model()->deleteAll('uid=:uid', array(':uid' => $uid));
+        UserInfo::model()->deleteAll('uid=:uid AND (classify="addCredit" OR classify="userCredit")', array(':uid' => $uid));
+        UserAction::record('delcredit', $uid);
+        $this->message(1, '已成功删除');
     }
 
 }

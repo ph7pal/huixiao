@@ -21,7 +21,10 @@ if($_imgSize>200){
 </p>
 <p><label>真实姓名<span class="required">*</span>：</label><input class="form-control bitian" name="truename" id="truename" type="text" value="<?php echo $info['truename']; ?>" <?php echo $disabled;?>/></p>
 <p><label>公司全称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>主打产品<span class="required">*</span>：</label><input class="form-control bitian" name="mainproduct" id="mainproduct" type="text" value="<?php echo $info['mainproduct']; ?>" <?php echo $disabled;?>/></p>
+<p><label>主打产品<span class="required">*</span>：</label>
+<?php echo CHtml::dropDownList('mainproduct[]',$info['mainproduct'],Tags::allTags(),array('class'=>'form-control bitian','disabled'=>$disabled,'multiple'=>'true')); ?>
+</p>
+<p class="help-block">按住CTRL可多选</p>
 <p><label>职位名称<span class="required">*</span>：</label><input class="form-control bitian" name="jobname" id="jobname" type="text" value="<?php echo $info['jobname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
 <p><label>身份证号<span class="required">*</span>：</label><input class="form-control bitian" name="idcard" id="idcard" type="text" value="<?php echo $info['idcard']; ?>" <?php echo $disabled;?>/></p>

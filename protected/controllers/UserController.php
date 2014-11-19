@@ -813,9 +813,15 @@ class UserController extends T {
 	            $cityid = $tmparr[0];
 	            $configs['localarea'] = $cityid;
             } 
+            $mainproduct=array();
+            if(!empty($_POST['mainproduct'])){
+                $configs['mainproduct']=$_POST['mainproduct'][0];
+                $mainproduct=$_POST['mainproduct'];
+            }
             $configs['cTime'] = time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
             CreditRelation::model()->deleteAll('uid=' . $this->uid);
+            TagRelation::model()->deleteAll('logid=' . $this->uid." AND classify='{$type}'");
             $realModel->deleteAll('uid=' . $this->uid);            
             $configs['uid'] = $this->uid;
             $configs['status'] = Posts::STATUS_STAYCHECK;
@@ -849,7 +855,19 @@ class UserController extends T {
             );
             $modelCr = new CreditRelation();
             $modelCr->attributes = $relarr;
-            $modelCr->save();
+            $modelCr->save();            
+            if(!empty($mainproduct)){
+                foreach($mainproduct as $product){
+                    $_pdattr=array(
+                      'logid'=>$this->uid,
+                      'tagid'=>$product,
+                      'classify'=>$type
+                    );
+                    $_pdmodel=new TagRelation;
+                    $_pdmodel->attributes=$_pdattr;
+                    $_pdmodel->save();
+                }
+            }
             $redirect = Yii::app()->createUrl('user/credit');
             zmf::delFCache('userSettings' . $this->uid);
             $this->message(1, '您的资料已提交。', $redirect);

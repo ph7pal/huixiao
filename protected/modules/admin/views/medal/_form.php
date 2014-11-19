@@ -28,6 +28,11 @@
 		<?php echo $form->textField($model,'logo',array('size'=>16,'maxlength'=>16,'class'=>'form-control')); ?>
 		<?php echo $form->error($model,'logo'); ?>
 	</div>
+        <div class="form-group">
+		<?php echo $form->labelEx($model,'desc'); ?>
+		<?php echo $form->textField($model,'desc',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->error($model,'desc'); ?>
+	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'classify'); ?>

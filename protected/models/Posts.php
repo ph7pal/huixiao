@@ -21,17 +21,19 @@ class Posts extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title,colid', 'required'),
-            //array('copy_url', 'url'),
-            array('colid, albumid, reply_allow, status,top', 'numerical', 'integerOnly' => true),
-            array('uid, hits, order, last_update_time, cTime, start_time, expired_time', 'length', 'max' => 10),
-            array('nickname', 'length', 'max' => 30),
-            array('author, copy_from ,attachid', 'length', 'max' => 100),
-            array('title, second_title, title_style, seo_title, seo_description, seo_keywords, copy_url, redirect_url', 'length', 'max' => 255),
-            array('name', 'length', 'max' => 50),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top, start_time, expired_time', 'safe', 'on' => 'search'),
+          array('title,colid', 'required'),
+          //array('copy_url', 'url'),
+          array('colid, albumid, reply_allow, status,top', 'numerical', 'integerOnly' => true),
+          array('uid, hits, order, last_update_time, cTime, start_time, expired_time', 'length', 'max' => 10),
+          array('nickname', 'length', 'max' => 30),
+          array('author, copy_from ,attachid', 'length', 'max' => 100),
+          array('title, second_title, title_style, seo_title, seo_description, seo_keywords, copy_url, redirect_url', 'length', 'max' => 255),
+          array('name', 'length', 'max' => 50),
+          array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+          array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
+          // The following rule is used by search().
+          // @todo Please remove those attributes that should not be searched.
+          array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top, start_time, expired_time', 'safe', 'on' => 'search'),
         );
     }
 
@@ -50,35 +52,35 @@ class Posts extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'colid' => '所属栏目',
-            'uid' => 'Uid',
-            'nickname' => '昵称',
-            'author' => '作者',
-            'title' => '文章标题',
-            'second_title' => '副标题',
-            'name' => '简写',
-            'albumid' => '相册组图',
-            'title_style' => '标题样式',
-            'seo_title' => 'SEO标题',
-            'seo_description' => 'SEO描述',
-            'seo_keywords' => 'SEO关键词',
-            'intro' => '摘要',
-            'content' => '正文',
-            'copy_from' => '来源标题',
-            'copy_url' => '来源地址',
-            'redirect_url' => '跳转地址',
-            'hits' => 'Hits',
-            'order' => '排序',
-            'reply_allow' => '允许评论',
-            'status' => 'Status',
-            'last_update_time' => '最近更新',
-            'cTime' => '创建时间',
-            'attachid' => '封面图片',
-            'secretinfo' => '敏感信息',
-            'top'=>'置顶',
-            'start_time'=>'开始时间',
-            'expired_time'=>'结束时间'
+          'id' => 'ID',
+          'colid' => '所属栏目',
+          'uid' => 'Uid',
+          'nickname' => '昵称',
+          'author' => '作者',
+          'title' => '文章标题',
+          'second_title' => '副标题',
+          'name' => '简写',
+          'albumid' => '相册组图',
+          'title_style' => '标题样式',
+          'seo_title' => 'SEO标题',
+          'seo_description' => 'SEO描述',
+          'seo_keywords' => 'SEO关键词',
+          'intro' => '摘要',
+          'content' => '正文',
+          'copy_from' => '来源标题',
+          'copy_url' => '来源地址',
+          'redirect_url' => '跳转地址',
+          'hits' => 'Hits',
+          'order' => '排序',
+          'reply_allow' => '允许评论',
+          'status' => 'Status',
+          'last_update_time' => '最近更新',
+          'cTime' => '创建时间',
+          'attachid' => '封面图片',
+          'secretinfo' => '敏感信息',
+          'top' => '置顶',
+          'start_time' => '开始时间',
+          'expired_time' => '结束时间'
         );
     }
 
@@ -118,7 +120,7 @@ class Posts extends CActiveRecord {
         $criteria->compare('expired_time', $this->top, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+          'criteria' => $criteria,
         ));
     }
 
@@ -127,21 +129,21 @@ class Posts extends CActiveRecord {
     }
 
     public function allPosts($params, $limit = 10, $uid = '') {
-        $limit = ($limit>0 && $limit!='') ? $limit : 10;
+        $limit = ($limit > 0 && $limit != '') ? $limit : 10;
         $uid = isset($uid) ? $uid : 0;
         if (!$params) {
             return false;
-        }        
+        }
         if (is_array($params)) {
             $colid = $params['colid'];
-            $condition=$params['condition'];
-            $top=$params['top'];
-            $fields=$params['fields'];
-            $order=$params['order'];
-            $_pre=join('-',$params);
+            $condition = $params['condition'];
+            $top = $params['top'];
+            $fields = $params['fields'];
+            $order = $params['order'];
+            $_pre = join('-', $params);
         } else {
             $colid = $params;
-            $_pre=$colid;
+            $_pre = $colid;
         }
 //        $cachekey="allPosts-".$_pre.'-'.$limit.'-'.$uid;
 //        $items=zmf::getFCache($cachekey);
@@ -151,27 +153,27 @@ class Posts extends CActiveRecord {
         $colstr = Columns::getColIds($colid);
         if (!$colstr) {
             return false;
-        }        
+        }
         $where = "WHERE colid IN($colstr)";
         if ($uid) {
             $where.=' AND uid=' . $uid;
         }
-        if($condition){
-            $condition=preg_replace("/where/i", "", $condition);
+        if ($condition) {
+            $condition = preg_replace("/where/i", "", $condition);
             $where.=' AND ' . $condition;
         }
-        if(!$top){
+        if (!$top) {
             $where.=' AND top=1';
         }
-        if(!$fields){
-          $fields='*';
+        if (!$fields) {
+            $fields = '*';
         }
-        if(!$order){
-          $order='cTime';
+        if (!$order) {
+            $order = 'cTime';
         }
         $sql = "SELECT {$fields} FROM {{posts}} {$where} AND status=1 ORDER BY {$order} LIMIT {$limit}";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
-        zmf::setFCache($cachekey, $items,3600);
+        zmf::setFCache($cachekey, $items, 3600);
         return $items;
     }
 
@@ -251,14 +253,14 @@ class Posts extends CActiveRecord {
         $con = array();
         if ($limit == 0) {
             $con = array(
-                'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
-                'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
+              'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
+              'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
         } else {
             $con = array(
-                'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
-                'limit' => $limit,
-                'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
+              'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
+              'limit' => $limit,
+              'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
         }
         $cachekey = 'suggest-' . md5($keyword);

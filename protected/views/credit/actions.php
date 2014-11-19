@@ -13,7 +13,7 @@
 </p>
 <p>
 <label>认证图标：</label>
-<?php echo CHtml::dropDownList('creditlogo',$groupid,tools::creditLogos(),array('options' => array($creditlogo=>array('selected'=>true)))); ?>
+<?php echo CHtml::dropDownList('creditlogo',$creditlogo,Medal::creditLogos('list'),array('options' => array($creditlogo=>array('selected'=>true)))); ?>
 </p>
 <p>
 <label>对应用户组：</label>

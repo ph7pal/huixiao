@@ -437,3 +437,5 @@ CREATE TABLE `pre_fuli_relation` (
   `fuliid` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+alter table pre_medal add desc varchar(255) not null;

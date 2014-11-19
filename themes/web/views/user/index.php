@@ -28,7 +28,9 @@
 </tr>
 <tr>
     <td>邮箱：<?php echo $info['email'];?>
-        <?php if(!$info['emailstatus']){?>
+        <?php if(!$info['emailstatus']){$_cookie=zmf::getCookie('sendEmailTime');if($_cookie){?>
+        <?php echo CHtml::button('邮件已发送，请等候'.(time()-$_cookie).'秒再重发',array('class'=>'btn btn-danger btn-xs','disabled'=>true));?>
+        <?php }else{?>
         <?php echo CHtml::button('发送验证信息',array('class'=>'btn btn-danger btn-xs validate'));?>
       <script>
       $(document).ready(function(){
@@ -51,7 +53,7 @@
         });
       });
       </script>
-        <?php }else{?>
+        <?php }}else{?>
             <button type="button" class="btn btn-success btn-xs">已验证</button>
         <?php }?>
     </td>    

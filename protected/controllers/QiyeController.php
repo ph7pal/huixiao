@@ -6,13 +6,17 @@ class QiyeController extends T {
 
   public function actionIndex() {
     $localarea=zmf::filterInput($_GET['localarea']);    
-    $tagid=zmf::filterInput($_GET['tagid']);    
+    $tagid=zmf::filterInput($_GET['tagid']);
+    $medal=zmf::filterInput($_GET['medal'],'t',1);
     $_where='';
     if(is_numeric($localarea) && $localarea>0){
       $localids=  Area::getChildren($localarea);
       $localStr=join(',',$localids);
       $_where.=' AND localarea IN('.$localStr.')';
-    }    
+    }
+    if($medal){
+        $_where.=" AND medal='{$medal}'";
+    }
     $_sql = "SELECT * FROM {{producer}} WHERE status=".Posts::STATUS_PASSED." {$_where}";
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
     if (!empty($lists)) {

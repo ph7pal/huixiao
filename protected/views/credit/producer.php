@@ -27,8 +27,9 @@ if($_imgSize>200){
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
 <p><label>主打产品<span class="required">*</span>：</label>
-<?php echo CHtml::dropDownList('mainproduct',$info['mainproduct'],Tags::allTags(),array('class'=>'form-control bitian','disabled'=>$disabled)); ?>
+<?php echo CHtml::dropDownList('mainproduct[]',$info['mainproduct'],Tags::allTags(),array('class'=>'form-control bitian','disabled'=>$disabled,'multiple'=>'true')); ?>
 </p>
+<p class="help-block">按住CTRL可多选</p>
 <p><label>营业执照注册号<span class="required">*</span>：</label><input class="form-control bitian" name="licensenumber" id="licensenumber" type="text" value="<?php echo $info['licensenumber']; ?>" <?php echo $disabled;?>/></p>
 <div class="form-group">
     <label>附件上传：</label><br/>

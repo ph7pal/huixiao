@@ -27,12 +27,12 @@ class Medal extends CActiveRecord {
     return array(
         array('title, logo, classify', 'required'),
         array('cTime', 'numerical', 'integerOnly' => true),
-        array('title', 'length', 'max' => 255),
+        array('title,desc', 'length', 'max' => 255),
         array('logo,classify', 'length', 'max' => 16),
         array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
         // The following rule is used by search().
         // @todo Please remove those attributes that should not be searched.
-        array('id, title, logo, cTime,classify', 'safe', 'on' => 'search'),
+        array('id, title, logo, cTime,classify,desc', 'safe', 'on' => 'search'),
     );
   }
 
@@ -54,6 +54,7 @@ class Medal extends CActiveRecord {
         'id' => 'ID',
         'title' => '徽章名称',
         'logo' => '图标名称',
+        'desc' => '描述',
         'cTime' => 'C Time',
         'classify' => '分类',
     );
@@ -79,6 +80,7 @@ class Medal extends CActiveRecord {
     $criteria->compare('id', $this->id, true);
     $criteria->compare('title', $this->title, true);
     $criteria->compare('logo', $this->logo, true);
+    $criteria->compare('desc', $this->desc, true);
     $criteria->compare('cTime', $this->cTime);
     $criteria->compare('classify', $this->classify);
 
@@ -121,6 +123,35 @@ class Medal extends CActiveRecord {
     } else {
       return $items;
     }
+  }
+  
+  public static function creditLogos($classify='',$return=''){
+      if(!$classify && $classify!='list'){
+          $sql="SELECT title,logo,desc FROM {{medal}} WHERE classify='{$classify}'";
+      }else{
+          $sql="SELECT title,logo,desc FROM {{medal}}";
+      }
+      $items=zmf::db()->createCommand($sql)->queryAll();
+      $real=array();
+      $find='';
+      if(!empty($items)){
+          foreach($items as $val){
+              $_key=$val['logo'];
+              if($classify=='list'){
+                  $real[$_key]=$val['title'];
+              }else{
+                  $real[$_key]=$val;
+              }              
+              if($_key==$return){
+                  $find=$val;
+              }
+          }
+      }
+      if(!$return){
+          return $find['title'];
+      }else{
+          return $real;
+      }      
   }
 
 }

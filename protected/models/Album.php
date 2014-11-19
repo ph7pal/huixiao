@@ -16,14 +16,16 @@ class Album extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, description, status', 'required'),
-            array('order, status,reply_allow', 'numerical', 'integerOnly' => true),
-            array('uid, postid, cTime', 'length', 'max' => 10),
-            array('title', 'length', 'max' => 255),
-            array('classify', 'length', 'max' => 16),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, uid, postid, title, description, classify, order, status, cTime,reply_allow', 'safe', 'on' => 'search'),
+          array('title, description, status', 'required'),
+          array('order, status,reply_allow', 'numerical', 'integerOnly' => true),
+          array('uid, postid, cTime', 'length', 'max' => 10),
+          array('title', 'length', 'max' => 255),
+          array('classify', 'length', 'max' => 16),
+          array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+          array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
+          // The following rule is used by search().
+          // @todo Please remove those attributes that should not be searched.
+          array('id, uid, postid, title, description, classify, order, status, cTime,reply_allow', 'safe', 'on' => 'search'),
         );
     }
 
@@ -42,16 +44,16 @@ class Album extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'uid' => '创建者',
-            'postid' => '所属文章',
-            'title' => '相册标题',
-            'description' => '相册描述',
-            'classify' => '相册分类',
-            'order' => '相册排序',
-            'status' => 'Status',
-            'cTime' => '创建时间',
-            'reply_allow' => '允许评论'
+          'id' => 'ID',
+          'uid' => '创建者',
+          'postid' => '所属文章',
+          'title' => '相册标题',
+          'description' => '相册描述',
+          'classify' => '相册分类',
+          'order' => '相册排序',
+          'status' => 'Status',
+          'cTime' => '创建时间',
+          'reply_allow' => '允许评论'
         );
     }
 
@@ -72,7 +74,7 @@ class Album extends CActiveRecord {
         $criteria->compare('reply_allow', $this->reply_allow, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+          'criteria' => $criteria,
         ));
     }
 

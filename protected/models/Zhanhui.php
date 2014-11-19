@@ -43,6 +43,8 @@ class Zhanhui extends CActiveRecord {
           array('title, zhuti, liangdian, didian, description', 'length', 'max' => 255),
           array('localarea, start_time, expired_time, attachid, hits, order, cTime', 'length', 'max' => 10),
           array('content', 'safe'),
+          array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
+          array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
           array('id, title, zhuti, liangdian, localarea, didian, start_time, expired_time, attachid, description, content, hits, order, status, cTime, uid, canyu', 'safe', 'on' => 'search'),
