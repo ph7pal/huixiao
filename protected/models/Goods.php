@@ -36,7 +36,12 @@ class Goods extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-          'messages' => array(self::HAS_MANY, 'Message', 'belongid', 'condition' => 'classify="goods"')
+          'messages' => array(self::HAS_MANY, 'Message', 'belongid', 'condition' => 'classify="goods"'),
+          'colinfo1'=>array(self::BELONGS_TO,'Tags','colid'),
+          'colinfo2'=>array(self::BELONGS_TO,'Tags','colid2'),
+          'colinfo3'=>array(self::BELONGS_TO,'Tags','colid3'),
+          'colinfo4'=>array(self::BELONGS_TO,'Tags','colid4'),
+          'colinfo5'=>array(self::BELONGS_TO,'Tags','colid5'),
         );
     }
 

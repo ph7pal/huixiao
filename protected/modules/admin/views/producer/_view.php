@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('companyname')); ?>:</b>
@@ -50,7 +50,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mainproduct')); ?>:</b>
-	<?php echo CHtml::encode($data->mainproduct); ?>
+	<?php echo zmf::test($data->tags); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('licensenumber')); ?>:</b>

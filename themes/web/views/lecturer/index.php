@@ -80,7 +80,9 @@
           </div>
           <!--右侧排行榜-->
           <div class="col_sub">
-              <a href="#" class="designer_ruzhu" title="讲师入驻">讲师入驻</a>
+            <?php if(Yii::app()->user->isGuest){?>
+              <a href="<?php echo Yii::app()->createUrl('site/reg');?>" class="designer_ruzhu" title="讲师入驻">讲师入驻</a>
+            <?php }?>
               <!--人气排行榜-->
               <div class="tab_module">
                   <div class="hd">

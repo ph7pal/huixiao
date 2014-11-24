@@ -220,13 +220,25 @@ class AjaxController extends T {
   }
 
   public function actionDelCredit() {
-    $this->checkPower(array('uid' => $this->uid, 'type' => 'user_delcredit', 'url' => $this->homeUrl));
     $uid = Yii::app()->user->id;
+    //$this->checkPower(array('uid' => $uid, 'type' => 'user_delcredit'));    
     $succ = 0;
+    $_addedType = UserCredit::findOne($uid);
+    if(!$_addedType){
+      $this->jsonOutPut(0, '非常抱歉，未检测到认证信息');
+    }
+    if (!UserCredit::checkType($_addedType['classify'])) {
+        $this->message(0, '不允许的认证类型，请核实');
+    } else {
+        $realModel = UserCredit::loadModel($_addedType['classify']);
+    }
     if (UserInfo::model()->deleteAll('uid=:uid AND classify="addCredit"', array(':uid' => $uid))) {
       $succ++;
     }
-    if (UserCredit::model()->deleteAll('uid=:uid', array(':uid' => $uid))) {
+    if (UserCredit::model()->updateAll(array('status'=>0),'uid=:uid',array(':uid'=>$uid))) {
+      $succ++;
+    }
+    if($realModel->deleteAll('uid=:uid', array(':uid' => $uid))){
       $succ++;
     }
     if ($succ > 0) {

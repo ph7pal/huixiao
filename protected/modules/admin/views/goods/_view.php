@@ -26,23 +26,23 @@
 	<br />
         
         <b><?php echo CHtml::encode($data->getAttributeLabel('colid')); ?>:</b>
-	<?php echo CHtml::encode($data->colid); ?>
+	<?php echo $data->colid2 > 0 ? CHtml::encode($data->colinfo1->title) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('colid2')); ?>:</b>
-	<?php echo CHtml::encode($data->colid2); ?>
+	<?php echo $data->colid2 > 0 ? CHtml::encode($data->colinfo2->title) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('colid3')); ?>:</b>
-	<?php echo CHtml::encode($data->colid3); ?>
+	<?php echo $data->colid2 > 0 ? CHtml::encode($data->colinfo3->title) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('colid4')); ?>:</b>
-	<?php echo CHtml::encode($data->colid4); ?>
+	<?php echo $data->colid2 > 0 ? CHtml::encode($data->colinfo4->title) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('colid5')); ?>:</b>
-	<?php echo CHtml::encode($data->colid5); ?>
+	<?php echo $data->colid2 > 0 ? CHtml::encode($data->colinfo5->title) : ''; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>

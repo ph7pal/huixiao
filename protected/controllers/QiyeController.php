@@ -17,6 +17,17 @@ class QiyeController extends T {
     if($medal){
         $_where.=" AND medal='{$medal}'";
     }
+    //根据主营产品获取企业
+    if($tagid){
+      $tagArr=  TagRelation::getTagsPosts($tagid);
+      $tagArr=  array_filter($tagArr);
+      if(!empty($tagArr)){
+        $tagStr=join(',',$tagArr);
+        if($tagStr!=''){
+          $_where=" AND uid IN({$tagStr})";
+        }
+      }
+    }    
     $_sql = "SELECT * FROM {{producer}} WHERE status=".Posts::STATUS_PASSED." {$_where}";
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
     if (!empty($lists)) {

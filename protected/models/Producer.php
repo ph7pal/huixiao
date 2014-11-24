@@ -61,7 +61,9 @@ class Producer extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-          'userinfo' => array(self::BELONGS_TO, 'Users', 'uid')
+          'userinfo' => array(self::BELONGS_TO, 'Users', 'uid'),
+          'areaInfo'=>array(self::BELONGS_TO,'Area','localarea'),
+            'tags'=>array(self::HAS_MANY,'TagRelation','logid','condition'=>'classify="producer"')
         );
     }
 
