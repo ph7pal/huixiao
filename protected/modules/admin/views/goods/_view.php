@@ -67,6 +67,7 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('desc4')); ?>:</b>
 	<?php echo CHtml::encode($data->desc4); ?>
-	<br />	
+	<br />
+    <hr/>
 
 </div>

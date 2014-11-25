@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('faceimg')); ?>:</b>
@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('companyowner')); ?>:</b>
@@ -32,8 +32,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('jobname')); ?>:</b>
 	<?php echo CHtml::encode($data->jobname); ?>
 	<br />
-
-	<?php /*
+    
 	<b><?php echo CHtml::encode($data->getAttributeLabel('officurl')); ?>:</b>
 	<?php echo CHtml::encode($data->officurl); ?>
 	<br />
@@ -47,7 +46,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mainproduct')); ?>:</b>
-	<?php echo CHtml::encode($data->mainproduct); ?>
+	<?php $tags=  Producer::getMainProducts($data->uid,'dealer');if($tags){foreach($tags as $tag){echo $tag['name'].'&nbsp;';}} ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('licensenumber')); ?>:</b>
@@ -55,7 +54,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -69,7 +68,5 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
-
-	*/ ?>
-
+    <hr/>
 </div>

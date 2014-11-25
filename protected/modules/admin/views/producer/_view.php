@@ -50,7 +50,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mainproduct')); ?>:</b>
-	<?php echo zmf::test($data->tags); ?>
+    <?php $tags=  Producer::getMainProducts($data->uid);if($tags){foreach($tags as $tag){echo $tag['name'].'&nbsp;';}} ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('licensenumber')); ?>:</b>
@@ -72,5 +72,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
+    <hr/>
 
 </div>

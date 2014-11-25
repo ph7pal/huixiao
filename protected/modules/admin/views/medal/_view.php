@@ -16,10 +16,14 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('logo')); ?>:</b>
 	<?php echo CHtml::encode($data->logo); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+    
+    <b><?php echo CHtml::encode($data->getAttributeLabel('classify')); ?>:</b>
+	<?php echo CHtml::encode(Medal::exClassify($data->classify)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
+	<br />
+    <hr/>
 
 </div>

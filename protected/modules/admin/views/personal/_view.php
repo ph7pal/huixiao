@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('faceimg')); ?>:</b>
@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contactname')); ?>:</b>
@@ -33,13 +33,12 @@
 	<?php echo CHtml::encode($data->useremail); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idcard')); ?>:</b>
 	<?php echo CHtml::encode($data->idcard); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -53,7 +52,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
-
-	*/ ?>
+    <hr/>
 
 </div>

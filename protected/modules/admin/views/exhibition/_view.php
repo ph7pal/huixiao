@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('faceimg')); ?>:</b>
@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('companyowner')); ?>:</b>
@@ -42,7 +42,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mainproduct')); ?>:</b>
-	<?php echo CHtml::encode($data->mainproduct); ?>
+	<?php $tags=  Producer::getMainProducts($data->uid,'exhibition');if($tags){foreach($tags as $tag){echo $tag['name'].'&nbsp;';}} ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('licensenumber')); ?>:</b>
@@ -52,4 +52,5 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
 	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
+    <hr/>
 </div>

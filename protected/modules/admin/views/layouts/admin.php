@@ -41,8 +41,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                 'comments' => '评论',
                 'ads' => '展示',
                 'link' => '友链',
-                'users' => '用户',
-                'user_group' => '用户组',
                 'columns' => '栏目',
                 'questions' => '客服',
               );
@@ -82,7 +80,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
             <li><?php echo CHtml::link('产品',array('goods/index'));?></li>
             <li><?php echo CHtml::link('产品分类',array('all/list','table'=>'tags'));?></li>
             <li class="divider"></li>
+            <li><?php echo CHtml::link('用户',array('all/list','table'=>'users'));?></li>
+            <li><?php echo CHtml::link('用户组',array('all/list','table'=>'user_group'));?></li>
             <li><?php echo CHtml::link('用户徽章',array('medal/index'));?></li>
+            <li class="divider"></li>
             <li><?php echo CHtml::link('工作福利',array('fuli/index'));?></li>
             <li class="divider"></li>
             <?php 

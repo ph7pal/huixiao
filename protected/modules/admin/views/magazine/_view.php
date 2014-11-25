@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('faceimg')); ?>:</b>
@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('companyname')); ?>:</b>
@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->officurl); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('contactname')); ?>:</b>
 	<?php echo CHtml::encode($data->contactname); ?>
 	<br />
@@ -43,7 +42,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mainproduct')); ?>:</b>
-	<?php echo CHtml::encode($data->mainproduct); ?>
+	<?php $tags=  Producer::getMainProducts($data->uid,'magazine');if($tags){foreach($tags as $tag){echo $tag['name'].'&nbsp;';}} ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('magazinename')); ?>:</b>
@@ -55,7 +54,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -68,8 +67,7 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
-	*/ ?>
+	<br />	
+    <hr/>
 
 </div>

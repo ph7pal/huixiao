@@ -63,7 +63,6 @@ class Producer extends CActiveRecord {
         return array(
           'userinfo' => array(self::BELONGS_TO, 'Users', 'uid'),
           'areaInfo'=>array(self::BELONGS_TO,'Area','localarea'),
-            'tags'=>array(self::HAS_MANY,'TagRelation','logid','condition'=>'classify="producer"')
         );
     }
 
@@ -174,6 +173,21 @@ class Producer extends CActiveRecord {
         $sql = "SELECT id,uid,companyname FROM {{producer}} ORDER BY cTime DESC LIMIT 12";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
+    }
+    
+    public static function getMainProducts($uid,$classify='producer'){
+      if(!$uid){
+        return false;
+      }
+      $ids=  TagRelation::getTagsPosts($uid, $classify);
+      $idstr=join(',',$ids);
+      if($idstr!=''){
+        $_sql="SELECT id,name FROM {{tags}} WHERE id IN($idstr)";
+        $items=Yii::app()->db->createCommand($_sql)->queryAll();
+        return $items;
+      }else{
+        return false;
+      }
     }
 
 }

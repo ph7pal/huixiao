@@ -113,10 +113,10 @@ class TagRelation extends CActiveRecord {
     return $info;
   }
 
-  public static function getTagsPosts($keyid) {
+  public static function getTagsPosts($keyid,$classify='posts') {
     if (!$keyid)
       return false;
-    $sql = "SELECT DISTINCT(logid) FROM {{tag_relation}} WHERE tagid={$keyid}";
+    $sql = "SELECT DISTINCT(logid) FROM {{tag_relation}} WHERE tagid={$keyid} AND classify='{$classify}'";
     $info = Yii::app()->db->createCommand($sql)->queryAll();
     $ids = array();
     $ids[] = '0';

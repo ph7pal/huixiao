@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('companyname')); ?>:</b>
@@ -64,5 +64,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
+    <hr/>
 
 </div>

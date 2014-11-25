@@ -55,7 +55,7 @@ class Medal extends CActiveRecord {
         'title' => '徽章名称',
         'logo' => '图标名称',
         'desc' => '描述',
-        'cTime' => 'C Time',
+        'cTime' => '创建时间',
         'classify' => '分类',
     );
   }
@@ -99,7 +99,7 @@ class Medal extends CActiveRecord {
     return parent::model($className);
   }
 
-  public static function exClassify() {
+  public static function exClassify($type='') {
     $arr=array(
         'lecturer'=>'讲师',
         'qiye'=>'企业',

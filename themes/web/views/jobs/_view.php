@@ -5,7 +5,7 @@
             <span class="add-span"><?php echo CHtml::link($data['title'],array('jobs/view','id'=>$data['id']),array('target'=>'_blank'));?></span>
         </td>
         <td class="Companyname">
-            <?php echo $data['gs_title'];?>
+            <?php echo CHtml::link($data['gs_title'],array('jobs/index','uid'=>$data['uid']));?>
         </td>
         <td class="Companyaddress"><?php echo $data['gz_didian'];?></td>
         <td class="releasetime"><?php echo date('y-m-d',$data['cTime']);?></td>
