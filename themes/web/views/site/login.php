@@ -40,7 +40,9 @@
                     </div>
                     <div class="focus">
                         <ul class="textList" style="height: 110px">
-                            <li><a href="#" target="_blank">会销资讯马上住新房 我们帮您验！</a></li>
+                          <?php if(!empty($topPosts)){foreach($topPosts as $topPost){?>
+                            <li><?php echo CHtml::link($topPost['title'],array('posts/show','id'=>$topPost['id']),array('target'=>'_blank'));?></li>
+                          <?php }}?>  
                         </ul>
                     </div>
                 </div>

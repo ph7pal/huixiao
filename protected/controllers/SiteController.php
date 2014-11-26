@@ -49,8 +49,11 @@ class SiteController extends T {
         $flashImgs[]=zmf::uploadDirs($img['cTime'], 'site', $img['classify'], 'origin').'/'.$img['filePath'];
       }
     }
+    $sql="SELECT id,title FROM {{posts}} WHERE status=".Posts::STATUS_PASSED.' ORDER BY hits DESC LIMIT 5';
+    $topPosts=Yii::app()->db->createCommand($sql)->queryAll();
+    
     $this->_noColButOther = 'login';
-    $this->render('login', array('model' => $model,'flashImgs'=>$flashImgs));
+    $this->render('login', array('model' => $model,'flashImgs'=>$flashImgs,'topPosts'=>$topPosts));
   }
 
   public function actionLogout() {

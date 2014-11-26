@@ -29,7 +29,7 @@
      
     <?php }?>
 <?php }elseif(Yii::app()->getController()->id=='posts'){?>
-     <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
+     <?php if(in_array(Yii::app()->getController()->getAction()->id,array('index','search'))){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/NewsList.css" rel="stylesheet" type="text/css" />
      <?php }elseif(Yii::app()->getController()->getAction()->id=='show'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/article.css" rel="stylesheet" type="text/css" />
