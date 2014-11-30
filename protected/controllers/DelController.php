@@ -29,7 +29,7 @@ class DelController extends T {
                 $this->message(0, '请选择需要操作的对象');
             }
         }
-        if (!in_array($table, array('ads', 'album', 'attachments', 'comments', 'questions', 'tags', 'posts'))) {
+        if (!in_array($table, array('ads', 'album', 'attachments', 'comments', 'questions', 'tags', 'posts','jobs','goods','zhanhui'))) {
             $this->message(0, '不被允许的操作，请核实');
         }
         $ads = new Ads();
@@ -38,6 +38,9 @@ class DelController extends T {
         $comments = new Comments;
         $attachments=new Attachments;
         $questions=new Questions;
+        $jobs=new Jobs;
+        $goods=new Goods;
+        $zhanhui=new Zhanhui;
         if ($multi) {
             foreach ($ids as $val) {
                 $info = $$table->findByPk($val);
@@ -65,7 +68,10 @@ class DelController extends T {
         $posts = new Posts();
         $comments = new Comments;
         $questions=new Questions;
-        if (in_array($table, array('ads', 'columns', 'link', 'comments', 'questions', 'tags'))) {
+        $jobs=new Jobs;
+        $goods=new Goods;
+        $zhanhui=new Zhanhui;
+        if (in_array($table, array('ads', 'columns', 'link', 'comments', 'questions', 'tags','jobs','goods','zhanhui'))) {
 //            if (isset($info['attachid']) AND $info['attachid'] > 0) {
 //                $this->delAttach($keyid);
 //            }

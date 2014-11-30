@@ -584,6 +584,11 @@ class UserController extends T {
         if (isset($_POST['Jobs'])) {
             Yii::app()->session['checkHasBadword'] = 'no';
             $items = $_POST['Jobs'];
+            if(!empty($_POST['cityid'])){
+            	$tmparr = array_reverse(array_filter($_POST['cityid'])); 
+	            $cityid = $tmparr[0];
+	            $items['gz_didian'] = $cityid;
+            }
             $fulis=$_POST['fulis'];
             $items['gz_fuli']=$fulis[0];
             foreach ($items as $key => $item) {

@@ -59,7 +59,8 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_didian'); ?>
-		<?php echo $form->textField($model,'gz_didian',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->hiddenField($model,'gz_didian',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+      <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
 		<?php echo $form->error($model,'gz_didian'); ?>
 	</div>
 

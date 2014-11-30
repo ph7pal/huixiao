@@ -100,6 +100,20 @@ class GoodsController extends T {
     if(is_numeric($uid) && $uid>0){
       $_where.=' AND uid='.$uid;
     }
+    if(is_numeric($localarea) && $localarea>0){
+      $localids=  Area::getChildren($localarea);
+      $localStr=join(',',$localids);
+      if($localarea!=''){
+        $_sql="SELECT uid FROM {{user_credit}} WHERE localarea IN($localarea) AND status=".Posts::STATUS_PASSED;
+        $uids=Yii::app()->db->createCommand($_sql)->queryAll();
+        if(!empty($uids)){
+          $uidsStr=join(',',array_keys(CHtml::listData($uids,'uid','')));
+          if($uidsStr!=''){
+            $_where.=' AND uid IN('.$uidsStr.')';
+          }
+        }        
+      }
+    }
     $selectedTags=array();
     if(is_numeric($tagid) && $tagid>0){
       $selectedTags[]=$tagid;

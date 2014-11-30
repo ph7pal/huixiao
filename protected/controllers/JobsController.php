@@ -8,6 +8,10 @@ class JobsController extends T {
    */
   public function actionView($id) {
     $info = $this->loadModel($id);
+    if(is_numeric($info['gz_didian'])){
+      $_localname=  Area::getOne($info['gz_didian'],'name');
+      $info['gz_didian']=$_localname;
+    }   
     $this->render('view', array(
         'info' => $info
     ));
@@ -25,8 +29,21 @@ class JobsController extends T {
     if(is_numeric($uid) && $uid>0){
       $_where.=' AND uid='.$uid;
     }
+    if(is_numeric($localarea) && $localarea>0){
+      $localids=  Area::getChildren($localarea);
+      $localStr=join(',',$localids);
+      $_where.=' AND gz_didian IN('.$localStr.')';
+    }
     $_sql = "SELECT * FROM {{jobs}} WHERE status=".Posts::STATUS_PASSED.$_where.' ORDER BY cTime DESC';
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
+    if(!empty($lists)){
+      foreach($lists as $k=>$v){
+        if(is_numeric($v['gz_didian'])){
+          $_localname=  Area::getOne($v['gz_didian'],'name');
+          $lists[$k]['gz_didian']=$_localname;
+        }   
+      }
+    }
     $areas=Area::listArea();
     $fulis=Fuli::getAll();
     $data['posts'] = $lists;
