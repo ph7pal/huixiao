@@ -13,11 +13,11 @@
 </p>
 <p>
 <label>认证图标：</label>
-<?php echo CHtml::dropDownList('creditlogo',$creditlogo,Medal::creditLogos('list'),array('options' => array($creditlogo=>array('selected'=>true)))); ?>
+<?php echo CHtml::dropDownList('creditlogo',$creditlogo,Medal::creditLogos('list'),array('options' => array($creditlogo=>array('selected'=>true)),'empty'=>'--请选择--')); ?>
 </p>
 <p>
 <label>对应用户组：</label>
-<?php echo CHtml::dropDownList('groupid',$groupid,UserGroup::getGroups(true),array('options' => array($groupid=>array('selected'=>true)))); ?>
+<?php echo CHtml::dropDownList('groupid',$groupid,UserGroup::getGroups(true),array('options' => array($groupid=>array('selected'=>true)),'empty'=>'--请选择--')); ?>
 </p>
 <p>
     <?php echo CHtml::ajaxSubmitButton('提交', $this->createUrl('users/docredit', array('uid' => $uid,'type'=>$type)), array(

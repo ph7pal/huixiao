@@ -126,10 +126,10 @@ class Medal extends CActiveRecord {
   }
   
   public static function creditLogos($classify='',$return=''){
-      if(!$classify && $classify!='list'){
-          $sql="SELECT title,logo,desc FROM {{medal}} WHERE classify='{$classify}'";
+      if($classify && $classify!='list'){
+          $sql="SELECT title,logo,`desc` FROM {{medal}} WHERE classify='{$classify}'";
       }else{
-          $sql="SELECT title,logo,desc FROM {{medal}}";
+          $sql="SELECT title,logo,`desc` FROM {{medal}}";
       }
       $items=zmf::db()->createCommand($sql)->queryAll();
       $real=array();
@@ -146,8 +146,8 @@ class Medal extends CActiveRecord {
                   $find=$val;
               }
           }
-      }
-      if(!$return){
+      }      
+      if($return){
           return $find['title'];
       }else{
           return $real;

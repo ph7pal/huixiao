@@ -17,16 +17,4 @@ $this->menu=array(
 ?>
 
 <h1>View Fuli #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'title',
-		'classify',
-		'order',
-		'hits',
-		'status',
-		'cTime',
-	),
-)); ?>
+<?php $this->renderPartial('_view',array('data'=>$model));?>

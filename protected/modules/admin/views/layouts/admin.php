@@ -48,6 +48,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                   echo '<li><a href="' . Yii::app()->createUrl('admin/all/list', array('table' => $k)) . '">' . $v . '</a></li>';
               }                
             ?> 
+            <li class="divider"></li>
+            <li><?php echo CHtml::link('展会',array('zhanhui/index'));?></li>
+            <li><?php echo CHtml::link('招聘',array('jobs/index'));?></li>
           </ul>
         </li>
         <li class="dropdown">

@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
@@ -33,7 +33,6 @@
 	<?php echo CHtml::encode($data->gs_xingzhi); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gs_miaoshu')); ?>:</b>
 	<?php echo CHtml::encode($data->gs_miaoshu); ?>
 	<br />
@@ -47,11 +46,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_didian')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_didian); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_jingyan')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_jingyan); ?>
+	<?php echo CHtml::encode(Jobs::jingyan($data->gz_jingyan)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_xingzhi')); ?>:</b>
@@ -59,15 +58,15 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_zdxueli')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_zdxueli); ?>
+	<?php echo CHtml::encode(Jobs::xueli($data->gz_zdxueli)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_gljy')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_gljy); ?>
+	<?php echo CHtml::encode(Jobs::jingyan($data->gz_gljy)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_xinzi')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_xinzi); ?>
+	<?php echo CHtml::encode(Jobs::money($data->gz_xinzi)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_renshu')); ?>:</b>
@@ -79,7 +78,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_fuli')); ?>:</b>
-	<?php echo CHtml::encode($data->gz_fuli); ?>
+    <?php if(!empty($data->fulis)){foreach($data->fulis as $fuli){echo CHtml::encode($fuli->info->title).'&nbsp;&nbsp;';}} ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('gz_contactor')); ?>:</b>
@@ -91,7 +90,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('hits')); ?>:</b>
@@ -106,6 +105,5 @@
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
 
-	*/ ?>
-
 </div>
+<hr/>

@@ -17,34 +17,4 @@ $this->menu=array(
 ?>
 
 <h1>View Jobs #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'uid',
-		'title',
-		'gs_title',
-		'gs_didian',
-		'gs_guimo',
-		'gs_xingzhi',
-		'gs_miaoshu',
-		'gs_zhuye',
-		'gz_miaoshu',
-		'gz_didian',
-		'gz_jingyan',
-		'gz_xingzhi',
-		'gz_zdxueli',
-		'gz_gljy',
-		'gz_xinzi',
-		'gz_renshu',
-		'gz_zhiwei',
-		'gz_fuli',
-		'gz_contactor',
-		'gz_contact',
-		'cTime',
-		'hits',
-		'top',
-		'status',
-	),
-)); ?>
+<?php $this->renderPartial('_view',array('data'=>$model));?>

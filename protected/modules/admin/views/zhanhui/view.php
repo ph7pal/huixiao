@@ -17,26 +17,4 @@ $this->menu=array(
 ?>
 
 <h1>View Zhanhui #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'title',
-		'zhuti',
-		'liangdian',
-		'localarea',
-		'didian',
-		'start_time',
-		'expired_time',
-		'attachid',
-		'description',
-		'content',
-		'hits',
-		'order',
-		'status',
-		'cTime',
-		'uid',
-		'canyu',
-	),
-)); ?>
+<?php $this->renderPartial('_view',array('data'=>$model));?>

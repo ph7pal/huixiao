@@ -66,7 +66,9 @@ class Jobs extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-          'fulis' => array(self::HAS_MANY, 'FuliRelation', 'jobid')
+          'fulis' => array(self::HAS_MANY, 'FuliRelation', 'jobid'),
+          'userinfo' => array(self::BELONGS_TO, 'Users', 'uid'),
+          'areaInfo'=>array(self::BELONGS_TO,'Area','gz_didian'),
         );
     }
 
@@ -96,10 +98,10 @@ class Jobs extends CActiveRecord {
           'gz_fuli' => '工作福利',
           'gz_contactor' => '联系人',
           'gz_contact' => '联系方式',
-          'cTime' => 'C Time',
-          'hits' => 'Hits',
-          'top' => 'Top',
-          'status' => 'Status',
+          'cTime' => '创建时间',
+          'hits' => '点击',
+          'top' => '置顶',
+          'status' => '状态',
         );
     }
 

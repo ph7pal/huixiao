@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('localarea')); ?>:</b>
-	<?php echo CHtml::encode($data->localarea); ?>
+	<?php echo CHtml::encode($data->areaInfo->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('didian')); ?>:</b>
@@ -30,12 +30,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_time')); ?>:</b>
-	<?php echo CHtml::encode($data->start_time); ?>
+	<?php echo CHtml::encode(zmf::time($data->start_time)); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('expired_time')); ?>:</b>
-	<?php echo CHtml::encode($data->expired_time); ?>
+	<?php echo CHtml::encode(zmf::time($data->expired_time)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('attachid')); ?>:</b>
@@ -63,17 +62,16 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cTime')); ?>:</b>
-	<?php echo CHtml::encode($data->cTime); ?>
+	<?php echo CHtml::encode(zmf::time($data->cTime)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('uid')); ?>:</b>
-	<?php echo CHtml::encode($data->uid); ?>
+	<?php echo CHtml::encode($data->userinfo->truename); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('canyu')); ?>:</b>
 	<?php echo CHtml::encode($data->canyu); ?>
 	<br />
 
-	*/ ?>
-
 </div>
+<hr/>

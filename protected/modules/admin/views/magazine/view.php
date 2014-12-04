@@ -17,25 +17,4 @@ $this->menu=array(
 ?>
 
 <h1>View Magazine #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'uid',
-		'faceimg',
-		'localarea',
-		'companyname',
-		'companyowner',
-		'officurl',
-		'contactname',
-		'contactmobile',
-		'mainproduct',
-		'magazinename',
-		'licensenumber',
-		'cTime',
-		'hits',
-		'top',
-		'status',
-	),
-)); ?>
+<?php $this->renderPartial('_view',array('data'=>$model));?>

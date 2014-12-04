@@ -17,26 +17,4 @@ $this->menu=array(
 ?>
 
 <h1>View Producer #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'uid',
-		'faceimg',
-		'localarea',
-		'companyname',
-		'companyowner',
-		'address',
-		'description',
-		'companyurl',
-		'contactname',
-		'contactmobile',
-		'mainproduct',
-		'licensenumber',
-		'cTime',
-		'hits',
-		'top',
-		'status',
-	),
-)); ?>
+<?php $this->renderPartial('_view',array('data'=>$model));?>
