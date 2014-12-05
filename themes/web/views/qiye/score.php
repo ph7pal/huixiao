@@ -17,43 +17,18 @@
               <?php echo $form->hiddenField($model,'classify'); ?>
               <dl>
                   <dt><i class="red">*</i>做会产品</dt>
-                  <dd>
-                    <input type="text" id="servicesItem" class="ipt_txt w_420" name="surgical" placeholder="请输入您的做会产品，多个项目用逗号分开..."><label for="servicesItem" style="display: block;"></label></dd>
+                  <dd><?php echo $form->textField($model,'score',array('class'=>'ipt_txt w_420','placeholder'=>'请输入您的做会产品，多个项目用逗号分开...'));?></dd>
               </dl>
               <dl>
                   <dt>销售金额</dt>
-                  <dd>
-                    <input type="text" id="itemPrice" class="ipt_txt w_110" name="fee" placeholder="请输入数字"><label for="itemPrice" style="display: block;"></label>&nbsp;&nbsp;元<span class="gray">本次销售金额</span></dd>
+                  <dd><?php echo $form->textField($model,'score1',array('class'=>'ipt_txt w_110','placeholder'=>'请输入数字'));?>&nbsp;&nbsp;元<span class="gray">本次销售金额</span></dd>
               </dl>
               <dl>
                   <dt><i class="red">*</i>做会时间</dt>
                   <dd class="sel_dd">
-                      <input readonly="" type="text" id="valcommDate" class="ipt_txt w_110"  onclick="WdatePicker()" name="time" />
+                    <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array('model'=>$model,
+            	'attribute'=>'score2','language'=>'zh-cn','options'=>array('showAnim'=>'fadeIn',),'htmlOptions'=>array('readonly'=>'readonly','class'=>'ipt_txt w_110')));?>
                       <span class="gray">做会时间</span></dd>
-              </dl>
-              
-              
-              
-              <dl>
-                  <dt><?php echo $form->labelEx($model,'score'); ?></dt>
-                  <dd>
-                    <?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'score','maxRating'=>10,'starCount'=>5,'readOnly'=>false,));?>
-                    <p><?php echo $form->error($model,'score'); ?></p>
-                  </dd>
-              </dl>
-              <dl>
-                  <dt><?php echo $form->labelEx($model,'score1'); ?></dt>
-                  <dd>
-                    <?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'score1','maxRating'=>10,'starCount'=>5,'readOnly'=>false,));?>
-                    <p><?php echo $form->error($model,'score1'); ?></p>
-                  </dd>
-              </dl>
-              <dl>
-                  <dt><?php echo $form->labelEx($model,'score2'); ?></dt>
-                  <dd>
-                    <?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'score2','maxRating'=>10,'starCount'=>5,'readOnly'=>false,));?>
-                    <p><?php echo $form->error($model,'score2'); ?></p>
-                  </dd>
               </dl>
               <dl>
                   <dt><?php echo $form->labelEx($model,'score3'); ?></dt>
@@ -70,21 +45,41 @@
                   </dd>
               </dl>
               <dl>
+                  <dt><?php echo $form->labelEx($model,'score5'); ?></dt>
+                  <dd>
+                    <?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'score5','maxRating'=>10,'starCount'=>5,'readOnly'=>false,));?>
+                    <p><?php echo $form->error($model,'score5'); ?></p>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt><?php echo $form->labelEx($model,'score6'); ?></dt>
+                  <dd>
+                    <?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'score6','maxRating'=>10,'starCount'=>5,'readOnly'=>false,));?>
+                    <p><?php echo $form->error($model,'score6'); ?></p>
+                  </dd>
+              </dl>
+              <dl>
                   <dt><i class="red">*</i>评价公司</dt>
                   <dd>
-                      <textarea id="commHospital" class="comm_hospital" name="content"></textarea><label for="commHospital" class="lbl_comm_hospital">1详细的评价能更好的帮助求产品者了解情况，指导公司改进服务<br>
-                         2如果您发布了不实评论，对公司名誉造成了侵害，需承担法律责任</label></dd>
+                    <?php echo $form->textArea($model,'score7',array('class'=>'comm_hospital'));?>
+                  </dd>
+                  <dt>&nbsp;</dt>
+                  <dd style="margin-top:5px;">1、详细的评价能更好的帮助求产品者了解情况，指导公司改进服务<br>2、如果您发布了不实评论，对公司名誉造成了侵害，需承担法律责任</dd>
               </dl>
               <dl>
                   <dt>做会讲师</dt>
                   <dd>
-                      <input type="text" id="surlDoc" class="ipt_txt w_110" name="doctor" /><label for="surlDoc"></label></dd>
+                    <?php echo $form->textField($model,'score8',array('class'=>'ipt_txt w_110'));?>
+                  </dd>
               </dl>
               <dl class="hoscomm_upload">
                   <dt>上传图片</dt>
                   <dd class="ishas_upload_tool">
-                      <input type="button" data-input="photo" value="" class="btn_uploadpic  uploadbar_up_tool"><span class="gray">上传现场图片增加真实性，最多3张，可多选，图片是公开的，任何人都可以看到</span>
+                      <input type="button" data-input="photo" value="" class="btn_uploadpic  uploadbar_up_tool">
+                      <br/><span style="margin-top:5px;">上传现场图片增加真实性，最多3张，可多选，图片是公开的，任何人都可以看到</span>
                   </dd>
+                  <dt>&nbsp;</dt>
+                  
               </dl>
               <div class="clearfix"></div>
               <div class="mar_t20 line"></div>

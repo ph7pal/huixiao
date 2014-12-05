@@ -138,28 +138,42 @@ class QiyeController extends T {
     if (!$classify || !in_array($classify, array('qiye', 'team', 'lecturer'))) {
       throw new CHttpException(404, '不存在的分类');
     }
+    if (Yii::app()->user->isGuest) {
+        $this->message(0, '请先登录',Yii::app()->createUrl('site/login'));
+    } else {
+      $uid = Yii::app()->user->id;
+    }
+    $_addedType = UserCredit::findOne($uid);
+    if ($_addedType && $_addedType['status']!=0) {
+        $this->message(0, '您的认证信息尚未通过，暂不能参与评价');
+    }elseif(!in_array($_addedType['classify'],array('agent','dealer'))){
+        $this->message(0, '非常抱歉，您的认证类型尚不能参与评价');
+    }else{
+      $hasInfo=Score::model()->find('uid=:uid AND belongid=:beid AND classify=:class',array(':uid'=>$uid,':beid'=>$id,':class'=>$classify));
+      if($hasInfo){
+        $this->message(0, '您已评价过了哦~');
+      }
+    }
     if ($classify == 'qiye') {
       $info = Producer::model()->findByPk($id);
     }
     if (!$info) {
       throw new CHttpException(404, '您所访问的页面不存在');
     }
-
     $model = new Score;
     if (isset($_POST['Score'])) {
-      if (Yii::app()->user->isGuest) {
-        throw new CHttpException(403, '请先登录');
-      } else {
-        $uid = Yii::app()->user->id;
+      if($_POST['Score']['score2']){
+        $_POST['Score']['score2']=  strtotime($_POST['Score']['score2']);
       }
       $_POST['Score']['belongid'] = $id;
       $_POST['Score']['uid'] = $uid;
       $_POST['Score']['cTime'] = time();
       $_POST['Score']['ip'] = ip2long(Yii::app()->request->userHostAddress);
       $_POST['Score']['classify'] = $classify;
+      $_POST['Score']['status'] = Posts::STATUS_STAYCHECK;
       $model->attributes = $_POST['Score'];
       if ($model->save()) {
-        $this->redirect(array('qiye/view', 'id' => $id));
+        $this->message(1, '请作等待，我们将尽快审核您的评价',Yii::app()->createUrl('qiye/view',array('id'=>$id)));
       }
     }
     $model->classify = $classify;
