@@ -22,6 +22,7 @@ class ZhanhuiController extends T {
       $uid['truename']=$_uname;
       $uids[$key]=$uid;
     }
+    $this->pageTitle =  $info['title'].' - ' . zmf::config('sitename');
     $this->render('view', array(
         'info' => $info,
         'users'=>$uids
@@ -61,6 +62,7 @@ class ZhanhuiController extends T {
     $data['posts'] = $lists;
     $data['pages'] = $pages;
     $data['type'] = $type;
+    $this->pageTitle =  '展会档期列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }
 

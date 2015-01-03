@@ -12,6 +12,7 @@ class JobsController extends T {
       $_localname=  Area::getOne($info['gz_didian'],'name');
       $info['gz_didian']=$_localname;
     }   
+    $this->pageTitle =  $info['title'].' - ' . zmf::config('sitename');
     $this->render('view', array(
         'info' => $info
     ));
@@ -24,7 +25,8 @@ class JobsController extends T {
     //$order=zmf::filterInput($_GET['order'],'t',1);
     $uid=zmf::filterInput($_GET['uid']);
     $localarea=zmf::filterInput($_GET['localarea']);
-    $fuliid=zmf::filterInput($_GET['fuli']);
+    $fuliid=zmf::filterInput($_GET['fuli']);//按福利筛选
+    $selectZhiwei=zmf::filterInput($_GET['type']);//按职位筛选
     $_where='';
     if(is_numeric($uid) && $uid>0){
       $_where.=' AND uid='.$uid;
@@ -33,6 +35,9 @@ class JobsController extends T {
       $localids=  Area::getChildren($localarea);
       $localStr=join(',',$localids);
       $_where.=' AND gz_didian IN('.$localStr.')';
+    }
+    if(is_numeric($selectZhiwei) && $selectZhiwei>0){
+      $_where.=" AND gz_zhiwei='".$selectZhiwei."'";  
     }
     $_sql = "SELECT * FROM {{jobs}} WHERE status=".Posts::STATUS_PASSED.$_where.' ORDER BY cTime DESC';
     Posts::getAll(array('sql' => $_sql), $pages, $lists);
@@ -52,6 +57,8 @@ class JobsController extends T {
     $data['localarea'] = $localarea;
     $data['fulis'] = $fulis;
     $data['fuliid'] = $fuliid;
+    $data['selectZhiwei'] = $selectZhiwei;
+    $this->pageTitle =  '招聘信息列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }
 

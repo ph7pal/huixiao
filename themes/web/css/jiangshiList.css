@@ -1,5 +1,3 @@
-﻿@charset "utf-8";
-
 .col_main {
     float: left;
     width: 100%;
@@ -23,13 +21,13 @@
 }
 
 .designer_ruzhu, .designer_sub_list .item .detailed, .designer_sub_list .item .appointment {
-    background: url(../Images/desianer_sp.png) no-repeat 0 0;
+    background: url(../images/desianer_sp.png) no-repeat 0 0;
 }
 
 
 
 .mall_filter, .mall_filter .px .po .s {
-    background: url(../Images/mall_sp.png) no-repeat 0 0;
+    background: url(../images/mall_sp.png) no-repeat 0 0;
 }
 
 .mall_filter {
@@ -123,7 +121,7 @@
     }
 
 .designer_list .txt .i, .designer_list .txt .s_rz {
-    background: url(../Images/zxgs_shop_sp.png) no-repeat 0 0;
+    background: url(../images/zxgs_shop_sp.png) no-repeat 0 0;
 }
 
 .designer_list .item {

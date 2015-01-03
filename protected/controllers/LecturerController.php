@@ -56,6 +56,7 @@ class LecturerController extends T {
     $data['localarea'] = $localarea;
     $data['medals'] = $medals;
     $data['medalid'] = $medal;
+    $this->pageTitle =  '优秀讲师列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }
   
@@ -106,6 +107,7 @@ class LecturerController extends T {
         'selected'=>$selected,
         'colid'=>$colid
     );
+    $this->pageTitle =  $truename.' - ' . zmf::config('sitename');
     $this->render('view',$data);
   }
 

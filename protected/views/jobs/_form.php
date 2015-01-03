@@ -12,6 +12,7 @@
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+            <p class="help-block">如"xx公司春季招聘"或"高薪招聘xx职位"等</p>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
@@ -49,6 +50,12 @@
 		<?php echo $form->labelEx($model,'gs_zhuye'); ?>
 		<?php echo $form->textField($model,'gs_zhuye',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gs_zhuye'); ?>
+	</div>
+        
+        <div class="form-group">
+		<?php echo $form->labelEx($model,'gz_zhiwei'); ?>
+		<?php echo $form->dropDownlist($model,'gz_zhiwei',Jobs::zhiwei(),array('class'=>'form-control','empty'=>'--请选择职位--')); ?>
+		<?php echo $form->error($model,'gz_zhiwei'); ?>
 	</div>
 
 	<div class="form-group">
@@ -98,13 +105,7 @@
 		<?php echo $form->labelEx($model,'gz_renshu'); ?>
 		<?php echo $form->textField($model,'gz_renshu',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gz_renshu'); ?>
-	</div>
-
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'gz_zhiwei'); ?>
-		<?php echo $form->textField($model,'gz_zhiwei',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
-		<?php echo $form->error($model,'gz_zhiwei'); ?>
-	</div>
+	</div>	
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_fuli'); ?>

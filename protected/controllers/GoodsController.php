@@ -77,7 +77,7 @@ class GoodsController extends T {
       $sql = "SELECT contactname,contactmobile FROM {{producer}} WHERE uid={$info['uid']}";
       $contact=Yii::app()->db->createCommand($sql)->queryRow();
     }
-    
+    $this->pageTitle =  $info['title'].' - ' . zmf::config('sitename');
     $this->render('view', array(
         'info' => $info,
         'likes' => $likes,
@@ -159,21 +159,8 @@ class GoodsController extends T {
     $data['fieldsArr'] = $fieldsArr;
     $data['tags'] = $tags;
     $data['selectedTags'] = $selectedTags;
+    $this->pageTitle =  '会销产品列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
-  }
-
-  /**
-   * Manages all models.
-   */
-  public function actionAdmin() {
-    $model = new Goods('search');
-    $model->unsetAttributes();  // clear any default values
-    if (isset($_GET['Goods']))
-      $model->attributes = $_GET['Goods'];
-
-    $this->render('admin', array(
-        'model' => $model,
-    ));
   }
 
   /**

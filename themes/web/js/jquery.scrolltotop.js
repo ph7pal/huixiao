@@ -1,6 +1,6 @@
-﻿var scrolltotop={
+var scrolltotop={
 	setting: {startline:1, scrollto: 0, scrollduration:1000, fadeduration:[500, 100]},
-	controlHTML: '<img src="Images/totop.gif" style="width:50px; height:50px;" />', 
+	controlHTML: '<img src="common/images/totop.gif" style="width:50px; height:50px;" />', 
 	controlattrs: {offsetx:5, offsety:10},
 	anchorkeyword: '#top',
 

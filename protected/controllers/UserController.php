@@ -79,6 +79,7 @@ class UserController extends T {
             $this->checkUser(true);
         }
         $this->homeUrl = Yii::app()->createUrl('user/index');
+        $this->pageTitle =  '个人管理中心 - ' . zmf::config('sitename');
     }
 
     public function checkUser($from = false) {

@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
 
     $('#mySle').selectbox();//查询框下拉框
     jQuery(document).modCity();//切换城市

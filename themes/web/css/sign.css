@@ -292,7 +292,7 @@ body {}
 .th-login .sign-right .tit{font-size: 24px; margin-bottom: 15px}
 .th-login .sign-right .no-key{font-size:18px; font-weight: normal; font-family:"微软雅黑",Microsoft YaHei;color: #535353}
 .th-login .sign-right .sub-btn{ margin-top: 20px}
-.th-login .sign-right .sub-btn .{font-weight: bold}
+.th-login .sign-right .sub-btn {font-weight: bold}
 .sign-right .sign-mobile-entry {
     background: url(../r/mobile/login_phone.png) no-repeat left center;
     padding-left: 30px;

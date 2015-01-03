@@ -1,5 +1,3 @@
-﻿@charset "utf-8";
-
 .yahei {
     font-family: "Microsoft YaHei","微软雅黑","Microsoft JhengHei","华文细黑","STHeiti";
 }
@@ -40,10 +38,10 @@
     }
 
  .tg_list .item .hd, .tg_list .item .hd .lf, .tg_list .item .hd .rt, .tg_list .item .menu, .tg_list .bao_num, .clock, .top_box .yibaoshu, .top_box .menu, .top_box .i_jiesu, .tg_box_s .hd, .tg_box_a .hd li, .tg_m .hd, .tg_m .bd li, .tg_m .bd .btn {
-    background: url(../Images/tghd_sp.png) no-repeat 0 0;
+    background: url(../images/tghd_sp.png) no-repeat 0 0;
 }
 .tg_nav .item a {
-    background: url(../Images/tghd_sp1.png) no-repeat 0 0;
+    background: url(../images/tghd_sp1.png) no-repeat 0 0;
 }
 .tuangou {
     margin-top: 10px;
@@ -128,7 +126,7 @@
         *height: 1%;
         margin-top: 10px;
         border: 1px solid #dadada;
-        background: url(../Images/tghd_Bg.jpg) repeat-x 0 0;
+        background: url(../images/tghd_Bg.jpg) repeat-x 0 0;
         padding: 65px 25px 20px;
        
     }
@@ -238,7 +236,7 @@
         display: block;
         width: 199px;
         height: 131px;
-        background: url(../Images/i_jieshu.png) no-repeat 0 0;
+        background: url(../images/i_jieshu.png) no-repeat 0 0;
         text-indent: -999em;
     }
 
@@ -432,7 +430,7 @@
     display: block;
     width: 199px;
     height: 131px;
-    background: url(../Images/i_jieshu.png) no-repeat 0 0;
+    background: url(../images/i_jieshu.png) no-repeat 0 0;
     text-indent: -999em;
 }
 
@@ -514,7 +512,7 @@
         .main_list li span.price {
             text-align: left;
             padding-left: 18px;
-            background: url(../Images/rmb.gif) no-repeat 5px 4px;
+            background: url(../images/rmb.gif) no-repeat 5px 4px;
             color: #b61300;
             display: block;
             font-size: 16px;
@@ -556,7 +554,7 @@
 
 .manu .left {
     float: left;
-    background: url(../Images/page/icon2.gif) no-repeat 0 -86px;
+    background: url(../images/page/icon2.gif) no-repeat 0 -86px;
     padding-left: 22px;
     display: inline;
 }

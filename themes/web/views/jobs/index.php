@@ -15,16 +15,18 @@
         <div class="screening" id="screening">
             <div class="bd" id="bd">
                 <ul>
-                    <!--li class="item">
+                    <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>职位类别：</dt>
-                            <dd><a href="#" class="select fl">不限</a>
+                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
                                 <div class="txt">
-                                    <a href="#">总经理</a>
+                                    <?php $zhiweis=  Jobs::zhiwei();foreach($zhiweis as $_zhiwei=>$zhiwei){?>
+                                      <?php echo CHtml::link($zhiwei,array('jobs/index','type'=>$_zhiwei),array('class'=>($selectZhiwei==$_zhiwei) ? 'select' : ''));?>
+                                    <?php }?>
                                 </div>
                             </dd>
                         </dl>
-                    </li-->
+                    </li>
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>工作地区：</dt>

@@ -1,7 +1,5 @@
-﻿@charset "utf-8";
-
 .fliter .left a, .module_x .hd, .module_x .hd .s, .module_x .sq_form .b, .module_x .sq_form .s_btn, .module_x .left .tel {
-    background: url(../Images/zxList_sp.png) no-repeat 0 0;
+    background: url(../images/zxList_sp.png) no-repeat 0 0;
 }
 
 .nav_qu {
@@ -154,13 +152,13 @@
             width: 45px;
             height: 40px;
             overflow: hidden;
-            background: url(../Images/top_num.png) no-repeat 0 0;
+            background: url(../images/top_num.png) no-repeat 0 0;
             color: #fff;
             padding: 24px 0 0 10px;
         }
 
         .module_x .hd .topic2 {
-            background: url(../Images/top_num2.png) no-repeat 0 0;
+            background: url(../images/top_num2.png) no-repeat 0 0;
         }
 
             .module_x .hd .topic em, .module_x .hd .topic2 em {
@@ -227,7 +225,7 @@
         width: 12px;
         height: 12px;
         overflow: hidden;
-        background: url(../Images/anli_sp.png) no-repeat -180px -869px;
+        background: url(../images/anli_sp.png) no-repeat -180px -869px;
         top: 70px;
         right: 5px;
     }

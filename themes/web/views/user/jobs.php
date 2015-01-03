@@ -14,12 +14,12 @@
     </tr>
 <?php endforeach; ?>
 <tr>
-    <td>        
+    <td colspan="2">        
         <?php $this->renderPartial('/common/pager', array('pages' => $pages)); ?> 
     </td>
 </tr>
 <tr>
-    <td>
+    <td colspan="2">
         <?php echo CHtml::link('新增', array('user/jobs'), array('class' => 'btn btn-success')); ?>
     </td>
 </tr>

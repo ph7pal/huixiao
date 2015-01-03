@@ -1,4 +1,4 @@
-@charset "utf-8";body{background: #fff;}
+body{background: #fff;}
 .w_950{width: 950px;margin: 0 auto;}
 .w_960{width: 960px;margin: 0 auto;}
 .channelNav, .siteBar, .siteBar .siteNav li, .siteBar .siteNav .cart .s, .header .changeCity .changeMenu s, .channelNav li, .rightCast .castVane, .rightCast .castVane s, .rightCast .tab li, .rightCast .tab, .rightCast .bd_1 li, .rightCast .services .hd, .rightCast .services .bd s, .position .s, .pageNavigation .prev a, .pageNavigation .next a, .tab_module .hd .select .s1, .tab_module .hd .select .s2, .tab_module .hd .select, .tab_module .hd, .pop_login .hd .close, .pop_login .bd .sp_b .btn, .pop_login .bd .qq_login{background: url(../images/sp_hd.gif) no-repeat 0 0;}

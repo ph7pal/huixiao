@@ -1,4 +1,4 @@
-﻿jQuery.fn.extend({
+jQuery.fn.extend({
 	selectbox: function(options) {
 		return this.each(function() {
 			new jQuery.SelectBox(this, options);

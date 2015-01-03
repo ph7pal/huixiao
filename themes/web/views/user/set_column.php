@@ -24,4 +24,8 @@ $this->widget('zii.widgets.jui.CJuiSortable', array(
 ));
 ?>    
 </p>
-<p class="help-block">提示：取消已添加过文章的栏目，会造成该类文章没有访问入口。</p>
+<p class="help-block">
+    提示：<br/>
+    1、勾选心仪的栏目后才能在该栏目下发表文章，并有可能被推荐到首页;<br/>
+    2、取消已添加过文章的栏目，会造成该类文章在个人管理中心没有访问入口。
+</p>

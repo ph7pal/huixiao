@@ -50,7 +50,7 @@ select,input{font:100% Tahoma,Helvetica,Arial,sans-serif}
 .scrool-bg span.reg-a { color:#ccc; margin-left:5px; }
 .scrool-bg span.reg-a a{ color:#666; margin:0 4px;}
 .loginbox .butt{*top:8px; float:left; margin-right:5px;}
-.btns,.xybtn{ padding:6px 20px 7px 20px; padding:10px 18px 6px 18px\0;  *padding:8px 10px 7px 10px; _ padding:6px 10px 7px 10px; display:block;background:url(../Images/reg-btn.gif) no-repeat;border:none; color:#fff;font-size:14px; font-weight:bold;cursor: pointer; margin:0}
+.btns,.xybtn{ padding:6px 20px 7px 20px; padding:10px 18px 6px 18px\0;  *padding:8px 10px 7px 10px; _padding:6px 10px 7px 10px; display:block;background:url(../images/reg-btn.gif) no-repeat;border:none; color:#fff;font-size:14px; font-weight:bold;cursor: pointer; margin:0}
 @media screen and (-webkit-min-device-pixel-ratio:0) {.btns,.xybtn{padding:8px 20px 8px 20px;} } 
 
 
@@ -132,7 +132,7 @@ select,input{font:100% Tahoma,Helvetica,Arial,sans-serif}
                 margin: 0;
                 padding: 8px 0;
                 padding-left: 10px;
-                background: url(../Images/loginpbg.gif) repeat-x 0 0 #fff;
+                background: url(../images/loginpbg.gif) repeat-x 0 0 #fff;
             }
 
             #conright .loginbox #validatecode {
@@ -171,7 +171,7 @@ select,input{font:100% Tahoma,Helvetica,Arial,sans-serif}
             }
 
             #conright .loginbox input.pw, #conright .loginbox input.pw_wc {
-                background: url(../Images/passwordbg.png) no-repeat 0 0;
+                background: url(../images/passwordbg.png) no-repeat 0 0;
             }
 
         #conright .mid {

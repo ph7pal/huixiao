@@ -1,5 +1,3 @@
-﻿@charset "utf-8";
-
 .col_main {
     float: left;
     width: 100%;
@@ -45,15 +43,15 @@
 }
 
 .shop_header .shop_nav, .shop_header .shop_nav li, .shop_header .shop_nav .select a, .shop_header .shop_nav .select .s {
-    background: url(../Images/zxgs_shop_color.png) no-repeat 0 0;
+    background: url(../images/zxgs_shop_color.png) no-repeat 0 0;
 }
 
 .shop_header .m_yuyue, .shop_info .menu .link, .shop_info .i_rz, .shop_info .yuyue, .module_a .hd, .module_a .hd .s, .module_a .cn .s, .module_a .news li, .shopCount .s, .list_content .item .ybf_video_s, .module_b .rc_tl, .module_b .rc_tr, .module_b .rc_bl, .module_b .rc_br, .module_b .news_list li, .shop_body .news .bd .list_a .s, .list_riji .item .po .more, .cmt_n .item .txt .s, .cmt_n .item .re_p .s, .tab_mod .tab .re, .comment_login .send, .yuyue_form .menu .submit, .designer_list .txt .i, .designer_list .txt .s_rz {
-    background: url(../Images/zxgs_shop_sp.png) no-repeat 0 0;
+    background: url(../images/zxgs_shop_sp.png) no-repeat 0 0;
 }
 
 .shop_name {
-    background: url(../Images/menu_color_sp.png) no-repeat 0 0;
+    background: url(../images/menu_color_sp.png) no-repeat 0 0;
 }
 
 .shop_header {
@@ -317,7 +315,7 @@
 }
 
 .shop_info {
-    background: url(../Images/zxgs_shop_info.png) repeat-x 0 0;
+    background: url(../images/zxgs_shop_info.png) repeat-x 0 0;
     margin-top: 10px;
     border: 2px solid #f60;
     padding: 5px 5px 10px;

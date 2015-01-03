@@ -220,5 +220,22 @@ class Jobs extends CActiveRecord {
         }
         return $arr;
     }
+    
+    public static function zhiwei($type = '') {
+        $arr = array(
+          '1' => '总经理',
+          '2' => '市场总监',
+          '3' => '讲师',
+          '4' => '招商经理',
+          '5' => '区域经理',
+          '6' => '公司客服',
+          '7' => '行政文员',
+          '999' => '其他',
+        );
+        if ($type != '') {
+            return $arr[$type];
+        }
+        return $arr;
+    }
 
 }

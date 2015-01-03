@@ -56,6 +56,7 @@ class QiyeController extends T {
     $data['medalid'] = $medal;
     $data['tags'] = $tags;
     $data['tagid'] = $tagid;
+    $this->pageTitle =  '信用企业列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }
 
@@ -130,6 +131,7 @@ class QiyeController extends T {
         'selected' => $selected,
         'colid' => $colid
     );
+    $this->pageTitle =  $info['companyname'].' - ' . zmf::config('sitename');
     $this->render('view', $data);
   }
 

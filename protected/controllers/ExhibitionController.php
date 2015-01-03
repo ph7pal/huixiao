@@ -42,6 +42,7 @@ class ExhibitionController extends T {
     $data['pages'] = $pages;
     $data['medals'] = $medals;
     $data['medalid'] = $medal;
+    $this->pageTitle =  '展会公司列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }
 
@@ -105,6 +106,7 @@ class ExhibitionController extends T {
         'selected' => $selected,
         'colid' => $colid
     );
+    $this->pageTitle =  $info['companyname'].' - ' . zmf::config('sitename');
     $this->render('view', $data);
   }
 

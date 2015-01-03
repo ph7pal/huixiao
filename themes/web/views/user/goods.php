@@ -14,7 +14,7 @@
     </tr>
 <?php endforeach; }?>
 <tr>
-    <td>
+    <td colspan="2">
         <?php echo CHtml::link('新增', array('user/goods'), array('class' => 'btn btn-success')); ?>
         <div class="manu" style="float:right"><?php $this->widget('CLinkPager', array('pages' => $pages)); ?> </div>
     </td>
