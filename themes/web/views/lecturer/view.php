@@ -1,5 +1,5 @@
 <div class="w_960 content">
-  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('讲师推荐',array('lecturer/index'));?>&gt; <?php echo $truename;?></span></div>
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('讲师推荐',array('lecturer/index'));?>&gt; <?php echo $truename;?></span></div>
   <!--主要内容部分开始-->
   <div class="my_shop skin_blue">
       <!--个人主页头部开始-->

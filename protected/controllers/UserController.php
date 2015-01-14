@@ -751,7 +751,7 @@ class UserController extends T {
                 $info = Users::model()->findByPk($this->uid);
                 if (!$old) {
                     $this->message(0, '请输入原始密码');
-                } elseif (md5($old) != $info['password']) {
+                } elseif (md5($old.$info['hash']) != $info['password']) {
                     $this->message(0, '原始密码不正确');
                 }
                 if (!$_POST['password']) {
@@ -759,7 +759,7 @@ class UserController extends T {
                 } elseif (strlen($_POST['password']) < 5) {
                     $this->message(0, '新密码过短，请重新输入');
                 }
-                $intoData['password'] = md5($_POST['password']);
+                $intoData['password'] = md5($_POST['password'].$info['hash']);
             }
             if ($model->updateByPk($this->uid, $intoData)) {
                 $this->message(1, '修改成功', Yii::app()->createUrl('user/update'));

@@ -19,6 +19,34 @@ class zmf {
     public static function guest() {
         return Yii::app()->user->isGuest;
     }
+    
+    public static function url($param = array()) {
+        $title = $param['title'];
+        $main=$param['main'];
+        $localarea = $param['localarea'];
+        $type = $param['type'];
+        $fuli = $param['fuli'];
+        
+        $class = $param['class'];
+        $medal = $param['medal'];
+        $tagid = $param['tagid'];
+
+        $data = array(
+            $main,
+            'localarea' => $localarea,
+            'type' => $type,
+            'fuli' => $fuli,
+            'medal' => $medal,
+            'tagid' => $tagid,
+        );
+        $opt = array(
+            'class' => $class
+        );
+        $data = array_filter($data);         
+        $opt = array_filter($opt);
+        $url = CHtml::link($title, $data, $opt);
+        return $url;
+    }
 
     public static function config($type) {
         if ($type == 'authcode') {

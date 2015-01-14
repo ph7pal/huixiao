@@ -1,5 +1,5 @@
 <div class="w_960 content">
-  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('行业展会',array('exhibition/index'));?>&gt; 行业展会列表</span></div>
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('行业展会',array('exhibition/index'));?>&gt; 行业展会列表</span></div>
 
 
   <!--条件筛选开始-->

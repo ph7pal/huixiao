@@ -1,5 +1,5 @@
 <div class="w_960 content">
-      <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('讲师',array('lecturer/index'));?>&gt; 讲师列表</span></div>
+      <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('讲师',array('lecturer/index'));?>&gt; 讲师列表</span></div>
       <!--条件筛选开始-->
       <div class="designer">
           <!--条件筛选 开始-->
@@ -9,13 +9,10 @@
                       <li class="item">
                           <dl class="clearfix">
                               <dt><s class="s"></s>所在区域：</dt>
-
-                              <dd>
-                                  <!--a href="#" class="select fl">不限</a-->
-                                  <?php echo CHtml::link('不限',array('lecturer/index'),array('class'=>'fl'));?>
+                              <dd><?php echo zmf::url(array('title'=>'不限','main'=>'lecturer/index','class'=>'fl'.(!$localarea ? ' select':''),'medal'=>$medalid));?>
                                   <div class="txt">
                                     <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
-                                      <?php echo CHtml::link($localname,array('lecturer/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                      <?php echo zmf::url(array('title'=>$localname,'main'=>'lecturer/index','localarea'=>$locid,'class'=>($localarea==$locid) ? 'select' : '','medal'=>$medalid));?>
                                     <?php }}?>  
                                   </div>
                                   <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
@@ -30,10 +27,10 @@
                       <li class="item">
                           <dl class="clearfix">
                               <dt><s class="s"></s>认证级别：</dt>
-                              <dd><?php echo CHtml::link('不限',array('lecturer/index'),array('class'=>'fl'));?>
+                              <dd><?php echo zmf::url(array('title'=>'不限','main'=>'lecturer/index','class'=>'fl'.(!$medalid ? ' select':''),'localarea'=>$localarea));?>
                                   <div class="txt">
                                     <?php if(!empty($medals)){foreach($medals as $mid=>$medal){?>
-                                      <?php echo CHtml::link($medal,array('lecturer/index','medal'=>$mid),array('class'=>($medalid==$mid) ? 'select' : ''));?>
+                                      <?php echo zmf::url(array('title'=>$medal,'main'=>'lecturer/index','localarea'=>$localarea,'class'=>($medalid==$mid) ? 'select' : '','medal'=>$mid));?>
                                     <?php }}?>
                                   </div>
                               </dd>

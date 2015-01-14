@@ -236,7 +236,8 @@ body{background: #fff;}
 .screening .bd .item dt dd{float: left;width: 800px;position:relative}
 .screening .bd .item .s-option{top: 10px;*top:20px;_top:10px;right: 10px;position: absolute;cursor: pointer;}
 .screening .bd .item a{padding: 3px;margin: 0 4px;font-weight: normal;}
-.screening .bd .item .select{color: #fff;background-color: #4598d2;font-weight: bold;margin-top:3px;}
+.screening .bd .item .select{color: #fff;background-color: #4598d2;font-weight: bold;}
+.screening .bd .item .fl{margin-top:3px;}
 .screening .bd .item .txt{line-height:25px;font-size:14px;width:750px;float:left;margin-left:0px;height:25px;overflow:hidden}
 .screening .bd .last{border: 0 none;}
 /*-----------筛选条件 结束--------------*/

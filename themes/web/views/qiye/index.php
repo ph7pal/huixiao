@@ -1,5 +1,5 @@
 <div class="w_960 content">
-  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('信用企业',array('qiye/index'));?>&gt; 信用企业</span></div>
+  <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('信用企业',array('qiye/index'));?>&gt; 信用企业</span></div>
 
 
   <!--条件筛选开始-->
@@ -10,10 +10,10 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>所在区域：</dt>
-                          <dd><!--a href="#" class="select fl">不限</a--><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
+                          <dd><?php echo zmf::url(array('title'=>'不限','main'=>'qiye/index','class'=>'fl'.(!$localarea ? ' select':''),'tagid'=>$tagid,'medal'=>$medalid));?>
                               <div class="txt">
                                   <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
-                                      <?php echo CHtml::link($localname,array('qiye/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                  <?php echo zmf::url(array('title'=>$localname,'main'=>'qiye/index','localarea'=>$locid,'class'=>($localarea==$locid) ? 'select' : '','tagid'=>$tagid,'medal'=>$medalid));?>
                                     <?php }}?>  
                               </div>
                               <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
@@ -28,10 +28,10 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>主营产品：</dt>
-                          <dd style="float: left;"><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
+                          <dd style="float: left;"><?php echo zmf::url(array('title'=>'不限','main'=>'qiye/index','class'=>'fl'.(!$tagid ? ' select':''),'localarea'=>$localarea,'medal'=>$medalid));?>
                                   <div class="txt">
                                     <?php if(!empty($tags)){foreach($tags as $tid=>$tag){?>
-                                      <?php echo CHtml::link($tag,array('qiye/index','tagid'=>$tid),array('class'=>($tagid==$tid) ? 'select' : ''));?>
+                                      <?php echo zmf::url(array('title'=>$tag,'main'=>'qiye/index','localarea'=>$localarea,'class'=>($tagid==$tid) ? 'select' : '','tagid'=>$tid,'medal'=>$medalid));?>
                                     <?php }}?>
                                   </div>
 
@@ -42,10 +42,10 @@
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>信用等级：</dt>
-                          <dd><?php echo CHtml::link('不限',array('qiye/index'),array('class'=>'fl'));?>
+                          <dd><?php echo zmf::url(array('title'=>'不限','main'=>'qiye/index','class'=>'fl'.(!$medalid ? ' select':''),'tagid'=>$tagid,'localarea'=>$localarea));?>
                                   <div class="txt">
                                     <?php if(!empty($medals)){foreach($medals as $mid=>$medal){?>
-                                      <?php echo CHtml::link($medal,array('qiye/index','medal'=>$mid),array('class'=>($medalid==$mid) ? 'select' : ''));?>
+                                      <?php echo zmf::url(array('title'=>$medal,'main'=>'qiye/index','localarea'=>$localarea,'class'=>($medalid==$mid) ? 'select' : '','tagid'=>$tagid,'medal'=>$mid));?>
                                     <?php }}?>
                                   </div>
                               </dd>

@@ -1,6 +1,6 @@
 <div class="w_960 content">
     <div class="position">
-        <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('招聘信息',array('jobs/index'));?>&gt; 招聘信息</span>
+        <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('招聘信息',array('jobs/index'));?>&gt; 招聘信息</span>
     </div>
     <div class="main_960" style="position: relative;">
 
@@ -18,10 +18,10 @@
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>职位类别：</dt>
-                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
+                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'jobs/index','class'=>'fl'.(!$selectZhiwei ? ' select':''),'localarea'=>$localarea,'fuli'=>$fuliid));?>
                                 <div class="txt">
                                     <?php $zhiweis=  Jobs::zhiwei();foreach($zhiweis as $_zhiwei=>$zhiwei){?>
-                                      <?php echo CHtml::link($zhiwei,array('jobs/index','type'=>$_zhiwei),array('class'=>($selectZhiwei==$_zhiwei) ? 'select' : ''));?>
+                                    <?php echo zmf::url(array('title'=>$zhiwei,'main'=>'jobs/index','localarea'=>$localarea,'class'=>($selectZhiwei==$_zhiwei) ? 'select' : '','type'=>$_zhiwei,'fuli'=>$fuliid));?>
                                     <?php }?>
                                 </div>
                             </dd>
@@ -30,10 +30,10 @@
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>工作地区：</dt>
-                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
+                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'jobs/index','class'=>'fl'.(!$localarea ? ' select':''),'type'=>$selectZhiwei,'fuli'=>$fuliid));?>
                                 <div class="txt">
                                   <?php if(!empty($areas)){foreach($areas as $locid=>$localname){?>
-                                      <?php echo CHtml::link($localname,array('jobs/index','localarea'=>$locid),array('class'=>($localarea==$locid) ? 'select' : ''));?>
+                                    <?php echo zmf::url(array('title'=>$localname,'main'=>'jobs/index','localarea'=>$locid,'class'=>($localarea==$locid) ? 'select' : '','type'=>$selectZhiwei,'fuli'=>$fuliid));?>
                                     <?php }}?>
                                 </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
@@ -48,10 +48,10 @@
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>工作福利：</dt>
-                            <dd><?php echo CHtml::link('不限',array('jobs/index'),array('class'=>'fl'));?>
+                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'jobs/index','class'=>'fl'.(!$fuliid ? ' select':''),'localarea'=>$localarea,'type'=>$selectZhiwei));?>
                                 <div class="txt">
                                     <?php if(!empty($fulis)){foreach($fulis as $fid=>$fuli){?>
-                                      <?php echo CHtml::link($fuli,array('jobs/index','fuli'=>$fid),array('class'=>($fuliid==$fid) ? 'select' : ''));?>
+                                    <?php echo zmf::url(array('title'=>$fuli,'main'=>'jobs/index','localarea'=>$localarea,'class'=>($fuliid==$fid) ? 'select' : '','type'=>$selectZhiwei,'fuli'=>$fid));?>
                                     <?php }}?>                                         
                                 </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">

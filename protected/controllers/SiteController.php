@@ -53,6 +53,7 @@ class SiteController extends T {
     $topPosts=Yii::app()->db->createCommand($sql)->queryAll();
     
     $this->_noColButOther = 'login';
+    $this->pageTitle='用户登录 - '.zmf::config('sitename');
     $this->render('login', array('model' => $model,'flashImgs'=>$flashImgs,'topPosts'=>$topPosts));
   }
 
@@ -124,6 +125,7 @@ class SiteController extends T {
         'model' => $model
     );
     $this->_noColButOther = 'reg';
+    $this->pageTitle='新用户注册 - '.zmf::config('sitename');
     $this->render('reg', $data);
   }
 

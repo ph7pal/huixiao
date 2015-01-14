@@ -1,13 +1,8 @@
 <div class="w_960 content b_search big_mod clearfix">
-    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('产品列表',array('goods/index'));?>&gt; 产品展示</span></div>
+    <div class="position"><s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('产品列表',array('goods/index'));?>&gt; 产品展示</span></div>
     <!--筛选条件开始-->
     <div class="my_shop ">
         <div class="blank10"></div>
-        <!--div class="redNav yahei">
-            <div class="right"><a target="_blank" href="#" class="link">我要发布产品</a></div>
-            <span class="rc-l"></span>
-            <span class="rc-r"></span>
-        </div-->
         <div class="screening" id="screening">
             <div class="bd" id="bd">
                 <ul>
@@ -15,13 +10,13 @@
                         <dl class="clearfix">
                             <dt><s class="s"></s>功能种类：</dt>
                             <dd style="float: left;">
-                              <?php echo CHtml::link('不限',array('goods/index'),array('class'=>empty($selectedTags) ? 'select fl' : 'fl'));?>     
+                              <?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$selectedTags ? ' select':''),'localarea'=>$localarea));?>
                                 <div class="txt">
-<?php if(!empty($tags)){?>                  
-  <?php foreach($tags as $tagid=>$tagtitle){?>
-  <?php echo CHtml::link($tagtitle,array('goods/index','tagid'=>$tagid),array('class'=>(in_array($tagid,$selectedTags))?'select':''));?>      
-  <?php }?>
-<?php }?>
+                                    <?php if(!empty($tags)){?>                  
+                                    <?php foreach($tags as $tagid=>$tagtitle){?>
+                                    <?php echo zmf::url(array('title'=>$tagtitle,'main'=>'goods/index','localarea'=>$localarea,'class'=>($selectedTags==$tagid) ? 'select' : '','tagid'=>$tagid));?>
+                                    <?php }?>
+                                    <?php }?>
                                 </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">
                                     <img src="<?php echo Yii::app()->theme->baseUrl;?>/images/search_more.jpg" /><!--向下箭头-->
@@ -35,10 +30,10 @@
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>招商区域：</dt>
-                            <dd><?php echo CHtml::link('不限',array('goods/index'),array('class'=>(!$localarea) ? 'select fl':'fl'));?>
+                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$localarea ? ' select':''),'tagid'=>$selectedTags));?>
                               <div class="txt">
                                 <?php foreach($areas as $localid=>$areaname){?>
-                                  <?php echo CHtml::link($areaname,array('goods/index','localarea'=>$localid),array('class'=>($localarea==$localid)?'select':''));?>
+                                  <?php echo zmf::url(array('title'=>$areaname,'main'=>'goods/index','localarea'=>$localid,'class'=>($localarea==$localid) ? 'select' : '','tagid'=>$selectedTags));?>
                                 <?php }?>
                               </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">

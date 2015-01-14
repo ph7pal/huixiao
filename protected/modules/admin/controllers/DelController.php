@@ -102,8 +102,8 @@ class DelController extends H {
       if ($$table->deleteByPk($keyid)) {
         $arr=array('ads','album','attachments','comments','favor','link','posts','questions','user_action','user_info','user_credit');
         foreach($arr as $_table){
-          $_sql="DELTE FROM {{{$_table}}} WHERE uid={$keyid}";
-          Yii::app()->db->createCommand($_sql)->queryAll();
+          $_sql="DELETE FROM {{{$_table}}} WHERE uid={$keyid}";
+          Yii::app()->db->createCommand($_sql)->query();
         }
         if ($multi) {
           return true;

@@ -1,6 +1,6 @@
 <div class="w_960 content">
     <div class="position">
-        <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<a href="#">首页 </a>&gt; <?php echo CHtml::link('产品展示',array('goods/index'));?>&gt; <?php echo $info['title'];?></span>
+        <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('产品展示',array('goods/index'));?>&gt; <?php echo $info['title'];?></span>
     </div>
     <div class="w_960">
         <div style="margin-top: 8px;">

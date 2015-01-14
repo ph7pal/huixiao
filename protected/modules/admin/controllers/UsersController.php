@@ -66,7 +66,7 @@ class UsersController extends H {
             $intoData = $_POST['Users'];
             $pass = zmf::filterInput($_POST['Users']['password'], 't', 1);
             if ($pass != '') {
-                $intoData['password'] = md5($pass);
+                $intoData['password'] = md5($pass.$info['hash']);
             } else {
                 $intoData['password'] = $info['password'];
             }

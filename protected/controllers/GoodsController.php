@@ -114,9 +114,9 @@ class GoodsController extends T {
         }        
       }
     }
-    $selectedTags=array();
+    $selectedTags='';
     if(is_numeric($tagid) && $tagid>0){
-      $selectedTags[]=$tagid;
+      $selectedTags=$tagid;
       $_where.=" AND (colid={$tagid} OR colid2={$tagid} OR colid3={$tagid} OR colid4={$tagid} OR colid5={$tagid})";
     }    
     $_sql = "SELECT * FROM {{goods}} WHERE status=".Posts::STATUS_PASSED.$_where." ORDER BY cTime DESC";

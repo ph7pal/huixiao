@@ -1,36 +1,50 @@
+<style type="text/css">
+.slideBox{ width:548px; height:250px; overflow:hidden; position:relative; border:1px solid #ddd;  }
+.slideBox .hd{ height:15px; overflow:hidden; position:absolute; right:5px; bottom:5px; z-index:1; }
+.slideBox .hd ul{ overflow:hidden; zoom:1; float:left;  }
+.slideBox .hd ul li{ float:left; margin-right:2px;  width:15px; height:15px; line-height:14px; text-align:center; background:#fff; cursor:pointer; }
+.slideBox .hd ul li.on{ background:#f00; color:#fff; }
+.slideBox .bd{ position:relative; height:100%; z-index:0;   }
+.slideBox .bd li{ zoom:1; vertical-align:middle; }
+.slideBox .bd img{ width:548px; height:250px; display:block;  }
+</style>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableAjaxValidation'=>false,
         'enableClientValidation'=>true
 )); ?>
-
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/jquery.SuperSlide.2.1.1.js", CClientScript::POS_HEAD);?>
     <div id="login-header" class="win900">
         <a href="<?php echo zmf::config('baseurl');?>" id="logo">
             <img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="" /></a>
         <div id="cityname" class="loginname" style="left: 208px;"><span>用户登录</span></div>
         <div id="logintext" style="right: -10px;"><a href="<?php echo zmf::config('baseurl');?>">返回首页</a>|<a href="#">帮助</a></div>
     </div>
-
     <div class="cb win900">
         <div id="conleft" style="position: relative; height: 480px;">
-            <div style="height: 300px; overflow: hidden">
-                <div class="slideIMG">
-                    <div id="feature_list" style="width: 550px">
-                      <?php if(!empty($flashImgs)){?>
-                        <ul id="tabs">
-                          <?php foreach($flashImgs as $key=>$tmp){?>
-                            <li><a href="javascript:;"><?php echo ($key+1);?></a></li>
-                          <?php }?>  
-                        </ul>
-                        <ul id="output">
-                          <?php foreach($flashImgs as $key=>$tmp){?>
-                            <li><a href="javascript:;"><img src="<?php echo $tmp;?>" width="550" height="300" /></a></li>
-                          <?php }?>                           
-                        </ul>
-                      <?php }?>
-                    </div>
+                <div id="slideBox" class="slideBox">
+                        <div class="hd">
+                            <ul>
+                                <?php if(!empty($flashImgs)){?>
+                                <?php foreach($flashImgs as $key=>$tmp){?>    
+                                <li><?php echo ($key+1);?></li>
+                                <?php }?>                           
+                                <?php }?>
+                            </ul>
+			</div>
+                        <div class="bd">
+                                <ul>
+                               <?php if(!empty($flashImgs)){?>
+                                  <?php foreach($flashImgs as $key=>$tmp){?>                            
+                                    <li><a href="javascript:;" target="_blank"><img src="<?php echo $tmp;?>"></a></li>
+                                  <?php }?>                           
+                              <?php }?>
+                                </ul>
+                        </div>
                 </div>
-            </div>
+                <script id="jsID" type="text/javascript">
+                    jQuery(".slideBox").slide({mainCell:".bd ul",effect:"left",autoPlay:true});
+                </script>
             <div style="height: 100px; width: 550px; position: absolute; top: 300px">
                 <div class="tab_module nomartop" id="TabAdS01">
                     <div class="hd">
@@ -51,8 +65,6 @@
         <div id="conright">
             <div class="scrool-bg">
                 <div class="login_name" id="login_name"><b id="login_tab_orig" onclick="clickLog('from=login_orig');">账号密码登录<i class="underline"></i></b></div>
-
-
                 <div class="loginbox">
                     <div id="tipDiv"></div>
                     <table>
@@ -102,10 +114,4 @@
         </div>
         <div class="c"></div>
     </div>
-
 <?php $this->endWidget(); ?>
-<script type="text/javascript">
-    $(function () {
-        jQuery.featureList($("#tabs li"), $("#output li"), { start_item: 0 });//图片交换
-    })
-</script>
