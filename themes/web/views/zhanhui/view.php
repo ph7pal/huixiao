@@ -67,19 +67,12 @@
                             快速报名
                         </div>
                         <div class="bd">
-                            <div style="text-align: center; font: 22px;">
+                            <div style="">
                               <?php if($info['expired_time']<=time()){?>
-                                <p style="padding-top: 60px; background-color: #fff; margin: -5px 0px 0 0;">
-                                    抱歉，本次活动报名已结束
-                                </p>
-                                <p>
-                                    欢迎您下次积极参与
-                                </p>
+                                <p style="padding-top: 60px; background-color: #fff; margin: -5px 0px 0 0;text-align: center; ">抱歉，本次活动报名已结束</p>
+                                <p style="text-align: center; ">欢迎您下次积极参与</p>
                               <?php }else{?>
-                                <p id="canyu-zhanhui">
-                                    <?php echo CHtml::ajaxLink('立即参与', array('canyu','id'=>$info['id']),  
-array('success' => "js:function(result){result = eval('(' + result + ')');if (result['status'] == 1) {window.location.reload();} else {alert(result['msg']);}}"))?>
-                                </p>
+                                    <?php $this->renderPartial('_canyu',array('model'=>$model));?>
                               <?php }?>
                             </div>
                         </div>
@@ -95,7 +88,7 @@ array('success' => "js:function(result){result = eval('(' + result + ')');if (re
                         <ul id="mulitline1">
                           <?php if(!empty($users)){?>
                           <?php foreach($users as $user){?>
-                          <li><?php echo $user['truename'];?></li>
+                          <li><?php echo $user['truename'];?> ------ <?php echo $user['phone'];?> ------ <?php echo $user['email'];?></li>
                           <?php }?>
                           <?php }?>
                         </ul>

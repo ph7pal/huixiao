@@ -22,7 +22,7 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/myfunc.js", CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/bootstrap.min.js", CClientScript::POS_END);
         ?>
-        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/jquery.SuperSlide.2.1.js");?>
+        <?php //Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/jquery.SuperSlide.2.1.js");?>
         <?php if((Yii::app()->getController()->id=='posts' AND Yii::app()->getController()->getAction()->id=='index')){?>
         <?php //Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/lazyload.js", CClientScript::POS_END); ?> 
         <?php }?>

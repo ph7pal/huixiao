@@ -12,6 +12,7 @@ class AttachmentsController extends T {
     $uptype = zmf::filterInput($_GET['type'], 't', 1);
     $classify = zmf::filterInput($_GET['classify'], 't', 1);
     $logid = zmf::filterInput($_GET['logid']);
+    $fileholder = zmf::filterInput($_GET['fileholder']);//上传控件的ID
     $reImgsize=zmf::filterInput($_GET['imgsize']);//返回图片的尺寸
     if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
@@ -40,7 +41,10 @@ class AttachmentsController extends T {
         T::message(0, '您本时段的上传次数已用完');
         exit();
     }
-    if (!isset($_FILES["filedata"]) || !is_uploaded_file($_FILES["filedata"]["tmp_name"]) || $_FILES["filedata"]["error"] != 0) {
+    if(!$fileholder){
+        $fileholder='filedata';
+    }
+    if (!isset($_FILES[$fileholder]) || !is_uploaded_file($_FILES[$fileholder]["tmp_name"]) || $_FILES[$fileholder]["error"] != 0) {
       $this->jsonOutPut(0, '无效上传，请重试');
     }
     $model = new Attachments();
@@ -54,7 +58,7 @@ class AttachmentsController extends T {
     if (!preg_match('/^(' . str_replace('*.', '|', str_replace(';', '', $upExt)) . ')$/i', $ext)) {
       $this->jsonOutPut(0, '上传文件扩展名必需为：' . $upExt);
     }
-    $sizeinfo = getimagesize($_FILES["filedata"]["tmp_name"]);
+    $sizeinfo = getimagesize($_FILES[$fileholder]["tmp_name"]);
     if ($sizeinfo['0'] < zmf::config('imgMinWidth') OR $sizeinfo[1] < zmf::config('imgMinHeight')) {
       $this->jsonOutPut(0, "要求上传的图片尺寸，宽不能不小于" . zmf::config('imgMinWidth') . "px，高不能小于" . zmf::config('imgMinHeight') . "px.");
     }
@@ -67,7 +71,7 @@ class AttachmentsController extends T {
     $fileName = uniqid() . '.' . $ext;
     $origin = $dirs['origin'].'/';
     unset($dirs['origin']);
-    if (move_uploaded_file($_FILES["filedata"]["tmp_name"], $origin . $fileName)) {
+    if (move_uploaded_file($_FILES[$fileholder]["tmp_name"], $origin . $fileName)) {
       $data = array();
       if ($uptype == 'posts') {
         $status = Posts::STATUS_DELED;

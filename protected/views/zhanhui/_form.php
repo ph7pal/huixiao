@@ -17,7 +17,7 @@
 	</div>
     <div class="form-group">
 		<?php echo $form->labelEx($model,'attachid'); ?>
-		<?php $this->renderPartial('//common/singleUpload',array('attachid'=>$model['attachid'],'type'=>'zhanhui','model'=>$model,'fieldName'=>'attachid'));?>
+		<?php $this->renderPartial('//common/_singleUpload',array('attachid'=>$model['attachid'],'type'=>'zhanhui','model'=>$model,'fieldName'=>'attachid'));?>
       <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control')); ?>  
 		<?php echo $form->error($model,'attachid'); ?>
 	</div>

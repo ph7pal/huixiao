@@ -439,3 +439,10 @@ CREATE TABLE `pre_fuli_relation` (
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 alter table pre_medal add desc varchar(255) not null;
+
+//----------0115添加
+alter table pre_zhanhui_relation add username varchar(255) not null;
+ALTER table pre_zhanhui_relation add email VARCHAR(255) not null;
+ALTER table pre_zhanhui_relation add phone VARCHAR(255) not null;
+ALTER table pre_zhanhui_relation add `type` VARCHAR(255) not null;
+ALTER table pre_zhanhui_relation add people SMALLINT(8) UNSIGNED not null;

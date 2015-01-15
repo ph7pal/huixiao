@@ -54,9 +54,29 @@
     ?>
   </head>
   <body>
-    <div class="bg2013s">
+    <div class="bg2013s">        
       <!--头部-->
+      <div style="height:30px;">
+          <div style="height:30px;width: 960px;margin:0 auto;line-height: 30px;font-size: 14px;">
+              <div class="fl">
+                  <a href="javascript:;" onclick="alert('请按CTRL+D将本站加入收藏夹')">加入收藏</a>
+              </div>  
+            <div class="fr" style="float: right;">
+            <?php if (Yii::app()->user->isGuest) { ?>
+            <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
+            <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
+            <?php }else{ ?>
+            <div style="" class="clearfix">
+                <span style="">你好:<font style="color: #fb2b21"><?php echo $this->userInfo['truename'];?></font></span>
+                <a href="<?php echo Yii::app()->createUrl('user/index');?>" style="color: #0061da;">【管理中心】</a>
+                <a href="<?php echo Yii::app()->createUrl('site/logout');?>" style="color: #0061da;">退出</a>
+            </div>
+            <?php }?>
+          </div>
+        </div>
+      </div>
       <div class="w_960 header clearfix">
+            
         <h1 class="logo"><a href="<?php echo zmf::config('baseurl');?>"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="<?php echo zmf::config('sitename');?>" height="90" /></a></h1>
         <div class="searchBar">
           <div class="searchBarBd">
@@ -73,19 +93,7 @@
             <?php foreach($topskw as $tpkw){echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));}?>
             <?php }?>
           </p>
-        </div>
-        <div class="fr" style="float: right; margin-top: 30px;">
-          <?php if (Yii::app()->user->isGuest) { ?>
-          <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
-          <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
-          <?php }else{ ?>
-          <div style="font-size: 14px; line-height: 20px;" class="clearfix">
-              <span style="float: left; font-size:14px">你好:<font style="color: #fb2b21"><?php echo $this->userInfo['truename'];?></font></span>
-              <a href="<?php echo Yii::app()->createUrl('user/index');?>" style="font-size: 14px; line-height: 25px; color: #0061da; float: left; margin-left:5px">【管理中心】</a>
-              <a href="<?php echo Yii::app()->createUrl('site/logout');?>" style="font-size: 14px; line-height: 25px; color: #0061da; float: left; margin-left:5px">退出</a>
-          </div>
-          <?php }?>
-        </div>
+        </div>        
       </div>
       <div style="clear: both"></div>
       <!--导航条-->
