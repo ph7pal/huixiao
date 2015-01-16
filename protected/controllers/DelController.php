@@ -169,6 +169,89 @@ class DelController extends T {
             return false;
         }
     }
+    
+    public function actionDelPost() {
+        $logid = zmf::filterInput($_POST['logid']);
+        $type = zmf::filterInput($_POST['type'], 't', 1);
+        $admin=false;
+        if (empty($logid) OR !is_numeric($logid)) {
+            $this->jsonOutPut(0, Yii::t('default', 'unkownerror'));
+        }
+        if (!Yii::app()->request->isAjaxRequest) {
+            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+        }
+        if (Yii::app()->user->isGuest) {
+            $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
+        }
+
+        if (!in_array($type, array('post', 'comment', 'notice'))) {
+            $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
+        }
+        if ($type == 'post') { 
+            $tinfo = Posts::model()->findByPk($logid);
+            if (!$tinfo) {
+                $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+            } elseif ($tinfo['uid'] != Yii::app()->user->id) {
+                $admin = Users::checkPower('delpost', false, true);
+                if(!$admin){
+                    $this->jsonOutPut(0, '请勿越权操作');
+                }                
+            }
+            if ($admin) {
+                $status = Posts::STATUS_DELED;
+                $attr = array(
+                    'status' => Posts::STATUS_DELED,
+                );
+                if(Posts::model()->updateByPk($logid,$attr)){
+                    $this->jsonOutPut(1, '操作成功！');
+                }else{
+                    $this->jsonOutPut(1, '操作失败！');
+                }                
+            } elseif (Posts::model()->deleteByPk($logid)) {
+                $this->jsonOutPut(1, '操作成功！');
+            } else {
+                $this->jsonOutPut(0, '操作失败');
+            }
+        } elseif ($type == 'comment') {
+            $cinfo = Comments::model()->findByPk($logid);
+            if (!$cinfo) {
+                $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+            } elseif ($cinfo['uid'] != Yii::app()->user->id) {               
+                $admin = Users::checkPower('delcomment', false, true);
+                if(!$admin){
+                    $this->jsonOutPut(0, '请勿越权操作');
+                }
+            }
+            if ($admin) {
+                $status = Posts::STATUS_DELED;
+                $attr = array(
+                    'status' => Posts::STATUS_DELED,
+                );
+                if(Comments::model()->updateByPk($logid,$attr)){
+                    $this->jsonOutPut(1, '操作成功！');
+                }else{
+                    $this->jsonOutPut(1, '操作失败！');
+                }                
+            } elseif (Comments::model()->deleteByPk($logid)) {
+                //UserController::recordAction($logid, 'delcom', 'client');
+                $this->jsonOutPut(1, '操作成功！');
+            } else {
+                $this->jsonOutPut(0, '操作失败');
+            }
+        } elseif ($type == 'notice') {
+            $cinfo = Notification::model()->findByPk($logid);
+            if (!$cinfo) {
+                $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
+            } elseif ($cinfo['uid'] != Yii::app()->user->id) {
+                $this->jsonOutPut(0, '请勿越权操作');
+            }
+            if (Notification::model()->deleteByPk($logid)) {                
+                $this->jsonOutPut(1, '操作成功！');
+            } else {
+                $this->jsonOutPut(0, '操作失败');
+            }
+        }
+    }
 
 }
 

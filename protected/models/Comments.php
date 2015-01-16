@@ -16,7 +16,7 @@ class Comments extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-          array('content, status,ip, cTime', 'required'),
+          array('logid,uid,content,classify', 'required'),
           array('status', 'numerical', 'integerOnly' => true),
           array('logid, uid, cTime', 'length', 'max' => 10),
           array('nickname', 'length', 'max' => 60),

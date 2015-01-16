@@ -1,6 +1,9 @@
 <?php
 
 class ZhanhuiController extends T {
+    public $showInfo=false;
+    public $showInfoNum=15;
+    public $canyu=false;
 
     /**
      * Displays a particular model.
@@ -9,17 +12,43 @@ class ZhanhuiController extends T {
     public function actionView($id) {
         $info = $this->loadModel($id);
         $model=new ZhanhuiRelation;
+        if(zmf::uid()){
+            $_hasinfo=$model->find('uid=:uid AND logid=:logid',array(':uid'=>zmf::uid(),':logid'=>$id));
+            if($_hasinfo){
+                $this->canyu=true;
+            }
+        }else{
+            $_hasinfo=zmf::getCookie('canyuzhanhui-'.$id);
+            if($_hasinfo){
+                $this->canyu=true;
+            }
+        }
         $model->uid=Yii::app()->user->id;
+        if($info->uid==$model->uid && $info->uid>0){
+            $this->showInfo=true;
+        }
         $model->logid=$id;
         $model->username=$this->userInfo['truename'];
         $model->email=$this->userInfo['email'];
-        $model->phone=$this->userInfo['mobile'];
+        $model->phone=$this->userInfo['mobile'];        
         if (isset($_POST['ZhanhuiRelation'])) {
+            if($this->canyu){
+                $this->message(0, '您已报名过，不能重复报名',$url);
+            }
             $model->attributes = $_POST['ZhanhuiRelation'];
             if ($model->validate()) {
                 if($model->save()){
                     Zhanhui::model()->updateCounters(array('canyu' => 1), ':id=id', array(':id' => $id));
+                    $params=array(
+                        'uid'=>$info['uid'],
+                        'from_id'=>$id,
+                        'from_idtype'=>'zhanhui',
+                        'type'=>'system',
+                        'content'=>CHtml::link($info['title'],array('zhanhui/view','id'=>$id)).'有了新的报名，'.CHtml::link('查看详情',array('zhanhui/view','id'=>$id))
+                    );
+                    Notification::add($params);
                     $url=Yii::app()->createUrl('zhanhui/view',array('id'=>$id));
+                    zmf::setCookie('canyuzhanhui-'.$id,$id,86400*30);
                     $this->message(1, '恭喜，您已成功参与',$url);
                 }
             }
@@ -39,7 +68,7 @@ class ZhanhuiController extends T {
         }
         $info['attachid']=$faceurl;
         Zhanhui::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $info['id']));
-        $sql = "SELECT username,phone,email FROM {{zhanhui_relation}} WHERE logid={$id} ORDER BY cTime DESC";
+        $sql = "SELECT username,phone,email FROM {{zhanhui_relation}} WHERE logid={$id} ORDER BY cTime DESC LIMIT {$this->showInfoNum}";
         $uids = Yii::app()->db->createCommand($sql)->queryAll();
         $this->pageTitle = $info['title'] . ' - ' . zmf::config('sitename');
         $this->render('view', array(

@@ -904,5 +904,72 @@ class UserController extends T {
         );
         $this->render('credit', $data);
     }
+    
+    public function actionNotice(){
+        $this->checkUser();        
+        $sql = "SELECT * FROM {{notification}} WHERE uid='{$this->uid}' ORDER BY cTime DESC";
+        Posts::getAll(array('sql' => $sql), $pages, $comLists);
+        if(!empty($comLists)){
+            foreach($comLists as $k=>$v){
+                $_author='';
+                if($v['type']=='system'){
+                    $_author='<b>系统消息</b>';
+                }else{
+                    if($v['author']!=''){
+                        $_author=CHtml::link($v['author'],array('mobile/index','uid'=>$v['authorid']),array('target'=>'_blank')).'对你说：';
+                    }else{
+                        $_author=  Users::getUserInfo($v['authorid'],'truename');
+                        $_author=CHtml::link($_author,array('mobile/index','uid'=>$v['authorid']),array('target'=>'_blank')).'对你说：';
+                    } 
+                    $_author='<b>'.$_author.'</b>';
+                }
+                $comLists[$k]['author']=$_author;
+            }
+        }
+        Notification::model()->updateAll(array('new' => 0), 'uid=:uid', array(':uid' => $this->uid));
+        $data = array(
+            'posts' => $comLists,
+            'pages' => $pages,
+        );
+        $this->pageTitle = $this->userInfo['truename'] . '的提醒 - ' . zmf::config('sitename');
+        $this->render('notice', $data);
+    }
+    
+    public function actionShow(){        
+        $type=zmf::filterInput($_GET['action'],'t',1);
+        if($type=='zhanhui'){
+            $this->zhanhuiUsers();
+        }else{
+            $this->message(0, '未知页面');
+        }
+    }
+    private function zhanhuiUsers(){
+        $this->checkUser();  
+        $logid=zmf::filterInput($_GET['logid']);
+        if($logid){
+            $_uid=Zhanhui::getOne($logid,'uid');
+            if(!$_uid){
+                $this->message(0, '您所查看的页面不存在');
+            }elseif($_uid!=$this->uid){
+                $this->message(0, '不允许的操作');
+            }
+            $sql = "SELECT * FROM {{zhanhui_relation}} WHERE logid='{$logid}' ORDER BY cTime DESC";
+        }else{
+            $sql = "SELECT * FROM {{zhanhui_relation}} WHERE logid IN(SELECT id FROM {{zhanhui}} WHERE uid='{$this->uid}') ORDER BY cTime DESC";
+        }        
+        Posts::getAll(array('sql' => $sql), $pages, $comLists);
+        if(!empty($comLists)){
+            foreach($comLists as $k=>$v){
+                $_title=  Zhanhui::getOne($v['logid'],'title');
+                $comLists[$k]['title']=$_title;
+            }
+        }
+        $data = array(
+            'posts' => $comLists,
+            'pages' => $pages,
+        );
+        $this->pageTitle = '报名列表 - ' . zmf::config('sitename');
+        $this->render('zhanhui_users', $data);
+    }
 
 }

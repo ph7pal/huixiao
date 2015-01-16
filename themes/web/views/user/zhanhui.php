@@ -14,13 +14,14 @@
     </tr>
 <?php endforeach; ?>
 <tr>
-    <td>        
+    <td colspan="2">        
         <?php $this->renderPartial('/common/pager', array('pages' => $pages)); ?> 
     </td>
 </tr>
 <tr>
-    <td>
+    <td colspan="2">
         <?php echo CHtml::link('新增', array('user/zhanhui'), array('class' => 'btn btn-success')); ?>
+        <?php echo CHtml::link('报名列表', array('user/show','action'=>'zhanhui'), array('class' => 'btn btn-default')); ?>
     </td>
 </tr>
 </table>

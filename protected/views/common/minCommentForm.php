@@ -26,9 +26,7 @@ $form=$this->beginWidget('CActiveForm', array(
 <?php echo $form->error($model,'email'); ?>
 </div>
 <?php }?>
-
 <div style="width: 100%; overflow: hidden;">
-<?php echo $form->labelEx($model,'content'); ?>
   <div style="margin-right: 10px; *height: 1%;">
     <?php echo $form->textArea($model,'content',array('style'=>"width: 100%; padding: 3px; border: 1px solid #ccc; height: 120px;",'rows'=>5)); ?>
   </div>

@@ -152,5 +152,13 @@ class Zhanhui extends CActiveRecord {
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
+    
+    public function getOne($keyid, $return = '') {
+        $item = Zhanhui::model()->findByPk($keyid);
+        if ($return != '') {
+            return $item[$return];
+        }
+        return $item;
+    }
 
 }

@@ -28,7 +28,7 @@
                       <?php }else{?>
                           <em>来源：</em><?php echo $page['copy_from'];?>
                       <?php }}?>
-                      <em>|</em> <a href="#woyaopl">我要评论</a>
+                      <em>|</em> <?php if(Yii::app()->user->isGuest){echo CHtml::link('我要评论',array('site/reg'));}else{?><a href="#comments">我要评论</a><?php }?>
                       </p> 
                     </div>
                     <!--文章头部 结束-->
@@ -64,7 +64,7 @@
                     <!--文章内容 结束-->
                 </div>
                 <!--文章评论 开始-->
-                <div class="comment_m">
+                <div class="comment_m" id="comments">
                     <div class="hd">
                     </div>
                     <div class="bd">
@@ -79,7 +79,7 @@
                             }
                           </style>                            
                             <div class="comment_list">
-                            <?php if($page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
+                            <?php if(!$page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
                             </div>
                         </div>
                         <!--发表评论 结束-->
@@ -91,19 +91,6 @@
         <!--右侧文章内容显示部分结束-->
         <!--左侧排行榜显示部分开始-->
         <div class="col_sub">
-            <!--精彩推荐 开始-->
-            <!--div class="module_05">
-                <div class="hd">精彩推荐</div>
-                <div class="bd imgList">
-                    <div id="marqueediv1">
-                        <ul class="clearfix">
-                            <li class="item"><a href="#" target="_blank">
-                                <img src="UpFile/singlefile/cd87bf84-3ccd-4d15-997c-77d0dcf3fb64.jpg" alt="金煌装饰“金九银十”全装大师系..." />
-                                <span class="title">金煌装饰“金九银十”全装大师系...</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div-->
             <?php if(!empty($likes)){?>
             <!--阅读排行榜 开始-->
             <div class="module_05" id="TabAdS01">              

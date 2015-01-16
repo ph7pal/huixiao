@@ -16,6 +16,7 @@ class T extends CController {
     public $keywords;
     public $uid;
     public $userInfo;
+    public $noticeNum;
     public $currentCol = array();
     //模板有关，均已theme开头
     public $theme_panelStyle='primary';
@@ -33,6 +34,7 @@ class T extends CController {
         $this->checkApp();
         if (!Yii::app()->user->isGuest) {
             $this->userInfo = Users::getUserInfo(Yii::app()->user->id);
+            $this->noticeNum=  Notification::getNum();
         }
         $theme=Yii::app()->request->getParam('theme');
         if($theme && in_array($theme,array('primary','info','danger','warning'))){

@@ -76,6 +76,9 @@
                               <?php if($info['expired_time']<=time()){?>
                                 <p style="padding-top: 30px; background-color: #fff; margin: -5px 0px 0 0;text-align: center; ">抱歉，本次活动报名已结束</p>
                                 <p style="text-align: center; ">欢迎您下次积极参与</p>
+                              <?php }elseif($this->canyu){?>
+                                <p style="padding-top: 30px; background-color: #fff; margin: -5px 0px 0 0;text-align: center; ">感谢您的参与</p>
+                                <p style="text-align: center; ">我们将尽快核实信息并通知您下一步事宜</p>
                               <?php }else{?>
                                     <?php $this->renderPartial('_canyu',array('model'=>$model));?>
                               <?php }?>
@@ -88,13 +91,20 @@
                 <div class="tg_m">
                     <div class="hd">
                         已报名的名单
-                    </div>
+                    </div> 
                     <div class="bd">
                         <ul id="mulitline1">
                           <?php if(!empty($users)){?>
                           <?php foreach($users as $user){?>
-                          <li><?php echo tools::hideWord($user['username']);?> ------ <?php echo tools::hideWord($user['phone']);?> ------ <?php echo tools::hideWord($user['email']);?></li>
+                          <?php if($this->showInfo){?>  
+                            <li><?php echo $user['username'];?> ------ <?php echo $user['phone'];?> ------ <?php echo $user['email'];?></li>
+                          <?php }else{?>
+                            <li><?php echo tools::hideWord($user['username']);?> ------ <?php echo tools::hideWord($user['phone']);?> ------ <?php echo tools::hideWord($user['email']);?></li>
                           <?php }?>
+                          <?php }?>
+                            <?php if($this->showInfo){?>
+                            <P style="text-align: center"><?php echo CHtml::link('查看全部名单',array('user/show','action'=>'zhanhui','logid'=>$info['id']));?></P>
+                            <?php }?>
                           <?php }?>
                         </ul>
                     </div>

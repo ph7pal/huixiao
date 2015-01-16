@@ -41,16 +41,16 @@ class Notification extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'uid' => 'Uid',
-            'type' => 'Type',
-            'new' => 'New',
-            'authorid' => 'Authorid',
-            'author' => 'Author',
-            'content' => 'Content',
-            'cTime' => 'C Time',
+            'uid' => '接收UID',
+            'type' => '提醒的类型',
+            'new' => '是否未读',
+            'authorid' => '发送者UID',
+            'author' => '发送者',
+            'content' => '内容',
+            'cTime' => '时间',
             'from_id' => 'From',
             'from_idtype' => 'From Idtype',
-            'from_num' => 'From Num',
+            'from_num' => '数量',
         );
     }
 
@@ -79,8 +79,9 @@ class Notification extends CActiveRecord {
 
     public static function add($params = array()) {
         $uid = Yii::app()->user->id;
+        $touid=$params['uid'];
         $data = array(
-            'uid' => $params['uid'],
+            'uid' => $touid,
             'authorid' => $uid,
             'content' => $params['content'],
             'new' => 1,
@@ -90,10 +91,9 @@ class Notification extends CActiveRecord {
             'from_idtype' => $params['from_idtype'],
             'from_num' => 1
         );
-        if ($uid == $params['uid']) {
-            return false;
-            exit();
-        }
+//        if ($uid == $params['uid']) {
+//            return false;
+//        }
         $model = new Notification();
         $info = $model->find("uid=:uid AND authorid=:authorid AND from_id=:from AND type=:type", array(':uid' => $params['uid'], ':authorid' => $uid,':from'=>$params['from_id'], ':type' => $params['type']));
         if ($info) {
@@ -114,7 +114,7 @@ class Notification extends CActiveRecord {
         }
     }
 
-    public function getNum($uid = '') {
+    public static function getNum($uid = '') {
         if (Yii::app()->user->isGuest) {
             return 0;
         }
@@ -131,6 +131,13 @@ class Notification extends CActiveRecord {
         } else {
             return 0;
         }
+    }
+    
+    /**
+     * 当用户新注册时生成的欢迎信息
+     */
+    public static function userInit(){
+        
     }
 
 }

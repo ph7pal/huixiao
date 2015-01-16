@@ -46,9 +46,9 @@ class AjaxController extends T {
     } elseif ($info['status'] != 1) {
       $this->jsonOutPut(0, Yii::t('default', 'contentnotexists'));
     } elseif ($type == 'posts') {
-      if ($info['reply_allow'] != 1) {
-        $this->jsonOutPut(0, '非常抱歉，该内容设置为不允许评论');
-      }
+//      if ($info['reply_allow'] != 1) {
+//        $this->jsonOutPut(0, '非常抱歉，该内容设置为不允许评论');
+//      }
     }
     $model = new Comments();
     if (isset($_POST['Comments'])) {

@@ -1,58 +1,6 @@
 var nicknameKey = 1;
 var tagnameKey = 1;
 var hasEditedContent = '';
-function ajaxAddColumn(table) {
-    var c = $("#columnid").val();
-    //var k=$("#"+atype).val();
-    if (table == '' || typeof table == 'undefined') {
-        alert('出现错误');
-        return false;
-    }
-    if (c == '0' || typeof c == 'undefined') {
-        alert('请选择主栏目');
-        return false;
-    }
-    $.ajax({
-        type: "POST",
-        url: addColumnUrl,
-        data: "c=" + c + "&t=" + table + "&YII_CSRF_TOKEN=" + csrfToken,
-        success: function(result) {
-            result = eval('(' + result + ')');
-            if (result['status'] == 1) {
-                $("#addPostsCol").html(result['msg']);
-            } else {
-                //dialog(result['msg']);
-                alert(result['msg']);
-            }
-        }
-    });
-
-}
-function ajaxCity(a,b,d,e) {
-    var c = $("#"+a).val();    
-    if (c == '0' || typeof c == 'undefined') {
-        alert('请选择');
-        return false;
-    }
-    var t=c;
-    $.ajax({
-        type: "POST",
-        url: selectCityUrl,
-        data: "c=" + t + "&e="+e+"&YII_CSRF_TOKEN=" + csrfToken,
-        success: function(result) {
-            result = eval('(' + result + ')');
-            if (result['status'] == 1) {                                
-                $("#"+d).html(result['msg']);
-                $("#"+b).val(t);
-            }else if (result['status'] == 2) {  
-                $("#"+b).val(t);
-                $("#"+d).html('');
-            } else {
-                alert(result['msg']);
-            }
-        }
-    });
-}
 function delUploadImg(attachid, clearid) {
     if (attachid == '') {
         dialog('请选择删除对象');
@@ -240,4 +188,31 @@ function checkBitian(){
   }else{
     return true;
   }  
+}
+function deletePost(a, b, c) {
+  if (a == '') {
+    alert('请选择对象');
+    return false;
+  }
+  if (b == '' || typeof b == 'undefined') {
+    alert('删除类型不能为空');
+    return false;
+  }
+  $.ajax({
+    type: "POST",
+    url: delPostUrl,
+    data: "logid=" + a + "&type=" + b + "&YII_CSRF_TOKEN=" + csrfToken,
+    success: function(result) {
+      result = eval('(' + result + ')');
+      if (result['status'] == 1) {
+        if (c !== '' && c !== 'undefined') {
+          location.href = c;
+        }
+        $("#" + b + '_' + a).fadeOut();
+        dialog({msg:result['msg'],time:2});
+      } else {
+        dialog({msg:result['msg']});
+      }
+    }
+  });
 }

@@ -62,13 +62,12 @@
                   <a href="javascript:;" onclick="alert('请按CTRL+D将本站加入收藏夹')">加入收藏</a>
               </div>  
             <div class="fr" style="float: right;">
-            <?php if (Yii::app()->user->isGuest) { ?>
-            <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
-            <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
-            <?php }else{ ?>
+            <?php if (!Yii::app()->user->isGuest) { ?>
             <div style="" class="clearfix">
                 <span style="">你好:<font style="color: #fb2b21"><?php echo $this->userInfo['truename'];?></font></span>
-                <a href="<?php echo Yii::app()->createUrl('user/notice');?>" style="color: #0061da;">提醒</a>
+                <a href="<?php echo Yii::app()->createUrl('user/notice');?>" style="color: #0061da;">
+                    提醒<?php if($this->noticeNum>0){echo '(<font color="red">'.$this->noticeNum.'</font>)';}?>
+                </a>
                 <a href="<?php echo Yii::app()->createUrl('user/index');?>" style="color: #0061da;">【管理中心】</a>
                 <a href="<?php echo Yii::app()->createUrl('site/logout');?>" style="color: #0061da;">退出</a>
             </div>
@@ -93,7 +92,13 @@
             <?php foreach($topskw as $tpkw){echo CHtml::link($tpkw,array('posts/search','keyword'=>$tpkw),array('class'=>'topkws'));}?>
             <?php }?>
           </p>
-        </div>        
+        </div>
+        <div class="fr" style="margin-right: 20px; float: right;   margin-top: 30px;">
+            <?php if (Yii::app()->user->isGuest) { ?>
+            <?php echo CHtml::link('',array('site/login'),array('class'=>'loginBtn'));?>
+            <?php echo CHtml::link('',array('site/reg'),array('class'=>'zcBtn'));?>
+            <?php }?>
+        </div>
       </div>
       <div style="clear: both"></div>
       <!--导航条-->
