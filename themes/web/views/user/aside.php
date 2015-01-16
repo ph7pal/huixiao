@@ -2,7 +2,7 @@
     <div class="mod" id="aside_face">
         <div class="bd">
             <div class="site_pic">                
-                <img src="<?php echo zmf::avatar($this->uid,'big',true);?>" alt="<?php echo $this->userInfo['truename'];?>">
+                <img src="<?php echo zmf::avatar($this->uid,'small',true);?>" alt="<?php echo $this->userInfo['truename'];?>">
             </div>
             <div class="desc">
             </div>

@@ -1,5 +1,8 @@
 <h3>上传头像</h3>
 <?php echo CHtml::hiddenField('type',$type);?>
+<?php $this->renderPartial('//common/_noModelUpload',array('type'=>'logo','fieldName'=>'logo'));?>
+
+
 <p>
     <div id="logo_upload"></div>
     <div id="singleFileQueue" style="clear:both;"></div>
@@ -7,7 +10,7 @@
     <?php if($c['logo']!=''){    
         $attachinfo=  Attachments::getOne($c['logo']);
         if($attachinfo){
-            echo '<div id="uploadAttach'.$c['logo'].'"><img src="'.zmf::imgurl($attachinfo['logid'],$attachinfo['filePath'],124,$attachinfo['classify']).'"/>'
+            echo '<div id="uploadAttach'.$c['logo'].'"><img src="'.zmf::imgurl($attachinfo['cTime'],$attachinfo['filePath'],124,$attachinfo['classify']).'"/>'
                     .CHtml::link('删除','javascript:;',array('onclick'=>"delUploadImg('{$c['logo']}','logo')",'confirm'=>'不可恢复，确认删除？'))
                     . '</div>';
         }
@@ -18,9 +21,5 @@
 </p>
 <p class="help-block">上传完成后请保存</p>
 <script>
-    var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('type'=>'logo','id'=>$this->uid));?>";  	
-    $(document).ready(
-    function(){    	
-    	singleUploadify('logo_upload','logo',1);
-    });  
+
 </script>

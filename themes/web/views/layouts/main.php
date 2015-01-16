@@ -68,6 +68,7 @@
             <?php }else{ ?>
             <div style="" class="clearfix">
                 <span style="">你好:<font style="color: #fb2b21"><?php echo $this->userInfo['truename'];?></font></span>
+                <a href="<?php echo Yii::app()->createUrl('user/notice');?>" style="color: #0061da;">提醒</a>
                 <a href="<?php echo Yii::app()->createUrl('user/index');?>" style="color: #0061da;">【管理中心】</a>
                 <a href="<?php echo Yii::app()->createUrl('site/logout');?>" style="color: #0061da;">退出</a>
             </div>
@@ -75,8 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="w_960 header clearfix">
-            
+      <div class="w_960 header clearfix">            
         <h1 class="logo"><a href="<?php echo zmf::config('baseurl');?>"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo.png" alt="<?php echo zmf::config('sitename');?>" height="90" /></a></h1>
         <div class="searchBar">
           <div class="searchBarBd">

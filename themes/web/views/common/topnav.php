@@ -5,6 +5,7 @@
         <?php if (Yii::app()->user->isGuest) { ?>            
         <?php } else { ?>
             <?php echo CHtml::link($this->userInfo['truename'], array('user/index', 'id' => Yii::app()->user->id));
+            echo CHtml::link('提醒',array('user/notice')); 
             echo CHtml::link('设置',array('user/config')); 
             if($this->isAdmin){
                 echo CHtml::link('后台管理',array('admin/index/index')); 

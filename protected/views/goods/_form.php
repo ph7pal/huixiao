@@ -63,19 +63,22 @@
 
     <div class="form-group">
     <?php echo $form->labelEx($model,'faceimg'); ?>
-    <div id="<?php echo CHtml::activeId($model,"faceimg");?>_upload"></div>
-    <div id="singleFileQueue" style="clear:both;"></div>
+    <?php $this->renderPartial('//common/_singleUpload',array('id'=>$info['id'],'type'=>'goods','model'=>$model,'fieldName'=>'faceimg','multi'=>true));?>
+    
     <div class="clearfix"></div>
     <div id="fileSuccess">
         <?php if(!empty($uploadImgs)){?>
+        <label>已上传图片</label>
+        <div class="clearfix"></div>
         <?php foreach($uploadImgs as $upimg){?>        
         <div class="pull-left" style="width:124px;" id="<?php echo $upimg['id'];?>"><img src="<?php echo $upimg['url'];?>"/><p class="text-center"><a href="javascript:;" onclick="minDelImg('<?php echo $upimg['id'];?>','<?php echo CHtml::activeId($model,"faceimg");?>','<?php echo $upimg['id'];?>',this);">删除</a></p><input type="hidden" name="uploadAttach[]" value="<?php echo $upimg['id'];?>"></div>
         <?php }?>
         <?php }?>
     </div>
     <div class="clearfix"></div>
+    
     <?php echo $form->hiddenField($model,'faceimg',array('class'=>'form-control')); ?> <input type="hidden" id="file_upload_input"/>
-    <p class="help-block">最多上传<?php $upnum=10;echo $upnum;?>张</p>
+    <p class="help-block">最多上传<?php $upnum=10;echo $upnum;?>张，目前仅能每次上传一张</p>
     <p class="help-block"><?php echo $form->error($model,'faceimg'); ?></p>
     </div>
 
@@ -87,8 +90,3 @@
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-<script>
-var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'goods','imgsize'=>124));?>"; $(document).ready(function(){
-singleUploadify('<?php echo CHtml::activeId($model,"faceimg");?>_upload','<?php echo CHtml::activeId($model,"faceimg");?>',<?php echo $upnum;?>);
-});  
-</script>

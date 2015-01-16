@@ -26,7 +26,7 @@ class zmf {
         $localarea = $param['localarea'];
         $type = $param['type'];
         $fuli = $param['fuli'];
-        
+        $uid = $param['uid'];
         $class = $param['class'];
         $medal = $param['medal'];
         $tagid = $param['tagid'];
@@ -38,6 +38,7 @@ class zmf {
             'fuli' => $fuli,
             'medal' => $medal,
             'tagid' => $tagid,
+            'uid'=>$uid
         );
         $opt = array(
             'class' => $class
@@ -248,7 +249,7 @@ class zmf {
                 } else {
                     $_type = 124;
                 }
-                $img = zmf::imgurl($attachinfo['logid'], $attachinfo['filePath'], $_type, $attachinfo['classify']);
+                $img = zmf::imgurl($attachinfo['cTime'], $attachinfo['filePath'], $_type, $attachinfo['classify']);
             } else {
                 $img = '';
             }

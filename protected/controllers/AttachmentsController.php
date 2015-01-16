@@ -12,7 +12,7 @@ class AttachmentsController extends T {
     $uptype = zmf::filterInput($_GET['type'], 't', 1);
     $classify = zmf::filterInput($_GET['classify'], 't', 1);
     $logid = zmf::filterInput($_GET['logid']);
-    $fileholder = zmf::filterInput($_GET['fileholder']);//上传控件的ID
+    $fileholder = zmf::filterInput($_GET['fileholder'],'t',1);//上传控件的ID
     $reImgsize=zmf::filterInput($_GET['imgsize']);//返回图片的尺寸
     if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
@@ -48,7 +48,7 @@ class AttachmentsController extends T {
       $this->jsonOutPut(0, '无效上传，请重试');
     }
     $model = new Attachments();
-    $img = CUploadedFile::getInstanceByName('filedata');
+    $img = CUploadedFile::getInstanceByName($fileholder);
     $ext = $img->getExtensionName();
     $size = $img->getSize();
     if ($size > zmf::config('imgMaxSize')) {
@@ -148,43 +148,18 @@ class AttachmentsController extends T {
       $admin = false;
     }
     $status = T::checkYesOrNo(array('uid' => Yii::app()->user->id, 'type' => 'user_delupload'));
-    if (!$status AND ! $admin) {
+    if (!$status AND !$admin) {
       $this->jsonOutPut(0, '非常抱歉，您暂不能删除图片。');
     }
     $info = Attachments::model()->findByPk($attachid);
     if (!$info) {
       $this->jsonOutPut(0, Yii::t('default', 'pagenotexists'));
     }
-    if ($info['uid'] != Yii::app()->user->id AND ! $admin) {
+    if ($info['uid'] != Yii::app()->user->id && !$admin) {
       $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
     }
-    if ($info['classify'] == 'coverimg') {
-      $model = new Posts();
-    } elseif ($info['classify'] == 'columns') {
-      $model = new Columns();
-    } elseif ($info['classify'] == 'ads') {
-      $model = new Ads();
-    }
-    $dirs = zmf::uploadDirs($info['logid'], 'app', $info['classify']);
-    if (empty($dirs)) {
-      $this->jsonOutPut(0, Yii::t('default', 'unkownerror'));
-    }
-
-    foreach ($dirs as $dir) {
-      $filePath = $dir . '/' . $info['filePath'];
-      //$this->delItem($attchid, $filePath);            
-      @unlink($filePath);
-    }
-    if (Attachments::model()->deleteByPk($attachid)) {
-      zmf::delFCache("attach{$attachid}");
-      if (isset($model)) {
-        $model->updateAll(array('attachid' => 0), 'id=:id', array(':id' => $info['logid']));
-      }
-      if ($admin) {
-        $this->jsonOutPut(1, '操作成功！');
-      } else {
-        $this->jsonOutPut(1, '操作成功！');
-      }
+    if (Attachments::model()->updateByPk($attachid,array('status'=>Posts::STATUS_DELED))) { 
+      $this->jsonOutPut(1, '操作成功！');      
     } else {
       $this->jsonOutPut(0, '操作失败');
     }

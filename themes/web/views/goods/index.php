@@ -10,11 +10,11 @@
                         <dl class="clearfix">
                             <dt><s class="s"></s>功能种类：</dt>
                             <dd style="float: left;">
-                              <?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$selectedTags ? ' select':''),'localarea'=>$localarea));?>
+                              <?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$selectedTags ? ' select':''),'localarea'=>$localarea,'uid'=>$uid));?>
                                 <div class="txt">
                                     <?php if(!empty($tags)){?>                  
                                     <?php foreach($tags as $tagid=>$tagtitle){?>
-                                    <?php echo zmf::url(array('title'=>$tagtitle,'main'=>'goods/index','localarea'=>$localarea,'class'=>($selectedTags==$tagid) ? 'select' : '','tagid'=>$tagid));?>
+                                    <?php echo zmf::url(array('title'=>$tagtitle,'main'=>'goods/index','localarea'=>$localarea,'class'=>($selectedTags==$tagid) ? 'select' : '','tagid'=>$tagid,'uid'=>$uid));?>
                                     <?php }?>
                                     <?php }?>
                                 </div>
@@ -30,10 +30,10 @@
                     <li class="item">
                         <dl class="clearfix">
                             <dt><s class="s"></s>招商区域：</dt>
-                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$localarea ? ' select':''),'tagid'=>$selectedTags));?>
+                            <dd><?php echo zmf::url(array('title'=>'不限','main'=>'goods/index','class'=>'fl'.(!$localarea ? ' select':''),'tagid'=>$selectedTags,'uid'=>$uid));?>
                               <div class="txt">
                                 <?php foreach($areas as $localid=>$areaname){?>
-                                  <?php echo zmf::url(array('title'=>$areaname,'main'=>'goods/index','localarea'=>$localid,'class'=>($localarea==$localid) ? 'select' : '','tagid'=>$selectedTags));?>
+                                  <?php echo zmf::url(array('title'=>$areaname,'main'=>'goods/index','localarea'=>$localid,'class'=>($localarea==$localid) ? 'select' : '','tagid'=>$selectedTags,'uid'=>$uid));?>
                                 <?php }?>
                               </div>
                                 <div style="display: block;" onclick="moreExpandValue(this)" class="s-option">

@@ -204,11 +204,7 @@ class Users extends CActiveRecord {
     if ($bar) {
       return $bar;
     }
-    $bar = array();
-    $bar['user_setting'] = array(
-        'url' => CHtml::link('设置', array('user/config'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'config' ? 'current' : ''))),
-        'power' => 'user_setting'
-    );
+    $bar = array();    
     $bar['user_ads'] = array(
         'url' => CHtml::link('轮播', array('user/list', 'table' => 'ads'), array('class' => 'list_btn ' . ($_GET['table'] == 'ads' ? 'current' : ''))),
         'power' => 'user_ads'
@@ -241,6 +237,14 @@ class Users extends CActiveRecord {
     $bar['user_addquestion'] = array(
         'url' => CHtml::link('客服', array('user/list', 'table' => 'questions'), array('class' => 'list_btn ' . ($_GET['table'] == 'questions' ? 'current' : ''))),
         'power' => 'user_addquestion'
+    );
+    $bar['user_setting'] = array(
+        'url' => CHtml::link('提醒', array('user/notice'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'notice' ? 'current' : ''))),
+        'power' => 'user_notice'
+    );
+    $bar['user_setting'] = array(
+        'url' => CHtml::link('设置', array('user/config'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'config' ? 'current' : ''))),
+        'power' => 'user_setting'
     );
 //        $bar['user_stat'] = array(
 //            'url' => CHtml::link('表盘', array('user/stat'), array('class' => 'list_btn ' . (Yii::app()->getController()->getAction()->id == 'stat' ? 'current' : ''))),

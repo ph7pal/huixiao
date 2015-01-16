@@ -73,7 +73,7 @@ class Zhanhui extends CActiveRecord {
           'zhuti' => '展会主题',
           'liangdian' => '展会亮点',
           'localarea' => '所在区域',
-          'didian' => '展会地点',
+          'didian' => '展会地址',
           'start_time' => '展会时间',
           'expired_time' => '报名结束时间',
           'attachid' => '封面图片',

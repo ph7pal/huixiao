@@ -3,6 +3,11 @@
         <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('展会',array('zhanhui/index'));?>&gt; <?php echo $info['title'];?></span>
     </div>
     <div class="tuangou">
+    		<div class="advs">
+    			<?php if($info['attachid']){?>
+                	<img width="960" src="<?php echo $info['attachid'];?>" alt="<?php echo $info['title'];?>">
+              <?php }?>
+        	</div>
         <div class="grid_02 clearfix">
             <div class="col_main">
                 <div class="main_wrap">
@@ -53,11 +58,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col_sub">
+            <!--div class="col_sub">
                 <div class="gg_maps">
                     <div style="width: 280px; height: 277px;"></div>
                 </div>
-            </div>
+            </div-->
         </div>
         <div class="grid_01 clearfix" id="ksbm">
             <div class="col_main">
@@ -69,7 +74,7 @@
                         <div class="bd">
                             <div style="">
                               <?php if($info['expired_time']<=time()){?>
-                                <p style="padding-top: 60px; background-color: #fff; margin: -5px 0px 0 0;text-align: center; ">抱歉，本次活动报名已结束</p>
+                                <p style="padding-top: 30px; background-color: #fff; margin: -5px 0px 0 0;text-align: center; ">抱歉，本次活动报名已结束</p>
                                 <p style="text-align: center; ">欢迎您下次积极参与</p>
                               <?php }else{?>
                                     <?php $this->renderPartial('_canyu',array('model'=>$model));?>
@@ -88,7 +93,7 @@
                         <ul id="mulitline1">
                           <?php if(!empty($users)){?>
                           <?php foreach($users as $user){?>
-                          <li><?php echo $user['truename'];?> ------ <?php echo $user['phone'];?> ------ <?php echo $user['email'];?></li>
+                          <li><?php echo tools::hideWord($user['username']);?> ------ <?php echo tools::hideWord($user['phone']);?> ------ <?php echo tools::hideWord($user['email']);?></li>
                           <?php }?>
                           <?php }?>
                         </ul>

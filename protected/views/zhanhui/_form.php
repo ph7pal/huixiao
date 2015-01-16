@@ -18,7 +18,8 @@
     <div class="form-group">
 		<?php echo $form->labelEx($model,'attachid'); ?>
 		<?php $this->renderPartial('//common/_singleUpload',array('attachid'=>$model['attachid'],'type'=>'zhanhui','model'=>$model,'fieldName'=>'attachid'));?>
-      <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control')); ?>  
+      	<?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control')); ?>  
+      	<p class="help-block">推荐尺寸960*300px</p>
 		<?php echo $form->error($model,'attachid'); ?>
 	</div>
     <div class="clearfix"></div>

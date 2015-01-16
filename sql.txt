@@ -446,3 +446,4 @@ ALTER table pre_zhanhui_relation add email VARCHAR(255) not null;
 ALTER table pre_zhanhui_relation add phone VARCHAR(255) not null;
 ALTER table pre_zhanhui_relation add `type` VARCHAR(255) not null;
 ALTER table pre_zhanhui_relation add people SMALLINT(8) UNSIGNED not null;
+alter table pre_medal add `classify` VARCHAR(16) not null;

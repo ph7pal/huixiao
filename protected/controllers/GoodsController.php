@@ -158,6 +158,7 @@ class GoodsController extends T {
     $data['pages'] = $pages;
     $data['fieldsArr'] = $fieldsArr;
     $data['tags'] = $tags;
+    $data['uid'] = $uid;
     $data['selectedTags'] = $selectedTags;
     $this->pageTitle =  '会销产品列表 - ' . zmf::config('sitename');
     $this->render('index', $data);

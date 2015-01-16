@@ -518,7 +518,7 @@ class UserController extends T {
                 if (!empty($arr_attachids)) {
                     $ids = join(',', $arr_attachids);
                     if ($ids != '') {
-                        Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$model->id AND uid={$this->uid} AND classify='goods'");
+                        Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid={$model->id} AND uid={$this->uid} AND classify='goods'");
                         Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED, 'logid' => $model->id), "id IN($ids) AND uid={$this->uid} AND classify='goods'");
                     }
                 }
@@ -703,7 +703,7 @@ class UserController extends T {
             $_POST['Zhanhui']['status'] = $status;
             $_POST['Zhanhui']['cTime'] = time();
             $model->attributes = $_POST['Zhanhui'];
-            if ($model->save()) {
+            if ($model->save()) {            	  
                 if (!empty($arr_attachids)) {
                     $ids = join(',', $arr_attachids);
                     if ($ids != '') {                        
@@ -711,6 +711,9 @@ class UserController extends T {
                         Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED, 'logid' => $model->id), "id IN($ids) AND uid={$this->uid} AND classify='zhanhui'");
                     }
                 }
+                if($_POST['Zhanhui']['attachid']){
+            	  	  Attachments::model()->updateByPk($_POST['Zhanhui']['attachid'],array('status' => Posts::STATUS_PASSED, 'logid' => $model->id));
+            	  }
                 $this->redirect(array('user/list', 'table' => 'zhanhui'));
             }else{
                 $model->content=$content;

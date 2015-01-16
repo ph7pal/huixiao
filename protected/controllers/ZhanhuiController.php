@@ -30,14 +30,17 @@ class ZhanhuiController extends T {
                 $info['status'] = Posts::STATUS_DELED;
             }
         }
-        Zhanhui::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $info['id']));
-        $sql = "SELECT uid,phone,email FROM {{zhanhui_relation}} WHERE logid={$id} ORDER BY cTime DESC";
-        $uids = Yii::app()->db->createCommand($sql)->queryAll();
-        foreach ($uids as $key => $uid) {
-            $_uname = Users::getUserInfo($uid, 'truename');
-            $uid['truename'] = $_uname;
-            $uids[$key] = $uid;
+        $faceurl='';
+        if ($info['attachid'] > 0) {
+            $attachinfo = Attachments::getOne($info['attachid']);
+            if ($attachinfo) {
+                $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') . '/' . $attachinfo['filePath'];
+            }
         }
+        $info['attachid']=$faceurl;
+        Zhanhui::model()->updateCounters(array('hits' => 1), ':id=id', array(':id' => $info['id']));
+        $sql = "SELECT username,phone,email FROM {{zhanhui_relation}} WHERE logid={$id} ORDER BY cTime DESC";
+        $uids = Yii::app()->db->createCommand($sql)->queryAll();
         $this->pageTitle = $info['title'] . ' - ' . zmf::config('sitename');
         $this->render('view', array(
             'info' => $info,

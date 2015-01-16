@@ -170,6 +170,7 @@ class GroupPowers extends CActiveRecord {
             'user_seesecretinfo' => '用户查看隐藏信息',            
             'user_seeinfo' => '查看其他用户信息',
             'user_addrate' => '用户评价',
+            'user_notice'=>'用户提醒',
             'user_seeattachments'=>'用户查看图片'
         );
         

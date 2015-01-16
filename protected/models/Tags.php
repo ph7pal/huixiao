@@ -237,7 +237,7 @@ class Tags extends CActiveRecord {
         if ($goods['faceimg'] > 0) {
           $attachinfo = Attachments::getOne($goods['faceimg']);
           if ($attachinfo) {
-            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '124') .'/'. $attachinfo['filePath'];
           }
         }
         $goods['faceurl'] = $faceurl;

@@ -94,7 +94,7 @@ class QiyeController extends T {
         $columns[$key] = $col;
       }
     }
-    $_sql = "SELECT * FROM {{goods}} WHERE status=" . Posts::STATUS_PASSED . " AND uid=" . $info['uid'] . " ORDER BY hits DESC LIMIT 30";
+    $_sql = "SELECT id,title,faceimg FROM {{goods}} WHERE status=" . Posts::STATUS_PASSED . " AND uid=" . $info['uid'] . " ORDER BY hits DESC LIMIT 30";
     $goods = Yii::app()->db->createCommand($_sql)->queryAll();
     if (!empty($goods)) {
       foreach ($goods as $key => $good) {
@@ -102,7 +102,7 @@ class QiyeController extends T {
         if ($good['faceimg'] > 0) {
           $attachinfo = Attachments::getOne($good['faceimg']);
           if ($attachinfo) {
-            $faceurl = zmf::uploadDirs(0, 'site', $attachinfo['classify'], '124') . $attachinfo['filePath'];
+            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '124') .'/'. $attachinfo['filePath'];
           }
         }
         $good['faceurl'] = $faceurl;
@@ -120,6 +120,12 @@ class QiyeController extends T {
     }
     $_sql = "SELECT id,title FROM {{jobs}} WHERE uid={$uid} AND status=".Posts::STATUS_PASSED." ORDER BY cTime DESC LIMIT 10";
     $jobs = Yii::app()->db->createCommand($_sql)->queryAll();
+    
+    //统计企业的产品和讲师
+    $_goodsnum=Goods::model()->count('uid=:uid AND status='.Posts::STATUS_PASSED,array(':uid'=>$info['uid']));
+    $_lecturersnum=Lecturer::model()->count('belongCompany=:id AND status='.Posts::STATUS_PASSED,array(':id'=>$info['id']));
+    Producer::model()->updateByPk($info['id'],array('lecturers'=>$_lecturersnum,'goods'=>$_goodsnum));
+    
     $data = array(
         'info' => $info,
         'goods' => $goods,
