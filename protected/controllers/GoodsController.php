@@ -59,15 +59,18 @@ class GoodsController extends T {
       if($messinfo){
         $this->showMessage=true;
       }elseif($userCredit){
+        $realModel = UserCredit::loadModel($userCredit['classify']);
+        $creditInfo=$realModel->find('uid=:uid',array(':uid'=>$uid));
         $this->showMessage=false;
         $this->canMessage=true;
         $model->belongid=$id;
         $model->uid=Yii::app()->user->id;
         $model->classify='goods';
-        $model->nickname='';
-        $model->number='';
+        $model->nickname=$creditInfo->getAttribute('companyname');
+        $model->number=$creditInfo->getAttribute('contactmobile');
+        //$model->localarea=$creditInfo->getAttribute('localarea');
         $model->content='';
-      }      
+      }
     }else{
       $this->showMessage=$this->canMessage=false;
       $this->isSelf=true;

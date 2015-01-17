@@ -10,7 +10,7 @@ $_imgSize=isset($imgSize)?$imgSize:124;
 if($_imgSize>200){
     $col=12;
 }else{
-    $col=3;
+    $col=2;
 }
 ?>
 <input class="form-control" name="type" id="type" type="hidden" value="<?php echo $type;?>"/>
@@ -36,24 +36,7 @@ if($_imgSize>200){
         <li>职位证明(请上传公司证明、名片、工牌等扫描件)</li>
         <li>所属公司证明</li>
     </ol>
-    <?php 
-    if(!$blocked){
-        $this->renderPartial('//common/noModelUpload',array('keyid'=>$uid,'type'=>'credit','classify'=>$type,'num'=>5));
-    }
-    $imgs=  Attachments::getCreditImgs($uid,$type);
-    if(!empty($imgs)){
-        foreach($imgs as $attachinfo){
-            $randid=  uniqid();
-            $_img="<img src='".zmf::imgurl($attachinfo['logid'],$attachinfo['filePath'],$_imgSize,$attachinfo['classify'])."' class=''/>";
-            $big=zmf::imgurl($attachinfo['logid'],$attachinfo['filePath'],'origin',$attachinfo['classify']);
-            echo '<div class="col-xs-'.$col.' col-md-'.$col.'" id="'.$randid.'">'.CHtml::link($_img,$big,array('target'=>'_blank'));
-            if(!$blocked){
-                echo '<p>'.CHtml::link('删除','javascript:;',array('onclick'=>"delUploadImg('{$attachinfo['id']}','{$randid}')",'confirm'=>'不可恢复，确认删除？')).'</p>';
-            }
-            echo '</div>';
-        }
-    }    
-    ?>
+    <?php $this->renderPartial('//credit/_upload',array('uid'=>$uid,'type'=>$type,'col'=>$col,'blocked'=>$blocked,'_imgSize'=>$_imgSize));?>
 <p class="help-block"></p>
 <div class="clearfix"></div>
 </div>

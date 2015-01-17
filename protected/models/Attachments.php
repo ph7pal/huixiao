@@ -143,7 +143,7 @@ class Attachments extends CActiveRecord {
         if (!$keyid || !$classify) {
             return false;
         }
-        $sql = "SELECT * FROM {{attachments}} WHERE logid='$keyid' AND classify='credit' AND fileDesc='{$classify}' AND status=1 ORDER BY `cTime` DESC";
+        $sql = "SELECT * FROM {{attachments}} WHERE uid='$keyid' AND classify='credit' AND fileDesc='{$classify}' AND status=".Posts::STATUS_PASSED." ORDER BY `cTime` DESC";
         $info = Yii::app()->db->createCommand($sql)->queryAll();
         return $info;
     }

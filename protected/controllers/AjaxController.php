@@ -235,7 +235,7 @@ class AjaxController extends T {
     if (UserInfo::model()->deleteAll('uid=:uid AND classify="addCredit"', array(':uid' => $uid))) {
       $succ++;
     }
-    if (UserCredit::model()->updateAll(array('status'=>0),'uid=:uid',array(':uid'=>$uid))) {
+    if (UserCredit::model()->updateAll(array('status'=>0,'desc'=>''),'uid=:uid',array(':uid'=>$uid))) {
       $succ++;
     }
     if($realModel->deleteAll('uid=:uid', array(':uid' => $uid))){

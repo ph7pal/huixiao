@@ -79,7 +79,7 @@ class UserController extends T {
             $this->checkUser(true);
         }
         $this->homeUrl = Yii::app()->createUrl('user/index');
-        $this->pageTitle =  '个人管理中心 - ' . zmf::config('sitename');
+        $this->pageTitle = '个人管理中心 - ' . zmf::config('sitename');
     }
 
     public function checkUser($from = false) {
@@ -140,6 +140,22 @@ class UserController extends T {
         }
         if ($nolimit < 1) {
             $this->showNavs = true;
+        }
+    }
+
+    private function checkCredit($checktype = array()) {
+        if (!$this->isAdmin) {
+            $userCredit = UserCredit::findOne($this->uid);
+            if (!$userCredit) {
+                $this->message(0, '请先认证');
+            } elseif ($userCredit['status'] != Posts::STATUS_PASSED) {
+                $this->message(0, '非常抱歉，您的认证信息暂未通过审核');
+            }
+            if (!empty($checktype)) {
+                if (!in_array($userCredit['classify'], $checktype)) {
+                    $this->message(0, '您的认证资料不允许发布此类信息');
+                }
+            }
         }
     }
 
@@ -307,6 +323,7 @@ class UserController extends T {
         $this->checkUser();
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
         $uid = $this->uid;
+        $this->checkCredit();
         $colid = zmf::filterInput($_GET['colid']);
         if (!$colid) {
             $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
@@ -471,7 +488,9 @@ class UserController extends T {
     }
 
     public function actionGoods($id = '') {
-        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));    
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));
+        $uid = $this->uid;
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
         if (!$id) {
             $model = new Goods;
         } else {
@@ -557,21 +576,14 @@ class UserController extends T {
         $this->render('//goods/create', array(
           'model' => $model,
           'tagids' => $tagids,
-          'uploadImgs'=>$uploadImgs
+          'uploadImgs' => $uploadImgs
         ));
     }
 
     public function actionJobs($id = '') {
-        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));   
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));
         $uid = $this->uid;
-        $userCredit = UserCredit::findOne($uid);
-        if(!$userCredit){
-          $this->message(0, '请先认证');
-        }elseif($userCredit['status']!=Posts::STATUS_PASSED){
-          $this->message(0, '非常抱歉，您的认证信息暂未通过审核');
-        }elseif(!in_array($userCredit['classify'],array('producer','marketing_team','exhibition'))){
-          $this->message(0, '您的认证资料不允许发布招聘信息');
-        }
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
         if ($id) {
             $model = Jobs::model()->findByPk($id);
             if ($model === null) {
@@ -585,13 +597,13 @@ class UserController extends T {
         if (isset($_POST['Jobs'])) {
             Yii::app()->session['checkHasBadword'] = 'no';
             $items = $_POST['Jobs'];
-            if(!empty($_POST['cityid'])){
-            	$tmparr = array_reverse(array_filter($_POST['cityid'])); 
-	            $cityid = $tmparr[0];
-	            $items['gz_didian'] = $cityid;
+            if (!empty($_POST['cityid'])) {
+                $tmparr = array_reverse(array_filter($_POST['cityid']));
+                $cityid = $tmparr[0];
+                $items['gz_didian'] = $cityid;
             }
-            $fulis=$_POST['fulis'];
-            $items['gz_fuli']=$fulis[0];
+            $fulis = $_POST['fulis'];
+            $items['gz_fuli'] = $fulis[0];
             foreach ($items as $key => $item) {
                 $items[$key] = zmf::filterInput($item, 't', 1);
             }
@@ -606,58 +618,58 @@ class UserController extends T {
             $_POST['Jobs']['status'] = $status;
             $_POST['Jobs']['cTime'] = time();
             $model->attributes = $_POST['Jobs'];
-            if ($model->save()){
-              if (!$model->isNewRecord) {
-                FuliRelation::model()->deleteAll('jobid=:jobid',array(':jobid'=>$model->id));
-              }
-              if(!empty($fulis)){
-                $fulis=  array_unique(array_filter($fulis));
-                if(!empty($fulis)){
-                  foreach($fulis as $fid){
-                    $_attr=array(
-                        'jobid'=>$model->id,
-                        'fuliid'=>$fid
-                    );
-                    $_model=new FuliRelation;
-                    $_model->attributes=$_attr;
-                    $_model->save();
-                  }
+            if ($model->save()) {
+                if (!$model->isNewRecord) {
+                    FuliRelation::model()->deleteAll('jobid=:jobid', array(':jobid' => $model->id));
                 }
-              }
-              $this->redirect(array('user/list', 'table' => 'jobs'));
-            }                
+                if (!empty($fulis)) {
+                    $fulis = array_unique(array_filter($fulis));
+                    if (!empty($fulis)) {
+                        foreach ($fulis as $fid) {
+                            $_attr = array(
+                              'jobid' => $model->id,
+                              'fuliid' => $fid
+                            );
+                            $_model = new FuliRelation;
+                            $_model->attributes = $_attr;
+                            $_model->save();
+                        }
+                    }
+                }
+                $this->redirect(array('user/list', 'table' => 'jobs'));
+            }
         }
-        $selectedFulis=array();
+        $selectedFulis = array();
         if ($model->isNewRecord) {
-            $this->listTableTitle = '新增招聘信息';            
+            $this->listTableTitle = '新增招聘信息';
             $realModel = UserCredit::loadModel($userCredit['classify']);
-            $creditInfo=$realModel->find('uid='.$this->uid);
-            $model->gs_title=$creditInfo['companyname'];
-            $model->gs_miaoshu=$creditInfo['description'];
-            $model->gs_didian=$model->gz_didian=$creditInfo['address'];
-            if($userCredit['classify']=='producer'){
-              $model->gs_zhuye=$creditInfo['companyurl'];
-            }else{
-              $model->gs_zhuye=$creditInfo['officeurl'];
-            } 
-            $model->gz_contactor=$creditInfo['contactname'];
-            $model->gz_contact=$creditInfo['contactmobile'];
-            
+            $creditInfo = $realModel->find('uid=' . $this->uid);
+            $model->gs_title = $creditInfo['companyname'];
+            $model->gs_miaoshu = $creditInfo['description'];
+            $model->gs_didian = $model->gz_didian = $creditInfo['address'];
+            if ($userCredit['classify'] == 'producer') {
+                $model->gs_zhuye = $creditInfo['companyurl'];
+            } else {
+                $model->gs_zhuye = $creditInfo['officeurl'];
+            }
+            $model->gz_contactor = $creditInfo['contactname'];
+            $model->gz_contact = $creditInfo['contactmobile'];
         } else {
-          if(!empty($model->fulis)){
-            $selectedFulis=array_keys(CHtml::listData($model->fulis,'fuliid',''));
-          }
-          $this->listTableTitle = '更新招聘信息';
+            if (!empty($model->fulis)) {
+                $selectedFulis = array_keys(CHtml::listData($model->fulis, 'fuliid', ''));
+            }
+            $this->listTableTitle = '更新招聘信息';
         }
         $this->render('//jobs/create', array(
           'model' => $model,
-          'selectedFulis'=>$selectedFulis
+          'selectedFulis' => $selectedFulis
         ));
     }
 
     public function actionZhanhui($id = '') {
-        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_zhanhui', 'url' => $this->homeUrl));   
-        $uid = Yii::app()->user->id;
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_zhanhui', 'url' => $this->homeUrl));
+        $uid = $this->uid;
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
         if ($id) {
             $model = Zhanhui::model()->findByPk($id);
             if ($model === null) {
@@ -674,10 +686,10 @@ class UserController extends T {
                 $tmparr = array_reverse(array_filter($_POST['cityid']));
                 unset($_POST['cityid']);
             }
-            $_localarea=zmf::filterInput($_POST['Zhanhui']['localarea']);
-            if(!$tmparr[0] && $_localarea){
+            $_localarea = zmf::filterInput($_POST['Zhanhui']['localarea']);
+            if (!$tmparr[0] && $_localarea) {
                 $_POST['Zhanhui']['localarea'] = $_localarea;
-            }else{
+            } else {
                 $_POST['Zhanhui']['localarea'] = $tmparr[0];
             }
             $items = $_POST['Zhanhui'];
@@ -687,7 +699,7 @@ class UserController extends T {
             if (isset($items['expired_time'])) {
                 $items['expired_time'] = strtotime($items['expired_time']);
             }
-            $content=$items['content'];
+            $content = $items['content'];
             foreach ($items as $key => $item) {
                 $items[$key] = zmf::filterInput($item, 't', 1);
             }
@@ -703,20 +715,20 @@ class UserController extends T {
             $_POST['Zhanhui']['status'] = $status;
             $_POST['Zhanhui']['cTime'] = time();
             $model->attributes = $_POST['Zhanhui'];
-            if ($model->save()) {            	  
+            if ($model->save()) {
                 if (!empty($arr_attachids)) {
                     $ids = join(',', $arr_attachids);
-                    if ($ids != '') {                        
+                    if ($ids != '') {
                         Attachments::model()->updateAll(array('status' => Posts::STATUS_DELED), "logid=$model->id AND uid={$this->uid} AND classify='zhanhui'");
                         Attachments::model()->updateAll(array('status' => Posts::STATUS_PASSED, 'logid' => $model->id), "id IN($ids) AND uid={$this->uid} AND classify='zhanhui'");
                     }
                 }
-                if($_POST['Zhanhui']['attachid']){
-            	  	  Attachments::model()->updateByPk($_POST['Zhanhui']['attachid'],array('status' => Posts::STATUS_PASSED, 'logid' => $model->id));
-            	  }
+                if ($_POST['Zhanhui']['attachid']) {
+                    Attachments::model()->updateByPk($_POST['Zhanhui']['attachid'], array('status' => Posts::STATUS_PASSED, 'logid' => $model->id));
+                }
                 $this->redirect(array('user/list', 'table' => 'zhanhui'));
-            }else{
-                $model->content=$content;
+            } else {
+                $model->content = $content;
             }
         }
         if ($model->isNewRecord) {
@@ -754,7 +766,7 @@ class UserController extends T {
                 $info = Users::model()->findByPk($this->uid);
                 if (!$old) {
                     $this->message(0, '请输入原始密码');
-                } elseif (md5($old.$info['hash']) != $info['password']) {
+                } elseif (md5($old . $info['hash']) != $info['password']) {
                     $this->message(0, '原始密码不正确');
                 }
                 if (!$_POST['password']) {
@@ -762,7 +774,7 @@ class UserController extends T {
                 } elseif (strlen($_POST['password']) < 5) {
                     $this->message(0, '新密码过短，请重新输入');
                 }
-                $intoData['password'] = md5($_POST['password'].$info['hash']);
+                $intoData['password'] = md5($_POST['password'] . $info['hash']);
             }
             if ($model->updateByPk($this->uid, $intoData)) {
                 $this->message(1, '修改成功', Yii::app()->createUrl('user/update'));
@@ -800,7 +812,7 @@ class UserController extends T {
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_credit', 'url' => $this->homeUrl));
         $type = zmf::filterInput($_GET['type'], 't', 1);
         $_addedType = UserCredit::findOne($this->uid);
-        if ($_addedType && $_addedType['status']!=0) {
+        if ($_addedType && $_addedType['status'] != 0) {
             $blocked = true;
         } else {
             $blocked = false;
@@ -816,22 +828,22 @@ class UserController extends T {
             unset($_POST['type']);
             unset($_POST['btn']);
             $configs = $_POST;
-            if(!empty($configs['cityid'])){
-            	$tmparr = array_reverse(array_filter($configs['cityid']));            
-	            unset($configs['cityid']);
-	            $cityid = $tmparr[0];
-	            $configs['localarea'] = $cityid;
-            } 
-            $mainproduct=array();
-            if(!empty($_POST['mainproduct'])){
-                $configs['mainproduct']=$_POST['mainproduct'][0];
-                $mainproduct=$_POST['mainproduct'];
+            if (!empty($configs['cityid'])) {
+                $tmparr = array_reverse(array_filter($configs['cityid']));
+                unset($configs['cityid']);
+                $cityid = $tmparr[0];
+                $configs['localarea'] = $cityid;
+            }
+            $mainproduct = array();
+            if (!empty($_POST['mainproduct'])) {
+                $configs['mainproduct'] = $_POST['mainproduct'][0];
+                $mainproduct = $_POST['mainproduct'];
             }
             $configs['cTime'] = time();
             UserCredit::model()->deleteAll('uid=' . $this->uid);
             CreditRelation::model()->deleteAll('uid=' . $this->uid);
-            TagRelation::model()->deleteAll('logid=' . $this->uid." AND classify='{$type}'");
-            $realModel->deleteAll('uid=' . $this->uid);            
+            TagRelation::model()->deleteAll('logid=' . $this->uid . " AND classify='{$type}'");
+            $realModel->deleteAll('uid=' . $this->uid);
             $configs['uid'] = $this->uid;
             $configs['status'] = Posts::STATUS_STAYCHECK;
             $realModel->attributes = $configs;
@@ -864,16 +876,16 @@ class UserController extends T {
             );
             $modelCr = new CreditRelation();
             $modelCr->attributes = $relarr;
-            $modelCr->save();            
-            if(!empty($mainproduct)){
-                foreach($mainproduct as $product){
-                    $_pdattr=array(
-                      'logid'=>$this->uid,
-                      'tagid'=>$product,
-                      'classify'=>$type
+            $modelCr->save();
+            if (!empty($mainproduct)) {
+                foreach ($mainproduct as $product) {
+                    $_pdattr = array(
+                      'logid' => $this->uid,
+                      'tagid' => $product,
+                      'classify' => $type
                     );
-                    $_pdmodel=new TagRelation;
-                    $_pdmodel->attributes=$_pdattr;
+                    $_pdmodel = new TagRelation;
+                    $_pdmodel->attributes = $_pdattr;
                     $_pdmodel->save();
                 }
             }
@@ -904,72 +916,107 @@ class UserController extends T {
         );
         $this->render('credit', $data);
     }
-    
-    public function actionNotice(){
-        $this->checkUser();        
+
+    public function actionNotice() {
+        $this->checkUser();
         $sql = "SELECT * FROM {{notification}} WHERE uid='{$this->uid}' ORDER BY cTime DESC";
         Posts::getAll(array('sql' => $sql), $pages, $comLists);
-        if(!empty($comLists)){
-            foreach($comLists as $k=>$v){
-                $_author='';
-                if($v['type']=='system'){
-                    $_author='<b>系统消息</b>';
-                }else{
-                    if($v['author']!=''){
-                        $_author=CHtml::link($v['author'],array('mobile/index','uid'=>$v['authorid']),array('target'=>'_blank')).'对你说：';
-                    }else{
-                        $_author=  Users::getUserInfo($v['authorid'],'truename');
-                        $_author=CHtml::link($_author,array('mobile/index','uid'=>$v['authorid']),array('target'=>'_blank')).'对你说：';
-                    } 
-                    $_author='<b>'.$_author.'</b>';
+        if (!empty($comLists)) {
+            foreach ($comLists as $k => $v) {
+                $_author = '';
+                if ($v['type'] == 'system') {
+                    $_author = '<b>系统消息</b>';
+                } else {
+                    if ($v['author'] != '') {
+                        $_author = CHtml::link($v['author'], array('mobile/index', 'uid' => $v['authorid']), array('target' => '_blank')) . '对你说：';
+                    } else {
+                        $_author = Users::getUserInfo($v['authorid'], 'truename');
+                        $_author = CHtml::link($_author, array('mobile/index', 'uid' => $v['authorid']), array('target' => '_blank')) . '对你说：';
+                    }
+                    $_author = '<b>' . $_author . '</b>';
                 }
-                $comLists[$k]['author']=$_author;
+                $comLists[$k]['author'] = $_author;
             }
         }
         Notification::model()->updateAll(array('new' => 0), 'uid=:uid', array(':uid' => $this->uid));
         $data = array(
-            'posts' => $comLists,
-            'pages' => $pages,
+          'posts' => $comLists,
+          'pages' => $pages,
         );
         $this->pageTitle = $this->userInfo['truename'] . '的提醒 - ' . zmf::config('sitename');
         $this->render('notice', $data);
     }
-    
-    public function actionShow(){        
-        $type=zmf::filterInput($_GET['action'],'t',1);
-        if($type=='zhanhui'){
+
+    public function actionShow() {
+        $type = zmf::filterInput($_GET['action'], 't', 1);
+        if ($type == 'zhanhui') {
             $this->zhanhuiUsers();
-        }else{
+        } elseif ($type == 'message') {
+            $this->messages();
+        } else {
             $this->message(0, '未知页面');
         }
     }
-    private function zhanhuiUsers(){
-        $this->checkUser();  
-        $logid=zmf::filterInput($_GET['logid']);
-        if($logid){
-            $_uid=Zhanhui::getOne($logid,'uid');
-            if(!$_uid){
+
+    private function zhanhuiUsers() {
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_zhanhui', 'url' => $this->homeUrl));
+        $logid = zmf::filterInput($_GET['logid']);
+        if ($logid) {
+            $_uid = Zhanhui::getOne($logid, 'uid');
+            if (!$_uid) {
                 $this->message(0, '您所查看的页面不存在');
-            }elseif($_uid!=$this->uid){
+            } elseif ($_uid != $this->uid) {
                 $this->message(0, '不允许的操作');
             }
             $sql = "SELECT * FROM {{zhanhui_relation}} WHERE logid='{$logid}' ORDER BY cTime DESC";
-        }else{
+        } else {
             $sql = "SELECT * FROM {{zhanhui_relation}} WHERE logid IN(SELECT id FROM {{zhanhui}} WHERE uid='{$this->uid}') ORDER BY cTime DESC";
-        }        
+        }
         Posts::getAll(array('sql' => $sql), $pages, $comLists);
-        if(!empty($comLists)){
-            foreach($comLists as $k=>$v){
-                $_title=  Zhanhui::getOne($v['logid'],'title');
-                $comLists[$k]['title']=$_title;
+        if (!empty($comLists)) {
+            foreach ($comLists as $k => $v) {
+                $_title = Zhanhui::getOne($v['logid'], 'title');
+                $comLists[$k]['title'] = $_title;
             }
         }
         $data = array(
-            'posts' => $comLists,
-            'pages' => $pages,
+          'posts' => $comLists,
+          'pages' => $pages,
         );
         $this->pageTitle = '报名列表 - ' . zmf::config('sitename');
         $this->render('zhanhui_users', $data);
+    }
+
+    /**
+     * 用户对商品的留言
+     */
+    private function messages() {
+        $this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));
+        $logid = zmf::filterInput($_GET['logid']);
+        if ($logid) {
+            $_uid = Goods::getOne($logid, 'uid');
+            if (!$_uid) {
+                $this->message(0, '您所查看的页面不存在');
+            } elseif ($_uid != $this->uid) {
+                $this->message(0, '不允许的操作');
+            }
+            $sql = "SELECT * FROM {{message}} WHERE belongid='{$logid}' ORDER BY cTime DESC";
+        } else {
+            $sql = "SELECT * FROM {{message}} WHERE belongid IN(SELECT id FROM {{goods}} WHERE uid='{$this->uid}') ORDER BY cTime DESC";
+        }
+        Posts::getAll(array('sql' => $sql), $pages, $comLists);
+        if (!empty($comLists)) {
+            foreach ($comLists as $k => $v) {
+                $_title = Goods::getOne($v['belongid'], 'title');
+                $comLists[$k]['title'] = $_title;
+            }
+        }
+        $data = array(
+          'posts' => $comLists,
+          'pages' => $pages,
+        );
+        $this->pageTitle = '留言列表 - ' . zmf::config('sitename');
+        $this->render('messages', $data);
     }
 
 }

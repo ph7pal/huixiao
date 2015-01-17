@@ -59,13 +59,13 @@ class Message extends CActiveRecord {
     return array(
         'id' => 'ID',
         'uid' => 'Uid',
-        'localarea' => 'Localarea',
+        'localarea' => '所在地区',
         'belongid' => 'Belongid',
         'classify' => '留言分类',
-        'nickname' => '姓名',
-        'number' => '电话',
+        'nickname' => '客户姓名',
+        'number' => '联系电话',
         'content' => '留言内容',
-        'cTime' => 'C Time',
+        'cTime' => '创建时间',
         'ip' => 'Ip',
         'status' => 'Status',
     );

@@ -79,7 +79,7 @@
                             }
                           </style>                            
                             <div class="comment_list">
-                            <?php if(!$page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
+                            <?php if($page['reply_allow']){ $this->renderPartial('/common/comments',array('keyid'=>$page['id'],'type'=>'posts','coms'=>$coms,'pages'=>$pages));}?>
                             </div>
                         </div>
                         <!--发表评论 结束-->

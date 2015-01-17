@@ -487,6 +487,26 @@ line-height: 34px;
 text-align: left;
 color:red
 }
+.errorSummary{
+	border:2px solid #C00;
+	background:#FEE;
+	font-size:.9em;
+	margin:0 0 20px;
+	padding:7px 7px 12px
+}
+.errorSummary p{
+	margin:0;
+	padding:5px
+}
+.errorSummary ul{
+	color:red;
+	margin:0;
+	padding:0 0 0 20px
+}
+
+span.required,.errorMessage{
+	color:red
+}
 .submit_btn {
     cursor: pointer;
     color: #ffffff;

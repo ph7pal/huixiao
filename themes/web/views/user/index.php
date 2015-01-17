@@ -22,8 +22,9 @@
 <tr>
     <td>
         当前用户组：
-        <?php echo UserGroup::getInfo($info['groupid'],'title');?>
+        <?php $groupinfo=UserGroup::getInfo($info['groupid']);echo $groupinfo['title'];?>
         <?php echo zmf::creditIcon($this->uid);?>
+            (文章数:<?php echo $groupinfo['posts_perh'] ? $groupinfo['posts_perh'] : '不限';?>&nbsp;|&nbsp;评论数:<?php echo $groupinfo['comments_perh'] ? $groupinfo['comments_perh'] : '不限';?>&nbsp;|&nbsp;图片数:<?php echo $groupinfo['attach_perh'] ? $groupinfo['attach_perh'] : '不限';?>)
     </td>    
 </tr>
 <tr>

@@ -30,18 +30,7 @@
     </div>    
     <div class="form-group">
     <?php echo $form->labelEx($model,'attachid'); ?>
-    <div id="<?php echo CHtml::activeId($model,"attachid");?>_upload"></div>
-    <div id="singleFileQueue" style="clear:both;"></div>
-    <div id="fileSuccess" style="clear:both;"></div>    
-    <?php if($info['attachid']>0){    
-        $attachinfo=  Attachments::getOne($info['attachid']);
-        if($attachinfo){
-            echo '<div id="uploadAttach'.$info['attachid'].'"><img src="'.zmf::imgurl($info['id'],$attachinfo['filePath'],124,$attachinfo['classify']).'"/>'
-                    .CHtml::link('删除','javascript:;',array('onclick'=>"delUploadImg({$info['attachid']},'".CHtml::activeId($model,"attachid")."')",'confirm'=>'不可恢复，确认删除？'))
-                    . '</div>';
-        }
-    }
-    ?>        
+    <?php $this->renderPartial('//common/_singleUpload',array('id'=>$info['id'],'type'=>'coverimg','model'=>$model,'fieldName'=>'attachid'));?>
     <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control','value'=>$info['attachid'])); ?> <input type="hidden" id="file_upload_input"/>      
     <p class="help-block"><?php echo $form->error($model,'attachid'); ?></p>
     </div>     
@@ -86,9 +75,3 @@
     <?php echo CHtml::submitButton('提交',array('class'=>'btn btn-success','id'=>'user-addPost')); ?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->  
-<script>
-var imgUploadUrl="<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$info['id'],'type'=>'coverimg'));?>"; $(document).ready(function(){
-singleUploadify('<?php echo CHtml::activeId($model,"attachid");?>_upload','<?php echo CHtml::activeId($model,"attachid");?>',1);
-;$("#user-addPost").click(function(){$(window).unbind("beforeunload");});
-});  
-</script>

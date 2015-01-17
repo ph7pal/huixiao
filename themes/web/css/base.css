@@ -33,6 +33,26 @@ a{text-decoration: none;color: #16b;}
 .errorSummary ul li{
     font-size: 12px !important;
 }
+.errorSummary{
+	border:2px solid #C00;
+	background:#FEE;
+	font-size:.9em;
+	margin:0 0 20px;
+	padding:7px 7px 12px
+}
+.errorSummary p{
+	margin:0;
+	padding:5px
+}
+.errorSummary ul{
+	color:red;
+	margin:0;
+	padding:0 0 0 20px
+}
+
+span.required,.errorMessage{
+	color:red
+}
 a:hover{text-decoration: underline;}
 sup{vertical-align: text-top;}
 label{vertical-align: middle;}

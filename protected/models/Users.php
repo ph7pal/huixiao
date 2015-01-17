@@ -137,7 +137,7 @@ class Users extends CActiveRecord {
     if ($a == 'config' || $a == 'update' || $a == 'credit') {
       $arr = array(
           'base' => '封面头像',
-          'template' => '主页模板',
+          //'template' => '主页模板',
           'column' => '文章栏目',
       );
       $longstr.='<li><a class="list_btn on" href="' . Yii::app()->createUrl('user/update') . '">修改资料</a></li>';
@@ -200,6 +200,7 @@ class Users extends CActiveRecord {
   }
 
   public static function userAside($uid, $return = array()) {
+    $a = Yii::app()->getController()->getAction()->id;
     if (!$uid) {
       return false;
     }
@@ -219,7 +220,7 @@ class Users extends CActiveRecord {
         'power' => 'user_ads'
     );
     $bar['user_goods'] = array(
-        'url' => CHtml::link('产品', array('user/list', 'table' => 'goods'), array('class' => 'list_btn ' . ($_GET['table'] == 'goods' ? 'current' : ''))),
+        'url' => CHtml::link('产品', array('user/list', 'table' => 'goods'), array('class' => 'list_btn ' . (($_GET['table'] == 'goods' || $a=='goods' || $_GET['action']=='message') ? 'current' : ''))),
         'power' => 'user_goods'
     );
     $bar['user_jobs'] = array(
@@ -227,7 +228,7 @@ class Users extends CActiveRecord {
         'power' => 'user_jobs'
     );
     $bar['user_zhanhui'] = array(
-        'url' => CHtml::link('展会', array('user/list', 'table' => 'zhanhui'), array('class' => 'list_btn ' . ($_GET['table'] == 'zhanhui' ? 'current' : ''))),
+        'url' => CHtml::link('展会', array('user/list', 'table' => 'zhanhui'), array('class' => 'list_btn ' . (($_GET['table'] == 'zhanhui' || $a=='zhanhui' || $_GET['action']=='zhanhui') ? 'current' : ''))),
         'power' => 'user_zhanhui'
     );
     $columns = Columns::userColumns($uid);

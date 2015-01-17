@@ -7,7 +7,7 @@
             <?php echo CHtml::link($row['title'], array('goods/view', 'id' => $row['id']),array('target'=>'_blank')); ?>
         </td>
         <td style="width:30%;" class="text-right">
-            <?php echo CHtml::link('查看留言', array('goods/view', 'id' => $row['id']),array('target'=>'_blank')); ?>
+            <?php echo CHtml::link('查看留言', array('user/show','action'=>'message', 'logid' => $row['id'])); ?>
             <?php echo CHtml::link('编辑', array('user/goods', 'id' => $row['id'])); ?>
             <?php echo CHtml::link('删除', array('del/sth', 'table' => $table, 'id' => $row['id'], 'single' => 'yes')); ?>
         </td>
@@ -15,8 +15,13 @@
 <?php endforeach; }?>
 <tr>
     <td colspan="2">
+        <div class="manu"><?php $this->widget('CLinkPager', array('pages' => $pages)); ?> </div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
         <?php echo CHtml::link('新增', array('user/goods'), array('class' => 'btn btn-success')); ?>
-        <div class="manu" style="float:right"><?php $this->widget('CLinkPager', array('pages' => $pages)); ?> </div>
+        <?php echo CHtml::link('查看留言', array('user/show','action'=>'message'), array('class' => 'btn btn-default')); ?>
     </td>
 </tr>
 </table>

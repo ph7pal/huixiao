@@ -39,7 +39,7 @@ class Lecturer extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-          array('uid, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'required'),
+          array('uid, localarea, companyname,jobname,contactmobile, idcard', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
           array('companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'length', 'max' => 255),
           array('medal_logo, medal_title', 'length', 'max' => 16),

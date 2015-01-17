@@ -150,5 +150,13 @@ class Goods extends CActiveRecord {
         $items = self::tops($sql);
         return $items;
     }
+    
+    public function getOne($keyid, $return = '') {
+        $item = Goods::model()->findByPk($keyid);
+        if ($return != '') {
+            return $item[$return];
+        }
+        return $item;
+    }
 
 }
