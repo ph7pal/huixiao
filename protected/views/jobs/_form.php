@@ -30,13 +30,13 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gs_guimo'); ?>
-		<?php echo $form->textField($model,'gs_guimo',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->dropDownlist($model,'gs_guimo',Jobs::gsGuimo(),array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gs_guimo'); ?>
 	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gs_xingzhi'); ?>
-		<?php echo $form->textField($model,'gs_xingzhi',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->dropDownlist($model,'gs_xingzhi',Jobs::gsXingzhi(),array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gs_xingzhi'); ?>
 	</div>
 
@@ -79,7 +79,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'gz_xingzhi'); ?>
-		<?php echo $form->textField($model,'gz_xingzhi',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->dropDownlist($model,'gz_xingzhi',Jobs::gzXingzhi(),array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'gz_xingzhi'); ?>
 	</div>
 

@@ -111,5 +111,15 @@ class Fuli extends CActiveRecord {
     $arr = CHtml::listData($items, 'id', 'title');
     return $arr;
   }
+  
+  public static function exClassify($type = '') {
+        $arr = array(
+          'jobs' => '工作福利'
+        );
+        if ($type != '') {
+            return $arr[$type];
+        }
+        return $arr;
+    }
 
 }

@@ -143,7 +143,7 @@ class UserController extends T {
         }
     }
 
-    private function checkCredit($checktype = array()) {
+    private function checkCredit($checktype = array(),&$userCredit='') {
         if (!$this->isAdmin) {
             $userCredit = UserCredit::findOne($this->uid);
             if (!$userCredit) {
@@ -156,6 +156,8 @@ class UserController extends T {
                     $this->message(0, '您的认证资料不允许发布此类信息');
                 }
             }
+        }else{
+            $userCredit = UserCredit::findOne($this->uid);
         }
     }
 
@@ -323,7 +325,7 @@ class UserController extends T {
         $this->checkUser();
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_addposts', 'url' => $this->homeUrl));
         $uid = $this->uid;
-        $this->checkCredit();
+        $this->checkCredit(NULL,$userCredit);
         $colid = zmf::filterInput($_GET['colid']);
         if (!$colid) {
             $this->message(0, '请选择栏目', Yii::app()->createUrl('user/index'));
@@ -490,7 +492,7 @@ class UserController extends T {
     public function actionGoods($id = '') {
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_goods', 'url' => $this->homeUrl));
         $uid = $this->uid;
-        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'),$userCredit);
         if (!$id) {
             $model = new Goods;
         } else {
@@ -583,7 +585,7 @@ class UserController extends T {
     public function actionJobs($id = '') {
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_jobs', 'url' => $this->homeUrl));
         $uid = $this->uid;
-        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'),$userCredit);
         if ($id) {
             $model = Jobs::model()->findByPk($id);
             if ($model === null) {
@@ -669,7 +671,7 @@ class UserController extends T {
     public function actionZhanhui($id = '') {
         $this->checkPower(array('uid' => $this->uid, 'type' => 'user_zhanhui', 'url' => $this->homeUrl));
         $uid = $this->uid;
-        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'));
+        $this->checkCredit(array('producer', 'marketing_team', 'exhibition'),$userCredit);
         if ($id) {
             $model = Zhanhui::model()->findByPk($id);
             if ($model === null) {

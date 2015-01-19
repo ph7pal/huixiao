@@ -237,5 +237,65 @@ class Jobs extends CActiveRecord {
         }
         return $arr;
     }
+    
+    /**
+     * 公司性质
+     * @param type $type
+     * @return string
+     */
+    public static function gsXingzhi($type = '') {
+        $arr = array(
+          '1' => '私营/民营',
+          '2' => '国有企业',
+          '3' => '合资',
+          '4' => '外资',
+          '5' => '政府机关',
+          '6' => '事业单位',
+          '7' => '非盈利机构',
+          '999' => '其他',
+        );
+        if ($type != '') {
+            return $arr[$type];
+        }
+        return $arr;
+    }
+    /**
+     * 公司规模
+     * @param type $type
+     * @return string
+     */
+    public static function gsGuimo($type = '') {
+        $arr = array(
+          '50' => '50人以下',
+          '100' => '51-100人',
+          '500' => '101-500人',
+          '1000' => '501-1000人',
+          '9999' => '1000人以上',
+        );
+        if ($type != '') {
+            return $arr[$type];
+        }
+        return $arr;
+    }
+    /**
+     * 工作性质
+     * @param type $type
+     * @return string
+     */
+    public static function gzXingzhi($type = '') {
+        $arr = array(
+          '0' => '不限',
+          '1' => '实习/见习',
+          '2' => '普通员工',
+          '3' => '高级/资深（非管理岗）',
+          '4' => '部门经理/主管',
+          '5' => '总监/副总裁',
+          '6' => '总裁/总经理',
+        );
+        if ($type != '') {
+            return $arr[$type];
+        }
+        return $arr;
+    }
 
 }

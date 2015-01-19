@@ -2,7 +2,7 @@
   <!--数据头部--公司名称-->
   <div class="hd clearfix">
       <span class="title">[<?php echo $data['localname'];?>]<strong><a href="# " target="_blank"><?php echo $data['companyname'];?></a></strong></span>
-      <s class="s shiming">实名认证</s><s class="s shiqiang">十强推荐公司</s>
+      <s class="s shiming">实名认证</s><!--s class="s shiqiang">十强推荐公司</s-->
   </div>
   <div class="bd">
       <div class="grid_01 clearfix">
@@ -11,12 +11,12 @@
               <div class="main_wrap">
                   <div class="clearfix">
                       <div class="left">
-                      	<?php echo CHtml::link(zmf::avatar($data['uid'],'big').'<span class="title">'.$data['companyname'].'</span>',array('qiye/view','id'=>$data['id']),array('target'=>'_blank'));?>
+                      	<?php echo CHtml::link(zmf::avatar($data['uid'],'small').'<span class="title">'.$data['companyname'].'</span>',array('qiye/view','id'=>$data['id']),array('target'=>'_blank'));?>
                          <div class="tel"><?php echo $data['contactmobile'];?></div>
                       </div>
                       <div class="right">
                           <h3>公司简介：</h3>
-                          <p><?php echo $data['description'];?></p>
+                          <p><?php echo zmf::subStr($data['description'],30);?></p>
                           <h3>公司地址：</h3>
                           <p><?php echo $data['address'];?></p>
                           <p class="f14">拥有讲师：<em><?php echo $data['lecturers'];?>位</em>&#12288;公司产品：<em><?php echo $data['goods'];?>件</em></p>

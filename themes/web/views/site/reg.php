@@ -12,7 +12,6 @@
 
   <div class="cb win900">
       <div class="sign-left" style="position: relative;margin-top:30px;">
-        <?php echo $form->errorSummary($model); ?>  
               <div class="control-group">
                   <div class="clearfix">
                       <label class="control-label" for="inputWarning"><span class="red-mark">*</span>登录昵称：</label>

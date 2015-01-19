@@ -24,7 +24,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'classify'); ?>
-		<?php echo $form->textField($model,'classify',array('class'=>'form-control')); ?>
+		<?php echo $form->dropDownList($model,'classify',  Fuli::exClassify(),array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'classify'); ?>
 	</div>
 

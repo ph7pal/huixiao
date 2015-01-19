@@ -48,7 +48,7 @@
                                 <td class="color-gray" width="75" valign="top">工作经验：</td>
                                 <td valign="top" width="175"><?php echo Jobs::jingyan($info['gz_jingyan']);?></td>
                                 <td valign="top" class="color-gray" width="75">工作性质：</td>
-                                <td valign="top" width="175"><?php echo $info['gz_xingzhi'];?></td>
+                                <td valign="top" width="175"><?php echo Jobs::gzXingzhi($info['gz_xingzhi']);?></td>
                             </tr>
                             <tr>
                                 <td class="color-gray" valign="top">最低学历：</td>
@@ -68,7 +68,7 @@
                                     <span id="positionCityCon"><?php echo $info['gz_didian'];?></span>
                                 </td>
                                 <td class="color-gray" valign="top">职位类别：</td>
-                                <td valign="top"><?php echo $info['gz_zhiwei'];?></td>
+                                <td valign="top"><?php echo Jobs::zhiwei($info['gz_zhiwei']);?></td>
                             </tr>
                             <tr>
                                 <td class="color-gray" valign="top" style="line-height: 40px;">职位亮点：</td>
@@ -122,9 +122,7 @@
                       <div class="content-ul clearfix">
                           <span class="color-gray">公司地址：</span><?php echo $info['gs_didian'];?>
                   <br />
-                          <span class="color-gray">公司规模：</span><?php echo $info['gs_guimo'];?><span class="color-gray">|
-                          </span><span class="color-gray">公司性质：</span><?php echo $info['gs_xingzhi'];?> <span class="color-gray">|
-                          </span><span class="color-gray">公司行业：</span><?php echo $info['gs_guimo'];?>
+                  <span class="color-gray">公司规模：</span><?php echo Jobs::gsGuimo($info['gs_guimo']);?><span class="color-gray">|</span><span class="color-gray">公司性质：</span><?php echo Jobs::gsXingzhi($info['gs_xingzhi']);?> <!--span class="color-gray">|</span--><!--span class="color-gray">公司行业：</span--><?php //echo Jobs::gsXingzhi($info['gs_guimo']);?>
                       </div>
                       <p><?php echo $info['gs_miaoshu'];?></p>
                   </div>
