@@ -447,3 +447,21 @@ ALTER table pre_zhanhui_relation add phone VARCHAR(255) not null;
 ALTER table pre_zhanhui_relation add `type` VARCHAR(255) not null;
 ALTER table pre_zhanhui_relation add people SMALLINT(8) UNSIGNED not null;
 alter table pre_medal add `classify` VARCHAR(16) not null;
+
+DROP TABLE IF EXISTS `pre_notification`;
+CREATE TABLE `pre_notification` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `type` varchar(20) CHARACTER SET gbk NOT NULL DEFAULT '',
+  `new` tinyint(1) NOT NULL DEFAULT '0',
+  `authorid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `author` varchar(15) CHARACTER SET gbk NOT NULL DEFAULT '',
+  `content` text CHARACTER SET gbk NOT NULL,
+  `cTime` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `from_idtype` varchar(20) CHARACTER SET gbk NOT NULL DEFAULT '',
+  `from_num` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`,`new`,`cTime`),
+  KEY `from_id` (`from_id`,`from_idtype`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
