@@ -86,39 +86,63 @@
       <!--最新认证 结束-->
     </div>
   </div>
-  <!--黑名单 开始-->
-  <div class="floor floor_1">
+    
+    
+    <div class="floor floor_4">
     <div class="inner">
       <div class="f_hd">
-        <span class="title">会销信用黑名单曝光</span><span class="right"><?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['heimingdan']['colinfo']['id']),array('target'=>'_blank','class'=>'view_all'));?></span>
+        <span class="title">会销信用黑名单曝光</span>
       </div>
     </div>
     <div class="w_960">
-      <div class="module_03 xuetang" style="height: 300px">
-
-        <div class="bd grid_02 clearfix">
-          <div class="col_main">
-            <div class="main_wrap">
-              <div class="c_news">
-                <ul>
-                   <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts']; if($itemPosts)$hei_limit10=  array_slice($itemPosts, 7, 12);if(!empty($hei_limit10)){foreach($hei_limit10 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+      <div class="grid_index_01 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 490px; margin-right: 240px">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">会销常见骗局<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['huixiaopianju']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+              </div>
+              <div class="focus">
+                <ul class="textList" style="height: 280px">
+                  <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="col_sub">
-            <div class="l_news">
-              <?php if($itemPosts)$hei_imgs=  array_slice($itemPosts, 0, 2);?>
-              <ul class="img_list clearfix">
-                <?php if(!empty($hei_imgs)){foreach($hei_imgs as $one){echo '<li>'.CHtml::link('<img src="'.$one['faceurl'].'" alt="'.$one['title'].'" width="118" height="89" /><span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+        </div>
+        <div class="col_sub" style="width: 480px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">黑名单曝光<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <ul class="txt_list"><?php if($itemPosts)$hei_limit5=  array_slice($itemPosts, 2, 5);if(!empty($hei_limit5)){foreach($hei_limit5 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?></ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['heimingdan']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+            </div>
+            <div class="bd zxgs w_f" style="height: 300px;">
+              <div class="l_news">
+                <?php $item=$mainCols['heimingdan'];$itemPosts=$item['posts']; if($itemPosts)$hei_imgs=  array_slice($itemPosts, 0, 3);?>
+                <ul class="img_list clearfix">
+                  <?php if(!empty($hei_imgs)){foreach($hei_imgs as $one){echo '<li>'.CHtml::link('<img src="'.$one['faceurl'].'" alt="'.$one['title'].'" width="118" height="89" /><span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+                <ul class="txt_list"><?php if($itemPosts)$hei_limit5=  array_slice($itemPosts, 2, 5);if(!empty($hei_limit5)){foreach($hei_limit5 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?></ul>
+              </div>
             </div>
           </div>
-          <div class="col_extra">
-            <div class="module_04" id="Tab2">
-              <div class="bd small_paixu">
-                <ul class="tab-cont">
+        </div>
+        <div class="col_extra" style="width: 230px; margin-left: -230px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">曝光排行<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['heimingdan']['colinfo']['id'],'order'=>'hot'),array('target'=>'_blank','class'=>'more'));?>
+            </div>
+            <div class="module_04" id="Div3">
+              <div class="bd small_paixu" style="height: 298px;">
+                <ul class="tab-cont clearfix">
                   <?php $item=$mainCols['topheimingdan'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 </ul>
               </div>
@@ -128,70 +152,46 @@
       </div>
     </div>
   </div>
-  <!--黑名单 结束-->
-  <!--会销骗局 开始-->
-  <div class="floor floor_2">
-    <div class="inner">
-      <div class="f_hd">
-        <span class="title">会销骗局</span><span class="right"><?php echo CHtml::link('浏览全部',array('posts/index','colid'=>$mainCols['huixiaopianju']['colinfo']['id']),array('target'=>'_blank','class'=>'view_all'));?></span>
-      </div>
-    </div>
-    <div class="w_960">
-      <div class="module_03 xuetang">
-
-        <div class="bd grid_02 clearfix">
-          <div class="col_main">
-            <div class="main_wrap">
-              <div class="c_news">
-                <ul>
-                  <?php $item=$mainCols['huixiaopianju'];$itemPosts=$item['posts'];if($itemPosts)$pianju_limit10=  array_slice($itemPosts, 7, 12);if(!empty($pianju_limit10)){foreach($pianju_limit10 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col_sub">
-            <div class="l_news">
-              <ul class="img_list clearfix">
-                <?php if($itemPosts)$pianju_limit2=  array_slice($itemPosts, 0, 2);if(!empty($pianju_limit2)){foreach($pianju_limit2 as $one){echo '<li>'.CHtml::link('<img src="'.$one['faceurl'].'" alt="'.$one['title'].'" width="118" height="89" /><span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-              </ul>
-              <ul class="txt_list">
-                <?php if($itemPosts)$pianju_limit5=  array_slice($itemPosts, 2, 5);if(!empty($pianju_limit5)){foreach($pianju_limit5 as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-              </ul>
-            </div>
-          </div>
-          <div class="col_extra">
-            <div class="module_04" id="Div1">
-              <div class="bd small_paixu">
-                <ul class="tab-cont">
-                  <?php $item=$mainCols['toppianju'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $key=>$one){echo '<li class="item">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--会销骗局 结束-->
   <div class="floor floor_3">
     <div class="inner">
       <div class="f_hd">
-        <span class="title">生产厂家</span>
+        <span class="title">信用企业</span>
       </div>
     </div>
+      <style type="text/css">
+		/* 本例子css */
+/*		.slideTxtBox{ width:450px; border:1px solid #ddd; text-align:left;  }
+		.slideTxtBox .hd{ height:30px; line-height:30px; background:#f4f4f4; padding:0 10px 0 20px;   border-bottom:1px solid #ddd;  position:relative; }
+		.slideTxtBox .hd ul{ float:left; position:absolute; left:20px; top:-1px; height:32px;   }
+		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
+		.slideTxtBox .hd ul li.on{ height:30px;  background:#fff; border:1px solid #ddd; border-bottom:2px solid #fff; }
+		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
+		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
+		.slideTxtBox .bd li .date{ float:right; color:#999;  }*/
+
+		/* 下面是前/后按钮代码，如果不需要删除即可 */
+		.slideTxtBox .arrow{  position:absolute; right:10px; top:0; }
+		.slideTxtBox .arrow a{ display:block;  width:5px; height:9px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
+			 cursor:pointer; background:url("../images/arrow.png") 0 0 no-repeat; }
+		.slideTxtBox .arrow .next{ background-position:0 -50px;  }
+		.slideTxtBox .arrow .prevStop{ background-position:-60px 0; }
+		.slideTxtBox .arrow .nextStop{ background-position:-60px -50px; }
+
+		</style>
     <div class="w_960">
       <div class="grid_index_03 martop5 clearfix">
         <div class="col_main">
           <div class="main_wrap" style="margin-left: 0px;">
-            <div class="tab_module nomartop">
-              <div class="hd">
-                <ul class="clearfix tab-hd">
-                  <li class="select">AAA级信用热度排行<s class="s1"></s><s class="s2"></s></li>
+            <div class="slideTxtBox tab_module nomartop">
+		<div class="hd">
+		<ul class="clearfix tab-hd">
+                  <li class="select">生产厂家<s class="s1"></s><s class="s2"></s></li>
+                    <li>展会公司<s class="s1"></s><s class="s2"></s></li>
+                    <li>营销团队<s class="s1"></s><s class="s2"></s></li>
                 </ul>
-                <?php echo CHtml::link('更多',array('qiye/index'),array('target'=>'_blank','class'=>'more'));?>
-              </div>
-              <div class="bd yxtd yxtdw_f" style="height: 232px">
-                <ul class="clearfix">
+			</div>
+			<div class="bd yxtd yxtdw_f" style="height: 380px">
+				<ul class="clearfix">
                   <!--AAA级信用热度排行开始-->
                   <?php
                   if(!empty($topProducers)){
@@ -202,23 +202,21 @@
                   ?>
                   <!--AAA级信用热度排行结束-->
                 </ul>
-              </div>
-            </div>
-            <div class="tab_module">
-              <div class="hd">
-                <ul class="clearfix tab-hd">
-                  <li class="select">厂家招商资讯<s class="s1"></s><s class="s2"></s></li>
+				<ul class="clearfix" style="display: none;">
+					<!--热门展会公司开始-->
+                <?php if(!empty($topExhibitions)){foreach($topExhibitions as $key=>$topEx){echo '<li class="item">'.CHtml::link(zmf::avatar($topEx['uid'],'small').'<span class="title">'.$topEx['companyname'].'</span>',array('exhibition/view','id'=>$topEx['id']),array('target'=>'_blank')).'</li>'; }}?>
+                <!--热门展会公司结束-->
+				</ul>
+				<ul class="clearfix">
+                  <!--营销团队开始-->
+                  <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['teamname'].'</span>',array('team/view','id'=>$topTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
+                  <!--营销团队结束-->
                 </ul>
-
-              </div>
-              <div class="bd hb_news">
-                <ul class="clearfix">
-                  <!--商家推广资讯开始-->
-                  <?php $item=$mainCols['zhaoshang'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                  <!--商家推广资讯结束-->
-                </ul>
-              </div>
-            </div>
+			</div>
+		</div>  
+            <script id="jsID" type="text/javascript">
+		jQuery(".slideTxtBox").slide({titOnClassName:'select'});
+		</script> 
           </div>
         </div>
         <div class="col_sub">
@@ -315,7 +313,7 @@
   <div class="floor floor_4">
     <div class="inner">
       <div class="f_hd">
-        <span class="title">展会公司</span>
+        <span class="title">资讯</span>
       </div>
     </div>
     <div class="w_960">
@@ -343,14 +341,14 @@
           <div class="tab_module nomartop">
             <div class="hd">
               <ul class="clearfix tab-hd">
-                <li class="select">热门展会公司<s class="s1"></s><s class="s2"></s></li>
+                <li class="select">厂家招商资讯<s class="s1"></s><s class="s2"></s></li>
               </ul>
-              <?php echo CHtml::link('更多',array('exhibition/index'),array('target'=>'_blank','class'=>'more'));?>   
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhaoshang']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
             </div>
             <div class="bd zxgs w_f" style="height: 300px;">
               <ul class="clearfix">
                 <!--热门展会公司开始-->
-                <?php if(!empty($topExhibitions)){foreach($topExhibitions as $key=>$topEx){echo '<li class="item">'.CHtml::link(zmf::avatar($topEx['uid'],'small').'<span class="title">'.$topEx['companyname'].'</span>',array('exhibition/view','id'=>$topEx['id']),array('target'=>'_blank')).'</li>'; }}?>
+                <?php $item=$mainCols['zhaoshang'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.CHtml::link('<span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
                 <!--热门展会公司结束-->
               </ul>
             </div>
@@ -379,7 +377,7 @@
     </div>
   </div>
   <!--营销团队 开始-->
-  <div class="floor floor_5">
+  <!--div class="floor floor_5">
     <div class="inner">
       <div class="f_hd">
         <span class="title">营销团队</span>
@@ -397,10 +395,8 @@
                 <?php //echo CHtml::link('更多',array('team/index'),array('target'=>'_blank','class'=>'more'));?>   
               </div>
               <div class="bd yxtd yxtdw_f" style="height: 232px">
-                <ul class="clearfix">
-                  <!--营销团队开始-->
+                <ul class="clearfix">                  
                   <?php if(!empty($topTeams)){foreach($topTeams as $key=>$topTeam){echo '<li class="item">'.CHtml::link(zmf::avatar($topTeam['uid'],'small').'<span class="title">'.$topTeam['teamname'].'</span>',array('team/view','id'=>$topTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
-                  <!--营销团队结束-->
                 </ul>
               </div>
             </div>
@@ -412,10 +408,8 @@
                 <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['yingxiaomoshi']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
               </div>
               <div class="bd hb_news">
-                <ul class="clearfix">
-                  <!--商家推广资讯开始-->
-                  <?php $item=$mainCols['yingxiaomoshi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                  <!--商家推广资讯结束-->
+                <ul class="clearfix">                  
+                  <?php $item=$mainCols['yingxiaomoshi'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.'.'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>                  
                 </ul>
               </div>
             </div>
@@ -429,18 +423,16 @@
               </ul>
               <?php //echo CHtml::link('更多',array('team/index'),array('target'=>'_blank','class'=>'more'));?>   
             </div>
-            <div class="bd zxgs" style="height: 380px;">
-              <!--最新营销团队 数据循环 开始 一共20条数据-->
+            <div class="bd zxgs" style="height: 380px;">              
               <ul id="mulitline3">
                 <?php if(!empty($newTeams)){foreach($newTeams as $key=>$newTeam){echo '<li class="item">'.CHtml::link($newTeam['teamname'],array('team/view','id'=>$newTeam['id']),array('target'=>'_blank')).'</li>'; }}?>
-              </ul>
-              <!--最新营销团队 数据循环 开始 一共20条数据-->
+              </ul>              
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div-->
   <!--营销团队 结束-->
   <!--会销行业必看知识推荐 开始-->
   <div class="floor floor_6">
