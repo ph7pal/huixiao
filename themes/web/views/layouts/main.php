@@ -51,6 +51,7 @@
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/select.jQuery.js", CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/common.js", CClientScript::POS_END);
     Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . "/js/chanpin.js", CClientScript::POS_END);    
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/jquery.SuperSlide.2.1.1.js", CClientScript::POS_HEAD);
     ?>
   </head>
   <body>
