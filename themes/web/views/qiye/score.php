@@ -75,7 +75,7 @@
               <dl class="hoscomm_upload">
                   <dt>上传图片</dt>
                   <dd class="ishas_upload_tool">
-                      <input type="button" data-input="photo" value="" class="btn_uploadpic  uploadbar_up_tool">
+                      <?php $this->renderPartial('//common/_noModelUpload',array('type'=>'score','fieldName'=>'logo','multi'=>true,'keyid'=>$model->belongid));?>
                       <br/><span style="margin-top:5px;">上传现场图片增加真实性，最多3张，可多选，图片是公开的，任何人都可以看到</span>
                   </dd>
                   <dt>&nbsp;</dt>

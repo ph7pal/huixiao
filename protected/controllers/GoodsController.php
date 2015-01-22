@@ -12,7 +12,7 @@ class GoodsController extends T {
    */
   public function actionView($id) {
     $info = $this->loadModel($id);
-    $faceurls = array();
+    $faceurls = $messinfo=array();
     $faceimg = '';
     $sql = "SELECT * FROM {{attachments}} WHERE classify='goods' AND logid='{$id}' AND status=" . Posts::STATUS_PASSED . " ORDER BY cTime DESC";
     $attaches = Yii::app()->db->createCommand($sql)->queryAll();
@@ -89,6 +89,7 @@ class GoodsController extends T {
         'model'=>$model,
         'contact'=>$contact,
         'newProducers'=>$newProducers,
+        'messinfo'=>$messinfo,
     ));
   }
 

@@ -92,14 +92,16 @@
                             </div>
                             <div id="NewsTop_cnt2">
                                 <div class="Contentbox">
-                                  <?php if(!$this->isSelf){?>
-                                  
+                                  <?php if(!$this->isSelf){?>                                  
                                   <?php if($this->canMessage){?>
                                     <h3>请认真填写你的信息和需求，好获取更好的支持。</h3>
                                     <?php $this->renderPartial('//message/_form', array('model'=>$model)); ?>
                                   <?php }else{?>
                                     <?php if($this->showMessage){?>
                                     <h3>您已留言过，隐藏信息将为您显示。</h3>
+                                    <div style="margin-left: 10px;padding-left: 5px; border-left: 2px solid #ffcc7f">
+                                    <?php $this->renderPartial('//message/_view',array('data'=>$messinfo));?>
+                                    </div>
                                     <?php }else{?>
                                     <h3>为保证数据的真实性，请先登录并填写认证信息。</h3>
                                     <?php }?>
