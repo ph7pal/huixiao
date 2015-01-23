@@ -465,3 +465,14 @@ CREATE TABLE `pre_notification` (
   KEY `uid` (`uid`,`new`,`cTime`),
   KEY `from_id` (`from_id`,`from_idtype`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+//0122修改评分默认值
+alter table pre_score MODIFY score varchar(255) not null;
+alter table pre_score MODIFY score1 varchar(255) not null;
+alter table pre_score MODIFY score2 varchar(255) not null;
+alter table pre_score MODIFY score3 varchar(255) not null;
+alter table pre_score MODIFY score4 varchar(255) not null;
+alter table pre_score MODIFY score5 varchar(255) not null;
+alter table pre_score MODIFY score6 varchar(255) not null;
+alter table pre_score MODIFY score7 varchar(255) not null;
+alter table pre_score MODIFY score8 varchar(255) not null;
+alter table pre_score MODIFY score9 varchar(255) not null;

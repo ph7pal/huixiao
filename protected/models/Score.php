@@ -38,7 +38,7 @@ class Score extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, belongid, classify', 'required'),
+        array('uid, belongid, classify,score,score2,score7', 'required'),
         array('uid, belongid, cTime,status,score1,score2', 'numerical', 'integerOnly' => true),
         array('classify', 'length', 'max' => 16),
         array('score, score1, score2, score3, score4, score5, score6, score7, score8, score9', 'length', 'max' => 255),

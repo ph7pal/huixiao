@@ -14,7 +14,7 @@ class AttachmentsController extends T {
     $logid = zmf::filterInput($_GET['logid']);
     $fileholder = zmf::filterInput($_GET['fileholder'],'t',1);//上传控件的ID
     $reImgsize=zmf::filterInput($_GET['imgsize']);//返回图片的尺寸
-    if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui'))) {
+    if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit','goods','zhanhui','score'))) {
       $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
     }
     if ($uptype == 'credit') {
