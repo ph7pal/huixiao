@@ -67,15 +67,15 @@ class LecturerController extends T {
     if(!$keyid){
       $this->message(0, '您要查看的页面不存在，请核实');
     }
-    $info=Producer::model()->findByPk($keyid);
+    $info=  Lecturer::model()->findByPk($keyid);
     if(!$info){
     	$this->message(0, '您要查看的页面不存在，请核实');
     }
     $uid=$info['uid'];    
-//    $userCredit = UserCredit::findOne($uid);
-//    if(!$userCredit || $userCredit['classify']!='lecturer'){
-//      $this->message(0, '您要查看的页面不存在，请核实');
-//    }
+    $userCredit = UserCredit::findOne($uid);
+    if(!$userCredit || $userCredit['classify']!='lecturer'){
+      $this->message(0, '您要查看的页面不存在，请核实');
+    }
     $truename=Users::getUserInfo($uid,'truename');
     $areainfo = Area::getOne($info['localarea'],'name');
     if($areainfo){
@@ -95,6 +95,24 @@ class LecturerController extends T {
             break;
           }
         }
+      }
+      foreach ($columns as $key => $col) {
+        $_colitems = Posts::allPosts(array('colid' => $col['id'], 'top' => 0, 'fields' => 'id,title,attachid,cTime', 'order' => 'hits'), 10, $uid);
+        if (!empty($_colitems)) {
+            foreach ($_colitems as $key => $_colitem) {
+              $faceurl = zmf::noImg('url');
+              if ($_colitem['faceimg'] > 0) {
+                $attachinfo = Attachments::getOne($_colitem['faceimg']);
+                if ($attachinfo) {
+                  $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], '124') .'/'. $attachinfo['filePath'];
+                }
+              }
+              $_colitem['faceurl'] = $faceurl;
+              $_colitems[$key] = $_colitem;
+            }
+        }
+        $col['posts'] = $_colitems;
+        $columns[$key] = $col;
       }
     }
     $data=array(

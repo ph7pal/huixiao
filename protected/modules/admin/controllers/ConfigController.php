@@ -7,7 +7,7 @@ class ConfigController extends H {
     public function actionIndex() {
         $this->checkPower('checksetting');
         $type = zmf::filterInput($_GET['type'], 't', 1);
-        if ($type == '' OR !in_array($type, array('baseinfo', 'upload', 'page', 'siteinfo', 'base', 'indexpage'))) {
+        if ($type == '' OR !in_array($type, array('baseinfo', 'upload', 'page', 'siteinfo', 'base', 'indexpage','email'))) {
             $type = 'baseinfo';
         }
         $configs = Config::model()->findAllByAttributes(array('classify' => $type));
@@ -23,7 +23,7 @@ class ConfigController extends H {
     public function actionAdd() {
         $this->checkPower('setting');
         $type = zmf::filterInput($_POST['type'], 't', 1);
-        if ($type == '' OR !in_array($type, array('baseinfo', 'upload', 'page', 'siteinfo', 'base', 'indexpage'))) {
+        if ($type == '' OR !in_array($type, array('baseinfo', 'upload', 'page', 'siteinfo', 'base', 'indexpage','email'))) {
             $this->message(0, '不允许的操作');
         }
         unset($_POST['type']);

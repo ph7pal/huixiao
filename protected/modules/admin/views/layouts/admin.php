@@ -111,6 +111,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                 'upload' => '上传设置',
                 'page' => '分页设置',
                 'base' => '运维设置',
+                'email' => '邮箱设置',
               );
               foreach ($arr as $k => $v) {
                   echo '<li><a href="' . Yii::app()->createUrl('admin/config/index', array('type' => $k)) . '">' . $v . '</a></li>';

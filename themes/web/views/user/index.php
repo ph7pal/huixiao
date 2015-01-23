@@ -1,5 +1,7 @@
 <div class="mod">
-<h3>欢迎，<?php echo $info['truename'];?>。</h3>
+<div class="page-header">
+    <h3>欢迎，<?php echo $info['truename'];?>。<?php if($this->addCreditInfo){echo '<span class="btn btn-xs btn-success">已认证</span>';};?></h3>
+</div>
 <?php $notice=zmf::config('noticeall');if($notice!=''){?>
 <div class="alert alert-danger">
     <?php echo $notice;?>
@@ -28,7 +30,7 @@
     </td>    
 </tr>
 <tr>
-    <td>邮箱：<?php echo $info['email'];?>
+    <td>邮箱：<?php echo tools::hideWord($info['email']);?>
         <?php if(!$info['emailstatus']){$_cookie=zmf::getCookie('sendEmailTime');if($_cookie){?>
         <?php echo CHtml::button('邮件已发送，请等候'.(time()-$_cookie).'秒再重发',array('class'=>'btn btn-danger btn-xs','disabled'=>true));?>
         <?php }else{?>

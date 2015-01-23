@@ -20,6 +20,7 @@ class UserController extends T {
     public $homeUrl;
     //是管理员
     public $isAdmin = false;
+    public $addCreditInfo=false;//是否已认证
 
     public function actions() {
         return array(
@@ -133,6 +134,8 @@ class UserController extends T {
             if ($_addedType['status'] != Posts::STATUS_PASSED) {
                 $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
                 $this->noticeInfo = $info;
+            }else{
+                $this->addCreditInfo=true;
             }
         }
         if ($redirect && !$from) {

@@ -162,7 +162,7 @@ class Posts extends CActiveRecord {
             $condition = preg_replace("/where/i", "", $condition);
             $where.=' AND ' . $condition;
         }
-        if (!$top) {
+        if ($top) {
             $where.=' AND top=1';
         }
         if (!$fields) {

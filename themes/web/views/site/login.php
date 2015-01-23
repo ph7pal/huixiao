@@ -66,7 +66,9 @@
             <div class="scrool-bg">
                 <div class="login_name" id="login_name"><b id="login_tab_orig" onclick="clickLog('from=login_orig');">账号密码登录<i class="underline"></i></b></div>
                 <div class="loginbox">
-                    <div id="tipDiv"></div>
+                    <div id="tipDiv">
+                        <?php echo $form->errorSummary($model); ?>
+                    </div>
                     <table>
                         <tr id="usernametr">
                             <td><span class="logpic">账户名</span></td>

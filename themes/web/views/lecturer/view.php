@@ -25,29 +25,22 @@
               <!--左侧个人介绍-->
               <div class="col_main">
                   <div class="main_wrap">
-                      <div class="nodule_a">
-                          <div class="hd">
-                              最新投稿作品
-                          </div>
-                          <div class="bd">
-                              <ul class="list_content have_po2 clearfix">
-                                  <li class="item">
-                                      <a href="#" target="_blank" class="link">
-                                          <img src="UpFile/singlefile/a206d8b2-4591-4128-b5c8-b924809f8ba6.jpg" alt="" /><span class="title">富力城公园别墅-欧式风格</span>  </a>
-                                  </li>
-
-                              </ul>
-                          </div>
+                      <div class="grid_02 clearfix">
+                        <?php if(!empty($columns)){foreach($columns as $tmpkey=>$listcol){?>
+                          <div class="nodule_a marTop10">
+                            <div class="hd">
+                               <?php echo $listcol['title'];?>
+                            </div>
+                            <div class="bd">
+                                <ul class="list_content have_po2 clearfix">
+                                    <?php foreach($listcol['posts'] as $_post){?>
+                                    <li class="item"><?php echo CHtml::link('<img src="'.$_post['faceurl'].'" alt="'.$_post['title'].'" /><br/><span class="title">'.zmf::subStr($_post['title']).'</span>',array('posts/show','id'=>$_post['id']),array('target'=>'_blank'));?></li>
+                                        <?php }?>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php }}?>                          
                       </div>
-                      <div class="nodule_a marTop10">
-                          <div class="hd">
-                              自我介绍
-                          </div>
-                          <div class="bd text">
-                              “毕业院校:重庆大学建筑专业 从业时间:8年擅长风格: 现代简约，欧式复古，田园，地中海，韩式，中式设计理念:忌浮夸，忌形而上学，让家成为心灵的港湾个人爱好:音乐，运动，烹饪代表楼盘:保利心语花园，融汇香缇卡纳，西城绿景，金科蚂蚁SOHO，华润二十四城，金科阳光小镇，奥林匹克花园…
-                          </div>
-                      </div>
-
                   </div>
               </div>
               <!--左侧个人信息介绍-->
@@ -60,16 +53,13 @@
                         <?php echo zmf::avatar($info['uid'],'big');?>
                         <?php echo '<span class="name">'.$truename.'<em class="quyu">('.$localname.')</em></span>';?>
                       </p>      
-                      <p class="float">
+                      <!--p class="float">
                           <span class="b">认证级别：</span><span class="c"> <s class="i i_tong" title="铜牌设计师"></s></span>
-                      </p>
+                      </p-->
                       <p class="float">
                           <span class="b">所属公司：</span><span class="c">
                               <?php echo $info['companyname'];?>
                           </span>
-                      </p>
-                      <p class="float">
-                          <span class="b">擅长模式：</span><span class="c"><tt>混搭</tt></span>
                       </p>
                       <p class="tel">
                           <span class="inner"><?php echo $info['contactmobile'];?></span>

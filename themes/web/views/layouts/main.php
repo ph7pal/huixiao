@@ -4,8 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+   <?php if(Yii::app()->getController()->id!='site'){?> 
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/base.css" rel="stylesheet" />
     <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/hf.css" rel="stylesheet" />
+    <?php }?>
  <?php if(Yii::app()->getController()->id=='qiye' || Yii::app()->getController()->id=='exhibition'){?>
     <?php if(Yii::app()->getController()->getAction()->id=='index'){?>
      <link href="<?php echo Yii::app()->theme->baseUrl ?>/css/zxgsList.css" rel="stylesheet" type="text/css" />

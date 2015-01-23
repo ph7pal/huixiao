@@ -45,7 +45,7 @@ class EmailController extends T {
                 //$message = '请验证您的邮箱：' . CHtml::link($url, $url);
                 $this->codeurl=$url;
                 $message = $this->template();
-                $return = $this->mail($userinfo['email'], $subject, $message);
+                $return = $this->mail($userinfo['email'],$userinfo['truename'], $subject, $message);
                 if ($return) {
                     UserInfo::addAttr($uid, 'emailcode', 'code', $valicode);
                     zmf::setCookie('sendEmailTime', time(),600);
@@ -144,55 +144,42 @@ class EmailController extends T {
         return $str;
     }
 
-    private function mail($to, $subject, $message) {
-    	Yii::import('application.vendors.*');
+    private function mail($to, $toname, $subject, $message) {
+    	$host = zmf::config('email_host');
+        $display = zmf::config('email_fromname');
+        $username = zmf::config('email_username');
+        $passwd = zmf::config('email_password');
+        if (!$host || !$display || !$username || !$passwd) {
+            return false;
+        }
+        Yii::import('application.vendors.*');
         include 'class.phpmailer.php';
         include 'class.smtp.php';
         $mail = new PHPMailer();
-        $mail->CharSet = "UTF-8";                 //设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置为 UTF-8
+        $mail->CharSet = zmf::config('email_chartset');                 //设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置为 UTF-8
         $mail->IsSMTP();                            // 设定使用SMTP服务
         $mail->SMTPAuth = true;                   // 启用 SMTP 验证功能
         $mail->SMTPSecure = "ssl";                  // SMTP 安全协议
-        $mail->Host = "SMTP.163.com";       // SMTP 服务器
-        $mail->Port = 465;                    // SMTP服务器的端口号
-        $mail->Username = "ph7pal@163.com";  // SMTP服务器用户名
-        $mail->Password = "056911ph7pal";        // SMTP服务器密码
-        $mail->SetFrom('ph7pal@163.com', '阿年飞少');    // 设置发件人地址和名称
+        $mail->Port = zmf::config('email_port');                    // SMTP服务器的端口号
+
+        $mail->Host = $host;       // SMTP 服务器        
+        $mail->Username = $username;  // SMTP服务器用户名
+        $mail->Password = $passwd;        // SMTP服务器密码
+        $mail->SetFrom($username, $display);    // 设置发件人地址和名称
         $mail->AddReplyTo("no-reply@newsoul.cn", "no-reply@newsoul.cn");
+
         // 设置邮件回复人地址和名称
         $mail->Subject = $subject;                     // 设置邮件标题
         $mail->AltBody = "为了查看该邮件，请切换到支持 HTML 的邮件客户端";
         // 可选项，向下兼容考虑
         $mail->MsgHTML($message);                         // 设置邮件内容
-        $mail->AddAddress($to, $this->username);
+        $mail->AddAddress($to, $toname);
         $mail->SMTPDebug = 0;
         if (!$mail->Send()) {
             return false;
         } else {
             return true;
         }
-
-//        $mailer = Yii::app()->mailer;
-//        $mailer->SMTPSecure = "ssl";
-//        $mailer->Host = 'smtp.163.com';
-//        $mailer->Username = "ph7pal@163.com";  // SMTP服务器用户名
-//        $mailer->Password = "056911ph7pal";        // SMTP服务器密码
-//        $mailer->Port = 465;
-//        $mailer->SMTPAuth = true;
-//        $mailer->IsSMTP();
-//        //$mailer->SMTPDebug = 2;
-//        $mailer->CharSet = 'UTF-8';
-//        $mailer->From = 'ph7pal@163.com';
-//        $mailer->FromName = '阿年飞少';
-//        $mailer->AddReplyTo('no-reply@163.com');
-//        $mailer->AddAddress($to);
-//        $mailer->Subject = $subject;
-//        $mailer->Body = $message;
-//        if ($mailer->Send()) {
-//            return true;
-//        } else {
-//            return false;
-//        }
     }
 
 }

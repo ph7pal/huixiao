@@ -36,5 +36,13 @@ return array(
 'closeSite'=> '1',
 'noticeall'=> '近期收到举报，有部分网站有不良信息，望各位店家及时处理！',
 'badwordsHandleStyle'=> 'filter',
+'email_chartset'=> 'UTF-8',
+'email_port'=> '465',
+'email_password'=> '056911ph7pal',
+'email_username'=> 'ph7pal@163.com',
+'email_fromname'=> '新灵旅行',
+'email_host'=> 'smtp.163.com',
+'email_replyto'=> 'no-reply@newsoul.cn',
+'email_replyname'=> '客服',
 );
 ?>

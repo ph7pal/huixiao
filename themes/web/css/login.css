@@ -407,3 +407,28 @@ select,input{font:100% Tahoma,Helvetica,Arial,sans-serif}
         #usernametr, #passwordtr, #logintr {
             height: 60px;
         }
+        .errorSummary
+{
+    border:2px solid #C00;
+    background:#FEE;
+    padding:7px 7px 12px;
+    line-height: 18px;
+}
+.errorSummary p
+{
+    margin:0;
+    font-size: 14px !important;
+}
+
+.errorSummary ul
+{
+    color:red;
+    margin:0;
+    padding:0;    
+}
+.errorSummary ul li{
+    font-size: 12px !important;
+}
+span.required,.errorMessage{
+	color:red
+}

@@ -237,7 +237,7 @@
           </div>
         </div>
       </div>
-      <div class="module_03 module_03_2" id="TabAdS03">
+        <div class="module_03 module_03_2" id="TabAdS03" style="height:380px">
         <div class="hd">
           <span class="title">热销产品推荐</span> <?php echo CHtml::link('浏览全部',array('goods/index'),array('target'=>'_blank','class'=>'view_all'));?><span class="nav">
             <!--热销商品 品种开始-->
@@ -268,7 +268,7 @@
       <div class="grid_index_04 clearfix">
         <div class="col_main">
           <div class="main_wrap">
-            <div class="tab_module martop10" id="TabAdS02">
+            <div class="tab_module martop10" id="TabAdS02" style="height:380px">
               <div class="hd">
                 <ul class="clearfix tab-hd">
                   <li class="select">推荐优秀讲师<s class="s1"></s><s class="s2"></s></li>
@@ -283,7 +283,7 @@
                     <?php 
                     if(!empty($topLecturers)){
                         foreach($topLecturers as $topLecturer){
-                            echo '<li class="item">'.CHtml::link(zmf::avatar($topLecturer['uid'],'small').'<span class="name">'.$topLecturer['truename'].'</span>',array('lecturer/view','id'=>$topLecturer['uid']),array('target'=>'_blank')).'</li>';
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($topLecturer['uid'],'small').'<span class="name">'.$topLecturer['truename'].'</span>',array('lecturer/view','id'=>$topLecturer['id']),array('target'=>'_blank')).'</li>';
                         }
                     }
                     ?>
@@ -294,7 +294,7 @@
                     $areaLectureres=Lecturer::getLecturer($aval['id']);
                     if(!empty($areaLectureres)){
                         foreach($areaLectureres as $areaLecturer){
-                            echo '<li class="item">'.CHtml::link(zmf::avatar($areaLecturer['uid'],'small').'<span class="name">'.$areaLecturer['truename'].'</span>',array('lecturer/view','id'=>$areaLecturer['uid']),array('target'=>'_blank')).'</li>';
+                            echo '<li class="item">'.CHtml::link(zmf::avatar($areaLecturer['uid'],'small').'<span class="name">'.$areaLecturer['truename'].'</span>',array('lecturer/view','id'=>$areaLecturer['id']),array('target'=>'_blank')).'</li>';
                         }
                     }?>
                   </ul>      
@@ -462,8 +462,8 @@
             </div>
           </div>
         </div>
-        <div class="col_sub fl">
-          <div class="tab_module nomartop">
+          <div class="col_sub fl">
+          <div class="tab_module nomartop"  style="height:328px">
             <div class="hd">
               <ul class="clearfix tab-hd">
                 <li class="select">知识推荐栏四<s class="s1"></s><s class="s2"></s></li>
@@ -524,7 +524,7 @@
 <!--职位招聘 开始-->
 <div class="w_960">
 
-  <div class="blockB job">
+  <div class="blockB job" style="height:330px">
     <div class="hd"><i class="icon icon_pin"></i>最新招聘职位</div>
     <div class="bd">
       <ul class="clearfix">
