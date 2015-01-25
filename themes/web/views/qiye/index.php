@@ -34,11 +34,21 @@
                                       <?php echo zmf::url(array('title'=>$tag,'main'=>'qiye/index','localarea'=>$localarea,'class'=>($tagid==$tid) ? 'select' : '','tagid'=>$tid,'medal'=>$medalid));?>
                                     <?php }}?>
                                   </div>
-
                           </dd>
                       </dl>
-
                   </li>
+                  <li class="item">
+                      <dl class="clearfix">
+                          <dt><s class="s"></s>排序方式：</dt>
+                          <dd style="float: left;"><?php echo zmf::url(array('title'=>'不限','main'=>'qiye/index','class'=>'fl'.(!$order ? ' select':''),'localarea'=>$localarea,'tagid'=>$tagid));?>
+                                  <div class="txt">
+                                    <?php echo zmf::url(array('title'=>'热门','main'=>'qiye/index','localarea'=>$localarea,'class'=>($order=='hot') ? 'select' : '','order'=>'hot','tagid'=>$tagid));?>
+                                    <?php echo zmf::url(array('title'=>'评价','main'=>'qiye/index','localarea'=>$localarea,'class'=>($order=='score') ? 'select' : '','order'=>'score','tagid'=>$tagid));?>
+                                  </div>
+                          </dd>
+                      </dl>
+                  </li>
+                  <?php /*
                   <li class="item">
                       <dl class="clearfix">
                           <dt><s class="s"></s>信用等级：</dt>
@@ -51,8 +61,7 @@
                               </dd>
                       </dl>
                   </li>
-
-
+                  */ ?>
               </ul>
           </div>
       </div>

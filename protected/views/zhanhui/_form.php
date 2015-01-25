@@ -23,6 +23,16 @@
 		<?php echo $form->error($model,'attachid'); ?>
 	</div>
     <div class="clearfix"></div>
+        <div class="form-group">
+		<?php echo $form->labelEx($model,'zhuban'); ?>
+		<?php echo $form->textArea($model,'zhuban',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->error($model,'zhuban'); ?>
+	</div>
+        <div class="form-group">
+		<?php echo $form->labelEx($model,'xieban'); ?>
+		<?php echo $form->textArea($model,'xieban',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->error($model,'xieban'); ?>
+	</div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'zhuti'); ?>
 		<?php echo $form->textArea($model,'zhuti',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>

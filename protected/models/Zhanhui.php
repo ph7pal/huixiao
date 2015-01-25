@@ -40,14 +40,14 @@ class Zhanhui extends CActiveRecord {
         return array(
           array('title, attachid,content, uid,localarea,start_time, expired_time', 'required'),
           array('status, uid, canyu', 'numerical', 'integerOnly' => true),
-          array('title, zhuti, liangdian, didian, description', 'length', 'max' => 255),
+          array('title, zhuti, liangdian, didian, description,zhuban,xieban', 'length', 'max' => 255),
           array('localarea, start_time, expired_time, attachid, hits, order, cTime', 'length', 'max' => 10),
           array('content', 'safe'),
           array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
           array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
-          array('id, title, zhuti, liangdian, localarea, didian, start_time, expired_time, attachid, description, content, hits, order, status, cTime, uid, canyu', 'safe', 'on' => 'search'),
+          array('id, title, zhuti, liangdian, localarea, didian, start_time, expired_time, attachid, description, content, hits, order, status, cTime, uid, canyu,zhuban,xieban', 'safe', 'on' => 'search'),
         );
     }
 
@@ -85,6 +85,8 @@ class Zhanhui extends CActiveRecord {
           'cTime' => '创建时间',
           'uid' => '发布者',
           'canyu' => '参与数',
+          'zhuban' => '主办',
+          'xieban' => '协办',
         );
     }
 
@@ -122,6 +124,8 @@ class Zhanhui extends CActiveRecord {
         $criteria->compare('cTime', $this->cTime, true);
         $criteria->compare('uid', $this->uid);
         $criteria->compare('canyu', $this->canyu);
+        $criteria->compare('zhuban', $this->zhuban);
+        $criteria->compare('xieban', $this->xieban);
 
         return new CActiveDataProvider($this, array(
           'criteria' => $criteria,

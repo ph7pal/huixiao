@@ -39,7 +39,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <?php }}?>                          
+                        <?php }}else{?>
+                        <div class="nodule_a marTop10">
+                            <div class="bd"></div>
+                        </div> 
+                        <?php }?>
                       </div>
                   </div>
               </div>

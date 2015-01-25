@@ -21,7 +21,7 @@ if($_imgSize>200){
 </p>
 <p><label>企业全称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业法人<span class="required">*</span>：</label><input class="form-control bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
-<p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="officurl" id="officurl" type="text" value="<?php echo $info['officurl']; ?>" <?php echo $disabled;?>/></p>
+<p><label>官方网站地址：</label><input class="form-control" name="officurl" id="officurl" type="text" value="<?php echo $info['officurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
 <p><label>杂志名称<span class="required">*</span>：</label><input class="form-control bitian" name="magazinename" id="magazinename" type="text" value="<?php echo $info['magazinename']; ?>" <?php echo $disabled;?>/></p>

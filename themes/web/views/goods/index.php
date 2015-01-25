@@ -3,6 +3,11 @@
     <!--筛选条件开始-->
     <div class="my_shop ">
         <div class="blank10"></div>
+        <div class="redNav yahei">
+            <div class="right" style="left: 10px; width: 900px;">当前共有产品 <span class="bigFont"><?php echo $pages->itemCount;?></span> 款<?php if(Yii::app()->user->isGuest){echo CHtml::link('我要发布产品',array('site/login'),array('class'=>'link'));}?></div>
+            <span class="rc-l"></span>
+            <span class="rc-r"></span>
+        </div>
         <div class="screening" id="screening">
             <div class="bd" id="bd">
                 <ul>
@@ -83,31 +88,14 @@
 
         <!-- 产品列表 end -->
         <!--求购 start-->
-
-        <!--div class="redNav yahei" style="width: 960px; position: relative">
-
+        <div class="redNav yahei" style="width: 960px; position: relative">
             <div class="right" style="left: 10px; width: 900px; font-size: 20px">没有找到您需要的商品?<a target="_blank" href="javascript:void(0)" class="link" onclick="qiugou();">发布求购产品</a></div>
             <span class="rc-l"></span>
             <span class="rc-r"></span>
             <div class="buy_box">
-                <form>
-                    <div class="blank10"></div>
-                    <span class="tit">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
-                    <input type="text" class="name" value="请输入您的姓名" /><br />
-                    <span class="tit">联系电话：</span>
-                    <input type="text" class="phone" value="请输入您的联系电话" /><br />
-                    <span class="tit">代理区域：</span>
-                    <input type="text" class="add" value="请输入代理区域" /><br />
-                    <span class="tit">团队人数：</span>
-                    <input type="text" class="num" value="请输入团队人数" /><br />
-                    <span class="tit">想代理的产品要求：</span>
-                    <textarea rows="3" cols="20" class="pro_info" style="margin-left: 60px">请输入您想代理的产品要求</textarea><br />
-
-                    <input type="button" class="sub_btn" value="提交" />
-                    <input type="button" class="res_btn" value="取消" onclick="quxiao()" />
-                </form>
+                <?php $this->renderPartial('//message/_form_goodslist', array('model'=>$model)); ?>
             </div>
-        </div-->
+        </div>
         <!--求购 end-->
     </div>
     <!--left end-->

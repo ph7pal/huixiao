@@ -159,16 +159,6 @@
       </div>
     </div>
       <style type="text/css">
-		/* 本例子css */
-/*		.slideTxtBox{ width:450px; border:1px solid #ddd; text-align:left;  }
-		.slideTxtBox .hd{ height:30px; line-height:30px; background:#f4f4f4; padding:0 10px 0 20px;   border-bottom:1px solid #ddd;  position:relative; }
-		.slideTxtBox .hd ul{ float:left; position:absolute; left:20px; top:-1px; height:32px;   }
-		.slideTxtBox .hd ul li{ float:left; padding:0 15px; cursor:pointer;  }
-		.slideTxtBox .hd ul li.on{ height:30px;  background:#fff; border:1px solid #ddd; border-bottom:2px solid #fff; }
-		.slideTxtBox .bd ul{ padding:15px;  zoom:1;  }
-		.slideTxtBox .bd li{ height:24px; line-height:24px;   }
-		.slideTxtBox .bd li .date{ float:right; color:#999;  }*/
-
 		/* 下面是前/后按钮代码，如果不需要删除即可 */
 		.slideTxtBox .arrow{  position:absolute; right:10px; top:0; }
 		.slideTxtBox .arrow a{ display:block;  width:5px; height:9px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
@@ -237,6 +227,75 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="floor floor_4">
+    <div class="inner">
+      <div class="f_hd">
+        <span class="title">资讯</span>
+      </div>
+    </div>
+    <div class="w_960">
+      <div class="grid_index_01 clearfix">
+        <div class="col_main">
+          <div class="main_wrap" style="margin-left: 490px; margin-right: 240px">
+            <div class="tab_module nomartop">
+              <div class="hd">
+                <ul class="clearfix tab-hd">
+                  <li class="select">展会资讯<s class="s1"></s><s class="s2"></s></li>
+                </ul>
+                <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuizixun']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
+              </div>
+              <div class="focus">
+                <ul class="textList" style="height: 280px">
+                  <?php $item=$mainCols['zhanhuizixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                </ul>
+              </div>
+              <!--头版新闻结束-->
+            </div>
+          </div>
+        </div>
+
+        <div class="col_sub" style="width: 480px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">厂家招商资讯<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhaoshang']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
+            </div>
+            <div class="bd zxgs w_f" style="height: 300px;">
+              <ul class="clearfix">
+                <!--热门展会公司开始-->
+                <?php $item=$mainCols['zhaoshang'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.CHtml::link('<span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
+                <!--热门展会公司结束-->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col_extra" style="width: 230px; margin-left: -230px;">
+          <div class="tab_module nomartop">
+            <div class="hd">
+              <ul class="clearfix tab-hd">
+                <li class="select">展会档期<s class="s1"></s><s class="s2"></s></li>
+              </ul>
+              <?php echo CHtml::link('更多',array('zhanhui/index'),array('target'=>'_blank','class'=>'more'));?> 
+            </div>
+            <div class="module_04" id="Div3">
+              <div class="bd small_paixu" style="height: 298px;">
+                <ul class="tab-cont clearfix">
+                  <?php if(!empty($zhanhuis)){foreach($zhanhuis as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('zhanhui/view','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">'.date('Y-m-d',$one['start_time']).'</em>'.'</li>'; }}?>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--热销产品推荐 结束-->
+    </div>
+  </div>  
+    <div class="floor floor_3">
+        <div class="w_960">
         <div class="module_03 module_03_2" id="TabAdS03" style="height:380px">
         <div class="hd">
           <span class="title">热销产品推荐</span> <?php echo CHtml::link('浏览全部',array('goods/index'),array('target'=>'_blank','class'=>'view_all'));?><span class="nav">
@@ -304,78 +363,10 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
   <!--热销产品推荐 开始-->
-  <div class="floor floor_4">
-    <div class="inner">
-      <div class="f_hd">
-        <span class="title">资讯</span>
-      </div>
-    </div>
-    <div class="w_960">
-      <div class="grid_index_01 clearfix">
-        <div class="col_main">
-          <div class="main_wrap" style="margin-left: 490px; margin-right: 240px">
-            <div class="tab_module nomartop">
-              <div class="hd">
-                <ul class="clearfix tab-hd">
-                  <li class="select">展会资讯<s class="s1"></s><s class="s2"></s></li>
-                </ul>
-                <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhanhuizixun']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>   
-              </div>
-              <div class="focus">
-                <ul class="textList" style="height: 280px">
-                  <?php $item=$mainCols['zhanhuizixun'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li>'.CHtml::link($one['title'],array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                </ul>
-              </div>
-              <!--头版新闻结束-->
-            </div>
-          </div>
-        </div>
-
-        <div class="col_sub" style="width: 480px;">
-          <div class="tab_module nomartop">
-            <div class="hd">
-              <ul class="clearfix tab-hd">
-                <li class="select">厂家招商资讯<s class="s1"></s><s class="s2"></s></li>
-              </ul>
-              <?php echo CHtml::link('更多',array('posts/index','colid'=>$mainCols['zhaoshang']['colinfo']['id']),array('target'=>'_blank','class'=>'more'));?>
-            </div>
-            <div class="bd zxgs w_f" style="height: 300px;">
-              <ul class="clearfix">
-                <!--热门展会公司开始-->
-                <?php $item=$mainCols['zhaoshang'];$itemPosts=$item['posts'];if(!empty($itemPosts)){foreach($itemPosts as $one){echo '<li class="item">'.CHtml::link('<span class="title">'.$one['title'].'</span>',array('posts/show','id'=>$one['id']),array('target'=>'_blank')).'</li>'; }}?>
-                <!--热门展会公司结束-->
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col_extra" style="width: 230px; margin-left: -230px;">
-          <div class="tab_module nomartop">
-            <div class="hd">
-              <ul class="clearfix tab-hd">
-                <li class="select">展会档期<s class="s1"></s><s class="s2"></s></li>
-              </ul>
-              <?php echo CHtml::link('更多',array('zhanhui/index'),array('target'=>'_blank','class'=>'more'));?> 
-            </div>
-            <div class="module_04" id="Div3">
-              <div class="bd small_paixu" style="height: 298px;">
-                <ul class="tab-cont clearfix">
-                  <?php if(!empty($zhanhuis)){foreach($zhanhuis as $key=>$one){echo '<li class="itemtime">'.(($key<3) ? '<s class="s  s_red ">'.($key+1).'</s>' : '<s class="s ">'.($key+1).'</s>').CHtml::link($one['title'],array('zhanhui/view','id'=>$one['id']),array('target'=>'_blank')).'<em class="fr">'.date('Y-m-d',$one['start_time']).'</em>'.'</li>'; }}?>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--热销产品推荐 结束-->
-
-    </div>
-  </div>
   <!--营销团队 开始-->
   <!--div class="floor floor_5">
     <div class="inner">

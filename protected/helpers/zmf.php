@@ -30,6 +30,7 @@ class zmf {
         $class = $param['class'];
         $medal = $param['medal'];
         $tagid = $param['tagid'];
+        $order = $param['order'];
 
         $data = array(
             $main,
@@ -38,7 +39,8 @@ class zmf {
             'fuli' => $fuli,
             'medal' => $medal,
             'tagid' => $tagid,
-            'uid'=>$uid
+            'uid'=>$uid,
+            'order'=>$order,
         );
         $opt = array(
             'class' => $class

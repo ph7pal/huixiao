@@ -23,7 +23,7 @@ if($_imgSize>200){
 <p><label>企业法人<span class="required">*</span>：</label><input class="form-control  bitian" name="companyowner" id="companyowner" type="text" value="<?php echo $info['companyowner']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业地址<span class="required">*</span>：</label><input class="form-control  bitian" name="address" id="address" type="text" value="<?php echo $info['address']; ?>" <?php echo $disabled;?>/></p>
 <p><label>企业描述<span class="required">*</span>：</label><textarea class="form-control  bitian" name="description" id="description" rows="5" <?php echo $disabled;?>><?php echo $info['description']; ?></textarea></p>
-<p><label>官方网站地址<span class="required">*</span>：</label><input class="form-control bitian" name="companyurl" id="companyurl" type="text" value="<?php echo $info['companyurl']; ?>" <?php echo $disabled;?>/></p>
+<p><label>官方网站地址：</label><input class="form-control" name="companyurl" id="companyurl" type="text" value="<?php echo $info['companyurl']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人姓名<span class="required">*</span>：</label><input class="form-control bitian" name="contactname" id="contactname" type="text" value="<?php echo $info['contactname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>联系人手机<span class="required">*</span>：</label><input class="form-control bitian" name="contactmobile" id="contactmobile" type="text" value="<?php echo $info['contactmobile']; ?>" <?php echo $disabled;?>/></p>
 <p><label>主打产品<span class="required">*</span>：</label>

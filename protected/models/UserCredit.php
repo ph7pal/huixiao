@@ -131,6 +131,7 @@ class UserCredit extends CActiveRecord {
         $sql = "SELECT id,companyname FROM {{producer}} WHERE status=".Posts::STATUS_PASSED;
         $users = Yii::app()->db->createCommand($sql)->queryAll();
         $arr = CHtml::listData($users, 'id', companyname);
+        $arr['0']='其他';
         return $arr;
   }
 

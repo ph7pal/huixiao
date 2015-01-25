@@ -149,8 +149,8 @@
                            <div style="width: 200px; padding: 0px;">
                               <dl class="hoscomm_dl clearfix" style="padding: 0px; margin: 0px; width: 200px; height: 20px; line-height: 20px;">
                                   <dt style="margin-left: 5px; float: left; color: #888;">总&nbsp;评&nbsp;价：</dt>
-                                  <?php if($info['scorer']>3){?>
-                                  <dd style="left: 60px;"><em class="starline"><b style="width: 92%;"></b><i></i></em><span class="fraction"><?php echo $info['score'];?></span> </dd>
+                                  <?php if($info['scorer']>0){?>
+                                  <dd style="left: 60px;"><em class="starline"><b style="width: <?php echo 100*$info['score']/5;?>%;"></b><i></i></em><span class="fraction"><?php echo $info['score'];?></span> </dd>
                                   <?php }else{?>
                                   <span>评分人数太少</span>
                                   <?php }?>

@@ -19,10 +19,10 @@ if($_imgSize>200){
     <input class="form-control" name="localarea" id="localarea" type="hidden" value="<?php echo $info['localarea']; ?>" <?php echo $disabled;?>/>    
     <?php $this->renderPartial('//common/excity',array('info'=>$info['localarea'],'blocked'=>$blocked));?>
 </p>
-<p><label>公司名称<span class="required">*</span>：</label><input class="form-control bitian" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
-<p><label>所属公司</label>
-    <?php echo CHtml::dropDownList('belongCompany',$c['belongCompany'],  UserCredit::listQiye(),array('options' => array($info['belongCompany']=>array('selected'=>true)),'empty'=>'--请选择--')); ?>
+<p><label>所属公司<span class="required">*</span></label>
+    <?php echo CHtml::dropDownList('belongCompany',$c['belongCompany'],  UserCredit::listQiye(),array('options' => array($info['belongCompany']=>array('selected'=>true)),'empty'=>'--请选择--','class'=>'bitian','onchange'=>'checkCompany();')); ?>
 </p>
+<p style="display: none" id="belongCompany_custom"><label>公司名称<span class="required">*</span>：</label><input class="form-control" name="companyname" id="companyname" type="text" value="<?php echo $info['companyname']; ?>" <?php echo $disabled;?>/></p>
 <p><label>所属营销团队</label>
     <?php echo CHtml::dropDownList('belongTeam',$c['belongTeam'],  UserCredit::listTeam(),array('options' => array($info['belongTeam']=>array('selected'=>true)),'empty'=>'--请选择--')); ?>
 </p>
@@ -40,6 +40,16 @@ if($_imgSize>200){
 <p class="help-block"></p>
 <div class="clearfix"></div>
 </div>
+<script>
+    function checkCompany(){
+        var tmp=$('#belongCompany').val();
+        if(tmp=='0'){
+            $('#belongCompany_custom').show();
+        }else{
+            $('#belongCompany_custom').hide();
+        }
+    }
+</script>
 <?php 
 if(!$blocked){
   echo CHtml::submitButton('提交',array('class'=>'btn btn-success','name'=>'btn','onclick'=>'return checkBitian();'));    

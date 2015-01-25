@@ -24,6 +24,7 @@
                               </dd>
                           </dl>
                       </li>
+                      <?php /*
                       <li class="item">
                           <dl class="clearfix">
                               <dt><s class="s"></s>认证级别：</dt>
@@ -36,6 +37,7 @@
                               </dd>
                           </dl>
                       </li>
+                      */ ?>
                   </ul>
               </div>
           </div>
@@ -54,7 +56,7 @@
                           排序：
                           <?php echo CHtml::link('默认',array('lecturer/index','order'=>'new'),array('class'=>'po '.(($_GET['order']=='' || $_GET['order']=='new') ? 'select' : '')));?>
                           <?php echo CHtml::link('人气<s class="s jiang"></s>',array('lecturer/index','order'=>'top'),array('class'=>'po '.(($_GET['order']=='top') ? 'select' : '')));?>
-                          <?php echo CHtml::link('作品数量<s class="s jiang"></s>',array('lecturer/index','order'=>'more'),array('class'=>'po '.(($_GET['order']=='more') ? 'select' : '')));?>
+                          <?php //echo CHtml::link('作品数量<s class="s jiang"></s>',array('lecturer/index','order'=>'more'),array('class'=>'po '.(($_GET['order']=='more') ? 'select' : '')));?>
                       </div>
                   </div>
                   <!--排序选项结束-->
@@ -94,7 +96,7 @@
                           <?php if(!empty($tops)){?>
                           <?php foreach($tops as $top){?>
                           <li class="item">
-                            <span class="pic"><?php echo CHtml::link(zmf::avatar($top['uid'],'big'),array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></span> <span class="txt"><p><?php echo CHtml::link($top['truename'],array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></p><p>作品：<em class="green">16</em></p><p>人气：<em class="red"><?php echo $top['hits'];?></em></p></span>
+                            <span class="pic"><?php echo CHtml::link(zmf::avatar($top['uid'],'big'),array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></span> <span class="txt"><p><?php echo CHtml::link($top['truename'],array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></p></span>
                           </li>
                           <?php }?>
                           <?php }?>

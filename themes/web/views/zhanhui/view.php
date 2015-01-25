@@ -3,17 +3,32 @@
         <s class="s" title="当前位置"></s><span class="bd">您当前的位置：<?php echo CHtml::link('首页',zmf::config('baseurl'));?>&gt; <?php echo CHtml::link('展会',array('zhanhui/index'));?>&gt; <?php echo $info['title'];?></span>
     </div>
     <div class="tuangou">
+        <?php /*
     		<div class="advs">
     			<?php if($info['attachid']){?>
                 	<img width="960" src="<?php echo $info['attachid'];?>" alt="<?php echo $info['title'];?>">
               <?php }?>
         	</div>
+        */ ?>
         <div class="grid_02 clearfix">
             <div class="col_main">
                 <div class="main_wrap">
                     <div class="top_box">
                       <h1><?php if($info['status']!=Posts::STATUS_PASSED){?><span class="sh">[活动结束]</span><?php }?><?php echo $info['title'];?></h1>
                         <table class="table_x" width="100%" cellpadding="0" cellspacing="0">
+                            <?php if($info['zhuban']){?>
+                            <tr><td colspan="2">
+                                    <em>主办：</em><span><?php echo $info['zhuban'];?></span>
+                                </td>
+                            </tr>
+                            <?php }?>
+                            <?php if($info['xieban']){?>
+                            <tr>
+                                <td colspan="2">
+                                    <em>协办：</em><span><?php echo $info['xieban'];?></span>
+                                </td>
+                            </tr>
+                            <?php }?>    
                             <tr>
                                 <td>
                                     <em>所在区域：</em><?php $selected=  Area::getWholeOne($info['localarea']);echo $selected;?>

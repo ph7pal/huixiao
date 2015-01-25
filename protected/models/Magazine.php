@@ -40,7 +40,7 @@ class Magazine extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, localarea, companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber', 'required'),
+        array('uid, localarea, companyname, companyowner, contactname, contactmobile, mainproduct, magazinename, licensenumber', 'required'),
         array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyname, companyowner, officurl, contactname, contactmobile, mainproduct, magazinename, licensenumber', 'length', 'max' => 255),
         array('medal_logo, medal_title', 'length', 'max' => 16),

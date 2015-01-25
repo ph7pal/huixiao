@@ -40,7 +40,7 @@ class Team extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-          array('uid, localarea, companyname, teamname, companyowner, officeurl, contactname, contactmobile, mainproduct, licensenumber', 'required'),
+          array('uid, localarea, companyname, teamname, companyowner, contactname, contactmobile, mainproduct, licensenumber', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
           array('companyname, teamname, companyowner, officeurl, contactname, contactmobile, mainproduct, licensenumber,address', 'length', 'max' => 255),
           array('medal_logo, medal_title', 'length', 'max' => 16),

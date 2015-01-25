@@ -155,6 +155,10 @@ class GoodsController extends T {
       }
     }
     $areas=Area::listArea();
+    $model=new Message;
+    $model->uid=$model->uid=1;
+    $model->classify='qiugou';
+    $model->nickname=$model->number=$model->content='';
     $data['areas'] = $areas;
     $data['localarea'] = $localarea;
     $data['posts'] = $lists;
@@ -164,6 +168,7 @@ class GoodsController extends T {
     $data['tags'] = $tags;
     $data['uid'] = $uid;
     $data['selectedTags'] = $selectedTags;
+    $data['model'] = $model;
     $this->pageTitle =  '会销产品列表 - ' . zmf::config('sitename');
     $this->render('index', $data);
   }

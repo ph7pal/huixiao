@@ -8,6 +8,7 @@ class QiyeController extends T {
         $localarea = zmf::filterInput($_GET['localarea']);
         $tagid = zmf::filterInput($_GET['tagid']);
         $medal = zmf::filterInput($_GET['medal'], 't', 1);
+        $order = zmf::filterInput($_GET['order'], 't', 1);
         $_where = '';
         if (is_numeric($localarea) && $localarea > 0) {
             $localids = Area::getChildren($localarea);
@@ -16,6 +17,9 @@ class QiyeController extends T {
         }
         if ($medal) {
             $_where.=" AND medal='{$medal}'";
+        }
+        if(!in_array($order, array('hot','score'))){
+            $order='';
         }
         //根据主营产品获取企业
         if ($tagid) {
@@ -28,7 +32,13 @@ class QiyeController extends T {
                 }
             }
         }
-        $_sql = "SELECT * FROM {{producer}} WHERE status=" . Posts::STATUS_PASSED . " {$_where}";
+        $orderBy='cTime ASC';
+        if($order=='hot'){
+            $orderBy='hits DESC';
+        }elseif($order=='score'){
+            $orderBy='score DESC';
+        }
+        $_sql = "SELECT * FROM {{producer}} WHERE status=" . Posts::STATUS_PASSED . " {$_where} ORDER BY {$orderBy}";
         Posts::getAll(array('sql' => $_sql), $pages, $lists);
         if (!empty($lists)) {
             foreach ($lists as $key => $list) {
@@ -56,12 +66,13 @@ class QiyeController extends T {
         $data['medalid'] = $medal;
         $data['tags'] = $tags;
         $data['tagid'] = $tagid;
+        $data['order'] = $order;
         $this->pageTitle = '信用企业列表 - ' . zmf::config('sitename');
         $this->render('index', $data);
     }
 
-    public function actionView() {
-        $keyid = zmf::filterInput($_GET['id']);
+    public function actionView($id) {
+        $keyid = $id;
         $colid = zmf::filterInput($_GET['colid']);
         $type = zmf::filterInput($_GET['type'], 't', 1);
         if (!$keyid) {
@@ -123,8 +134,25 @@ class QiyeController extends T {
 
         //统计企业的产品和讲师
         $_goodsnum = Goods::model()->count('uid=:uid AND status=' . Posts::STATUS_PASSED, array(':uid' => $info['uid']));
-        $_lecturersnum = Lecturer::model()->count('belongCompany=:id AND status=' . Posts::STATUS_PASSED, array(':id' => $info['id']));
-        Producer::model()->updateByPk($info['id'], array('lecturers' => $_lecturersnum, 'goods' => $_goodsnum));
+        $_lecturersnum = Lecturer::model()->count('belongCompany=:id AND status=' . Posts::STATUS_PASSED, array(':id' => $info['id']));        
+        //统计评分
+        $scoreItems=  Score::model()->findAll('belongid=:beid AND classify=:class AND status=' . Posts::STATUS_PASSED,array(':beid'=>$keyid,':class'=>'qiye'));
+        $scorer=$score=$score1=$score2=$score3=$score4=0;
+        if(!empty($scoreItems)){
+            $scorer=count($scoreItems);            
+            foreach($scoreItems as $val){
+                $score1+=$val['score3'];
+                $score2+=$val['score4'];
+                $score3+=$val['score5'];
+                $score4+=$val['score6'];
+            }
+            $score1=  @number_format($score1/(2*$scorer), 1, '.', '');
+            $score2=  @number_format($score2/(2*$scorer), 1, '.', '');
+            $score3=  @number_format($score3/(2*$scorer), 1, '.', '');
+            $score4=  @number_format($score4/(2*$scorer), 1, '.', '');
+            $score=   @number_format(($score1+$score2+$score3+$score4)/4, 1, '.', '');
+        }
+        Producer::model()->updateByPk($info['id'], array('lecturers' => $_lecturersnum, 'goods' => $_goodsnum,'hits'=>($info['hits']+1),'score'=>$score,'scorer'=>$scorer,'score1'=>$score1,'score2'=>$score2,'score3'=>$score3,'score4'=>$score4));
 
         $data = array(
           'info' => $info,
@@ -154,7 +182,7 @@ class QiyeController extends T {
         $_addedType = UserCredit::findOne($uid);
         if ($_addedType && $_addedType['status'] != Posts::STATUS_PASSED) {
             $this->message(0, '您的认证信息尚未通过，暂不能参与评价');
-        } elseif (!in_array($_addedType['classify'], array('agent', 'dealer'))) {
+        } elseif (in_array($_addedType['classify'], array('agent', 'dealer'))) {
             $this->message(0, '非常抱歉，您的认证类型尚不能参与评价');
         } else {
             $hasInfo = Score::model()->find('uid=:uid AND belongid=:beid AND classify=:class', array(':uid' => $uid, ':beid' => $id, ':class' => $classify));
@@ -178,7 +206,7 @@ class QiyeController extends T {
             $_POST['Score']['cTime'] = time();
             $_POST['Score']['ip'] = ip2long(Yii::app()->request->userHostAddress);
             $_POST['Score']['classify'] = $classify;
-            $_POST['Score']['status'] = Posts::STATUS_STAYCHECK;
+            $_POST['Score']['status'] = Posts::STATUS_PASSED;
             $arr_attachids = $_POST['uploadAttach'];
             $model->attributes = $_POST['Score'];
             if ($model->save()) {
@@ -195,6 +223,7 @@ class QiyeController extends T {
         $model->classify = $classify;
         $model->belongid = $id;        
         $title = $info['companyname'];
+        $this->pageTitle = '评价【'.$title.'】 - ' . zmf::config('sitename');
         $this->render('score', array('model' => $model, 'info' => $info, 'title' => $title));
     }
 

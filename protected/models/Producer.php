@@ -41,16 +41,16 @@ class Producer extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-          array('uid, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'required'),
+          array('uid, localarea, companyname, companyowner, address, description, contactname, contactmobile, mainproduct, licensenumber', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal,scorer,lecturers,goods', 'numerical', 'integerOnly' => true),
           array('companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),
           array('medal_logo, medal_title', 'length', 'max' => 16),
-          array('score', 'length', 'max' => 5),
+          array('score,score1,score2,score3,score4', 'length', 'max' => 5),
           array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
           array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
-          array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title,score,scorer,lecturers,goods', 'safe', 'on' => 'search'),
+          array('id, uid, faceimg, localarea, companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title,score,scorer,lecturers,goods,score1,score2,score3,score4', 'safe', 'on' => 'search'),
         );
     }
 
@@ -92,6 +92,10 @@ class Producer extends CActiveRecord {
           'medal_logo' => '徽章LOGO',
           'medal_title' => '徽章标题',
           'score' => '评分',
+          'score1' => '评分',
+          'score2' => '评分',
+          'score3' => '评分',
+          'score4' => '评分',
           'scorer' => '评分人数',
           'lecturers' => '讲师数',
           'goods' => '产品数',
@@ -136,6 +140,10 @@ class Producer extends CActiveRecord {
         $criteria->compare('medal_logo', $this->medal_logo, true);
         $criteria->compare('medal_title', $this->medal_title, true);
         $criteria->compare('score', $this->score, true);
+        $criteria->compare('score1', $this->score, true);
+        $criteria->compare('score2', $this->score, true);
+        $criteria->compare('score3', $this->score, true);
+        $criteria->compare('score4', $this->score, true);
         $criteria->compare('scorer', $this->scorer, true);
         $criteria->compare('lecturers', $this->lecturers, true);
         $criteria->compare('goods', $this->goods, true);

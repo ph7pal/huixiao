@@ -39,7 +39,7 @@ class Exhibition extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid,localarea, companyowner, companyname, officeurl, contactname, contactmobile,licensenumber', 'required'),
+        array('uid,localarea, companyowner, companyname, contactname, contactmobile,licensenumber', 'required'),
         array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
         array('companyowner, companyname , officeurl, contactname, contactmobile, mainproduct, licensenumber,address,description', 'length', 'max' => 255),
         array('medal_logo, medal_title', 'length', 'max' => 16),

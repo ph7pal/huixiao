@@ -38,7 +38,7 @@ class Score extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-        array('uid, belongid, classify,score,score2,score7', 'required'),
+        array('uid, belongid, classify,score,score2,score3,score4,score5,score6,score7,score8,score9', 'required'),
         array('uid, belongid, cTime,status,score1,score2', 'numerical', 'integerOnly' => true),
         array('classify', 'length', 'max' => 16),
         array('score, score1, score2, score3, score4, score5, score6, score7, score8, score9', 'length', 'max' => 255),
@@ -76,7 +76,7 @@ class Score extends CActiveRecord {
         'score6' => '售后服务',
         'score7' => '评价公司',
         'score8' => '做会讲师',
-        'score9' => '评分项',
+        'score9' => '上传图片',
         'cTime' => 'C Time',
         'ip' => 'Ip',
         'status' => 'Status',

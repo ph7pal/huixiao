@@ -82,17 +82,19 @@
                               <?php echo $form->passwordField($model,'password', array('class'=>'inp inw c_ccc useplaceholder','placeholder'=>'请输入密码')); ?>
                                 </td>
                         </tr>
+                        <?php /*
                         <tr>
                             <td><span class="logpic">验证码</span></td>
                             <td>
                               <?php echo $form->textField($model,'verifyCode', array('class'=>'inp inw c_ccc useplaceholder','placeholder'=>'请输入验证码')); ?>
                               <?php echo $form->error($model,'verifyCode'); ?>
                             </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                           <td>&nbsp;</td>
                           <td><?php $this->widget ( 'CCaptcha', array ('showRefreshButton' => true, 'clickableImage' => true, 'buttonType' => 'link', 'buttonLabel' => '换一张', 'imageOptions' => array ('alt' => '点击换图', 'align'=>'absmiddle'  ) ) );?></td>
                         </tr>
+                         */ ?>
                         <tr>
                             <td></td>
                             <td style="padding: 0pt;">
