@@ -394,5 +394,9 @@ class Users extends CActiveRecord {
             return ($num - $num1);
         }
     }
+    
+    public static function diffCreditTypes(){
+        return array('producer', 'marketing_team', 'exhibition');
+    }
 
 }

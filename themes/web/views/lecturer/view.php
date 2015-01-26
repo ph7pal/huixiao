@@ -57,9 +57,9 @@
                         <?php echo zmf::avatar($info['uid'],'big');?>
                         <?php echo '<span class="name">'.$truename.'<em class="quyu">('.$localname.')</em></span>';?>
                       </p>      
-                      <!--p class="float">
-                          <span class="b">认证级别：</span><span class="c"> <s class="i i_tong" title="铜牌设计师"></s></span>
-                      </p-->
+                      <p class="float">
+                          <span class="b">认证级别：</span><?php echo zmf::creditIcon($info['uid']);?>
+                      </p>
                       <p class="float">
                           <span class="b">所属公司：</span><span class="c">
                               <?php echo $info['companyname'];?>

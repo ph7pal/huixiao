@@ -38,7 +38,7 @@ class QiyeController extends T {
         }elseif($order=='score'){
             $orderBy='score DESC';
         }
-        $_sql = "SELECT * FROM {{producer}} WHERE status=" . Posts::STATUS_PASSED . " {$_where} ORDER BY {$orderBy}";
+        $_sql = "SELECT * FROM {{producer}} WHERE faceimg>0 AND status=" . Posts::STATUS_PASSED . " {$_where} ORDER BY {$orderBy}";
         Posts::getAll(array('sql' => $_sql), $pages, $lists);
         if (!empty($lists)) {
             foreach ($lists as $key => $list) {

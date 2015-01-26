@@ -32,8 +32,9 @@ class Message extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
+        array('uid', 'default', 'setOnEmpty' => true, 'value' => Yii::app()->user->isGuest ? zmf::config('defaultNoticeUid') : Yii::app()->user->id),
         array('uid, localarea, belongid, classify, nickname,number,content', 'required'),
-        array('uid, localarea, belongid, cTime, ip, status', 'numerical', 'integerOnly' => true),
+        array('uid, localarea, belongid, cTime,status', 'numerical', 'integerOnly' => true),
         array('classify', 'length', 'max' => 16),
         array('nickname, number, content', 'length', 'max' => 255),
         // The following rule is used by search().

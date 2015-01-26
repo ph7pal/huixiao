@@ -4,21 +4,6 @@ class IndexController extends T {
 
   public $layout = 'main';
 
-  public function actions() {
-    return array(
-        // captcha action renders the CAPTCHA image displayed on the contact page
-        'captcha' => array(
-            'class' => 'CCaptchaAction',
-            'backColor' => 0xFFFFFF,
-        ),
-        // page action renders "static" pages stored under 'protected/views/site/pages'
-        // They can be accessed via: index.php?r=site/page&view=FileName
-        'page' => array(
-            'class' => 'CViewAction',
-        ),
-    );
-  }
-
   public function init() {
     parent::init();
     $uid = zmf::config('officalUid');
@@ -63,38 +48,38 @@ class IndexController extends T {
       }
     }
     $colinfos['tupianxinwen']['posts']=$tupians;
-    //给黑名单前两个添加图片
-    $heimindans=$colinfos['heimingdan']['posts'];
-    if(!empty($heimindans)){
-      foreach($heimindans as $key=>$heimindan){        
-        $faceurl=zmf::noImg('url');
-        if($heimindan['attachid']>0 && $key<2){
-          $attachinfo=  Attachments::getOne($heimindan['attachid']);
-          if($attachinfo){
-            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
-          }
-        }
-        $heimindan['faceurl'] = $faceurl;
-        $heimindans[$key] = $heimindan;
-      }
-    }
-    $colinfos['heimingdan']['posts']=$heimindans;
-     //给骗局前两个添加图片
-    $pianjus=$colinfos['huixiaopianju']['posts'];
-    if(!empty($pianjus)){
-      foreach($pianjus as $key=>$pianju){        
-        $faceurl=zmf::noImg('url');
-        if($pianju['attachid']>0 && $key<2){
-          $attachinfo=  Attachments::getOne($pianju['attachid']);
-          if($attachinfo){
-            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
-          }
-        }
-        $pianju['faceurl'] = $faceurl;
-        $pianjus[$key] = $pianju;
-      }
-    }
-    $colinfos['huixiaopianju']['posts']=$pianjus;
+//    给黑名单前两个添加图片
+//    $heimindans=$colinfos['heimingdan']['posts'];
+//    if(!empty($heimindans)){
+//      foreach($heimindans as $key=>$heimindan){        
+//        $faceurl=zmf::noImg('url');
+//        if($heimindan['attachid']>0 && $key<2){
+//          $attachinfo=  Attachments::getOne($heimindan['attachid']);
+//          if($attachinfo){
+//            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
+//          }
+//        }
+//        $heimindan['faceurl'] = $faceurl;
+//        $heimindans[$key] = $heimindan;
+//      }
+//    }
+//    $colinfos['heimingdan']['posts']=$heimindans;
+//     给骗局前两个添加图片
+//    $pianjus=$colinfos['huixiaopianju']['posts'];
+//    if(!empty($pianjus)){
+//      foreach($pianjus as $key=>$pianju){        
+//        $faceurl=zmf::noImg('url');
+//        if($pianju['attachid']>0 && $key<2){
+//          $attachinfo=  Attachments::getOne($pianju['attachid']);
+//          if($attachinfo){
+//            $faceurl = zmf::uploadDirs($attachinfo['cTime'], 'site', $attachinfo['classify'], 'origin') .'/'. $attachinfo['filePath'];
+//          }
+//        }
+//        $pianju['faceurl'] = $faceurl;
+//        $pianjus[$key] = $pianju;
+//      }
+//    }
+//    $colinfos['huixiaopianju']['posts']=$pianjus;
     $colinfos['topheimingdan']['posts']=array();
     //获取黑名单最热
     $_colinfo=$colinfos['heimingdan']['colinfo'];
@@ -115,17 +100,17 @@ class IndexController extends T {
     $newCredits = UserCredit::getNews(); //最新认证
     //$topTeams=Users::getTeam('top');
     //$newTeams=Users::getTeam('new');
-    $topLecturers = Lecturer::getLecturer(0);
+    $topLecturers = Lecturer::getLecturer(0);//热门讲师推荐
     //$topExes = Users::getExhibition('exhibition', 10, 'order');
     $topGoods = Goods::tops();
     $newJobs = Jobs::getNews();
-    $newTeams = Team::getNews();
-    $topTeams = Team::getTops();
-    //$newExhibitions = Exhibitions::getNews();
-    $topExhibitions = Exhibition::getTops();
-    $newProducers = Producer::getNews();
+    //$newTeams = Team::getNews();//最新团队
+    $topTeams = Team::getTops();//热门团队
+    //$newExhibitions = Exhibitions::getNews();//最新展会公司
+    $topExhibitions = Exhibition::getTops();//热门展会公司
+    $newProducers = Producer::getNews();//最新企业
     $zhanhuis = Zhanhui::getNews();
-    $topProducers = Producer::getTops();
+    $topProducers = Producer::getTops();//热门企业
     $this->pageTitle = zmf::config('sitename') . ' - ' . zmf::config('shortTitle');
     $data = array(
         'mainCols' => $colinfos,

@@ -146,13 +146,13 @@ class Team extends CActiveRecord {
     }
 
     public static function getNews() {
-        $sql = "SELECT id,teamname FROM {{team}} ORDER BY cTime DESC LIMIT 12";
+        $sql = "SELECT id,faceimg,teamname FROM {{team}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
 
     public static function getTops() {
-        $sql = "SELECT id,uid,teamname FROM {{team}} ORDER BY cTime DESC LIMIT 12";
+        $sql = "SELECT id,faceimg,uid,teamname FROM {{team}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }

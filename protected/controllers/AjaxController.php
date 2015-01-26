@@ -6,16 +6,16 @@ class AjaxController extends T {
         parent::init();
         if (!Yii::app()->request->isAjaxRequest) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
-        }
+        }        
+    }
+    private function checkLogin(){
         if (Yii::app()->user->isGuest) {
             $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
         }
     }
 
     public function actionComment() {
-        if (Yii::app()->user->isGuest) {
-            $this->jsonOutPut(0, Yii::t('default', 'loginfirst'));
-        }
+        self::checkLogin();
         $uid = zmf::filterInput($_GET['uid']);
         if ($uid != Yii::app()->user->id) {
             $this->jsonOutPut(0, Yii::t('default', 'forbiddenaction'));
@@ -106,6 +106,7 @@ class AjaxController extends T {
     }
 
     public function actionSetStatus() {
+        self::checkLogin();
         $this->checkPower('setstatus');
         $keyid = zmf::filterInput($_POST['a']);
         $classify = zmf::filterInput($_POST['b'], 't', 1);
@@ -147,6 +148,7 @@ class AjaxController extends T {
     }
 
     public function actionReport() {
+        self::checkLogin();
         $this->checkPower('report');
         $data = array();
         $type = zmf::filterInput($_POST['t'], 't', 1);
@@ -233,8 +235,9 @@ class AjaxController extends T {
     }
 
     public function actionDelCredit() {
+        self::checkLogin();
         $uid = Yii::app()->user->id;
-        //$this->checkPower(array('uid' => $uid, 'type' => 'user_delcredit'));    
+        $this->checkPower('user_delcredit');    
         $succ = 0;
         $_addedType = UserCredit::findOne($uid);
         if (!$_addedType) {
@@ -272,11 +275,17 @@ class AjaxController extends T {
             if (!$keyid) {
                 $this->jsonOutPut(0, '数据错误');
             }
-            $info = Goods::model()->findByPk($keyid);
-            if (!$info || $info['status'] != Posts::STATUS_PASSED) {
-                $this->jsonOutPut(0, '您所查看的页面不存在');
-            } elseif ($info['uid'] == Yii::app()->user->id) {
-                $this->jsonOutPut(0, '您不能给自己留言');
+            if($_POST['Message']['classify']!='qiugou'){
+                self::checkLogin();
+                $uid=Yii::app()->user->id;
+                $info = Goods::model()->findByPk($keyid);
+                if (!$info || $info['status'] != Posts::STATUS_PASSED) {
+                    $this->jsonOutPut(0, '您所查看的页面不存在');
+                } elseif ($info['uid'] == Yii::app()->user->id) {
+                    $this->jsonOutPut(0, '您不能给自己留言');
+                }
+            }else{
+                $uid=zmf::config('defaultNoticeUid');
             }
             Yii::app()->session['checkHasBadword'] = 'no';
             foreach ($_POST['Message'] as $key => $val) {
@@ -291,9 +300,10 @@ class AjaxController extends T {
             }
             $_POST['Message']['status'] = $status;
             $_POST['Message']['localarea'] = zmf::filterInput($_POST['cityid'][0]);
-            $_POST['Message']['uid'] = Yii::app()->user->id;
+            $_POST['Message']['uid'] = $uid;
             $_POST['Message']['cTime'] = time();
             $model->attributes = $_POST['Message'];
+            //zmf::test($model->attributes);
             if ($model->save()) {
                 //不是本人的产品，则新增提醒
                 $params = array(
@@ -306,7 +316,7 @@ class AjaxController extends T {
                 Notification::add($params);
                 $this->jsonOutPut(1, '您的留言已提交');
             } else {
-                $this->jsonOutPut(0, '数据错误');
+                $this->jsonOutPut(0, $model->getErrors());
             }
         }
     }

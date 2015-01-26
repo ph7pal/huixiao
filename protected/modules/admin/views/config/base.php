@@ -45,6 +45,7 @@
     echo CHtml::dropDownList('adminGroupIds',$c['adminGroupIds'],UserGroup::getGroups(true),array('options' => $_adArr,'class'=>'form-control','multiple'=>'true')); ?>
 </p>
 <p><label>官方展示用户：</label><input class="form-control" name="officalUid" id="officalUid" value="<?php echo $c['officalUid'];?>"/></p>
+<p><label>默认通知用户：</label><input class="form-control" name="defaultNoticeUid" id="defaultNoticeUid" value="<?php echo $c['defaultNoticeUid'];?>"/></p>
 <p><label>验证用户邮箱：</label>
     <select name="validateEmail" id="validateEmail">
         <option value="0" <?php if($c['validateEmail']=='0'){?>selected="selected"<?php }?>>否</option>

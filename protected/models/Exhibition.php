@@ -150,13 +150,13 @@ class Exhibition extends CActiveRecord {
   }
 
   public static function getNews() {
-    $sql = "SELECT id,companyname FROM {{exhibition}} ORDER BY cTime DESC LIMIT 12";
+    $sql = "SELECT id,faceimg,companyname FROM {{exhibition}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
     $items = Yii::app()->db->createCommand($sql)->queryAll();
     return $items;
   }
 
   public static function getTops() {
-    $sql = "SELECT id,uid,companyname FROM {{exhibition}} ORDER BY cTime DESC LIMIT 12";
+    $sql = "SELECT id,faceimg,uid,companyname FROM {{exhibition}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
     $items = Yii::app()->db->createCommand($sql)->queryAll();
     return $items;
   }

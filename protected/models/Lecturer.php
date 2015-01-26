@@ -154,15 +154,15 @@ class Lecturer extends CActiveRecord {
                 $areaArr = Area::getChildren($area);
                 $idstr = join(',', $areaArr);
                 if ($idstr) {
-                    $sql = "SELECT id,uid FROM {{lecturer}} WHERE localarea IN($idstr) AND status=1 LIMIT 10";
+                    $sql = "SELECT id,faceimg,uid FROM {{lecturer}} WHERE faceimg>0 AND localarea IN($idstr) AND status=1 LIMIT 10";
                 } else {
-                    $sql = "SELECT id,uid FROM {{lecturer}} WHERE status=1 LIMIT 10";
+                    $sql = "SELECT id,faceimg,uid FROM {{lecturer}} WHERE faceimg>0 AND status=1 LIMIT 10";
                 }
             } else {
                 if ($uid != 0) {
-                    $sql = "SELECT id,uid FROM {{lecturer}} WHERE status=1 AND belongCompany='{$uid}' LIMIT 10";
+                    $sql = "SELECT id,faceimg,uid FROM {{lecturer}} WHERE faceimg>0 AND status=1 AND belongCompany='{$uid}' LIMIT 10";
                 } else {
-                    $sql = "SELECT id,uid FROM {{lecturer}} WHERE status=1 LIMIT 10";
+                    $sql = "SELECT id,faceimg,uid FROM {{lecturer}} WHERE faceimg>0 AND status=1 LIMIT 10";
                 }
             }
             $usrs = Yii::app()->db->createCommand($sql)->queryAll();

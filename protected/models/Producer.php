@@ -172,13 +172,13 @@ class Producer extends CActiveRecord {
     }
 
     public static function getNews() {
-        $sql = "SELECT id,companyname FROM {{producer}} ORDER BY cTime DESC LIMIT 12";
+        $sql = "SELECT id,faceimg,companyname FROM {{producer}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }
 
     public static function getTops() {
-        $sql = "SELECT id,uid,companyname FROM {{producer}} ORDER BY cTime DESC LIMIT 12";
+        $sql = "SELECT id,faceimg,uid,companyname FROM {{producer}} WHERE status=1 AND faceimg>0 ORDER BY cTime DESC LIMIT 12";
         $items = Yii::app()->db->createCommand($sql)->queryAll();
         return $items;
     }

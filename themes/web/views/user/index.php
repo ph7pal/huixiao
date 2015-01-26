@@ -18,6 +18,11 @@
 </div>
 <?php }?>
 <table class="table table-hover">
+<?php $logo = zmf::userConfig($this->uid, 'logo');if(!$logo && $this->addCreditInfo){?>
+<tr class="danger">
+    <td>您还没有上传封面图，<?php echo CHtml::link('上传封面图',array('user/config'));?>获取更多展示机会！</td>    
+</tr>    
+<?php }?>
 <tr>
     <td>这是您的第<?php echo $info['login_count'];?>次登陆，登录信息：<?php echo date('Y-m-d H:i:s',$info['last_login_time']);?>/<?php echo long2ip($info['last_login_ip']);?>。</td>    
 </tr>

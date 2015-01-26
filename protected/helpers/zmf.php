@@ -243,7 +243,7 @@ class zmf {
         $img = '';
         if ($logo) {
             $attachinfo = Attachments::getOne($logo);
-            if ($attachinfo) {
+            if ($attachinfo && $attachinfo['status']==Posts::STATUS_PASSED) {
                 if ($type == 'small') {
                     $_type = 124;
                 } elseif ($type == 'big') {
@@ -294,8 +294,8 @@ class zmf {
 
         $url = self::config('baseurl') . 'common/images/credits/' . $creditlogo . '.png';
         $_url = self::attachBase('app') . '../common/images/credits/' . $creditlogo . '.png';
-        if (file_exists($_url)) {
-            return "<img src='{$url}' title='" . $info['desc'] . "' alt='" . $info['title'] . "'/>";
+        if (file_exists($_url)) {            
+            return "<span title='" . $info['desc'] . "' style='width:82px;height:16px;padding-left:2px;background:url({$url}) no-repeat center;display:inline-block'>&nbsp;</span>";
         } else {
             return "<span class='btn btn-primary btn-xs' title='" . $info['desc'] . "'>" . $info['title'] . "</span>";
         }

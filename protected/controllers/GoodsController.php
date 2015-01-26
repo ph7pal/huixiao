@@ -156,7 +156,7 @@ class GoodsController extends T {
     }
     $areas=Area::listArea();
     $model=new Message;
-    $model->uid=$model->uid=1;
+    $model->uid=$model->belongid=zmf::config('defaultNoticeUid');
     $model->classify='qiugou';
     $model->nickname=$model->number=$model->content='';
     $data['areas'] = $areas;

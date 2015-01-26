@@ -21,21 +21,7 @@ class UserController extends T {
     //是管理员
     public $isAdmin = false;
     public $addCreditInfo=false;//是否已认证
-
-    public function actions() {
-        return array(
-          // captcha action renders the CAPTCHA image displayed on the contact page
-          'captcha' => array(
-            'class' => 'CCaptchaAction',
-            'backColor' => 0xFFFFFF,
-          ),
-          // page action renders "static" pages stored under 'protected/views/site/pages'
-          // They can be accessed via: index.php?r=site/page&view=FileName
-          'page' => array(
-            'class' => 'CViewAction',
-          ),
-        );
-    }
+    public $userCreditInfo;
 
     public function init() {
         parent::init();
@@ -115,6 +101,7 @@ class UserController extends T {
                         //$info = '您还不是商家，欲使用所有功能请联系：' . zmf::config('phone') . '或者' . zmf::config('email');
                         //$_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
                         $_addedType = UserCredit::findOne($this->uid);
+                        $this->userCreditInfo=$_addedType;
                         if ($_addedType['status'] != Posts::STATUS_PASSED) {
                             if ($this->validateEmail != '') {
                                 $info = '认证之前请先激活您的邮箱，' . CHtml::link('点此激活邮箱', 'javascript:;', array('class' => 'btn btn-danger btn-xs validate'));
@@ -131,6 +118,7 @@ class UserController extends T {
         } else {
             //$_creditstatus = zmf::userConfig($this->uid, 'creditstatus');
             $_addedType = UserCredit::findOne($this->uid);
+            $this->userCreditInfo=$_addedType;
             if ($_addedType['status'] != Posts::STATUS_PASSED) {
                 $info = '您还未认证，' . CHtml::link('点此进行认证', array('user/credit'), array('class' => 'btn btn-danger btn-xs'));
                 $this->noticeInfo = $info;
@@ -253,7 +241,7 @@ class UserController extends T {
                 zmf::delFCache("userColumns-{$this->uid}");
             } else {
                 foreach ($configs as $k => $v) {
-                    if ($v != '') {
+                    if ($k != '') {
                         $model = new UserInfo();
                         $data = array(
                           'uid' => $this->uid,
@@ -263,6 +251,15 @@ class UserController extends T {
                         );
                         $model->attributes = $data;
                         $model->save();
+                    }
+                    if($k=='logo' && $v){
+                        Attachments::model()->updateByPk($v,array('status'=>  Posts::STATUS_PASSED));
+                        if($this->userCreditInfo){
+                            $realModel = UserCredit::loadModel($this->userCreditInfo['classify']);
+                            if($realModel){
+                                $realModel->updateAll(array('faceimg'=>$v),'uid=:uid',array(':uid'=>$this->uid));
+                            }
+                        }
                     }
                 }
             }
