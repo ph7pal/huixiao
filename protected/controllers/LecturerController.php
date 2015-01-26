@@ -31,9 +31,9 @@ class LecturerController extends T {
     if($belongid){
       $_where.=" AND belongCompany='".$belongid."'";
     }    
-    $sql = "SELECT * FROM {{lecturer}} WHERE status=".Posts::STATUS_PASSED." {$_where} ORDER BY ".$_order;
+    $sql = "SELECT * FROM {{lecturer}} WHERE faceimg>0 AND status=".Posts::STATUS_PASSED." {$_where} ORDER BY ".$_order;
     Posts::getAll(array('sql' => $sql), $pages, $lists);
-    $_sql = "SELECT * FROM {{lecturer}} WHERE status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
+    $_sql = "SELECT * FROM {{lecturer}} WHERE faceimg>0 AND status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
     $tops = Yii::app()->db->createCommand($_sql)->queryAll();
     if(!empty($lists)){
       foreach($lists as $key=>$list){
