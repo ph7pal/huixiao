@@ -32,8 +32,8 @@ return array(
     'defaultController' => 'index',
     'components' => array(
         'request' => array(
-        // 'enableCsrfValidation'=>true, //防范跨站请求伪造(简称CSRF)攻击              
-        //'enableCookieValidation'=>true,//对cookie的值进行HMAC检查
+         'enableCsrfValidation'=>true, //防范跨站请求伪造(简称CSRF)攻击              
+        'enableCookieValidation'=>true,//对cookie的值进行HMAC检查
         ),
         'user' => array(
             'allowAutoLogin' => true,

@@ -136,8 +136,8 @@ function singleUploadify(placeHolder, inputId, limit) {
 var tipsImgOrder=0;
 function myUploadify(){   
     $("#uploadfile").uploadify({
-        height        : 44,
-        width         : 183,
+        height        : 34,
+        width         : 82,
         swf           : baseUrl+'/common/uploadify/uploadify.swf',
         queueID:'fileQueue',
         auto:true,
@@ -148,10 +148,10 @@ function myUploadify(){
         fileTypeExts:allowImgTypes,
         fileTypeDesc:'Image Files',
         uploader:tipImgUploadUrl,        
-        buttonText:' ',
+        buttonText:'请选择',
         debug:false,
         formData:{
-            'PHPSESSID':currentSessionId
+            'PHPSESSID':currentSessionId, 'YII_CSRF_TOKEN': csrfToken
         },
         onUploadSuccess:function(file,data,response){
             data=eval("("+data+")");            

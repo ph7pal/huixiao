@@ -12,7 +12,8 @@ function ajaxFileUpload(){
                 url:'<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'classify'=>$classify,'fileholder'=>'noModelUpload_holder','imgsize'=>124));?>',
                 fileElementId:'noModelUpload_holder',
                 type:'post',
-                dataType: 'json',
+                data: {'PHPSESSID':'<?php echo Yii::app()->session->sessionID;?>', 'YII_CSRF_TOKEN': '<?php echo Yii::app()->request->csrfToken;?>'},
+                dataType: 'json',                
                 success: function (res){
                     if(res['status']==1){
                       <?php if($multi){?>

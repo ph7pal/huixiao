@@ -10,7 +10,6 @@
         <?php if(Yii::app()->getController()->id=='user'){?>
         <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl ?>/common/css/newsoul.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/style.css">
-        <link href="<?php echo Yii::app()->baseUrl; ?>/common/uploadify/uploadify.css" rel="stylesheet">
         <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/uploadify/jquery.uploadify-3.1.min.js', CClientScript::POS_END);?>
         <?php }elseif(!$this->inMobile){?>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/newsoul.css">

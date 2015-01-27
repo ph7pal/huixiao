@@ -2,6 +2,11 @@
 $attri=isset($attribute)?$attribute:'content';
 ?>
 <link href="<?php  echo Yii::app()->baseUrl.'/ueditor/themes/default/css/umeditor.css';?>" type="text/css" rel="stylesheet">
+<style>
+    .swfupload,.uploadify-button{
+        margin-left: 150px;
+    }
+</style>
 <script>
     var allowImgTypes="<?php echo zmf::config('imgAllowTypes');?>";
     var allowImgPerSize="<?php echo tools::formatBytes(zmf::config('imgMaxSize'));?>";
@@ -70,13 +75,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/common/upload
        allowImgTypes:allowImgTypes,
        currentSessionId:currentSessionId       
    });   
-   myeditor.addListener("keyup",function(){
-            var inputstr=myeditor.getContentTxt();   
-            if(inputstr!=''){
-                $(window).bind('beforeunload',function(){
-                    return '您输入的内容可能未保存，确定离开此页面吗？';
-                });
-            }
-          });  
+//   myeditor.addListener("keyup",function(){
+//            var inputstr=myeditor.getContentTxt();   
+//            if(inputstr!=''){
+//                $(window).bind('beforeunload',function(){
+//                    return '您输入的内容可能未保存，确定离开此页面吗？';
+//                });
+//            }
+//          });  
   });
 </script>

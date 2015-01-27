@@ -110,7 +110,7 @@ class DelController extends T {
                 if ($multi) {
                     return true;
                 } else {
-                    $this->redirect(array('user/list','table'=>$table));
+                    $this->redirect(array('user/list','table'=>$table,'colid'=>$info['colid']));
                 }
             } else {
                 if ($multi) {

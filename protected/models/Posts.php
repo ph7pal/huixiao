@@ -31,6 +31,7 @@ class Posts extends CActiveRecord {
           array('name', 'length', 'max' => 50),
           array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
           array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
+          array('content', 'safe'),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
           array('id, colid, uid, nickname, author, title, second_title, name, albumid, title_style, seo_title, seo_description, seo_keywords, intro, content, copy_from, copy_url, redirect_url, hits, order, reply_allow, status, last_update_time, cTime , attachid,secretinfo,top, start_time, expired_time', 'safe', 'on' => 'search'),
@@ -254,6 +255,7 @@ class Posts extends CActiveRecord {
         if ($limit == 0) {
             $con = array(
               'condition' => 'title LIKE :keyword AND status=' . Posts::STATUS_PASSED,
+              'limit' => 80,  
               'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
         } else {
@@ -263,13 +265,8 @@ class Posts extends CActiveRecord {
               'params' => array(':keyword' => '%' . strtr($keyword, array('%' => '\%', '_' => '\_', '\\' => '\\\\')) . '%'),
             );
         }
-        $cachekey = 'suggest-' . md5($keyword);
-        $_names = zmf::getFCache($cachekey);
-        if (!$_names) {
-            $_names = Posts::model()->findAll($con);
-            SearchRecords::checkAndUpdate($keyword);
-            zmf::setFCache($cachekey, $_names, 360);
-        }
+        $_names = Posts::model()->findAll($con);
+        SearchRecords::checkAndUpdate($keyword);
         return $_names;
     }
 
