@@ -368,5 +368,39 @@ class UsersController extends H {
         UserAction::record('delcredit', $uid);
         $this->message(1, '已成功删除');
     }
+    
+    /**
+     * 为用户组设置可编辑栏目
+     */
+    public function actionColumn($id){
+        $info=  UserGroup::model()->findByPk($id);
+        if(!$info){
+            $this->message(0, '不存在的用户组');
+        }
+        if(!empty($_POST)){
+            $colids=$_POST['groupids'];
+            ColumnRelation::model()->deleteAll('groupid=:gid', array(':gid'=>$id));
+            if(!empty($colids)){
+                foreach ($colids as $colid){
+                    $_attr=array(
+                      'columnid'=>$colid,
+                      'groupid'=>$id,
+                    );
+                    $model=new ColumnRelation;
+                    $model->attributes=$_attr;
+                    $model->save();
+                }
+            }
+            $this->message(1, '已更新');
+        }
+        $_sql="SELECT DISTINCT(columnid) FROM {{column_relation}} WHERE groupid={$id}";
+        $items=Yii::app()->db->createCommand($_sql)->queryAll();
+        $selected=array_keys(CHtml::listData($items,'columnid',''));
+        $data=array(
+          'info'=>$info,
+          'selected'=>$selected,
+        );
+        $this->render('addGroupColumn',$data);
+    }
 
 }

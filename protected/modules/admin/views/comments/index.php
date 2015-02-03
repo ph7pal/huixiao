@@ -1,9 +1,9 @@
 <tr>
     <td>&nbsp;</td>
-    <td>所属</td>
-    <td>内容</td>
-    <td>时间</td>
-    <td>操作</td>
+    <td style="width:25%">所属</td>
+    <td style="width:50%">内容</td>
+    <td style="width:15%">时间</td>
+    <td style="width:8%">操作</td>
 </tr>
 <?php foreach ($posts as $row): ?> 
 <tr <?php tools::exStatusToClass($row['status']);?>>

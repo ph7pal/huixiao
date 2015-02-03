@@ -28,7 +28,7 @@
     </div>    
     <div class="form-group">
     <?php echo $form->labelEx($model,'attachid'); ?>
-    <?php $this->renderPartial('//common/singleUpload',array('keyid'=>$info['id'],'attachid'=>$info['attachid'],'type'=>'posts','model'=>$model,'fieldName'=>'attachid'));?>
+    <?php $this->renderPartial('//common/_singleUpload',array('id'=>$info['attachid'],'type'=>'coverimg','model'=>$model,'fieldName'=>'attachid'));?>
     <?php echo $form->hiddenField($model,'attachid',array('class'=>'form-control','value'=>$info['attachid'])); ?>  
     <p class="help-block"><?php echo $form->error($model,'attachid'); ?></p>
     </div>

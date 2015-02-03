@@ -393,7 +393,7 @@ class Columns extends CActiveRecord {
     }
     
     public static function listAll(){
-      $sql="SELECT id,title,name FROM {{columns}}";
+      $sql="SELECT id,title,name FROM {{columns}} WHERE status!=0";
       $items=Yii::app()->db->createCommand($sql)->queryAll();
       $real=array();
       foreach($items as $it){

@@ -17,7 +17,7 @@ class IndexController extends T {
   public function actionIndex() {
     $arr = array(
         'toutiaotuijian', //头条推荐        
-        'tupianxinwen',
+        //'tupianxinwen',图片新闻直接取有封面图的文章
         'huixiaozixun',
         'xinwenzixun',
         'zhengfufagui',
@@ -32,8 +32,9 @@ class IndexController extends T {
         'yingxiaomoshi',//营销模式
     );
 
-    $colinfos = Columns::indexColumns($arr);
-    $tupians=$colinfos['tupianxinwen']['posts'];
+    $colinfos = Columns::indexColumns($arr);    
+    $sql = "SELECT id,title,attachid,cTime FROM {{posts}} WHERE attachid>0 AND status=1 ORDER BY cTime DESC LIMIT 5";
+    $tupians = Yii::app()->db->createCommand($sql)->queryAll();    
     if(!empty($tupians)){
       foreach($tupians as $key=>$tupian){
         $faceurl='';

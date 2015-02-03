@@ -63,7 +63,9 @@ class AllController extends H {
             if (!empty($where)) {
                 $_where = ' WHERE ' . join(' AND ', $where);
             }
-
+            if(!$table){
+                $this->message(0, '缺少参数');
+            }
             $sql = "SELECT * FROM {{{$table}}}" . $_where . " ORDER BY {$_order} {$_orderList}";
         } else {
           if(!$type){

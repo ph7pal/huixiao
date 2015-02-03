@@ -2,7 +2,7 @@
     <td>&nbsp;</td>
     <td>标题</td>
     <td>创建时间</td>
-    <td>操作</td>
+    <td style="width:25%">操作</td>
 </tr>
 <?php foreach ($posts as $row): ?> 
     <tr <?php tools::exStatusToClass($row['status']);?>>
@@ -11,6 +11,7 @@
         <td><?php echo date('Y-m-d', $row['cTime']); ?></td>
         <td>
             <?php echo CHtml::link('编辑', array('users/addgroup', 'id' => $row['id'], 'edit' => 'yes')); ?>
+            <?php echo CHtml::link('栏目入口', array('users/column', 'id' => $row['id'])); ?>
         </td>
     </tr>
 <?php endforeach; ?>
