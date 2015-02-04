@@ -49,8 +49,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
               }                
             ?> 
             <li class="divider"></li>
-            <li><?php echo CHtml::link('展会',array('zhanhui/index'));?></li>
-            <li><?php echo CHtml::link('招聘',array('jobs/index'));?></li>
+            <li><?php echo CHtml::link('展会',array('zhanhui/admin'));?></li>
+            <li><?php echo CHtml::link('招聘',array('jobs/admin'));?></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -72,7 +72,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                 'website' => '行业网站',
               );
               foreach ($arr as $k => $v) {
-                  echo '<li><a href="' . Yii::app()->createUrl('admin/'.$k.'/index') . '">' . $v . '</a></li>';
+                  echo '<li><a href="' . Yii::app()->createUrl('admin/'.$k.'/admin') . '">' . $v . '</a></li>';
               }                
             ?>
           </ul>
@@ -80,14 +80,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">运营管理 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><?php echo CHtml::link('产品',array('goods/index'));?></li>
-            <li><?php echo CHtml::link('产品分类',array('all/list','table'=>'tags'));?></li>
+            <li><?php echo CHtml::link('产品',array('goods/admin'));?></li>
+            <li><?php echo CHtml::link('产品分类',array('tags/admin'));?></li>
             <li class="divider"></li>
             <li><?php echo CHtml::link('用户',array('all/list','table'=>'users'));?></li>
             <li><?php echo CHtml::link('用户组',array('all/list','table'=>'user_group'));?></li>
-            <li><?php echo CHtml::link('用户徽章',array('medal/index'));?></li>
+            <li><?php echo CHtml::link('用户徽章',array('medal/admin'));?></li>
             <li class="divider"></li>
-            <li><?php echo CHtml::link('工作福利',array('fuli/index'));?></li>
+            <li><?php echo CHtml::link('工作福利',array('fuli/admin'));?></li>
             <li class="divider"></li>
             <?php 
             $arr = array(

@@ -208,7 +208,7 @@ class tools {
                 $css = 'warning';
                 break;
             case 1:
-                $css = 'success';
+                $css = '';
                 break;
             case 2:
                 $css = 'warning';

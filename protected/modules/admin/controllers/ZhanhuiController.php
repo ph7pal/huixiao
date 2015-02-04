@@ -72,10 +72,17 @@ class ZhanhuiController extends H {
    * Lists all models.
    */
   public function actionIndex() {
-    $dataProvider = new CActiveDataProvider('Zhanhui');
-    $this->render('index', array(
-        'dataProvider' => $dataProvider,
-    ));
+//    $dataProvider = new CActiveDataProvider('Zhanhui');
+//    $this->render('index', array(
+//        'dataProvider' => $dataProvider,
+//    ));
+      $sql="SELECT id,title,uid,status FROM {{zhanhui}} ORDER BY cTime DESC";
+      Posts::getAll(array('sql' => $sql), $pages, $posts);
+      $data=array(
+          'posts'=>$posts,
+          'pages'=>$pages
+      );
+      $this->render('index',$data);
   }
 
   /**

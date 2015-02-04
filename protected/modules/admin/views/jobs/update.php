@@ -1,21 +1,2 @@
-<?php
-/* @var $this JobsController */
-/* @var $model Jobs */
-
-$this->breadcrumbs=array(
-	'Jobs'=>array('index'),
-	$model->title=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Jobs', 'url'=>array('index')),
-	array('label'=>'Create Jobs', 'url'=>array('create')),
-	array('label'=>'View Jobs', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Jobs', 'url'=>array('admin')),
-);
-?>
-
-<h1>Update Jobs <?php echo $model->id; ?></h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<h1>更新招聘</h1>
+<?php $this->renderPartial('//jobs/_form', array('model'=>$model)); ?>
