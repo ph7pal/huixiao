@@ -49,15 +49,9 @@
 	</div>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'jobname'); ?>
-		<?php echo $form->textField($model,'jobname',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
-		<?php echo $form->error($model,'jobname'); ?>
-	</div>
-
-	<div class="form-group">
-		<?php echo $form->labelEx($model,'officurl'); ?>
-		<?php echo $form->textField($model,'officurl',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
-		<?php echo $form->error($model,'officurl'); ?>
+		<?php echo $form->labelEx($model,'officeurl'); ?>
+		<?php echo $form->textField($model,'officeurl',array('size'=>60,'maxlength'=>255,'class'=>'form-control')); ?>
+		<?php echo $form->error($model,'officeurl'); ?>
 	</div>
 
 	<div class="form-group">
