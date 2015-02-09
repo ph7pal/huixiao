@@ -40,8 +40,13 @@ class LoginForm extends CFormModel {
 //            echo $this->username;
 //		echo $this->password;
     $this->_identity = new U($this->username, $this->password);
-    if (!$this->_identity->authenticate())
-      $this->addError('password', '用户名或密码不正确.');
+    if (!$this->_identity->authenticate()){
+        if ($this->_identity->errorCode==3){
+            $this->addError('username', '该用户已不能再登陆.');
+        }else{
+            $this->addError('password', '用户名或密码不正确.');
+        }
+    }
   }
 
   /**

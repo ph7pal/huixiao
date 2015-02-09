@@ -416,6 +416,18 @@ class tools {
           'title' => '个人加V',
           'desc' => '个人加V'
         );
+        $arr['personal'] = array(
+          'title' => '个人加V',
+          'desc' => '个人加V'
+        );
+        $arr['guanfang'] = array(
+          'title' => '官方',
+          'desc' => '官方发布'
+        );
+        $arr['qiye'] = array(
+          'title' => '企业',
+          'desc' => '企业认证'
+        );
         $re = array();
         foreach ($arr as $key => $val) {
             if (!$type) {

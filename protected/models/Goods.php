@@ -42,6 +42,7 @@ class Goods extends CActiveRecord {
           'colinfo3'=>array(self::BELONGS_TO,'Tags','colid3'),
           'colinfo4'=>array(self::BELONGS_TO,'Tags','colid4'),
           'colinfo5'=>array(self::BELONGS_TO,'Tags','colid5'),
+          'userinfo' => array(self::BELONGS_TO, 'Users', 'uid'),
         );
     }
 

@@ -29,9 +29,14 @@ class U extends CUserIdentity {
     else if (!$this->validatePassword($user->password, $user['hash']))
       $this->errorCode = self::ERROR_PASSWORD_INVALID;
     else {
-      $this->_id = $user->id;
-      $this->username = $user->username;
-      $this->errorCode = self::ERROR_NONE;
+        if($user->status!=Posts::STATUS_PASSED){
+            $this->errorCode =3;
+            return false;
+        }else{
+            $this->_id = $user->id;
+            $this->username = $user->username;
+            $this->errorCode = self::ERROR_NONE;
+        }
     }
     return $this->errorCode == self::ERROR_NONE;
   }

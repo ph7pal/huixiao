@@ -42,13 +42,13 @@ class Team extends CActiveRecord {
         return array(
           array('uid, localarea, companyname, teamname, companyowner, contactname, contactmobile, mainproduct, licensenumber', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
-          array('companyname, teamname, companyowner, officeurl, contactname, contactmobile, mainproduct, licensenumber,address', 'length', 'max' => 255),
+          array('companyname, teamname, companyowner,contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),
           array('medal_logo, medal_title', 'length', 'max' => 16),
           array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
           array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
-          array('id, uid, faceimg, localarea, companyname, teamname, companyowner, officeurl, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title,address', 'safe', 'on' => 'search'),
+          array('id, uid, faceimg, localarea, companyname, teamname, companyowner, contactname, contactmobile, mainproduct, licensenumber, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
         );
     }
 
@@ -74,10 +74,8 @@ class Team extends CActiveRecord {
           'faceimg' => '封面图',
           'localarea' => '所在地',
           'companyname' => '企业全称',
-          'address' => '企业地址',
           'teamname' => '团队名称',
           'companyowner' => '负责人姓名',
-          'officeurl' => '官方网站地址',
           'contactname' => '联系人姓名',
           'contactmobile' => '联系手机',
           'mainproduct' => '主打产品',
@@ -114,10 +112,8 @@ class Team extends CActiveRecord {
         $criteria->compare('faceimg', $this->faceimg);
         $criteria->compare('localarea', $this->localarea);
         $criteria->compare('companyname', $this->companyname, true);
-        $criteria->compare('address', $this->address, true);
         $criteria->compare('teamname', $this->teamname, true);
         $criteria->compare('companyowner', $this->companyowner, true);
-        $criteria->compare('officeurl', $this->officeurl, true);
         $criteria->compare('contactname', $this->contactname, true);
         $criteria->compare('contactmobile', $this->contactmobile, true);
         $criteria->compare('mainproduct', $this->mainproduct, true);

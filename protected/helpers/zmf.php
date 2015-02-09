@@ -294,8 +294,9 @@ class zmf {
 
         $url = self::config('baseurl') . 'common/images/credits/' . $creditlogo . '.png';
         $_url = self::attachBase('app') . '../common/images/credits/' . $creditlogo . '.png';
-        if (file_exists($_url)) {            
-            return "<span title='" . $info['desc'] . "' style='width:82px;height:16px;padding-left:2px;background:url({$url}) no-repeat center;display:inline-block'>&nbsp;</span>";
+        if (file_exists($_url)) {
+            $_size=  getimagesize($_url);
+            return "<span title='" . $info['desc'] . "' style='width:{$_size[0]}px;max-height:16px;padding-left:2px;background:url({$url}) no-repeat center;display:inline-block'>&nbsp;</span>";
         } else {
             return "<span class='btn btn-primary btn-xs' title='" . $info['desc'] . "'>" . $info['title'] . "</span>";
         }

@@ -14,7 +14,6 @@
 		'companyname',
 		'teamname',
 		'companyowner',
-		'officeurl',
 		'contactname',
 		'contactmobile',
 		'mainproduct',
