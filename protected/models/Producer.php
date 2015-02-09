@@ -41,6 +41,7 @@ class Producer extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+          array('uid', 'default', 'setOnEmpty' => true, 'value' => Yii::app()->user->id),  
           array('uid, localarea, companyname, companyowner, address, description, contactname, contactmobile, mainproduct, licensenumber', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal,scorer,lecturers,goods', 'numerical', 'integerOnly' => true),
           array('companyname, companyowner, address, description, companyurl, contactname, contactmobile, mainproduct, licensenumber', 'length', 'max' => 255),

@@ -25,13 +25,15 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'faceimg'); ?>
-		<?php echo $form->textField($model,'faceimg',array('class'=>'form-control')); ?>
+		<?php $this->renderPartial('//common/_singleUpload',array('id'=>$model->faceimg,'type'=>'logo','model'=>$model,'fieldName'=>'faceimg'));?>
+		<?php echo $form->hiddenField($model,'faceimg',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'faceimg'); ?>
 	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'localarea'); ?>
-		<?php echo $form->textField($model,'localarea',array('class'=>'form-control')); ?>
+                <?php $this->renderPartial('/common/_area',array('model'=>$model,'fieldName'=>'localarea'));?>
+		<?php echo $form->hiddenField($model,'localarea',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'localarea'); ?>
 	</div>
 

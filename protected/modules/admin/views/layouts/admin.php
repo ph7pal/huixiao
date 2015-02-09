@@ -75,6 +75,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/common/js/b
                   echo '<li><a href="' . Yii::app()->createUrl('admin/'.$k.'/admin') . '">' . $v . '</a></li>';
               }                
             ?>
+            <li class="divider"></li>
+            <?php foreach ($arr as $k => $v) {
+                  echo '<li><a href="' . Yii::app()->createUrl('admin/'.$k.'/create') . '">新增' . $v . '</a></li>';
+              }
+              ?>
           </ul>
         </li>
         <li class="dropdown">
