@@ -26,6 +26,7 @@ class ZhanhuiRelation extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('uid', 'default', 'setOnEmpty' => true, 'value' => Yii::app()->user->isGuest ? zmf::config('defaultNoticeUid') : Yii::app()->user->id),
             array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
             array('uid, logid, cTime,people', 'numerical', 'integerOnly' => true),
             array('uid, logid, cTime', 'required'),
