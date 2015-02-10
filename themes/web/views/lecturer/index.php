@@ -96,7 +96,7 @@
                           <?php if(!empty($tops)){?>
                           <?php foreach($tops as $top){?>
                           <li class="item">
-                            <span class="pic"><?php echo CHtml::link(zmf::avatar($top['uid'],'big'),array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></span> <span class="txt"><p><?php echo CHtml::link($top['truename'],array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></p></span>
+                            <span class="pic"><?php echo CHtml::link(zmf::avatar($top['faceimg'],'nouid'),array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></span> <span class="txt"><p><?php echo CHtml::link($top['truename'],array('lecturer/view','id'=>$top['id']),array('target'=>'_blank'));?></p></span>
                           </li>
                           <?php }?>
                           <?php }?>

@@ -1,6 +1,6 @@
 <li class="clearfix item">
   <span class="pic">
-    <?php echo CHtml::link(zmf::avatar($data['uid'],'big').'<span class="title">'.$data['truename'].'</span>',array('lecturer/view','id'=>$data['id']),array('target'=>'_blank'));?>
+    <?php echo CHtml::link(zmf::avatar($data['faceimg'],'nouid').'<span class="title">'.$data['truename'].'</span>',array('lecturer/view','id'=>$data['id']),array('target'=>'_blank'));?>
   </span>
   <span class="txt">
     <p class="clearfix"><?php echo zmf::creditIcon($data['uid']);?></p>

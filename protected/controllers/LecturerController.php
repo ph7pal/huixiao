@@ -33,7 +33,7 @@ class LecturerController extends T {
     }    
     $sql = "SELECT * FROM {{lecturer}} WHERE faceimg>0 AND status=".Posts::STATUS_PASSED." {$_where} ORDER BY ".$_order;
     Posts::getAll(array('sql' => $sql), $pages, $lists);
-    $_sql = "SELECT * FROM {{lecturer}} WHERE faceimg>0 AND status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
+    $_sql = "SELECT * FROM {{lecturer}} WHERE faceimg>0 AND uid>0 AND status=".Posts::STATUS_PASSED." ORDER BY hits DESC LIMIT 10";
     $tops = Yii::app()->db->createCommand($_sql)->queryAll();
     if(!empty($lists)){
       foreach($lists as $key=>$list){
@@ -71,12 +71,16 @@ class LecturerController extends T {
     if(!$info){
     	$this->message(0, '您要查看的页面不存在，请核实');
     }
-    $uid=$info['uid'];    
-    $userCredit = UserCredit::findOne($uid);
-    if(!$userCredit || $userCredit['classify']!='lecturer'){
-      $this->message(0, '您要查看的页面不存在，请核实');
+    $uid=$info['uid'];  
+    if($uid){
+        $userCredit = UserCredit::findOne($uid);
+        if(!$userCredit || $userCredit['classify']!='lecturer'){
+          $this->message(0, '您要查看的页面不存在，请核实');
+        }
+        $truename=Users::getUserInfo($uid,'truename');
+    }else{
+        $truename=$info['truename'];
     }
-    $truename=Users::getUserInfo($uid,'truename');
     $areainfo = Area::getOne($info['localarea'],'name');
     if($areainfo){
         $localname = $areainfo;

@@ -15,6 +15,4 @@ $this->menu=array(
 	array('label'=>'Manage Team', 'url'=>array('admin')),
 );
 ?>
-
-<h1>View Team #<?php echo $model->id; ?></h1>
 <?php $this->renderPartial('_view',array('data'=>$model));?>

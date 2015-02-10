@@ -20,7 +20,7 @@
 <script type="text/javascript">
 function ajaxFileUpload(){
         $.ajaxFileUpload({
-                url:'<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'fileholder'=>CHtml::activeId($model,$fieldName).'_holder','imgsize'=>124));?>',
+                url:'<?php echo Yii::app()->createUrl('attachments/upload',array('id'=>$keyid,'type'=>$type,'fileholder'=>CHtml::activeId($model,$fieldName).'_holder','imgsize'=>124,'from'=>$from));?>',
                 fileElementId:'<?php echo CHtml::activeId($model,$fieldName);?>_holder',
                 type:'post',
                 data: {'PHPSESSID':'<?php echo Yii::app()->session->sessionID;?>', 'YII_CSRF_TOKEN': '<?php echo Yii::app()->request->csrfToken;?>'},

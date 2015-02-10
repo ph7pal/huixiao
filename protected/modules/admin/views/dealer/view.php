@@ -15,6 +15,4 @@ $this->menu=array(
 	array('label'=>'Manage Dealer', 'url'=>array('admin')),
 );
 ?>
-
-<h1>View Dealer #<?php echo $model->id; ?></h1>
 <?php $this->renderPartial('_view',array('data'=>$model));?>

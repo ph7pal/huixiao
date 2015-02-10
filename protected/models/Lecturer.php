@@ -41,13 +41,13 @@ class Lecturer extends CActiveRecord {
         return array(
           array('uid, localarea, companyname,jobname,contactmobile, idcard', 'required'),
           array('uid, faceimg, localarea, cTime, hits, top, status, medal', 'numerical', 'integerOnly' => true),
-          array('companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'length', 'max' => 255),
+          array('truename,companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard', 'length', 'max' => 255),
           array('medal_logo, medal_title', 'length', 'max' => 16),
           array('status', 'default', 'setOnEmpty' => true, 'value' => Posts::STATUS_PASSED),
           array('cTime', 'default', 'setOnEmpty' => true, 'value' => time()),
           // The following rule is used by search().
           // @todo Please remove those attributes that should not be searched.
-          array('id, uid, faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
+          array('id, uid, truename,faceimg, localarea, companyname, companyowner, belongCompany, belongTeam, jobname, contactmobile, idcard, cTime, hits, top, status, medal, medal_logo, medal_title', 'safe', 'on' => 'search'),
         );
     }
 
@@ -70,6 +70,7 @@ class Lecturer extends CActiveRecord {
         return array(
           'id' => 'ID',
           'uid' => '作者',
+          'truename' => '讲师名',
           'faceimg' => '封面图',
           'localarea' => '所在地',
           'companyname' => '公司名称',

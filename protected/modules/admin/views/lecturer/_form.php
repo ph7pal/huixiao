@@ -22,10 +22,16 @@
 		<?php echo $form->textField($model,'uid',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'uid'); ?>
 	</div>
+    
+        <div class="form-group">
+		<?php echo $form->labelEx($model,'truename'); ?>
+		<?php echo $form->textField($model,'truename',array('class'=>'form-control')); ?>
+		<?php echo $form->error($model,'truename'); ?>
+	</div>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'faceimg'); ?>
-		<?php $this->renderPartial('//common/_singleUpload',array('id'=>$model->faceimg,'type'=>'logo','model'=>$model,'fieldName'=>'faceimg'));?>
+		<?php $this->renderPartial('//common/_singleUpload',array('id'=>$model->faceimg,'type'=>'faceimg','model'=>$model,'fieldName'=>'faceimg','from'=>'admin'));?>
 		<?php echo $form->hiddenField($model,'faceimg',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'faceimg'); ?>
 	</div>

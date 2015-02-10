@@ -25,7 +25,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'faceimg'); ?>
-		<?php $this->renderPartial('//common/_singleUpload',array('id'=>$model->faceimg,'type'=>'logo','model'=>$model,'fieldName'=>'faceimg'));?>
+		<?php $this->renderPartial('//common/_singleUpload',array('id'=>$model->faceimg,'type'=>'logo','model'=>$model,'fieldName'=>'faceimg','from'=>'admin'));?>
 		<?php echo $form->hiddenField($model,'faceimg',array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'faceimg'); ?>
 	</div>

@@ -239,17 +239,22 @@ class zmf {
                 return "<img src='{$_img}' class='thumbnail img-responsive'/>";
             }
         }
-        $logo = self::userConfig($uid, 'logo');
+        if($type=='nouid'){
+            $logo=$uid;
+            $type='small';
+        }else{
+            $logo = self::userConfig($uid, 'logo');
+        }        
         $img = '';
         if ($logo) {
             $attachinfo = Attachments::getOne($logo);
             if ($attachinfo && $attachinfo['status']==Posts::STATUS_PASSED) {
                 if ($type == 'small') {
-                    $_type = 124;
+                    $_type = 200;
                 } elseif ($type == 'big') {
                     $_type = 600;
                 } else {
-                    $_type = 124;
+                    $_type = 200;
                 }
                 $img = zmf::imgurl($attachinfo['cTime'], $attachinfo['filePath'], $_type, $attachinfo['classify']);
             } else {

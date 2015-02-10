@@ -482,3 +482,4 @@ alter table pre_producer add score1 char(6) not null;
 alter table pre_producer add score2 char(6) not null;
 alter table pre_producer add score3 char(6) not null;
 alter table pre_producer add score4 char(6) not null;
+alter table pre_lecturer add truename varchar(255) not null;

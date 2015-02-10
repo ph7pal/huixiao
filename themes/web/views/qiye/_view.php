@@ -1,8 +1,13 @@
+<style>
+    .img-responsive{
+        max-width: 100%;
+    }
+</style>
 <div class="module_x">
   <!--数据头部--公司名称-->
   <div class="hd clearfix">
       <span class="title">[<?php echo $data['localname'];?>]<strong><a href="<?php echo Yii::app()->createUrl('qiye/view',array('id'=>$data['id']));?>" target="_blank"><?php echo $data['companyname'];?></a></strong></span>
-      <s class="s shiming">实名认证</s><!--s class="s shiqiang">十强推荐公司</s-->
+      <?php if($data['uid']){?><s class="s shiming">实名认证</s><?php }?><!--s class="s shiqiang">十强推荐公司</s-->
   </div>
   <div class="bd">
       <div class="grid_01 clearfix">
@@ -11,7 +16,7 @@
               <div class="main_wrap">
                   <div class="clearfix">
                       <div class="left">
-                      	<?php echo CHtml::link(zmf::avatar($data['uid'],'small').'<span class="title">'.$data['companyname'].'</span>',array('qiye/view','id'=>$data['id']),array('target'=>'_blank'));?>
+                      	<?php echo CHtml::link(zmf::avatar($data['faceimg'],'nouid').'<span class="title">'.$data['companyname'].'</span>',array('qiye/view','id'=>$data['id']),array('target'=>'_blank'));?>
                          <div class="tel"><?php echo $data['contactmobile'];?></div>
                       </div>
                       <div class="right">

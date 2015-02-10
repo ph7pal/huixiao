@@ -11,10 +11,11 @@ class AttachmentsController extends T {
     public function actionUpload() {
         $uptype = zmf::filterInput($_GET['type'], 't', 1);
         $classify = zmf::filterInput($_GET['classify'], 't', 1);
+        $from = zmf::filterInput($_GET['from'], 't', 1);
         $logid = zmf::filterInput($_GET['logid']);
         $fileholder = zmf::filterInput($_GET['fileholder'], 't', 1); //上传控件的ID
         $reImgsize = zmf::filterInput($_GET['imgsize']); //返回图片的尺寸
-        if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit', 'goods', 'zhanhui', 'score'))) {
+        if (!isset($uptype) OR ! in_array($uptype, array('columns', 'coverimg', 'ads', 'link', 'album', 'posts', 'logo', 'credit', 'goods', 'zhanhui', 'score','faceimg'))) {
             $this->jsonOutPut(0, '请设置上传所属类型' . $uptype);
         }
         if ($uptype == 'credit') {
@@ -32,27 +33,34 @@ class AttachmentsController extends T {
         } else {
             $uid = Yii::app()->user->id;
         }
-        $status = T::checkYesOrNo(array('uid' => $uid, 'type' => 'user_addupload'));
-        if (!$status) {
-            $_status = T::checkYesOrNo(array('uid' => $uid, 'type' => 'upload'), true, true, true);
-            if (!$_status) {
-                $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。');
-            }
-        }
-        if (!Users::publishedNum('attaches')) {
-            $this->jsonOutPut(0, '您本时段的上传次数已用完。');
-            exit();
-        }
-        $imgRate=3/4;
-        if ($uptype == 'logo') {
-            $userCredit = UserCredit::findOne($uid);
-            $diffTypes=  Users::diffCreditTypes();
-            if (!$userCredit) {
-                $this->jsonOutPut(0, '请先认证');
-            } elseif ($userCredit['status'] != Posts::STATUS_PASSED) {
-                $this->jsonOutPut(0, '非常抱歉，您的认证信息暂未通过审核');
-            } elseif (in_array($userCredit['classify'], $diffTypes)) {
+        if($from=='admin'){
+            $imgRate=3/4;
+            if ($uptype == 'logo') {
                 $imgRate=2/7;
+            }
+        }else{
+            $status = T::checkYesOrNo(array('uid' => $uid, 'type' => 'user_addupload'));
+            if (!$status) {
+                $_status = T::checkYesOrNo(array('uid' => $uid, 'type' => 'upload'), true, true, true);
+                if (!$_status) {
+                    $this->jsonOutPut(0, '非常抱歉，您暂不能上传图片。');
+                }
+            }
+            if (!Users::publishedNum('attaches')) {
+                $this->jsonOutPut(0, '您本时段的上传次数已用完。');
+                exit();
+            }
+            $imgRate=3/4;
+            if ($uptype == 'logo') {
+                $userCredit = UserCredit::findOne($uid);
+                $diffTypes=  Users::diffCreditTypes();
+                if (!$userCredit) {
+                    $this->jsonOutPut(0, '请先认证');
+                } elseif ($userCredit['status'] != Posts::STATUS_PASSED) {
+                    $this->jsonOutPut(0, '非常抱歉，您的认证信息暂未通过审核');
+                } elseif (in_array($userCredit['classify'], $diffTypes)) {
+                    $imgRate=2/7;
+                }
             }
         }
         if (!$fileholder) {
